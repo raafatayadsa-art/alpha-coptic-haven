@@ -21,18 +21,19 @@ export function QuickLinkCard({
   tone?: Tone;
 }) {
   return (
-    <div className="press glass-card group flex items-start gap-3 rounded-[26px] p-4">
+    <div className="press glass-card group flex items-start gap-2.5 rounded-[26px] p-3.5">
       <span
-        className={`grid size-11 place-items-center rounded-2xl ${toneClasses[tone]}`}
+        className={`grid size-10 shrink-0 place-items-center rounded-2xl ${toneClasses[tone]}`}
         aria-hidden="true"
       >
         {icon}
       </span>
       <span className="min-w-0 flex-1 pt-0.5">
-        <span className="block truncate text-[13px] font-semibold tracking-tight">{title}</span>
-        <span className="mt-0.5 block truncate text-[11px] text-ink/45">{subtitle}</span>
+        <span className="block text-[13px] font-semibold leading-tight tracking-tight">{title}</span>
+        <span className="mt-1 block text-[10.5px] leading-snug text-ink/45">{subtitle}</span>
       </span>
-      <ChevronRight className="mt-2 size-4 text-ink/25 transition-transform duration-500 group-hover:translate-x-0.5" />
+      <ChevronRight className="mt-2 size-3.5 shrink-0 text-ink/25 transition-transform duration-500 group-hover:translate-x-0.5" />
     </div>
+
   );
 }
