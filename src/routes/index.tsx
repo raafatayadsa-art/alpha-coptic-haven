@@ -59,14 +59,15 @@ const priests = [
 
 const quickLinks = [
   { icon: <MembersIcon className="size-5" />, title: "Members", subtitle: "Our congregation", tone: "parchment" as const },
-  { icon: <FamiliesIcon className="size-5" />, title: "Families", subtitle: "Households & homes", tone: "lavender" as const },
+  { icon: <FamiliesIcon className="size-5" />, title: "Families", subtitle: "Households", tone: "lavender" as const },
   { icon: <ServicesIcon className="size-5" />, title: "Services", subtitle: "Meetings & classes", tone: "parchment" as const },
   { icon: <GroupsIcon className="size-5" />, title: "Groups", subtitle: "Servants & teams", tone: "lavender" as const },
-  { icon: <EventsIcon className="size-5" />, title: "Events", subtitle: "Feasts, trips, retreats", tone: "gold" as const },
-  { icon: <HelpIcon className="size-5" />, title: "Request Help", subtitle: "Quietly, in confidence", tone: "gold" as const },
-  { icon: <LocationIcon className="size-5" />, title: "Church Location", subtitle: "Shoubra, Cairo", tone: "parchment" as const },
+  { icon: <EventsIcon className="size-5" />, title: "Events", subtitle: "Feasts & trips", tone: "gold" as const },
+  { icon: <HelpIcon className="size-5" />, title: "Request Help", subtitle: "In confidence", tone: "gold" as const },
+  { icon: <LocationIcon className="size-5" />, title: "Location", subtitle: "Shoubra, Cairo", tone: "parchment" as const },
   { icon: <MoreIcon className="size-5" />, title: "More", subtitle: "Everything else", tone: "lavender" as const },
 ];
+
 
 const calendar = [
   {
