@@ -75,19 +75,28 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+
+  /* Alpha Coptic — Liturgical Manuscript palette */
+  --ivory: oklch(0.988 0.008 85);
+  --parchment: oklch(0.958 0.016 82);
+  --gold: oklch(0.735 0.096 84);
+  --lavender: oklch(0.868 0.043 296);
+  --ink: oklch(0.245 0.026 293);
+
+  --background: var(--ivory);
+  --foreground: var(--ink);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --card-foreground: var(--ink);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--ivory);
+  --secondary: var(--parchment);
+  --secondary-foreground: var(--ink);
+  --muted: var(--parchment);
+  --muted-foreground: oklch(0.55 0.02 293);
+  --accent: var(--lavender);
+
   --accent-foreground: oklch(0.208 0.042 265.755);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
