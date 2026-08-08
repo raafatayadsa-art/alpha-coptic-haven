@@ -347,7 +347,7 @@ function ChurchHome() {
               alt="Coptic youth gathered in front of the monastery gate"
               body="Highlights from the Resurrection Feast celebrations — thank you to every servant who made this week possible."
               likes="142"
-              comment={{ name: "Mariam A.", text: "The chorus was heavenly, God bless you all 🙏" }}
+              comment={{ name: "Mariam A.", text: "The chorus was heavenly — God bless you all." }}
             />
             <FeedPost
               author="Fr. Bishoy Samuel"
