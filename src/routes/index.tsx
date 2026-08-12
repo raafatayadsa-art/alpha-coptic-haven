@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
 import churchCover from "@/assets/church-cover.jpg";
@@ -10,22 +11,30 @@ import postCandles from "@/assets/post-candles.jpg";
 
 import { QuickLinkCard } from "@/components/church/QuickLinkCard";
 import {
+  AgpeyaIcon,
   BellIcon,
+  BibleIcon,
   CalendarPlusIcon,
   ChatIcon,
   ChevronRight,
+  CommunityIcon,
   CopticCross,
   EventsIcon,
   FamiliesIcon,
   GroupsIcon,
   HeartIcon,
   HelpIcon,
+  KatamerosIcon,
+  KhoulagyIcon,
+  KidsIcon,
   LocationIcon,
   MembersIcon,
   MoreIcon,
+  MyChurchIcon,
   PhoneIcon,
   ServicesIcon,
   ShieldIcon,
+  SynaxariumIcon,
   VerifiedIcon,
 } from "@/components/church/icons";
 
@@ -67,6 +76,30 @@ const quickLinks = [
   { icon: <LocationIcon className="size-5" />, title: "Location", subtitle: "Shoubra, Cairo", tone: "parchment" as const },
   { icon: <MoreIcon className="size-5" />, title: "More", subtitle: "Everything else", tone: "lavender" as const },
 ];
+
+type LibraryTone = "gold" | "lavender" | "parchment";
+
+const library: {
+  icon: ReactNode;
+  title: string;
+  subtitle: string;
+  tone: LibraryTone;
+}[] = [
+  { icon: <BibleIcon className="size-6" />, title: "الكتاب المقدس", subtitle: "The Holy Bible", tone: "gold" },
+  { icon: <AgpeyaIcon className="size-6" />, title: "الأجبية", subtitle: "The Seven Prayers", tone: "lavender" },
+  { icon: <SynaxariumIcon className="size-6" />, title: "السنكسار", subtitle: "Lives of the Saints", tone: "parchment" },
+  { icon: <KatamerosIcon className="size-6" />, title: "القطمارس", subtitle: "Daily Readings", tone: "gold" },
+  { icon: <KhoulagyIcon className="size-6" />, title: "الخولاجي", subtitle: "Liturgy Book", tone: "lavender" },
+  { icon: <KidsIcon className="size-6" />, title: "الأطفال", subtitle: "For the little ones", tone: "parchment" },
+  { icon: <MyChurchIcon className="size-6" />, title: "كنيستي", subtitle: "My Church", tone: "gold" },
+  { icon: <CommunityIcon className="size-6" />, title: "مجتمعي", subtitle: "My Community", tone: "lavender" },
+];
+
+const libraryToneClasses: Record<LibraryTone, string> = {
+  gold: "bg-gold/12 text-gold ring-1 ring-gold/20",
+  lavender: "bg-lavender/45 text-ink/70 ring-1 ring-lavender",
+  parchment: "bg-parchment text-ink/60 ring-1 ring-ink/5",
+};
 
 
 const calendar = [
@@ -223,6 +256,46 @@ function ChurchHome() {
                 </span>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* 3.5 — Spiritual Library carousel */}
+        <section className="mt-12">
+          <div className="flex items-end justify-between px-5">
+            <div>
+              <h2 className="font-display text-[26px] font-semibold tracking-tight">Spiritual Library</h2>
+              <p className="mt-0.5 text-[12px] text-ink/45">Your books, gathered</p>
+            </div>
+            <button type="button" className="text-[10px] font-semibold uppercase tracking-[0.18em] text-gold">
+              View all
+            </button>
+          </div>
+
+          <div className="no-scrollbar mt-6 flex snap-x snap-mandatory gap-3.5 overflow-x-auto px-5 pb-4">
+            {library.map((item) => (
+              <article
+                key={item.title}
+                className="press group w-[148px] flex-none snap-center rounded-[26px] border border-ink/5 bg-parchment p-4 shadow-soft"
+                dir="rtl"
+              >
+                <span
+                  className={`grid size-12 place-items-center rounded-2xl ${libraryToneClasses[item.tone]}`}
+                  aria-hidden="true"
+                >
+                  {item.icon}
+                </span>
+                <h3 className="mt-4 font-display text-[19px] font-semibold leading-tight tracking-tight">
+                  {item.title}
+                </h3>
+                <p className="mt-1 text-[10.5px] font-medium uppercase tracking-[0.12em] text-ink/45" dir="ltr">
+                  {item.subtitle}
+                </p>
+                <span className="mt-4 flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-gold" dir="ltr">
+                  Open
+                  <ChevronRight className="size-3 transition-transform duration-500 group-hover:translate-x-0.5" />
+                </span>
+              </article>
+            ))}
           </div>
         </section>
 
