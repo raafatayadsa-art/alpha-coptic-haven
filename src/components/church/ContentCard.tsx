@@ -142,7 +142,7 @@ export function ContentRow({
         </div>
       </div>
 
-      <ChevronRight className="size-4 shrink-0 text-ink/25" />
+      <ChevronRight className="size-4 shrink-0 text-ink/25 rtl:rotate-180" />
     </article>
   );
 }

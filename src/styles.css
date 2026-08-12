@@ -21,6 +21,8 @@
 @theme inline {
   --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-arabic: "Noto Kufi Arabic", "Inter", ui-sans-serif, system-ui, sans-serif;
+
   --color-ivory: var(--ivory);
   --color-parchment: var(--parchment);
   --color-gold: var(--gold);
