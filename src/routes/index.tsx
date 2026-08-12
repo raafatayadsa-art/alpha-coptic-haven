@@ -10,22 +10,30 @@ import postCandles from "@/assets/post-candles.jpg";
 
 import { QuickLinkCard } from "@/components/church/QuickLinkCard";
 import {
+  AgpeyaIcon,
   BellIcon,
+  BibleIcon,
   CalendarPlusIcon,
   ChatIcon,
   ChevronRight,
+  CommunityIcon,
   CopticCross,
   EventsIcon,
   FamiliesIcon,
   GroupsIcon,
   HeartIcon,
   HelpIcon,
+  KatamerosIcon,
+  KhoulagyIcon,
+  KidsIcon,
   LocationIcon,
   MembersIcon,
   MoreIcon,
+  MyChurchIcon,
   PhoneIcon,
   ServicesIcon,
   ShieldIcon,
+  SynaxariumIcon,
   VerifiedIcon,
 } from "@/components/church/icons";
 
