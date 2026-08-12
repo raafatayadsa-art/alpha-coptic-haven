@@ -261,3 +261,130 @@ export const MoreIcon = ({ className }: IconProps) => (
     <path d="M6.5 12h.01M12 12h.01M17.5 12h.01" />
   </svg>
 );
+
+/* Spiritual library glyphs */
+export const BibleIcon = ({ className }: IconProps) => (
+  <svg
+    className={`${base} ${className ?? ""}`}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.4"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M5 5.5h9a2 2 0 0 1 2 2V19H7a2 2 0 0 1-2-2V5.5Z" />
+    <path d="M16 8.5h3V19h-3" />
+    <path d="M10 9v3M8.8 10.5h2.4" />
+  </svg>
+);
+
+export const AgpeyaIcon = ({ className }: IconProps) => (
+  <svg
+    className={`${base} ${className ?? ""}`}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.4"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M12 20s-7.5-4.3-7.5-9.4A4.1 4.1 0 0 1 12 8.2a4.1 4.1 0 0 1 7.5 2.4C19.5 15.7 12 20 12 20Z" />
+    <path d="M9 11h6M12 8.5v5" />
+  </svg>
+);
+
+export const SynaxariumIcon = ({ className }: IconProps) => (
+  <svg
+    className={`${base} ${className ?? ""}`}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.4"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M6 5h12v14H6z" />
+    <path d="M6 5c-1.5 0-2.5 1-2.5 2.5S4.5 10 6 10M18 5c1.5 0 2.5 1 2.5 2.5S19.5 10 18 10" />
+    <path d="M9 9.5h6M9 12.5h6M9 15.5h4" />
+  </svg>
+);
+
+export const KatamerosIcon = ({ className }: IconProps) => (
+  <svg
+    className={`${base} ${className ?? ""}`}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.4"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M4 5.5h6.5a1.5 1.5 0 0 1 1.5 1.5V20a1.5 1.5 0 0 0-1.5-1.5H4V5.5Z" />
+    <path d="M20 5.5h-6.5A1.5 1.5 0 0 0 12 7v12a1.5 1.5 0 0 1 1.5-1.5H20V5.5Z" />
+  </svg>
+);
+
+export const KhoulagyIcon = ({ className }: IconProps) => (
+  <svg
+    className={`${base} ${className ?? ""}`}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.4"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M8 3h8v5a4 4 0 0 1-8 0V3Z" />
+    <path d="M12 12v4M8.5 19h7M10 16v3M14 16v3" />
+  </svg>
+);
+
+export const KidsIcon = ({ className }: IconProps) => (
+  <svg
+    className={`${base} ${className ?? ""}`}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.4"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="6.5" r="2.4" />
+    <path d="M7 20c.6-3.2 2.7-5 5-5s4.4 1.8 5 5" />
+    <path d="M12 11.5V14" />
+  </svg>
+);
+
+export const MyChurchIcon = ({ className }: IconProps) => (
+  <svg
+    className={`${base} ${className ?? ""}`}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.4"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M12 3.5l6 4.5V19H6V8l6-4.5Z" />
+    <path d="M12 3.5V1.8M10 19v-4h4v4" />
+    <path d="M9.5 11h5" />
+  </svg>
+);
+
+export const CommunityIcon = ({ className }: IconProps) => (
+  <svg
+    className={`${base} ${className ?? ""}`}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.4"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="8" cy="8" r="2.3" />
+    <circle cx="16" cy="8" r="2.3" />
+    <path d="M4 19c.5-2.6 2.2-4 4-4s3.5 1.4 4 4" />
+    <path d="M12 19c.5-2.6 2.2-4 4-4s3.5 1.4 4 4" />
+  </svg>
+);
