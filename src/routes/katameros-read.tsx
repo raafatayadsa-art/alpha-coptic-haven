@@ -111,16 +111,12 @@ function KatamerosRead() {
               <span className="km-hairline h-px flex-1 opacity-25" />
             </div>
             <p className={`font-display font-medium text-cream/90 ${size.cls}`}>
-              {i === 0 ? (
-                <span className="drop-cap !text-goldleaf">
-                  {(lang === "ar" ? verse.ar : verse.en).charAt(0)}
-                </span>
+              {/* Arabic script must never be split for a drop-cap (it would break
+                  letter joining), so the gilded initial is Latin-only. */}
+              {i === 0 && lang === "en" ? (
+                <span className="drop-cap !text-goldleaf">{verse.en.charAt(0)}</span>
               ) : null}
-              {i === 0
-                ? (lang === "ar" ? verse.ar : verse.en).slice(1)
-                : lang === "ar"
-                  ? verse.ar
-                  : verse.en}
+              {i === 0 && lang === "en" ? verse.en.slice(1) : lang === "ar" ? verse.ar : verse.en}
             </p>
           </article>
         ))}
