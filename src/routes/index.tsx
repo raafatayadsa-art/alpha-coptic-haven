@@ -138,30 +138,43 @@ function AlphaHome() {
       </header>
 
       <main className="space-y-9 px-4 pt-2">
-        {/* 1 — Verse of the day: editorial, full width, no card grid */}
-        <section className="relative overflow-hidden rounded-[34px] bg-parchment px-6 py-8 ring-1 ring-gold/15">
-          <img
-            src={oliveBranch}
-            alt=""
-            width={220}
-            height={220}
-            className="pointer-events-none absolute -end-8 -top-8 size-40 opacity-25"
-          />
-          <Eyebrow>{t("hm.verse.eyebrow")}</Eyebrow>
-          <p className="mt-4 font-display text-[24px] font-medium leading-[1.55] tracking-tight text-ink">
-            {t("hm.verse.text")}
-          </p>
-          <div className="mt-5 flex items-center justify-between gap-3">
-            <span className="text-[12px] font-medium text-gold">{t("hm.verse.ref")}</span>
-            <button
-              type="button"
-              className="press flex items-center gap-1.5 rounded-full bg-ivory/80 px-3 py-1.5 text-[11px] font-medium text-ink/60 ring-1 ring-ink/5"
-            >
-              <HeartIcon className="size-[13px]" />
-              {t("hm.verse.save")}
-            </button>
+        {/* 1 — Verse of the day: original lavender manuscript card */}
+        <section className="animate-float-up relative overflow-hidden rounded-[32px] border border-lavender bg-lavender/30 p-7">
+          <div className="absolute -end-10 -top-10 size-40 rounded-full bg-gold/15 blur-3xl" />
+          <div className="relative">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-ink/45">
+              {t("hm.verse.eyebrow")}
+            </span>
+            <p className="mt-4 font-display text-[22px] italic leading-[1.45] text-pretty text-ink/85">
+              {t("hm.verse.text")}
+            </p>
+            <div className="mt-6 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <span className="grid size-12 place-items-center rounded-2xl border border-white/70 bg-ivory/70">
+                  <img
+                    src={oliveBranch}
+                    alt=""
+                    width={512}
+                    height={512}
+                    loading="lazy"
+                    className="size-8 object-contain"
+                  />
+                </span>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/55">
+                  {t("hm.verse.ref")}
+                </span>
+              </div>
+              <button
+                type="button"
+                className="press flex items-center gap-1.5 rounded-full bg-ivory/80 px-3 py-1.5 text-[11px] font-medium text-ink/60 ring-1 ring-ink/5"
+              >
+                <HeartIcon className="size-[13px]" />
+                {t("hm.verse.save")}
+              </button>
+            </div>
           </div>
         </section>
+
 
         {/* 2 — Saint of the day: image-led horizontal row */}
         <section>
