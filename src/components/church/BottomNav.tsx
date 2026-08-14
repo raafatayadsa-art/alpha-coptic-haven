@@ -27,8 +27,9 @@ const items: Item[] = [
 ];
 
 const shell =
-  "press flex flex-1 min-w-0 flex-col items-center gap-0.5 rounded-2xl py-1 text-[color:var(--nav-fg)] opacity-50 transition-opacity hover:opacity-85";
+  "press flex flex-1 min-w-0 flex-col items-center gap-0.5 rounded-2xl py-1 text-[color:var(--nav-fg)] opacity-70 transition-opacity hover:opacity-100";
 const active = "data-[status=active]:opacity-100";
+
 
 /** Center tab: label-only glass pill (no icon) so the full name always fits. */
 const centerShell =
