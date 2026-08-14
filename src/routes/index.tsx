@@ -1,14 +1,16 @@
+import { useState } from "react";
 import type { ReactNode } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import churchCover from "@/assets/church-cover.jpg";
+import churchCrest from "@/assets/church-crest.png";
 import priest1 from "@/assets/priest-1.jpg";
 import priest2 from "@/assets/priest-2.jpg";
 import priest3 from "@/assets/priest-3.jpg";
 import postYouth from "@/assets/post-youth.jpg";
 import postCandles from "@/assets/post-candles.jpg";
 
-import { QuickLinkCard } from "@/components/church/QuickLinkCard";
+
 import {
   BellIcon,
   CalendarPlusIcon,
