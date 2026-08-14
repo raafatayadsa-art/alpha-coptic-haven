@@ -47,7 +47,7 @@ export const Route = createFileRoute("/connect-messages")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: ConnectMessages;
+  component: ConnectMessages,
 });
 
 function ConnectMessages() {
