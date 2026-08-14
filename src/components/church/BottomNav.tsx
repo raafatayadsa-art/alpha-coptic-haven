@@ -1,30 +1,28 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
+import { BibleIcon, CommunityIcon } from "@/components/church/icons";
 import {
-  AudioIcon,
   ChurchIcon,
-  GalleryIcon,
   HomeIcon,
-  LibraryIcon,
   PersonIcon,
 } from "@/components/church/media-icons";
 import { useLang } from "@/lib/i18n";
 
-type Item = { key: string; icon: ReactNode; to?: "/" | "/my-church" };
+type Item = { key: string; icon: ReactNode; to?: "/" | "/my-church"; center?: boolean };
 
 const items: Item[] = [
   { key: "nav.home", icon: <HomeIcon className="size-[21px]" />, to: "/" },
   { key: "nav.myChurch", icon: <ChurchIcon className="size-[21px]" />, to: "/my-church" },
-  { key: "nav.library", icon: <LibraryIcon className="size-[21px]" /> },
-  { key: "nav.audio", icon: <AudioIcon className="size-[21px]" /> },
-  { key: "nav.photos", icon: <GalleryIcon className="size-[21px]" /> },
-  { key: "nav.account", icon: <PersonIcon className="size-[21px]" /> },
+  { key: "nav.bible", icon: <BibleIcon className="size-[21px]" />, center: true },
+  { key: "nav.community", icon: <CommunityIcon className="size-[21px]" /> },
+  { key: "nav.profile", icon: <PersonIcon className="size-[21px]" /> },
 ];
 
 const shell =
   "press flex flex-1 min-w-0 flex-col items-center gap-1 rounded-2xl py-1.5 text-ink/40 transition-colors";
 const active = "data-[status=active]:text-ink";
+
 
 export function BottomNav() {
   const { t, dir, isArabic } = useLang();
