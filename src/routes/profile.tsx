@@ -85,13 +85,25 @@ const journey = [
 
 const myShields = ["servant", "bible", "my-prayer", "meditations"] as const;
 
-const personal = [
+/** Presentation-only permission flag for the control center entry. */
+const canControl = true;
+
+const requests = [
+  { key: "me.requests.1", photo: priest2, slug: "servant" as const },
+  { key: "me.requests.2", photo: priest3, slug: "member" as const },
+  { key: "me.requests.3", photo: priest1, slug: "community" as const },
+];
+
+const personal: { key: string; icon: ReactNode; gated?: boolean }[] = [
   { key: "me.personal.account", icon: <MembersIcon className="size-[18px]" /> },
+  { key: "me.personal.prayers", icon: <HeartIcon className="size-[18px]" /> },
   { key: "me.personal.notifications", icon: <BellIcon className="size-[18px]" /> },
   { key: "me.personal.privacy", icon: <ShieldIcon className="size-[18px]" /> },
   { key: "me.personal.language", icon: <GroupsIcon className="size-[18px]" /> },
   { key: "me.personal.help", icon: <HelpIcon className="size-[18px]" /> },
+  { key: "me.personal.control", icon: <ServicesIcon className="size-[18px]" />, gated: true },
 ];
+
 
 function SectionHead({
   title,
