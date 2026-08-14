@@ -236,6 +236,7 @@ function AlphaHome() {
             </button>
             <span className="text-[11px] text-ivory/45">{t("hm.prayer.minutes")}</span>
           </div>
+          <EngageBar likes={111} comments={9} tone="dark" compact className="mt-5" />
         </section>
 
         {/* 4 — Continue reading + reading journey */}
