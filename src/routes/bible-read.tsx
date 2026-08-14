@@ -879,7 +879,7 @@ function BibleRead() {
                     ],
                     [
                       "bib.share.copy",
-                      <LayersIcon key="c" className="size-[18px]" />,
+                      <NoteIcon key="c" className="size-[18px]" />,
                       () => copyVerse(shareVn),
                     ],
                     [
