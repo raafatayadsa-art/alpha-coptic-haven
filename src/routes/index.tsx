@@ -370,6 +370,7 @@ function AlphaHome() {
               </Link>
             </div>
           </div>
+          <EngageBar likes={498} comments={31} compact className="mt-3 px-1" />
         </section>
 
         {/* 7 — A glimpse of Alpha Connect */}
