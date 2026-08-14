@@ -166,6 +166,18 @@ function BibleRead() {
   const [toast, setToast] = useState<string | null>(null);
   const [currentVerse, setCurrentVerse] = useState(samplePassage[0]!.n);
   const verseRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const [sheet, setSheet] = useState<null | "colors" | "tools">(null);
+  const [shareVn, setShareVn] = useState<number | null>(null);
+  const [highlights, setHighlights] = useState<Record<number, string>>({});
+
+  const paint = (n: number, id: string | null) => {
+    setHighlights((prev) => {
+      const next = { ...prev };
+      if (!id || prev[n] === id) delete next[n];
+      else next[n] = id;
+      return next;
+    });
+  };
 
   const all = [...oldTestament, ...newTestament];
   const book = all.find((b) => b.id === bookId) ?? all[0]!;
