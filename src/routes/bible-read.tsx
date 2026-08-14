@@ -492,68 +492,83 @@ function BibleRead() {
                   <div
                     className={`verse-rise relative mt-2 rounded-[24px] px-3 py-3 ${surface}`}
                   >
-                    {/* Highlight colour strip — overlapping ink discs above the row */}
+                    {/* Highlight inks — vertical column, anchored to the highlight button */}
                     {sheet === "colors" ? (
                       <div
                         aria-label={t("bib.act.colors")}
-                        className={`verse-rise absolute bottom-[calc(100%-6px)] z-20 flex items-center rounded-full px-3 py-2 shadow-xl ${
-                          night ? "border border-illum/25 bg-inkblue/95" : "vellum-card"
-                        }`}
-                        style={{ insetInlineEnd: 10 }}
+                        className={`verse-rise absolute z-50 flex w-[62px] flex-col items-center gap-2.5 ${
+                          night ? "alpha-pop-night" : "alpha-pop"
+                        } ${popDown ? "top-[calc(100%+8px)]" : "bottom-[calc(100%+8px)]"}`}
+                        style={{ insetInlineEnd: 6 }}
                       >
-                        {HL_COLORS.map((c, ci) => (
-                          <button
-                            key={c.id}
-                            type="button"
-                            aria-label={c.id}
-                            onClick={() => paint(verse.n, c.id)}
-                            className={`press size-8 rounded-full border-2 transition-transform ${
-                              highlights[verse.n] === c.id
-                                ? "scale-110 border-copper"
-                                : "border-white/80"
-                            }`}
-                            style={{
-                              background: `color-mix(in oklab, ${c.v} 78%, transparent)`,
-                              marginInlineStart: ci === 0 ? 0 : -10,
-                            }}
-                          />
-                        ))}
+                        {HL_COLORS.map((c) => {
+                          const picked = highlights[verse.n] === c.id;
+                          return (
+                            <button
+                              key={c.id}
+                              type="button"
+                              aria-label={c.id}
+                              onClick={() => paint(verse.n, c.id)}
+                              className={`press grid size-9 shrink-0 place-items-center rounded-full transition-transform ${
+                                picked ? "scale-105" : ""
+                              }`}
+                              style={{
+                                background: `color-mix(in oklab, ${c.v} 80%, transparent)`,
+                                boxShadow: picked
+                                  ? `0 0 0 2px color-mix(in oklab, var(--sc-gold) 85%, transparent)`
+                                  : `0 0 0 1px color-mix(in oklab, ${c.v} 55%, transparent)`,
+                              }}
+                            >
+                              {picked ? (
+                                <span className="block size-2 rounded-full bg-inkblue/70" />
+                              ) : null}
+                            </button>
+                          );
+                        })}
+                        <span
+                          className={`h-px w-7 ${night ? "bg-vellum/15" : "bg-shade/70"}`}
+                          aria-hidden="true"
+                        />
                         <button
                           type="button"
                           onClick={() => paint(verse.n, null)}
-                          className={`press ms-2.5 rounded-full px-2.5 py-1 text-[10px] font-semibold ${chip}`}
+                          className={`press rounded-full px-2 py-1 text-[10px] font-bold ${chip}`}
                         >
                           {t("bib.act.clear")}
                         </button>
                       </div>
                     ) : null}
 
-                    {/* Tools list — vertical popover above the row */}
+                    {/* Tools list — same unified popover surface */}
                     {sheet === "tools" ? (
                       <div
-                        className={`verse-rise absolute bottom-[calc(100%-6px)] z-20 flex w-[186px] flex-col gap-1.5 rounded-[22px] p-2 shadow-xl ${
-                          night ? "border border-illum/25 bg-inkblue/95" : "vellum-card"
-                        }`}
-                        style={{ insetInlineStart: 10 }}
+                        className={`verse-rise absolute z-50 flex w-[204px] flex-col gap-1 ${
+                          night ? "alpha-pop-night" : "alpha-pop"
+                        } ${popDown ? "top-[calc(100%+8px)]" : "bottom-[calc(100%+8px)]"}`}
+                        style={{ insetInlineEnd: 62 }}
                       >
                         {TOOL_ITEMS.map((item) => {
                           const inner = (
                             <>
                               <span
-                                className="grid size-9 place-items-center rounded-[13px] border"
+                                className="grid size-9 shrink-0 place-items-center rounded-full"
                                 style={{
-                                  background: `color-mix(in oklab, ${item.tint} 22%, transparent)`,
-                                  borderColor: `color-mix(in oklab, ${item.tint} 42%, transparent)`,
-                                  color: `color-mix(in oklab, ${item.tint} 72%, black)`,
+                                  background: `color-mix(in oklab, ${item.tint} 20%, transparent)`,
+                                  boxShadow: `inset 0 0 0 1px color-mix(in oklab, ${item.tint} 45%, transparent)`,
+                                  color: `color-mix(in oklab, ${item.tint} 74%, black)`,
                                 }}
                               >
                                 {item.icon}
                               </span>
-                              <span className="flex-1 text-[12.5px] font-bold">{t(item.key)}</span>
+                              <span className="min-w-0 flex-1 truncate text-[12.5px] font-bold">
+                                {t(item.key)}
+                              </span>
                             </>
                           );
-                          const cls = `press flex flex-row-reverse items-center gap-2.5 rounded-[16px] px-2 py-1.5 text-start ${
-                            night ? "bg-vellum/[0.06] text-vellum" : "bg-white/70 text-inkblue"
+                          const cls = `press flex h-11 items-center gap-2.5 rounded-full px-1.5 text-start ${
+                            night
+                              ? "bg-vellum/[0.06] text-vellum"
+                              : "bg-white/70 text-inkblue"
                           }`;
                           return item.to ? (
                             <Link key={item.key} to={item.to} className={cls}>
@@ -576,20 +591,20 @@ function BibleRead() {
                       </div>
                     ) : null}
 
-                    {/* Three primary actions */}
+                    {/* Three primary actions — highlight sits on the leading (right in RTL) edge */}
                     <div className="flex items-stretch gap-2">
                       {(
                         [
                           [
-                            "bib.act.share",
-                            <ShareGlyph key="sh" className="size-[19px]" />,
-                            "share",
-                          ],
-                          ["bib.act.tools", <LayersIcon key="tl" className="size-[19px]" />, "tools"],
-                          [
                             "bib.act.highlight",
                             <HighlightIcon key="hl" className="size-[19px]" />,
                             "colors",
+                          ],
+                          ["bib.act.tools", <LayersIcon key="tl" className="size-[19px]" />, "tools"],
+                          [
+                            "bib.act.share",
+                            <ShareGlyph key="sh" className="size-[19px]" />,
+                            "share",
                           ],
                         ] as const
                       ).map(([key, icon, kind]) => {
@@ -598,15 +613,17 @@ function BibleRead() {
                           <button
                             key={key}
                             type="button"
-                            onClick={() => {
+                            onClick={(e) => {
                               if (kind === "share") {
                                 setSheet(null);
                                 setShareVn(verse.n);
                                 return;
                               }
+                              const r = e.currentTarget.getBoundingClientRect();
+                              setPopDown(r.top < 330);
                               setSheet((s) => (s === kind ? null : kind));
                             }}
-                            className={`press flex flex-1 flex-col items-center gap-1.5 rounded-[20px] py-2.5 transition-colors ${
+                            className={`press flex h-[74px] flex-1 flex-col items-center justify-center gap-1.5 rounded-[20px] transition-colors ${
                               activeBtn
                                 ? night
                                   ? "border border-illum/35 bg-illum/12"
@@ -617,7 +634,7 @@ function BibleRead() {
                             }`}
                           >
                             <span
-                              className={`grid size-10 place-items-center rounded-full ${
+                              className={`grid size-9 place-items-center rounded-full ${
                                 night ? "bg-vellum/10 text-illum" : "bg-white text-copper"
                               }`}
                             >
@@ -630,6 +647,7 @@ function BibleRead() {
                     </div>
                   </div>
                 ) : null}
+
 
                 </div>
               );
