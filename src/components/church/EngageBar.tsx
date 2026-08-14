@@ -34,6 +34,7 @@ export function EngageBar({
   const [liked, setLiked] = useState(false);
   const [saved, setSaved] = useState(false);
   const [shared, setShared] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState("");
   const [thread, setThread] = useState<Comment[]>(() =>
@@ -49,6 +50,7 @@ export function EngageBar({
     requestAnimationFrame(() => setBurst(action));
     timer.current = setTimeout(() => setBurst(null), 620);
   }, []);
+
 
   const fmt = (n: number) =>
     new Intl.NumberFormat(lang === "ar" ? "ar-EG" : "en-US").format(n);
