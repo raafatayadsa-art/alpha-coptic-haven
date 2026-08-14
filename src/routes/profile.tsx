@@ -143,6 +143,9 @@ function ViewAll({ label }: { label: string }) {
 function MyPage() {
   const { t, dir, isArabic } = useLang();
   const arabic = isArabic ? "font-arabic" : "";
+  const [familyOpen, setFamilyOpen] = useState(false);
+  const [requestsOpen, setRequestsOpen] = useState(false);
+
 
   return (
     <div
