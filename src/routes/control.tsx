@@ -199,6 +199,27 @@ function AlphaControl() {
 
 type P = (v: { ar: string; en: string }) => string;
 
+const TONES: Tone[] = ["gold", "cyan", "jade", "amber", "crimson"];
+const toneAt = (i: number): Tone => TONES[i % TONES.length] as Tone;
+const mod = (key: ModuleKey) => modules.find((m) => m.key === key)!;
+const GLYPHS: Record<ModuleKey, string> = {
+  overview: "gauge",
+  health: "pulse",
+  users: "users",
+  churches: "church",
+  content: "content",
+  community: "community",
+  analytics: "chart",
+  activity: "map",
+  media: "media",
+  approvals: "check",
+  alerts: "bell",
+  reports: "reports",
+  admin: "shield",
+  settings: "settings",
+  system: "system",
+};
+
 function IconBtn({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <button
@@ -246,7 +267,7 @@ function Overview({ p, onOpen }: { p: P; onOpen: (k: ModuleKey) => void }) {
               {k.delta}
             </p>
             <div className="mt-1.5">
-              <Sparkline data={k.spark} tone={(["gold", "cyan", "jade", "amber"] as Tone[])[i % 4]} />
+              <Sparkline data={k.spark} tone={toneAt(i)} />
             </div>
           </Panel>
         ))}
@@ -273,7 +294,7 @@ function Overview({ p, onOpen }: { p: P; onOpen: (k: ModuleKey) => void }) {
       </div>
 
       {/* Live alerts strip */}
-      <SectionTitle title={p(modules[10].name)} caption={p(modules[10].caption)} />
+      <SectionTitle title={p(mod("alerts").name)} caption={p(mod("alerts").caption)} />
       <Panel className="overflow-hidden">
         {alerts.map((a) => (
           <Row
@@ -287,7 +308,7 @@ function Overview({ p, onOpen }: { p: P; onOpen: (k: ModuleKey) => void }) {
       </Panel>
 
       {/* Activity */}
-      <SectionTitle title={p(modules[7].name)} caption={p(modules[7].caption)} />
+      <SectionTitle title={p(mod("activity").name)} caption={p(mod("activity").caption)} />
       <Panel className="overflow-hidden pb-1">
         <WorldRadar p={p} />
         <ul className="px-4 pt-1 pb-3">
@@ -309,12 +330,7 @@ function Overview({ p, onOpen }: { p: P; onOpen: (k: ModuleKey) => void }) {
         {modules
           .filter((m) => m.key !== "overview")
           .map((m) => {
-            const G =
-              glyphByKey[
-                { health: "pulse", users: "users", churches: "church", content: "content", community: "community", analytics: "chart", activity: "map", media: "media", approvals: "check", alerts: "bell", reports: "reports", admin: "shield", settings: "settings", system: "system" }[
-                  m.key
-                ] ?? "gauge"
-              ] ?? BellGlyph;
+            const G = glyphByKey[GLYPHS[m.key]] ?? BellGlyph;
             return (
               <button
                 key={m.key}
@@ -435,7 +451,7 @@ function UsersModule({ p }: { p: P }) {
               label={p(s.label)}
               value={s.value}
               pct={s.pct}
-              tone={(["gold", "cyan", "jade", "amber"] as Tone[])[i % 4]}
+              tone={toneAt(i)}
             />
           ))}
         </div>
@@ -475,7 +491,7 @@ function ContentModule({ p }: { p: P }) {
             label={p(s.label)}
             value={s.items}
             pct={s.pct}
-            tone={(["gold", "cyan", "jade", "amber", "crimson"] as Tone[])[i % 5]}
+            tone={toneAt(i)}
           />
         ))}
       </div>
@@ -553,7 +569,7 @@ function MediaModule({ p }: { p: P }) {
               label={p(m.label)}
               value={p(m.size)}
               pct={m.pct}
-              tone={(["gold", "cyan", "jade", "amber"] as Tone[])[i % 4]}
+              tone={toneAt(i)}
             />
           ))}
         </div>
@@ -614,7 +630,7 @@ function ApprovalsModule({ p }: { p: P }) {
 function AlertsModule({ p }: { p: P }) {
   return (
     <Panel crest className="overflow-hidden">
-      <PanelHead title={p(modules[10].name)} action={<GhostButton>{p(L.viewAll)}</GhostButton>} />
+      <PanelHead title={p(mod("alerts").name)} action={<GhostButton>{p(L.viewAll)}</GhostButton>} />
       {alerts.map((a) => (
         <Row key={a.title.en} health={a.health} title={p(a.title)} note={p(a.body)} value={p(a.time)} />
       ))}
@@ -625,7 +641,7 @@ function AlertsModule({ p }: { p: P }) {
 function ReportsModule({ p }: { p: P }) {
   return (
     <Panel crest className="overflow-hidden">
-      <PanelHead title={p(modules[11].name)} caption={p(L.last30d)} />
+      <PanelHead title={p(mod("reports").name)} caption={p(L.last30d)} />
       {reports.map((r) => (
         <Row
           key={r.title.en}
@@ -664,7 +680,7 @@ function AdminModule({ p }: { p: P }) {
 function SettingsModule({ p }: { p: P }) {
   return (
     <Panel crest className="overflow-hidden">
-      <PanelHead title={p(modules[13].name)} caption={p(modules[13].caption)} />
+      <PanelHead title={p(mod("settings").name)} caption={p(mod("settings").caption)} />
       {settingsRows.map((s) => (
         <Row
           key={s.label.en}
