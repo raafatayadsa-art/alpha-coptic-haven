@@ -461,25 +461,35 @@ function MyPage() {
           <SectionHead title={t("me.personal.section")} />
           <div className="overflow-hidden rounded-[28px] bg-ivory shadow-[var(--shadow-soft)] ring-1 ring-ink/5">
             <ul className="divide-y divide-ink/5">
-              {personal.map((p) => (
-                <li key={p.key}>
-                  <button
-                    type="button"
-                    className="press flex w-full items-center gap-3 px-4 py-3.5 text-start"
-                  >
-                    <span className="grid size-9 shrink-0 place-items-center rounded-2xl bg-parchment text-ink/55 ring-1 ring-ink/5">
-                      {p.icon}
-                    </span>
-                    <span className="min-w-0 flex-1 truncate text-[13px] font-medium">
-                      {t(p.key)}
-                    </span>
-                    <ChevronRight className="size-4 shrink-0 text-ink/25 rtl:rotate-180" />
-                  </button>
-                </li>
-              ))}
+              {personal
+                .filter((p) => !p.gated || canControl)
+                .map((p) => (
+                  <li key={p.key}>
+                    <button
+                      type="button"
+                      className="press flex w-full items-center gap-3 px-4 py-3.5 text-start"
+                    >
+                      <span
+                        className={cn(
+                          "grid size-9 shrink-0 place-items-center rounded-2xl ring-1",
+                          p.gated
+                            ? "bg-gold/12 text-gold ring-gold/20"
+                            : "bg-parchment text-ink/55 ring-ink/5",
+                        )}
+                      >
+                        {p.icon}
+                      </span>
+                      <span className="min-w-0 flex-1 truncate text-[13px] font-medium">
+                        {t(p.key)}
+                      </span>
+                      <ChevronRight className="size-4 shrink-0 text-ink/25 rtl:rotate-180" />
+                    </button>
+                  </li>
+                ))}
             </ul>
           </div>
         </section>
+
 
         {/* 9 — Soft footer */}
         <footer className="pb-4 pt-10 text-center">
