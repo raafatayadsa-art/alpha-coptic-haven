@@ -1,5 +1,5 @@
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 
 import {
@@ -12,7 +12,6 @@ import {
   HistoryIcon,
   NightIcon,
   NoteIcon,
-  PlayGlyph,
   ShareGlyph,
   SpacingIcon,
   SpeedIcon,
@@ -20,8 +19,10 @@ import {
   TypeIcon,
 } from "@/components/bible/bible-icons";
 import { Screen } from "@/components/layout/Screen";
+import { useChromeVisibility } from "@/hooks/use-chrome-visibility";
 import { newTestament, oldTestament, samplePassage } from "@/lib/bible-data";
 import { useLang } from "@/lib/i18n";
+
 
 const searchSchema = z.object({
   book: z.string().catch("jhn"),
@@ -115,7 +116,7 @@ function BibleRead() {
   const [spacing, setSpacing] = useState(1);
   const [auto, setAuto] = useState(false);
   const [menu, setMenu] = useState<null | "speed" | "spacing">(null);
-  const [chrome, setChrome] = useState(true);
+  const [toast, setToast] = useState<string | null>(null);
   const [currentVerse, setCurrentVerse] = useState(samplePassage[0]!.n);
   const verseRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
@@ -127,31 +128,41 @@ function BibleRead() {
   const pct = Math.round((currentVerse / total) * 100);
   const scale = SCALES[scaleIdx]!;
 
-  /* ── Chrome auto-hide after 5s of stillness (bar + bottom nav) ── */
-  const hideTimer = useRef<number | null>(null);
-  const wake = useCallback(() => {
-    setChrome(true);
-    if (hideTimer.current) window.clearTimeout(hideTimer.current);
-    hideTimer.current = window.setTimeout(() => {
-      setChrome(false);
-      setMenu(null);
-    }, 5000);
-  }, []);
+  /* Facebook-style chrome: hides on scroll up, returns on scroll down. */
+  const chrome = useChromeVisibility();
 
   useEffect(() => {
-    wake();
-    const events: Array<keyof WindowEventMap> = ["scroll", "pointerdown", "touchstart", "keydown"];
-    events.forEach((e) => window.addEventListener(e, wake, { passive: true }));
-    return () => {
-      events.forEach((e) => window.removeEventListener(e, wake));
-      if (hideTimer.current) window.clearTimeout(hideTimer.current);
-    };
-  }, [wake]);
-
-  useEffect(() => {
-    document.body.classList.toggle("reader-chrome-off", !chrome);
-    return () => document.body.classList.remove("reader-chrome-off");
+    if (!chrome) setMenu(null);
   }, [chrome]);
+
+  useEffect(() => {
+    if (!toast) return;
+    const id = window.setTimeout(() => setToast(null), 1600);
+    return () => window.clearTimeout(id);
+  }, [toast]);
+
+  const verseText = (n: number) => {
+    const v = samplePassage.find((x) => x.n === n);
+    const text = v ? (isArabic ? v.ar : v.en) : "";
+    return `${text} — ${name} ${ch}:${n}`;
+  };
+
+  const copyVerse = (n: number) => {
+    void navigator.clipboard?.writeText(verseText(n));
+    setToast(t("bib.act.copy"));
+  };
+
+  const shareVerse = (n: number) => {
+    const text = verseText(n);
+    if (typeof navigator !== "undefined" && navigator.share) {
+      void navigator.share({ text }).catch(() => undefined);
+    } else {
+      void navigator.clipboard?.writeText(text);
+    }
+    setToast(t("bib.act.share"));
+  };
+
+
 
   /* ── Track which verse is in view — presentation only ── */
   useEffect(() => {
@@ -389,23 +400,36 @@ function BibleRead() {
                     className={`mt-2 rounded-[22px] px-2.5 py-3 text-[13px] verse-rise ${surface}`}
                   >
                     <div className="flex items-center justify-around">
-                      {[
-                        ["bib.act.highlight", <HighlightIcon key="h" className="size-[18px]" />],
-                        ["bib.act.note", <NoteIcon key="n" className="size-[18px]" />],
-                        ["bib.act.favorite", <StarIcon key="s" className="size-[18px]" />],
-                        ["bib.act.share", <ShareGlyph key="sh" className="size-[18px]" />],
-                      ].map(([key, icon]) => (
-                        <button
-                          key={key as string}
-                          type="button"
+                      {(
+                        [
+                          [
+                            "bib.act.highlight",
+                            <HighlightIcon key="h" className="size-[18px]" />,
+                            "/bible-highlights",
+                          ],
+                          ["bib.act.note", <NoteIcon key="n" className="size-[18px]" />, "/bible-notes"],
+                          ["bib.act.favorite", <StarIcon key="s" className="size-[18px]" />, "/bible-saved"],
+                        ] as const
+                      ).map(([key, icon, to]) => (
+                        <Link
+                          key={key}
+                          to={to}
                           className="press flex flex-col items-center gap-1.5 px-2 text-copper"
                         >
-                          {icon as React.ReactNode}
-                          <span className={`text-[10px] font-semibold ${body}`}>
-                            {t(key as string)}
-                          </span>
-                        </button>
+                          {icon}
+                          <span className={`text-[10px] font-semibold ${body}`}>{t(key)}</span>
+                        </Link>
                       ))}
+                      <button
+                        type="button"
+                        onClick={() => shareVerse(verse.n)}
+                        className="press flex flex-col items-center gap-1.5 px-2 text-copper"
+                      >
+                        <ShareGlyph className="size-[18px]" />
+                        <span className={`text-[10px] font-semibold ${body}`}>
+                          {t("bib.act.share")}
+                        </span>
+                      </button>
                     </div>
 
                     <div
@@ -413,18 +437,30 @@ function BibleRead() {
                         night ? "border-illum/15" : "border-shade/70"
                       }`}
                     >
-                      {["bib.act.community", "bib.act.copy", "bib.act.image"].map((key) => (
-                        <button
-                          key={key}
-                          type="button"
-                          className={`press flex-1 rounded-full px-2 py-1.5 text-[10.5px] font-semibold whitespace-nowrap ${chip}`}
-                        >
-                          {t(key)}
-                        </button>
-                      ))}
+                      <Link
+                        to="/my-church"
+                        className={`press flex-1 rounded-full px-2 py-1.5 text-center text-[10.5px] font-semibold whitespace-nowrap ${chip}`}
+                      >
+                        {t("bib.act.community")}
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => copyVerse(verse.n)}
+                        className={`press flex-1 rounded-full px-2 py-1.5 text-[10.5px] font-semibold whitespace-nowrap ${chip}`}
+                      >
+                        {t("bib.act.copy")}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => shareVerse(verse.n)}
+                        className={`press flex-1 rounded-full px-2 py-1.5 text-[10.5px] font-semibold whitespace-nowrap ${chip}`}
+                      >
+                        {t("bib.act.image")}
+                      </button>
                     </div>
                   </div>
                 ) : null}
+
                 </div>
               );
             })}
@@ -482,14 +518,7 @@ function BibleRead() {
             }`}
           >
             <button
-              type="button"
-              aria-label={t("bib.reader.play")}
-              className="press grid size-10 shrink-0 place-items-center rounded-full bg-inkblue text-illum"
-            >
-              <PlayGlyph className="size-[17px]" />
-            </button>
 
-            <button
               type="button"
               onClick={() => setAuto((v) => !v)}
               aria-label={t("bib.reader.autoscroll")}
@@ -581,7 +610,25 @@ function BibleRead() {
             </button>
           </div>
         </div>
+
+        {/* Tiny glowing Coptic letter-band, pinned faintly at the foot of the page */}
+        <span
+          aria-hidden="true"
+          className="copt-band pointer-events-none fixed inset-x-0 bottom-1 z-0 select-none text-center"
+        >
+          ⲁ ⲱ ⲭ ⲥ ⲡⲛⲟⲩϯ ⲁ ⲱ
+        </span>
+
+        {/* Action confirmation */}
+        {toast ? (
+          <div className="pointer-events-none fixed inset-x-0 top-1/2 z-50 flex justify-center">
+            <span className="verse-rise rounded-full bg-inkblue/90 px-4 py-2 font-manrope text-[11.5px] font-semibold text-illum shadow-xl">
+              {toast}
+            </span>
+          </div>
+        ) : null}
       </div>
+
     </Screen>
   );
 }

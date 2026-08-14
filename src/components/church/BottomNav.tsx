@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import { BibleIcon, CommunityIcon } from "@/components/church/icons";
 import {
@@ -7,7 +7,9 @@ import {
   HomeIcon,
   PersonIcon,
 } from "@/components/church/media-icons";
+import { useChromeVisibility } from "@/hooks/use-chrome-visibility";
 import { useLang } from "@/lib/i18n";
+
 
 type Item = {
   key: string;
@@ -41,27 +43,9 @@ export function BottomNav() {
   const { t, dir, isArabic } = useLang();
   const label = `${isArabic ? "font-arabic " : ""}text-[9.5px] font-medium leading-none`;
 
-  /* Auto-hide the bar after 5s of no interaction; any touch/scroll brings it back. */
-  const [visible, setVisible] = useState(true);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  /* Facebook-style: hides while scrolling up the page, returns on scroll down. */
+  const visible = useChromeVisibility();
 
-  useEffect(() => {
-    const arm = () => {
-      if (timer.current) clearTimeout(timer.current);
-      timer.current = setTimeout(() => setVisible(false), 5000);
-    };
-    const wake = () => {
-      setVisible(true);
-      arm();
-    };
-    arm();
-    const events = ["pointerdown", "pointermove", "touchstart", "scroll", "keydown"] as const;
-    events.forEach((e) => window.addEventListener(e, wake, { passive: true }));
-    return () => {
-      if (timer.current) clearTimeout(timer.current);
-      events.forEach((e) => window.removeEventListener(e, wake));
-    };
-  }, []);
 
   return (
     <nav
