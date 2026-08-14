@@ -107,15 +107,22 @@ const daily: DailyCard[] = [
 ];
 
 
-const hub: { key: string; sub: string; icon: ReactNode; tone: "gold" | "lavender" | "parchment" }[] = [
-  { key: "hm.hub.bible", sub: "hm.hub.sub.bible", icon: <BibleIcon className="size-6" />, tone: "gold" },
-  { key: "hm.hub.agpeya", sub: "hm.hub.sub.agpeya", icon: <AgpeyaIcon className="size-6" />, tone: "lavender" },
+const hub: {
+  key: string;
+  sub: string;
+  icon: ReactNode;
+  tone: "gold" | "lavender" | "parchment";
+  to?: "/bible" | "/agpeya";
+}[] = [
+  { key: "hm.hub.bible", sub: "hm.hub.sub.bible", icon: <BibleIcon className="size-6" />, tone: "gold", to: "/bible" },
+  { key: "hm.hub.agpeya", sub: "hm.hub.sub.agpeya", icon: <AgpeyaIcon className="size-6" />, tone: "lavender", to: "/agpeya" },
   { key: "hm.hub.katameros", sub: "hm.hub.sub.katameros", icon: <KatamerosIcon className="size-6" />, tone: "parchment" },
   { key: "hm.hub.synaxarium", sub: "hm.hub.sub.synaxarium", icon: <SynaxariumIcon className="size-6" />, tone: "parchment" },
   { key: "hm.hub.khoulagy", sub: "hm.hub.sub.khoulagy", icon: <KhoulagyIcon className="size-6" />, tone: "lavender" },
   { key: "hm.hub.fathers", sub: "hm.hub.sub.fathers", icon: <MembersIcon className="size-6" />, tone: "gold" },
   { key: "hm.hub.library", sub: "hm.hub.sub.library", icon: <LibraryIcon className="size-6" />, tone: "gold" },
 ];
+
 
 
 const hubTone: Record<"gold" | "lavender" | "parchment", string> = {
