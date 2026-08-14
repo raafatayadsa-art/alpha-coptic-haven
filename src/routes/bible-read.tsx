@@ -63,6 +63,51 @@ const SPACINGS = [
 
 const SCALES = [0.9, 1, 1.14, 1.3];
 
+/** Highlighter inks — tokens declared in src/styles.css. */
+const HL_COLORS = [
+  { id: "gold", v: "var(--hl-gold)" },
+  { id: "lemon", v: "var(--hl-lemon)" },
+  { id: "mint", v: "var(--hl-mint)" },
+  { id: "sky", v: "var(--hl-sky)" },
+  { id: "rose", v: "var(--hl-rose)" },
+  { id: "violet", v: "var(--hl-violet)" },
+] as const;
+
+const hlInk = (id?: string) => HL_COLORS.find((c) => c.id === id)?.v;
+
+const TOOL_ITEMS: Array<{
+  key: string;
+  icon: React.ReactNode;
+  tint: string;
+  to?: "/my-church" | "/bible-notes" | "/bible-saved" | "/bible-journey";
+}> = [
+  {
+    key: "bib.act.community",
+    icon: <PeopleIcon className="size-[17px]" />,
+    tint: "var(--hl-mint)",
+    to: "/my-church",
+  },
+  { key: "bib.act.share", icon: <ShareGlyph className="size-[17px]" />, tint: "var(--hl-gold)" },
+  {
+    key: "bib.act.meditate",
+    icon: <SparkIcon className="size-[17px]" />,
+    tint: "var(--hl-sky)",
+    to: "/bible-journey",
+  },
+  {
+    key: "bib.act.note",
+    icon: <NoteIcon className="size-[17px]" />,
+    tint: "var(--hl-lemon)",
+    to: "/bible-notes",
+  },
+  {
+    key: "bib.act.save",
+    icon: <BookmarkIcon className="size-[17px]" />,
+    tint: "var(--hl-violet)",
+    to: "/bible-saved",
+  },
+];
+
 function Popover({
   open,
   items,
