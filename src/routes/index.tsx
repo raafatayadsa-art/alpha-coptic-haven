@@ -231,7 +231,22 @@ function ChurchHome() {
             <p className="mt-4 text-[12.5px] leading-relaxed text-ink/55">
               A home for 372 families in Shoubra since 1948. You belong here.
             </p>
+
+            <button
+              type="button"
+              onClick={() => setFollowing((v) => !v)}
+              aria-pressed={following}
+              className={`press mt-5 flex h-12 w-full items-center justify-center gap-2 rounded-full text-[13px] font-semibold transition-colors ${
+                following
+                  ? "border border-gold/30 bg-gold/10 text-gold"
+                  : "bg-ink text-ivory shadow-soft"
+              }`}
+            >
+              <HeartIcon className="size-4" />
+              {following ? "تمت المتابعة" : "متابعة الكنيسة"}
+            </button>
           </div>
+
         </section>
 
 
