@@ -539,3 +539,34 @@
 @media (prefers-reduced-motion: reduce) {
   .verse-rise { animation: none !important; }
 }
+
+/* ── Coptic character for the Bible system ─────────────────── */
+
+/* Faint Α Ω / cross watermark behind the reading column */
+@utility copt-watermark {
+  position: relative;
+  isolation: isolate;
+}
+
+@utility copt-frieze {
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--sc-gold) 46%, transparent) 0 6px,
+      transparent 6px 12px
+    );
+  height: 2px;
+}
+
+@keyframes illum-breathe {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.95; }
+}
+
+@utility illum-breathe {
+  animation: illum-breathe 5.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .illum-breathe { animation: none !important; }
+}
