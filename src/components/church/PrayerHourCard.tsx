@@ -3,31 +3,25 @@ import type { ReactNode } from "react";
 import { ChevronRight } from "@/components/church/icons";
 import { cn } from "@/lib/utils";
 
-export type PrayerTone = "day" | "night" | "extra" | "featured";
+export type PrayerTone = "plain" | "featured";
 export type PrayerSpan = "wide" | "tall" | "cell";
 
-const accent: Record<PrayerTone, string> = {
-  day: "text-mint",
-  night: "text-teal",
-  extra: "text-foam/70",
-  featured: "text-mint",
-};
-
 const spanClass: Record<PrayerSpan, string> = {
-  wide: "col-span-2 min-h-[112px]",
-  tall: "col-span-1 row-span-2 min-h-[196px]",
-  cell: "col-span-1 min-h-[132px]",
+  wide: "col-span-2 min-h-[116px]",
+  tall: "col-span-1 row-span-2 min-h-[204px]",
+  cell: "col-span-1 min-h-[136px]",
 };
 
 /**
  * Ocean Deep bento tile for one Agpeya hour.
- * Presentation only — no logic, no navigation.
+ * Colour comes from the section's --hue / --hue-2 variables, so each prayer
+ * group reads as its own family. Presentation only — no logic.
  */
 export function PrayerHourCard({
   name,
   time,
   icon,
-  tone = "day",
+  tone = "plain",
   span = "cell",
   index,
 }: {
@@ -42,54 +36,58 @@ export function PrayerHourCard({
     <button
       type="button"
       className={cn(
-        "press group relative isolate flex flex-col overflow-hidden rounded-[24px] p-4 text-start",
+        "press group relative isolate flex flex-col overflow-hidden rounded-[26px] p-4 text-start",
         tone === "featured" ? "ocean-glass" : "ocean-tile",
         spanClass[span],
       )}
     >
-      {/* soft tidal glow */}
+      {/* corner glow */}
       <span
         aria-hidden="true"
         className={cn(
-          "ocean-halo pointer-events-none absolute -end-8 -top-10 -z-10 size-32 rounded-full opacity-70",
+          "ocean-halo pointer-events-none absolute -end-10 -top-12 -z-10 size-32 rounded-full opacity-70",
           tone === "featured" && "tide-drift",
         )}
       />
-
-      {typeof index === "number" && (
-        <span className="absolute end-4 top-4 font-sora text-[11px] font-semibold tabular-nums text-foam/25">
-          {String(index).padStart(2, "0")}
-        </span>
-      )}
-
+      {/* hue accent rail along the inner edge */}
       <span
-        className={cn(
-          "grid size-10 place-items-center rounded-2xl border border-mint/15 bg-abyss/50",
-          accent[tone],
-        )}
         aria-hidden="true"
-      >
-        {icon}
-      </span>
+        className="hue-bg pointer-events-none absolute inset-y-5 start-0 w-[3px] rounded-full opacity-60"
+      />
+
+      <div className="flex items-start justify-between gap-2 ps-1">
+        <span
+          className="hue-text grid size-11 place-items-center rounded-2xl border bg-abyss/55 hue-ring"
+          aria-hidden="true"
+        >
+          {icon}
+        </span>
+        {typeof index === "number" && (
+          <span className="font-sora text-[22px] font-bold leading-none tabular-nums text-foam/12">
+            {String(index).padStart(2, "0")}
+          </span>
+        )}
+      </div>
 
       <h3
         className={cn(
-          "mt-auto pt-4 font-sora font-semibold leading-tight tracking-tight text-foam",
-          span === "wide" ? "text-[18px]" : "text-[15.5px]",
+          "mt-auto pt-4 ps-1 font-sora font-semibold leading-tight tracking-tight text-foam",
+          span === "wide" ? "text-[18.5px]" : "text-[15.5px]",
         )}
       >
         {name}
       </h3>
 
-      <div className="mt-1.5 flex items-center gap-1.5">
-        <span className={cn("size-1 rounded-full", tone === "night" ? "bg-teal" : "bg-mint")} />
-        <span className="font-manrope text-[11px] font-medium text-foam/45">{time}</span>
-        <ChevronRight
-          className={cn(
-            "ms-auto size-3.5 text-foam/30 transition-transform duration-500 rtl:rotate-180",
-            "group-hover:-translate-x-0.5 rtl:group-hover:translate-x-0.5",
-          )}
-        />
+      <div className="mt-2.5 flex items-center gap-2 ps-1">
+        <span className="hue-text rounded-full border bg-abyss/40 px-2.5 py-1 font-manrope text-[10.5px] font-semibold tabular-nums hue-ring">
+          {time}
+        </span>
+        <span
+          aria-hidden="true"
+          className="hue-text ms-auto grid size-6 place-items-center rounded-full border bg-abyss/40 transition-transform duration-500 hue-ring group-hover:-translate-x-0.5 rtl:group-hover:translate-x-0.5"
+        >
+          <ChevronRight className="size-3 rtl:rotate-180" />
+        </span>
       </div>
     </button>
   );
