@@ -393,34 +393,45 @@ function AlphaHome() {
           </div>
 
           <div className="no-scrollbar mt-6 flex snap-x snap-mandatory gap-3.5 overflow-x-auto px-5 pb-4">
-            {hub.map((item) => (
-              <button
-                key={item.key}
-                type="button"
-                className="press group w-[148px] flex-none snap-center rounded-[26px] border border-ink/5 bg-parchment p-4 text-start shadow-[var(--shadow-soft)]"
-              >
-                <span
-                  className={`grid size-12 place-items-center rounded-2xl ${hubTone[item.tone]}`}
-                  aria-hidden="true"
-                >
-                  {item.icon}
-                </span>
-                <h3 className="mt-4 font-display text-[19px] font-semibold leading-tight tracking-tight">
-                  {t(item.key)}
-                </h3>
-                <p
-                  className="mt-1 text-[10.5px] font-medium uppercase tracking-[0.12em] text-ink/45"
-                  dir="ltr"
-                >
-                  {t(item.sub)}
-                </p>
-                <span className="mt-4 flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-gold">
-                  {t("app.open")}
-                  <ChevronRight className="size-3 transition-transform duration-500 group-hover:translate-x-0.5 rtl:rotate-180" />
-                </span>
-              </button>
-            ))}
+            {hub.map((item) => {
+              const shell =
+                "press group w-[148px] flex-none snap-center rounded-[26px] border border-ink/5 bg-parchment p-4 text-start shadow-[var(--shadow-soft)]";
+              const body = (
+                <>
+                  <span
+                    className={`grid size-12 place-items-center rounded-2xl ${hubTone[item.tone]}`}
+                    aria-hidden="true"
+                  >
+                    {item.icon}
+                  </span>
+                  <h3 className="mt-4 font-display text-[19px] font-semibold leading-tight tracking-tight">
+                    {t(item.key)}
+                  </h3>
+                  <p
+                    className="mt-1 text-[10.5px] font-medium uppercase tracking-[0.12em] text-ink/45"
+                    dir="ltr"
+                  >
+                    {t(item.sub)}
+                  </p>
+                  <span className="mt-4 flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-gold">
+                    {t("app.open")}
+                    <ChevronRight className="size-3 transition-transform duration-500 group-hover:translate-x-0.5 rtl:rotate-180" />
+                  </span>
+                </>
+              );
+
+              return item.to ? (
+                <Link key={item.key} to={item.to} className={`block ${shell}`}>
+                  {body}
+                </Link>
+              ) : (
+                <button key={item.key} type="button" className={shell}>
+                  {body}
+                </button>
+              );
+            })}
           </div>
+
         </section>
 
 
