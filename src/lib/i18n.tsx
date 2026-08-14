@@ -652,6 +652,17 @@ export const dict: Dict = {
   "bib.act.image": { ar: "حفظ كصورة", en: "Save image" },
   "bib.act.community": { ar: "مشاركة للمجتمع", en: "Share to community" },
   "bib.tool.open": { ar: "فتح", en: "Open" },
+  "bib.act.tools": { ar: "أدوات", en: "Tools" },
+  "bib.act.meditate": { ar: "تأمل", en: "Reflect" },
+  "bib.act.save": { ar: "حفظ", en: "Save" },
+  "bib.act.clear": { ar: "مسح", en: "Clear" },
+  "bib.act.colors": { ar: "ألوان التلوين", en: "Highlight colours" },
+  "bib.share.title": { ar: "انتشار البركة", en: "Spread the blessing" },
+  "bib.share.community": { ar: "مشاركة على مجتمعي", en: "Share to my community" },
+  "bib.share.system": { ar: "مشاركة", en: "Share" },
+  "bib.share.image": { ar: "حفظ الصورة", en: "Save image" },
+  "bib.share.copy": { ar: "نسخ النص", en: "Copy text" },
+  "bib.share.close": { ar: "إغلاق", en: "Close" },
 
   /* ── Katameros (lectionary) ─────────────────────────────── */
   "km.title": { ar: "القطمارس", en: "The Katameros" },
