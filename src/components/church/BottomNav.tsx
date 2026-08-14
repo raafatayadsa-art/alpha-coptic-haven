@@ -9,19 +9,32 @@ import {
 } from "@/components/church/media-icons";
 import { useLang } from "@/lib/i18n";
 
-type Item = { key: string; icon: ReactNode; to?: "/" | "/my-church" | "/bible"; center?: boolean };
+type Item = {
+  key: string;
+  icon: ReactNode;
+  to?: "/" | "/my-church" | "/bible" | "/profile";
+  center?: boolean;
+};
 
 const items: Item[] = [
   { key: "nav.home", icon: <HomeIcon className="size-[21px]" />, to: "/" },
   { key: "nav.myChurch", icon: <ChurchIcon className="size-[21px]" />, to: "/my-church" },
   { key: "nav.bible", icon: <BibleIcon className="size-[21px]" />, to: "/bible", center: true },
   { key: "nav.community", icon: <CommunityIcon className="size-[21px]" /> },
-  { key: "nav.profile", icon: <PersonIcon className="size-[21px]" /> },
+  { key: "nav.profile", icon: <PersonIcon className="size-[21px]" />, to: "/profile" },
 ];
 
 const shell =
-  "press flex flex-1 min-w-0 flex-col items-center gap-1 rounded-2xl py-1.5 text-ink/40 transition-colors";
+  "press flex flex-1 min-w-0 flex-col items-center gap-1 rounded-2xl py-1.5 text-ink/40 transition-colors hover:text-ink/70";
 const active = "data-[status=active]:text-ink";
+
+/** Center tab: label-only glass pill (no icon) so the full name always fits. */
+const centerShell =
+  "press group relative flex min-w-0 shrink-0 items-center justify-center overflow-hidden rounded-[20px] px-3.5 py-2 text-ink/55 " +
+  "bg-gradient-to-b from-ivory/70 to-parchment/60 ring-1 ring-ink/8 shadow-[0_1px_0_rgba(255,255,255,0.75)_inset,0_6px_16px_-8px_rgba(20,16,10,0.35)] " +
+  "backdrop-blur-xl transition-all duration-500 hover:text-gold hover:from-gold/18 hover:to-gold/8 hover:ring-gold/30 " +
+  "data-[status=active]:text-gold data-[status=active]:from-gold/22 data-[status=active]:to-gold/8 data-[status=active]:ring-gold/35";
+
 
 
 export function BottomNav() {
@@ -64,11 +77,15 @@ export function BottomNav() {
       <div className="glass-card flex items-stretch gap-0.5 rounded-[28px] px-2 py-1.5">
         {items.map((item) =>
           item.to && item.center ? (
-            <Link key={item.key} to={item.to} className={`${shell} text-gold`}>
-              <span className="grid size-[30px] place-items-center rounded-full bg-gold/12 ring-1 ring-gold/25">
-                {item.icon}
+            <Link key={item.key} to={item.to} className={centerShell}>
+              {/* soft sheen that lights up on hover / active */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-3 -top-6 h-10 rounded-full bg-gold/25 opacity-0 blur-lg transition-opacity duration-500 group-hover:opacity-100 group-data-[status=active]:opacity-100"
+              />
+              <span className={`${label} relative whitespace-nowrap text-[11px] font-semibold`}>
+                {t(item.key)}
               </span>
-              <span className={`${label} font-semibold`}>{t(item.key)}</span>
             </Link>
           ) : item.to ? (
             <Link
@@ -83,22 +100,15 @@ export function BottomNav() {
               </span>
               <span className={label}>{t(item.key)}</span>
             </Link>
-          ) : item.center ? (
-            <button key={item.key} type="button" className={`${shell} text-gold`}>
-              <span className="grid size-[30px] place-items-center rounded-full bg-gold/12 ring-1 ring-gold/25">
-                {item.icon}
-              </span>
-              <span className={`${label} font-semibold`}>{t(item.key)}</span>
-            </button>
           ) : (
             <button key={item.key} type="button" className={shell}>
               {item.icon}
               <span className={label}>{t(item.key)}</span>
             </button>
           ),
-
         )}
       </div>
+
     </nav>
   );
 }
