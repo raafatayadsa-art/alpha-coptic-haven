@@ -63,7 +63,7 @@ function BibleRead() {
     <Screen className={shell}>
       <div
         dir={dir}
-        className={`relative mx-auto w-full max-w-[430px] overflow-x-hidden pb-28 ${
+        className={`relative mx-auto w-full max-w-[430px] overflow-x-hidden pb-40 ${
           isArabic ? "font-arabic" : "font-sans"
         } ${body}`}
       >
@@ -138,15 +138,15 @@ function BibleRead() {
                     {verse.n}
                   </span>{" "}
                   <span className={i === 0 ? "" : undefined}>
-                    {i === 0 ? (
+                    {i === 0 && !isArabic ? (
                       <>
-                        <span className="drop-cap">
-                          {(isArabic ? verse.ar : verse.en).slice(0, 1)}
-                        </span>
-                        {(isArabic ? verse.ar : verse.en).slice(1)}
+                        <span className="drop-cap">{verse.en.slice(0, 1)}</span>
+                        {verse.en.slice(1)}
                       </>
+                    ) : isArabic ? (
+                      verse.ar
                     ) : (
-                      isArabic ? verse.ar : verse.en
+                      verse.en
                     )}
                   </span>
                 </button>
@@ -199,7 +199,7 @@ function BibleRead() {
         </main>
 
         {/* ── Floating reader toolbar ── */}
-        <div className="safe-bottom fixed inset-x-0 bottom-0 z-40 mx-auto max-w-[430px] px-5 pb-2">
+        <div className="fixed inset-x-0 z-40 mx-auto max-w-[430px] px-5" style={{ bottom: "calc(var(--bottom-nav-h) + max(var(--safe-bottom-min), var(--safe-bottom)) + 6px)" }}>
           <div
             className={`flex items-center justify-between gap-1 rounded-[26px] px-3 py-2 backdrop-blur-xl ${
               night ? "border border-illum/25 bg-inkblue/85" : "vellum-card"
