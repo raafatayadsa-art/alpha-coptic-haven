@@ -551,7 +551,7 @@ function BibleRead() {
                           const inner = (
                             <>
                               <span
-                                className="grid size-9 shrink-0 place-items-center rounded-full"
+                                className="grid size-7 shrink-0 place-items-center rounded-full"
                                 style={{
                                   background: `color-mix(in oklab, ${item.tint} 20%, transparent)`,
                                   boxShadow: `inset 0 0 0 1px color-mix(in oklab, ${item.tint} 45%, transparent)`,
@@ -560,12 +560,12 @@ function BibleRead() {
                               >
                                 {item.icon}
                               </span>
-                              <span className="min-w-0 flex-1 truncate text-[12.5px] font-bold">
+                              <span className="min-w-0 flex-1 truncate text-[11.5px] font-bold">
                                 {t(item.key)}
                               </span>
                             </>
                           );
-                          const cls = `press flex h-11 items-center gap-2.5 rounded-full px-1.5 text-start ${
+                          const cls = `press flex h-9 shrink-0 items-center gap-2 rounded-full px-1.5 text-start ${
                             night
                               ? "bg-vellum/[0.06] text-vellum"
                               : "bg-white/70 text-inkblue"
