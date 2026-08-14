@@ -135,6 +135,8 @@ function RootComponent() {
         <Screen>
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
           <Outlet />
+          {/* Global tagline, closing every screen. */}
+          <SloganBand />
         </Screen>
         <BottomNav />
       </LanguageProvider>
