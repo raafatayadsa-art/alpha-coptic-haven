@@ -234,6 +234,7 @@ export const dict: Dict = {
     en: "\u201cI am the light of the world. Whoever follows me will never walk in darkness.\u201d",
   },
   "hm.verse.ref": { ar: "يوحنا ٨ : ١٢", en: "John 8:12" },
+  "hm.verse.line": { ar: "نور المسيح يقود خطواتك اليوم؛ امشِ فيه بثقة وسلام.", en: "The light of Christ leads your steps today; walk in it with peace." },
   "hm.verse.save": { ar: "احتفظ بالآية", en: "Save verse" },
   "hm.saint.eyebrow": { ar: "قديس اليوم", en: "Saint of the day" },
   "hm.saint.name": { ar: "الأنبا باخوميوس أب الشركة", en: "St. Pachomius the Cenobite" },

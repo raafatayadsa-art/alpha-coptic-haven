@@ -69,7 +69,7 @@ const daily: {
   {
     eyebrow: "hm.verse.eyebrow",
     title: "hm.verse.text",
-    line: "hm.prayer.line",
+    line: "hm.verse.line",
     meta: "hm.verse.ref",
     action: "hm.verse.read",
     image: dailyVerse,
@@ -232,7 +232,7 @@ function AlphaHome() {
               {daily.map((card, i) => (
                 <article
                   key={card.eyebrow}
-                  className={`animate-float-up relative w-[86%] shrink-0 snap-center overflow-hidden rounded-[32px] ${
+                  className={`animate-float-up relative w-[86%] shrink-0 snap-start overflow-hidden rounded-[32px] ${
                     card.tone === "lavender"
                       ? "border border-lavender bg-lavender/30"
                       : "bg-card ring-1 ring-ink/5"
