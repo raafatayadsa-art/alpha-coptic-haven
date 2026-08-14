@@ -126,11 +126,10 @@ function KatamerosRead() {
     window.scrollTo({ top: Math.max(0, y), behavior: auto ? "auto" : "smooth" });
   }, [open, auto]);
 
-  const pct = Math.round(((open + 1) / readings.length) * 100);
-
   return (
     <KatamerosShell
       backTo="/katameros-day"
+      pinHeader={false}
       title={t("km.read.stackTitle")}
       subtitle={t("km.read.stackSub")}
       action={
@@ -355,6 +354,8 @@ function KatamerosRead() {
         <CopticCross className="size-5 text-brass/70" />
         <p className="font-manrope text-[11.5px] text-cream/35">{t("km.read.footer")}</p>
       </footer>
+
+      <div aria-hidden="true" className="h-24" />
     </KatamerosShell>
   );
 }
