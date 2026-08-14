@@ -1,4 +1,4 @@
-type IconProps = { className?: string };
+type IconProps = { className?: string; style?: React.CSSProperties };
 
 /* Thin-line iconography for the Bible system — 1.5 stroke, rounded caps. */
 const base = {
