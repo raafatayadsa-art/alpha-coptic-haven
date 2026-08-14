@@ -542,10 +542,10 @@ function BibleRead() {
                     {/* Tools list — same unified popover surface */}
                     {sheet === "tools" ? (
                       <div
-                        className={`verse-rise absolute z-50 flex w-[204px] flex-col gap-1 ${
+                        className={`verse-rise absolute z-50 flex w-[172px] flex-col gap-1 overflow-y-auto ${
                           night ? "alpha-pop-night" : "alpha-pop"
-                        } ${popDown ? "top-[calc(100%+8px)]" : "bottom-[calc(100%+8px)]"}`}
-                        style={{ insetInlineStart: 70 }}
+                        } ${popDown ? "top-[calc(100%+6px)]" : "bottom-[calc(100%+6px)]"}`}
+                        style={{ insetInlineStart: 56, maxHeight: "min(60vh, 240px)" }}
                       >
                         {TOOL_ITEMS.map((item) => {
                           const inner = (
