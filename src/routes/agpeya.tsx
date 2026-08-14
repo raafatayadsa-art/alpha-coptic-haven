@@ -16,6 +16,7 @@ import {
   SunsetIcon,
 } from "@/components/church/prayer-icons";
 import { Screen } from "@/components/layout/Screen";
+import { useSectionBar } from "@/hooks/use-section-bar";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/agpeya")({
@@ -81,16 +82,22 @@ function BentoSection({
   prayers,
   hue,
   offset = 0,
+  id,
 }: {
   title: string;
   prayers: Prayer[];
   hue: Hue;
   offset?: number;
+  id?: string;
 }) {
   const { t } = useLang();
 
   return (
-    <section className="ocean-band rounded-[32px] p-3.5 pt-4" style={hueStyle(hue)}>
+    <section
+      id={id}
+      className="ocean-band scroll-mt-[150px] rounded-[32px] p-3.5 pt-4"
+      style={hueStyle(hue)}
+    >
       <div className="mb-3.5 flex items-center gap-3 px-1.5">
         <span className="hue-bg size-1.5 rounded-full" />
         <h2 className="hue-text font-sora text-[15.5px] font-semibold tracking-tight">{title}</h2>
@@ -117,8 +124,22 @@ function BentoSection({
   );
 }
 
+const SECTIONS: { id: string; key: string; hue: Hue }[] = [
+  { id: "ag-now", key: "ag.current", hue: HUE_NOW },
+  { id: "ag-day", key: "ag.day", hue: HUE_DAY },
+  { id: "ag-night", key: "ag.night", hue: HUE_NIGHT },
+  { id: "ag-extra", key: "ag.extra", hue: HUE_EXTRA },
+];
+const SECTION_IDS = SECTIONS.map((s) => s.id);
+
 function AgpeyaScreen() {
   const { t, dir, isArabic } = useLang();
+  const { active, progress, visible, wake } = useSectionBar(SECTION_IDS);
+  const activeIndex = Math.max(
+    0,
+    SECTIONS.findIndex((s) => s.id === active),
+  );
+
 
   return (
     <Screen className="bg-abyss">
@@ -165,10 +186,65 @@ function AgpeyaScreen() {
           </div>
         </header>
 
+        {/* ── Sticky section rail: tells the reader where they are ── */}
+        <div
+          className={`fixed inset-x-0 top-0 z-40 mx-auto w-full max-w-[430px] px-3 pt-2 pb-2 transition-all duration-300 ${
+            visible ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-3 opacity-0"
+          }`}
+        >
+          <div className="ocean-glass safe-top rounded-[22px] px-2.5 pt-2 pb-2.5 backdrop-blur-xl">
+            <div className="no-scrollbar flex items-center gap-2 overflow-x-auto">
+              {SECTIONS.map((s, i) => {
+                const isActive = i === activeIndex;
+                const done = i < activeIndex;
+                return (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => {
+                      wake();
+                      document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }}
+                    style={hueStyle(s.hue)}
+                    className={`press shrink-0 rounded-full border px-3.5 py-1.5 font-sora text-[12px] font-semibold whitespace-nowrap transition-colors ${
+                      isActive
+                        ? "hue-cta border-transparent text-abyss"
+                        : done
+                          ? "hue-ring hue-text bg-abyss/40"
+                          : "border-foam/10 bg-abyss/30 text-foam/45"
+                    }`}
+                  >
+                    {t(s.key)}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="mt-2 flex items-center gap-2.5 px-1">
+              <span
+                className="font-manrope text-[10.5px] font-semibold tabular-nums text-mint"
+                aria-hidden="true"
+              >
+                {Math.round(progress * 100)}%
+              </span>
+              <span className="relative h-1 flex-1 overflow-hidden rounded-full bg-foam/10">
+                <span
+                  className="absolute inset-y-0 start-0 rounded-full bg-gradient-to-l from-mint to-teal transition-[width] duration-200"
+                  style={{ width: `${Math.max(3, progress * 100)}%` }}
+                />
+              </span>
+              <span className="font-manrope text-[10.5px] tabular-nums text-foam/40">
+                {activeIndex + 1}/{SECTIONS.length}
+              </span>
+            </div>
+          </div>
+        </div>
+
         <main className="space-y-5 px-4">
           {/* ── Current prayer: warm amber hero tile ── */}
           <section
-            className="ocean-glass relative isolate overflow-hidden rounded-[30px] p-5"
+            id="ag-now"
+            className="ocean-glass relative isolate scroll-mt-[150px] overflow-hidden rounded-[30px] p-5"
             style={hueStyle(HUE_NOW)}
           >
             <span
@@ -208,14 +284,16 @@ function AgpeyaScreen() {
           </section>
 
           {/* ── The original three groups, each in its own colour band ── */}
-          <BentoSection title={t("ag.day")} prayers={dayPrayers} hue={HUE_DAY} />
+          <BentoSection id="ag-day" title={t("ag.day")} prayers={dayPrayers} hue={HUE_DAY} />
           <BentoSection
+            id="ag-night"
             title={t("ag.night")}
             prayers={nightPrayers}
             hue={HUE_NIGHT}
             offset={dayPrayers.length}
           />
           <BentoSection
+            id="ag-extra"
             title={t("ag.extra")}
             prayers={extraPrayers}
             hue={HUE_EXTRA}
