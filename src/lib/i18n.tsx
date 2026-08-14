@@ -298,7 +298,32 @@ export const dict: Dict = {
   "hm.events.e3": { ar: "صوم السيدة العذراء", en: "Fast of the Virgin Mary" },
   "hm.events.e3t": { ar: "يبدأ ٧ أغسطس", en: "Begins August 7" },
   "hm.footer": { ar: "«اثبتوا فيَّ وأنا فيكم»", en: "\u201cAbide in me, and I in you.\u201d" },
+
+  /* ── Feed interactions ──────────────────────────────────── */
+  "engage.like": { ar: "إعجاب", en: "Like" },
+  "engage.comment": { ar: "تعليق", en: "Comment" },
+  "engage.share": { ar: "مشاركة", en: "Share" },
+  "engage.save": { ar: "حفظ", en: "Save" },
+  "engage.saved": { ar: "محفوظ", en: "Saved" },
+
+  /* ── Alpha Home feed ────────────────────────────────────── */
+  "hm.feed.eyebrow": { ar: "جديد ألفا", en: "Alpha feed" },
+  "hm.feed.line": { ar: "أحدث ما تشاركه كنيستك ومجتمعك", en: "The latest from your church and community" },
+  "hm.feed.p1.tag": { ar: "منشور الكنيسة", en: "Church post" },
+  "hm.feed.p1.title": { ar: "قداس عيد التجلي وترتيب التسبحة", en: "Transfiguration liturgy & praise order" },
+  "hm.feed.p1.line": {
+    ar: "تبدأ التسبحة الكيهكية ٥:٣٠ صباحًا ويليها القداس مباشرة، وخدمة الأطفال في القاعة العلوية.",
+    en: "Praises begin 5:30 AM followed by the liturgy, with kids service in the upper hall.",
+  },
+  "hm.feed.p2.tag": { ar: "خدمة الشباب", en: "Youth service" },
+  "hm.feed.p2.title": { ar: "لقاء أمس: «النور الذي لا ينطفئ»", en: "Last night: \u201cThe light that never fades\u201d" },
+  "hm.feed.p3.tag": { ar: "تأمل", en: "Meditation" },
+  "hm.feed.p3.title": { ar: "ثلاث دقائق مع مزمور ٦٨", en: "Three minutes with Psalm 68" },
+  "hm.feed.p4.tag": { ar: "مكتبة", en: "Library" },
+  "hm.feed.p4.title": { ar: "كتاب جديد: بستان الرهبان", en: "New book: The Paradise of the Fathers" },
+  "hm.feed.more": { ar: "المزيد من المنشورات", en: "More posts" },
 };
+
 
 type LanguageValue = {
   lang: Lang;
