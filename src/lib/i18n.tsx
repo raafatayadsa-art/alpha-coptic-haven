@@ -234,6 +234,7 @@ export const dict: Dict = {
     en: "\u201cI am the light of the world. Whoever follows me will never walk in darkness.\u201d",
   },
   "hm.verse.ref": { ar: "يوحنا ٨ : ١٢", en: "John 8:12" },
+  "hm.verse.line": { ar: "نور المسيح يقود خطواتك اليوم؛ امشِ فيه بثقة وسلام.", en: "The light of Christ leads your steps today; walk in it with peace." },
   "hm.verse.save": { ar: "احتفظ بالآية", en: "Save verse" },
   "hm.saint.eyebrow": { ar: "قديس اليوم", en: "Saint of the day" },
   "hm.saint.name": { ar: "الأنبا باخوميوس أب الشركة", en: "St. Pachomius the Cenobite" },
@@ -242,6 +243,24 @@ export const dict: Dict = {
     en: "Father of communal monasticism, who gathered the fathers into one prayer.",
   },
   "hm.saint.read": { ar: "اقرأ السيرة", en: "Read the life" },
+  "hm.daily.title": { ar: "يومك الروحي", en: "Your daily spiritual deck" },
+  "hm.daily.hint": { ar: "اسحب لاستكشاف كروت اليوم", en: "Swipe to explore today's cards" },
+  "hm.verse.read": { ar: "تأمل في الآية", en: "Reflect on the verse" },
+  "hm.feast.eyebrow": { ar: "مناسبة اليوم", en: "Feast of the day" },
+  "hm.feast.name": { ar: "عيد التجلي المجيد", en: "The Glorious Feast of Transfiguration" },
+  "hm.feast.line": {
+    ar: "تجلّى الرب على جبل طابور، فأضاء وجهه كالشمس وأعلن بهاء مجده.",
+    en: "The Lord was transfigured on Mount Tabor, His face shining as the sun.",
+  },
+  "hm.feast.read": { ar: "طقس المناسبة", en: "Feast rite" },
+  "hm.synax.eyebrow": { ar: "سنكسار اليوم", en: "Synaxarium of the day" },
+  "hm.synax.name": { ar: "نياحة القديس الأنبا بولا", en: "Departure of St. Paul the Anchorite" },
+  "hm.synax.line": {
+    ar: "أول السوّاح، عاش في البرية تسعين سنة في صلاة دائمة.",
+    en: "First of the hermits, who lived ninety years in the desert in ceaseless prayer.",
+  },
+  "hm.synax.read": { ar: "اقرأ السنكسار", en: "Read the Synaxarium" },
+
   "hm.prayer.eyebrow": { ar: "صلاة اليوم", en: "Prayer of the day" },
   "hm.prayer.hour": { ar: "صلاة الساعة الثالثة", en: "Prayer of the Third Hour" },
   "hm.prayer.line": {

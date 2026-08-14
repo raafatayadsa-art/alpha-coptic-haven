@@ -5,7 +5,10 @@ import churchCover from "@/assets/church-cover.jpg";
 import churchCrest from "@/assets/church-crest.png";
 import contentAudio from "@/assets/content-audio.jpg";
 import contentBook from "@/assets/content-book.jpg";
-import oliveBranch from "@/assets/olive-branch.png";
+import dailyFeast from "@/assets/daily-feast.jpg";
+import dailySynaxarium from "@/assets/daily-synaxarium.jpg";
+import dailyVerse from "@/assets/daily-verse.jpg";
+
 import postCandles from "@/assets/post-candles.jpg";
 import postYouth from "@/assets/post-youth.jpg";
 import saintOfDay from "@/assets/saint-of-day.jpg";
@@ -19,7 +22,6 @@ import {
   ChevronRight,
   CopticCross,
   GroupsIcon,
-  HeartIcon,
   KatamerosIcon,
   KhoulagyIcon,
   MembersIcon,
@@ -52,6 +54,69 @@ export const Route = createFileRoute("/")({
 });
 
 /* Presentation-only sample content — visual prototype, no data layer. */
+const daily: {
+  eyebrow: string;
+  title: string;
+  line: string;
+  meta: string;
+  action: string;
+  image: string;
+  icon: ReactNode;
+  tone: "lavender" | "card";
+  likes: number;
+  comments: number;
+}[] = [
+  {
+    eyebrow: "hm.verse.eyebrow",
+    title: "hm.verse.text",
+    line: "hm.verse.line",
+    meta: "hm.verse.ref",
+    action: "hm.verse.read",
+    image: dailyVerse,
+    icon: <BibleIcon className="size-[17px]" />,
+    tone: "lavender",
+    likes: 565,
+    comments: 38,
+  },
+  {
+    eyebrow: "hm.saint.eyebrow",
+    title: "hm.saint.name",
+    line: "hm.saint.line",
+    meta: "hm.today",
+    action: "hm.saint.read",
+    image: saintOfDay,
+    icon: <CopticCross className="size-[17px]" />,
+    tone: "card",
+    likes: 214,
+    comments: 12,
+  },
+  {
+    eyebrow: "hm.feast.eyebrow",
+    title: "hm.feast.name",
+    line: "hm.feast.line",
+    meta: "hm.today",
+    action: "hm.feast.read",
+    image: dailyFeast,
+    icon: <KhoulagyIcon className="size-[17px]" />,
+    tone: "card",
+    likes: 331,
+    comments: 21,
+  },
+  {
+    eyebrow: "hm.synax.eyebrow",
+    title: "hm.synax.name",
+    line: "hm.synax.line",
+    meta: "hm.today",
+    action: "hm.synax.read",
+    image: dailySynaxarium,
+    icon: <SynaxariumIcon className="size-[17px]" />,
+    tone: "card",
+    likes: 188,
+    comments: 9,
+  },
+];
+
+
 const hub: { key: string; sub: string; icon: ReactNode; tone: "gold" | "lavender" | "parchment" }[] = [
   { key: "hm.hub.bible", sub: "hm.hub.sub.bible", icon: <BibleIcon className="size-6" />, tone: "gold" },
   { key: "hm.hub.agpeya", sub: "hm.hub.sub.agpeya", icon: <AgpeyaIcon className="size-6" />, tone: "lavender" },
@@ -144,83 +209,97 @@ function AlphaHome() {
       </header>
 
       <main className="space-y-9 px-4 pt-2">
-        {/* 1 — Verse of the day: original lavender manuscript card */}
-        <section className="animate-float-up relative overflow-hidden rounded-[32px] border border-lavender bg-lavender/30 p-7">
-          <div className="absolute -end-10 -top-10 size-40 rounded-full bg-gold/15 blur-3xl" />
-          <div className="relative">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-ink/45">
-              {t("hm.verse.eyebrow")}
-            </span>
-            <p className="mt-4 font-display text-[22px] italic leading-[1.45] text-pretty text-ink/85">
-              {t("hm.verse.text")}
-            </p>
-            <div className="mt-6 flex items-center justify-between gap-3">
-              <div className="flex items-center gap-3">
-                <span className="grid size-12 place-items-center rounded-2xl border border-white/70 bg-ivory/70">
-                  <img
-                    src={oliveBranch}
-                    alt=""
-                    width={512}
-                    height={512}
-                    loading="lazy"
-                    className="size-8 object-contain"
-                  />
-                </span>
-                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/55">
-                  {t("hm.verse.ref")}
-                </span>
-              </div>
-              <button
-                type="button"
-                className="press flex items-center gap-1.5 rounded-full bg-ivory/80 px-3 py-1.5 text-[11px] font-medium text-ink/60 ring-1 ring-ink/5"
-              >
-                <HeartIcon className="size-[13px]" />
-                {t("hm.verse.save")}
-              </button>
-            </div>
-            <EngageBar
-              likes={565}
-              comments={38}
-              className="mt-5"
-              seed={[
-                { author: t("engage.c1.a"), text: t("engage.c1.t"), when: t("engage.c1.w") },
-                { author: t("engage.c2.a"), text: t("engage.c2.t"), when: t("engage.c2.w") },
-              ]}
-            />
-          </div>
-        </section>
-
-
-        {/* 2 — Saint of the day: image-led horizontal row */}
+        {/* 1 — Daily deck: verse, saint, feast, synaxarium as a swipeable stack */}
         <section>
-          <SectionHead title={t("hm.saint.eyebrow")} />
-          <div className="rounded-[30px] bg-card px-4 py-4 shadow-[var(--shadow-soft)] ring-1 ring-ink/5">
-            <div className="flex items-stretch gap-4">
-              <img
-                src={saintOfDay}
-                alt={t("hm.saint.name")}
-                width={768}
-                height={960}
-                loading="lazy"
-                className="size-[104px] shrink-0 rounded-[22px] object-cover ring-1 ring-gold/20"
-              />
-              <div className="flex min-w-0 flex-col justify-center">
-                <h3 className="font-display text-[17px] font-semibold leading-snug tracking-tight">
-                  {t("hm.saint.name")}
-                </h3>
-                <p className="mt-1.5 text-[12px] leading-relaxed text-ink/50">{t("hm.saint.line")}</p>
-                <button
-                  type="button"
-                  className="press mt-3 flex w-fit items-center gap-1 text-[11.5px] font-semibold text-gold"
+          <div className="mb-3 flex items-baseline justify-between gap-3 px-1">
+            <h2 className="font-display text-[19px] font-semibold tracking-tight">
+              {t("hm.daily.title")}
+            </h2>
+            <span className="text-[10.5px] font-medium text-ink/35">{t("hm.daily.hint")}</span>
+          </div>
+
+          <div className="relative">
+            {/* stacked cards illusion behind the deck */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-6 -bottom-2 h-16 rounded-[30px] bg-card/70 ring-1 ring-ink/5"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-10 -bottom-4 h-16 rounded-[30px] bg-parchment/80 ring-1 ring-ink/5"
+            />
+            <div className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2">
+              {daily.map((card, i) => (
+                <article
+                  key={card.eyebrow}
+                  className={`animate-float-up relative w-[86%] shrink-0 snap-start overflow-hidden rounded-[32px] ${
+                    card.tone === "lavender"
+                      ? "border border-lavender bg-lavender/30"
+                      : "bg-card ring-1 ring-ink/5"
+                  } shadow-[var(--shadow-soft)]`}
+                  style={{ animationDelay: `${i * 70}ms` }}
                 >
-                  {t("hm.saint.read")}
-                  <ChevronRight className="size-3.5 rtl:rotate-180" />
-                </button>
-              </div>
+                  <div className="relative h-[168px] w-full overflow-hidden">
+                    <img
+                      src={card.image}
+                      alt={t(card.title)}
+                      width={1024}
+                      height={1280}
+                      loading={i === 0 ? "eager" : "lazy"}
+                      className="size-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-ink/5 to-transparent" />
+                    <span className="absolute bottom-3 start-4 rounded-full bg-ivory/85 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink/60 backdrop-blur-md">
+                      {t(card.eyebrow)}
+                    </span>
+                  </div>
+
+                  <div className="px-5 pb-4 pt-4">
+                    <h3
+                      className={
+                        card.tone === "lavender"
+                          ? "font-display text-[17.5px] italic leading-[1.5] text-pretty text-ink/85"
+                          : "font-display text-[17px] font-semibold leading-snug tracking-tight text-pretty"
+                      }
+                    >
+                      {t(card.title)}
+                    </h3>
+                    <p className="mt-2 text-[12px] leading-relaxed text-ink/50">{t(card.line)}</p>
+
+                    <div className="mt-4 flex items-center justify-between gap-3">
+                      <span className="flex items-center gap-2">
+                        <span className="grid size-9 place-items-center rounded-xl bg-gold/10 text-gold ring-1 ring-gold/20">
+                          {card.icon}
+                        </span>
+                        <span className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-ink/50">
+                          {t(card.meta)}
+                        </span>
+                      </span>
+                      <button
+                        type="button"
+                        className="press flex items-center gap-1 text-[11.5px] font-semibold text-gold"
+                      >
+                        {t(card.action)}
+                        <ChevronRight className="size-3.5 rtl:rotate-180" />
+                      </button>
+                    </div>
+
+                    <EngageBar
+                      likes={card.likes}
+                      comments={card.comments}
+                      className="mt-3.5"
+                      seed={[
+                        { author: t("engage.c1.a"), text: t("engage.c1.t"), when: t("engage.c1.w") },
+                        { author: t("engage.c2.a"), text: t("engage.c2.t"), when: t("engage.c2.w") },
+                      ]}
+                    />
+                  </div>
+                </article>
+              ))}
             </div>
-            <EngageBar likes={214} comments={12} compact className="mt-3.5" />
           </div>
         </section>
+
 
         {/* 3 — Prayer of the day: quiet dark band for contrast */}
         <section className="overflow-hidden rounded-[30px] bg-ink px-6 py-6 text-ivory shadow-lift">
