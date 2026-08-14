@@ -314,3 +314,85 @@ export function ServiceGlyph({ className }: P) {
     </svg>
   );
 }
+
+export function PhoneGlyph({ className }: P) {
+  return (
+    <svg {...base} className={className} aria-hidden="true">
+      <path d="M6.2 3.6h3l1.4 3.6-2 1.5a10.6 10.6 0 0 0 5.7 5.7l1.5-2 3.6 1.4v3a2 2 0 0 1-2.2 2A16.4 16.4 0 0 1 4.2 5.8a2 2 0 0 1 2-2.2Z" />
+    </svg>
+  );
+}
+
+export function PhoneEndGlyph({ className }: P) {
+  return (
+    <svg {...base} className={className} aria-hidden="true">
+      <path d="M6.2 8.6h3l1.4 3.6-2 1.5a10.6 10.6 0 0 0 5.7 5.7l1.5-2 3.6 1.4" />
+      <path d="M3.4 6.6 20.6 3" />
+    </svg>
+  );
+}
+
+export function SendGlyph({ className }: P) {
+  return (
+    <svg {...base} className={className} aria-hidden="true">
+      <path d="M20.4 12 4.2 5.2l2.4 6.8-2.4 6.8L20.4 12Z" />
+      <path d="M6.6 12h6.4" />
+    </svg>
+  );
+}
+
+export function EmojiGlyph({ className }: P) {
+  return (
+    <svg {...base} className={className} aria-hidden="true">
+      <circle cx="12" cy="12" r="8.4" />
+      <path d="M9 10.2h.01M15 10.2h.01" />
+      <path d="M8.8 14.4a4.2 4.2 0 0 0 6.4 0" />
+    </svg>
+  );
+}
+
+export function MuteGlyph({ className }: P) {
+  return (
+    <svg {...base} className={className} aria-hidden="true">
+      <path d="M4.4 9.6h3l4.2-3.4v11.6L7.4 14.4h-3V9.6Z" />
+      <path d="m15.4 9.6 4.2 4.8M19.6 9.6l-4.2 4.8" />
+    </svg>
+  );
+}
+
+export function SpeakerGlyph({ className }: P) {
+  return (
+    <svg {...base} className={className} aria-hidden="true">
+      <path d="M4.4 9.6h3l4.2-3.4v11.6L7.4 14.4h-3V9.6Z" />
+      <path d="M15.2 9.4a3.6 3.6 0 0 1 0 5.2M17.8 7.2a7 7 0 0 1 0 9.6" />
+    </svg>
+  );
+}
+
+export function FingerprintGlyph({ className }: P) {
+  return (
+    <svg {...base} className={className} aria-hidden="true">
+      <path d="M6.4 8a7.6 7.6 0 0 1 11.2 0" />
+      <path d="M8.2 11.2a5 5 0 0 1 7.6 0" />
+      <path d="M10.2 14.4a2.6 2.6 0 0 1 3.6 0" />
+      <path d="M12 17.6v2.2" />
+    </svg>
+  );
+}
+
+export function DotsGlyph({ className }: P) {
+  return (
+    <svg {...base} className={className} aria-hidden="true">
+      <path d="M12 6.2h.01M12 12h.01M12 17.8h.01" />
+    </svg>
+  );
+}
+
+export function AlphaGlyph({ className }: P) {
+  return (
+    <svg {...base} className={className} aria-hidden="true">
+      <path d="M5 19 12 5l7 14" />
+      <path d="M8.4 14.2h7.2" />
+    </svg>
+  );
+}
