@@ -1,10 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
-import agpeyaHero from "@/assets/agpeya-hero.jpg";
-import agpeyaSunrise from "@/assets/agpeya-sunrise.jpg";
+import agpeyaNightHero from "@/assets/agpeya-night-hero.jpg";
 import { LanguageToggle } from "@/components/church/LanguageToggle";
-import { PrayerHourCard, type PrayerTone } from "@/components/church/PrayerHourCard";
+import { PrayerHourCard, type PrayerSpan, type PrayerTone } from "@/components/church/PrayerHourCard";
 import { ChevronRight, CopticCross } from "@/components/church/icons";
 import { BookmarkIcon, ClockIcon, PlayIcon } from "@/components/church/media-icons";
 import {
@@ -41,52 +40,69 @@ export const Route = createFileRoute("/agpeya")({
   component: AgpeyaScreen,
 });
 
-/* Presentation-only content — mirrors the original Agpeya flow exactly. */
-type Prayer = { key: string; time: string; icon: ReactNode; tone?: PrayerTone };
+/* Presentation-only content — same hours and groups as the original flow. */
+type Prayer = { key: string; time: string; icon: ReactNode; tone?: PrayerTone; span?: PrayerSpan };
 
 const dayPrayers: Prayer[] = [
-  { key: "ag.p.prime", time: "ag.p.prime.t", icon: <SunIcon className="size-6" /> },
-  { key: "ag.p.terce", time: "ag.p.terce.t", icon: <SunIcon className="size-6" /> },
-  { key: "ag.p.sext", time: "ag.p.sext.t", icon: <SunIcon className="size-6" /> },
-  { key: "ag.p.none", time: "ag.p.none.t", icon: <SunsetIcon className="size-6" /> },
-  { key: "ag.p.vespers", time: "ag.p.vespers.t", icon: <SunsetIcon className="size-6" /> },
-  { key: "ag.p.compline", time: "ag.p.compline.t", icon: <MoonIcon className="size-6" />, tone: "night" },
+  { key: "ag.p.prime", time: "ag.p.prime.t", icon: <SunIcon className="size-5" />, span: "wide" },
+  { key: "ag.p.terce", time: "ag.p.terce.t", icon: <SunIcon className="size-5" /> },
+  { key: "ag.p.sext", time: "ag.p.sext.t", icon: <SunIcon className="size-5" /> },
+  { key: "ag.p.none", time: "ag.p.none.t", icon: <SunsetIcon className="size-5" /> },
+  { key: "ag.p.vespers", time: "ag.p.vespers.t", icon: <SunsetIcon className="size-5" /> },
+  { key: "ag.p.compline", time: "ag.p.compline.t", icon: <MoonIcon className="size-5" />, tone: "night", span: "wide" },
 ];
 
 const nightPrayers: Prayer[] = [
-  { key: "ag.p.veil", time: "ag.p.veil.t", icon: <MoonStarIcon className="size-6" />, tone: "featured" },
-  { key: "ag.p.mid1", time: "ag.p.mid1.t", icon: <MoonIcon className="size-6" />, tone: "night" },
-  { key: "ag.p.mid2", time: "ag.p.mid2.t", icon: <MoonIcon className="size-6" />, tone: "night" },
-  { key: "ag.p.mid3", time: "ag.p.mid3.t", icon: <MoonIcon className="size-6" />, tone: "night" },
+  {
+    key: "ag.p.veil",
+    time: "ag.p.veil.t",
+    icon: <MoonStarIcon className="size-5" />,
+    tone: "featured",
+    span: "tall",
+  },
+  { key: "ag.p.mid1", time: "ag.p.mid1.t", icon: <MoonIcon className="size-5" />, tone: "night" },
+  { key: "ag.p.mid2", time: "ag.p.mid2.t", icon: <MoonIcon className="size-5" />, tone: "night" },
+  { key: "ag.p.mid3", time: "ag.p.mid3.t", icon: <MoonIcon className="size-5" />, tone: "night", span: "wide" },
 ];
 
 const extraPrayers: Prayer[] = [
-  { key: "ag.p.misc", time: "ag.p.misc.t", icon: <BookOpenIcon className="size-6" />, tone: "extra" },
-  { key: "ag.p.david", time: "ag.p.david.t", icon: <NoteIcon className="size-6" />, tone: "extra" },
-  { key: "ag.p.thanks", time: "ag.p.thanks.t", icon: <SparkleIcon className="size-6" />, tone: "extra" },
-  { key: "ag.p.creed", time: "ag.p.creed.t", icon: <CreedShieldIcon className="size-6" />, tone: "extra" },
+  { key: "ag.p.misc", time: "ag.p.misc.t", icon: <BookOpenIcon className="size-5" />, tone: "extra" },
+  { key: "ag.p.david", time: "ag.p.david.t", icon: <NoteIcon className="size-5" />, tone: "extra" },
+  { key: "ag.p.thanks", time: "ag.p.thanks.t", icon: <SparkleIcon className="size-5" />, tone: "extra" },
+  { key: "ag.p.creed", time: "ag.p.creed.t", icon: <CreedShieldIcon className="size-5" />, tone: "extra" },
 ];
 
-function PrayerRow({ title, prayers }: { title: string; prayers: Prayer[] }) {
+function BentoSection({
+  title, 
+  prayers,
+  offset = 0,
+}: {
+  title: string;
+  prayers: Prayer[];
+  offset?: number;
+}) {
   const { t } = useLang();
 
   return (
-    <section className="-mx-4">
-      <div className="mb-3 flex items-center justify-between gap-3 px-5">
-        <div className="flex min-w-0 items-center gap-2.5">
-          <span className="h-4 w-px shrink-0 bg-gold/60" />
-          <h2 className="truncate font-display text-[19px] font-semibold tracking-tight">{title}</h2>
-        </div>
-        <span className="shrink-0 text-[10.5px] font-medium text-ink/35">{t("ag.hint")}</span>
+    <section>
+      <div className="mb-3.5 flex items-center gap-3">
+        <h2 className="font-sora text-[16px] font-semibold tracking-tight text-foam">{title}</h2>
+        <span className="h-px flex-1 bg-gradient-to-l from-transparent via-mint/25 to-transparent" />
+        <span className="font-manrope text-[11px] font-medium tabular-nums text-foam/30">
+          {prayers.length}
+        </span>
       </div>
-      <div className="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-3">
-        {prayers.map((prayer) => (
+
+      <div className="grid grid-cols-2 gap-3">
+        {prayers.map((prayer, i) => (
           <PrayerHourCard
             key={prayer.key}
             name={t(prayer.key)}
             time={t(prayer.time)}
             icon={prayer.icon}
             tone={prayer.tone ?? "day"}
+            span={prayer.span ?? "cell"}
+            index={offset + i + 1}
           />
         ))}
       </div>
@@ -96,98 +112,104 @@ function PrayerRow({ title, prayers }: { title: string; prayers: Prayer[] }) {
 
 function AgpeyaScreen() {
   const { t, dir, isArabic } = useLang();
-  const arabic = isArabic ? "font-arabic" : "";
 
   return (
-    <Screen>
+    <Screen className="bg-abyss">
       <div
         dir={dir}
-        className={`${arabic} mx-auto w-full max-w-[430px] overflow-x-hidden bg-ivory pb-8 text-ink selection:bg-gold/20`}
+        className={`theme-ocean relative mx-auto w-full max-w-[430px] overflow-x-hidden bg-abyss pb-10 ${
+          isArabic ? "font-arabic" : "font-manrope"
+        }`}
       >
-        {/* 1 — Hero: warm candle-lit identity of the Agpeya */}
-        <header className="relative">
+        {/* ── Hero: nocturne cover with the title floating over it ── */}
+        <header className="relative h-[340px]">
           <img
-            src={agpeyaHero}
+            src={agpeyaNightHero}
             alt={t("ag.heroAlt")}
             width={1200}
-            height={800}
-            className="h-[260px] w-full object-cover"
+            height={912}
+            className="absolute inset-0 size-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-ivory/70 via-ivory/25 to-ivory" />
+          <div className="absolute inset-0 bg-gradient-to-b from-abyss/55 via-abyss/50 to-abyss" />
+          <div className="ocean-halo tide-drift absolute -top-10 start-1/2 size-64 -translate-x-1/2 rounded-full" />
 
-          <div className="safe-top absolute inset-x-0 top-0 flex items-start justify-between gap-3 px-5">
+          <div className="safe-top relative flex items-center justify-between gap-3 px-5">
             <button
               type="button"
               aria-label={t("ag.saved")}
-              className="press relative grid size-11 place-items-center rounded-full bg-ivory/90 text-ink/60 shadow-[var(--shadow-soft)] ring-1 ring-ink/5 backdrop-blur-md"
+              className="press relative grid size-11 place-items-center rounded-2xl border border-mint/20 bg-deep/60 text-foam/70 backdrop-blur-md"
             >
               <BookmarkIcon className="size-[18px]" />
-              <span className="absolute -top-1 -end-1 grid size-5 place-items-center rounded-full bg-gold text-[10px] font-bold text-ink ring-2 ring-ivory">
+              <span className="absolute -top-1.5 -end-1.5 grid size-5 place-items-center rounded-full bg-mint font-sora text-[10px] font-bold text-abyss">
                 1
               </span>
             </button>
-
-            <div className="mt-1 min-w-0 text-center">
-              <h1 className="truncate font-display text-[30px] font-semibold leading-none tracking-tight">
-                {t("ag.title")}
-              </h1>
-              <p className="mt-1.5 text-[12px] font-medium text-ink/45">{t("ag.subtitle")}</p>
-            </div>
-
             <LanguageToggle />
+          </div>
+
+          <div className="absolute inset-x-0 bottom-0 px-5 pb-2 text-center">
+            <span className="inline-flex items-center gap-2 rounded-full border border-mint/20 bg-deep/50 px-3 py-1 font-manrope text-[10.5px] font-semibold tracking-[0.14em] text-mint uppercase backdrop-blur-md">
+              <CopticCross className="size-3" />
+              Alpha
+            </span>
+            <h1 className="mt-3 font-sora text-[38px] font-bold leading-none tracking-tight text-foam">
+              {t("ag.title")}
+            </h1>
+            <p className="mt-2 font-manrope text-[12.5px] text-foam/50">{t("ag.subtitle")}</p>
           </div>
         </header>
 
-        <main className="-mt-14 space-y-8 px-4">
-          {/* 2 — Current prayer card */}
-          <section className="glass-card relative overflow-hidden rounded-[30px]">
-            <div className="flex items-stretch">
-              <div className="min-w-0 flex-1 p-5">
-                <h2 className="font-display text-[24px] font-semibold leading-tight tracking-tight">
-                  {t("ag.current.name")}
-                </h2>
-                <p className="mt-1.5 text-[12px] leading-relaxed text-ink/50">{t("ag.current.line")}</p>
-                <p className="mt-2.5 flex items-center gap-1.5 text-[11px] text-ink/45">
-                  <ClockIcon className="size-3.5 shrink-0 text-gold" />
-                  <span className="truncate">{t("ag.current.meta")}</span>
-                </p>
-                <button
-                  type="button"
-                  className="press mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-gold to-gold/75 px-4 py-2.5 text-[12.5px] font-semibold text-ink shadow-[0_10px_24px_-12px_rgba(0,0,0,0.45)]"
-                >
-                  <PlayIcon className="size-[14px]" />
-                  {t("ag.current.cta")}
-                  <ChevronRight className="size-3.5 rtl:rotate-180" />
-                </button>
-              </div>
-
-              <div className="relative w-[132px] shrink-0 overflow-hidden">
-                <img
-                  src={agpeyaSunrise}
-                  alt={t("ag.current.alt")}
-                  width={800}
-                  height={800}
-                  loading="lazy"
-                  className="size-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-l from-transparent to-ivory/60 rtl:bg-gradient-to-r" />
-                <span className="absolute inset-x-2 top-2 flex items-center justify-center gap-1.5 rounded-full bg-ink/70 px-2 py-1 text-[9.5px] font-semibold text-ivory backdrop-blur-md">
-                  <span className="size-1.5 rounded-full bg-gold" />
-                  {t("ag.current")}
-                </span>
-              </div>
+        <main className="space-y-9 px-4 pt-6">
+          {/* ── Current prayer: the one large bento hero tile ── */}
+          <section className="ocean-glass relative isolate overflow-hidden rounded-[30px] p-5">
+            <span
+              aria-hidden="true"
+              className="ocean-halo tide-drift pointer-events-none absolute -end-10 -top-14 -z-10 size-52 rounded-full"
+            />
+            <div className="flex items-center gap-2">
+              <span className="relative flex size-2">
+                <span className="absolute inset-0 animate-ping rounded-full bg-mint/60" />
+                <span className="relative size-2 rounded-full bg-mint" />
+              </span>
+              <span className="font-manrope text-[10.5px] font-semibold tracking-[0.16em] text-mint uppercase">
+                {t("ag.current")}
+              </span>
             </div>
+
+            <h2 className="mt-3 font-sora text-[27px] font-bold leading-tight tracking-tight text-foam">
+              {t("ag.current.name")}
+            </h2>
+            <p className="mt-2 font-manrope text-[12.5px] leading-relaxed text-foam/55">
+              {t("ag.current.line")}
+            </p>
+
+            <div className="mt-4 flex items-center gap-1.5 rounded-2xl border border-mint/12 bg-abyss/45 px-3 py-2">
+              <ClockIcon className="size-3.5 shrink-0 text-teal" />
+              <span className="truncate font-manrope text-[11px] text-foam/60">{t("ag.current.meta")}</span>
+            </div>
+
+            <button
+              type="button"
+              className="press mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-teal to-mint px-4 py-3 font-sora text-[13px] font-semibold text-abyss shadow-[0_18px_38px_-18px_color-mix(in_oklab,var(--oc-teal)_70%,transparent)]"
+            >
+              <PlayIcon className="size-[15px]" />
+              {t("ag.current.cta")}
+              <ChevronRight className="size-3.5 rtl:rotate-180" />
+            </button>
           </section>
 
-          {/* 3, 4, 5 — the original prayer groups */}
-          <PrayerRow title={t("ag.day")} prayers={dayPrayers} />
-          <PrayerRow title={t("ag.night")} prayers={nightPrayers} />
-          <PrayerRow title={t("ag.extra")} prayers={extraPrayers} />
+          {/* ── The original three groups, as bento grids ── */}
+          <BentoSection title={t("ag.day")} prayers={dayPrayers} />
+          <BentoSection title={t("ag.night")} prayers={nightPrayers} offset={dayPrayers.length} />
+          <BentoSection
+            title={t("ag.extra")}
+            prayers={extraPrayers}
+            offset={dayPrayers.length + nightPrayers.length}
+          />
 
-          {/* Soft footer */}
-          <footer className="flex flex-col items-center gap-2 pt-2 text-center">
-            <CopticCross className="size-5 text-gold/70" />
-            <p className="font-display text-[14px] text-ink/45">{t("ag.footer")}</p>
+          <footer className="flex flex-col items-center gap-2.5 pt-3 text-center">
+            <CopticCross className="size-5 text-teal/70" />
+            <p className="font-manrope text-[12.5px] text-foam/40">{t("ag.footer")}</p>
           </footer>
         </main>
       </div>
