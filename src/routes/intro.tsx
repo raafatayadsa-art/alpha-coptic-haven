@@ -618,7 +618,7 @@ function IntroScreen() {
         </p>
 
         {/* glowing golden progress bar — pinned to the very bottom */}
-        <div className="safe-bottom relative z-20 px-5 pb-1">
+        <div className="safe-bottom relative z-20 px-5 pb-3">
           <div
             className={`relative h-[5px] w-full overflow-hidden rounded-full ${
               darkChrome ? "bg-white/12" : "bg-[oklch(0.245_0.026_293/0.1)]"
