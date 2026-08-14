@@ -466,7 +466,12 @@ function AlphaHome() {
                 {t("hm.feed.p1.title")}
               </h3>
               <p className="mt-1.5 text-[12px] leading-relaxed text-ink/50">{t("hm.feed.p1.line")}</p>
-              <EngageBar likes={342} comments={27} className="mt-3.5" />
+              <EngageBar
+                likes={342}
+                comments={27}
+                className="mt-3.5"
+                seed={[{ author: t("engage.c2.a"), text: t("engage.c2.t"), when: t("engage.c2.w") }]}
+              />
             </div>
           </article>
 
