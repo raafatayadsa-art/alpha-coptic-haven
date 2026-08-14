@@ -243,7 +243,8 @@ function AgpeyaScreen() {
         <main className="space-y-5 px-4">
           {/* ── Current prayer: warm amber hero tile ── */}
           <section
-            className="ocean-glass relative isolate overflow-hidden rounded-[30px] p-5"
+            id="ag-now"
+            className="ocean-glass relative isolate scroll-mt-[150px] overflow-hidden rounded-[30px] p-5"
             style={hueStyle(HUE_NOW)}
           >
             <span
@@ -283,14 +284,16 @@ function AgpeyaScreen() {
           </section>
 
           {/* ── The original three groups, each in its own colour band ── */}
-          <BentoSection title={t("ag.day")} prayers={dayPrayers} hue={HUE_DAY} />
+          <BentoSection id="ag-day" title={t("ag.day")} prayers={dayPrayers} hue={HUE_DAY} />
           <BentoSection
+            id="ag-night"
             title={t("ag.night")}
             prayers={nightPrayers}
             hue={HUE_NIGHT}
             offset={dayPrayers.length}
           />
           <BentoSection
+            id="ag-extra"
             title={t("ag.extra")}
             prayers={extraPrayers}
             hue={HUE_EXTRA}
