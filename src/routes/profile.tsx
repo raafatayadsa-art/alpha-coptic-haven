@@ -23,7 +23,6 @@ import {
   ShieldIcon,
   VerifiedIcon,
 } from "@/components/church/icons";
-import { LanguageToggle } from "@/components/church/LanguageToggle";
 import { MembershipQr } from "@/components/church/MembershipQr";
 import { Shield } from "@/components/church/Shield";
 import { useLang } from "@/lib/i18n";
@@ -164,7 +163,6 @@ function MyPage() {
           <p className="mt-0.5 truncate text-[10.5px] text-ink/40">{t("me.subtitle")}</p>
         </div>
         <div className="flex shrink-0 items-center gap-2">
-          <LanguageToggle />
           <button
             type="button"
             aria-label={t("me.settings")}

@@ -78,12 +78,13 @@ export function EngageBar({
       <>
         <span
           aria-hidden="true"
-          className="engage-ring pointer-events-none absolute inset-0 rounded-full border border-gold/80"
+          className="engage-ring pointer-events-none absolute -inset-px rounded-full border-[1.5px] border-gold"
         />
         <span
           aria-hidden="true"
-          className="engage-ring-late pointer-events-none absolute inset-0 rounded-full border border-gold/45"
+          className="engage-ring-late pointer-events-none absolute -inset-px rounded-full border border-gold/70"
         />
+
       </>
     ) : null;
 

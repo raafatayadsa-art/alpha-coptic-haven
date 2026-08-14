@@ -28,7 +28,6 @@ import {
   ShieldIcon,
   VerifiedIcon,
 } from "@/components/church/icons";
-import { LanguageToggle } from "@/components/church/LanguageToggle";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/my-church")({
@@ -122,7 +121,6 @@ function ChurchHome() {
         </div>
         <div className="flex shrink-0 items-center gap-2">
           {/* Language toggle — Arabic / English */}
-          <LanguageToggle />
           <button
             type="button"
             aria-label={t("app.notifications")}

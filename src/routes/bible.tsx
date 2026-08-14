@@ -16,7 +16,6 @@ import {
   StatsIcon,
 } from "@/components/bible/bible-icons";
 import { ProgressRing } from "@/components/bible/ProgressRing";
-import { LanguageToggle } from "@/components/church/LanguageToggle";
 import { CopticCross } from "@/components/church/icons";
 import { Screen } from "@/components/layout/Screen";
 import { useLang } from "@/lib/i18n";
@@ -42,16 +41,25 @@ export const Route = createFileRoute("/bible")({
   component: BibleHome,
 });
 
-type Tool = { key: string; icon: ReactNode; to?: "/bible-books" };
+type ToolTo =
+  | "/bible-notes"
+  | "/bible-saved"
+  | "/bible-history"
+  | "/bible-highlights"
+  | "/bible-journey"
+  | "/bible-stats";
+
+type Tool = { key: string; icon: ReactNode; to: ToolTo };
 
 const tools: Tool[] = [
-  { key: "bib.tool.notes", icon: <NoteIcon className="size-[19px]" /> },
-  { key: "bib.tool.favorites", icon: <StarIcon className="size-[19px]" /> },
-  { key: "bib.tool.history", icon: <HistoryIcon className="size-[19px]" /> },
-  { key: "bib.tool.highlights", icon: <HighlightIcon className="size-[19px]" /> },
-  { key: "bib.tool.journey", icon: <PathIcon className="size-[19px]" /> },
-  { key: "bib.tool.stats", icon: <StatsIcon className="size-[19px]" /> },
+  { key: "bib.tool.notes", icon: <NoteIcon className="size-[19px]" />, to: "/bible-notes" },
+  { key: "bib.tool.favorites", icon: <StarIcon className="size-[19px]" />, to: "/bible-saved" },
+  { key: "bib.tool.history", icon: <HistoryIcon className="size-[19px]" />, to: "/bible-history" },
+  { key: "bib.tool.highlights", icon: <HighlightIcon className="size-[19px]" />, to: "/bible-highlights" },
+  { key: "bib.tool.journey", icon: <PathIcon className="size-[19px]" />, to: "/bible-journey" },
+  { key: "bib.tool.stats", icon: <StatsIcon className="size-[19px]" />, to: "/bible-stats" },
 ];
+
 
 function SectionTitle({ title, action }: { title: string; action?: string }) {
   return (
@@ -147,15 +155,22 @@ function BibleHome() {
           </div>
 
           <div className="safe-top relative flex items-center justify-between gap-3 px-5 pb-2">
-            <button
-              type="button"
+            <Link
+              to="/bible-search"
               aria-label={t("bib.search")}
               className="press grid size-11 place-items-center rounded-2xl border border-illum/25 bg-inkblue/35 text-vellum/85 backdrop-blur-md"
             >
               <SearchGlyph className="size-[18px]" />
-            </button>
-            <LanguageToggle />
+            </Link>
+            <Link
+              to="/bible-saved"
+              aria-label={t("bib.sv.title")}
+              className="press grid size-11 place-items-center rounded-2xl border border-illum/25 bg-inkblue/35 text-vellum/85 backdrop-blur-md"
+            >
+              <StarIcon className="size-[18px]" />
+            </Link>
           </div>
+
 
           <div className="relative px-5 pt-6 pb-5 text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-illum/30 bg-inkblue/30 px-3 py-1 font-manrope text-[10px] font-semibold tracking-[0.16em] text-illum uppercase backdrop-blur-md">
@@ -218,10 +233,14 @@ function BibleHome() {
           </section>
 
           {/* ── Search field ── */}
-          <div className="vellum-card flex items-center gap-2.5 rounded-[22px] px-4 py-3">
+          <Link
+            to="/bible-search"
+            className="press vellum-card flex items-center gap-2.5 rounded-[22px] px-4 py-3"
+          >
             <SearchGlyph className="size-[17px] shrink-0 text-quiet" />
             <span className="font-manrope text-[12.5px] text-quiet">{t("bib.search.hint")}</span>
-          </div>
+          </Link>
+
 
           {/* ── Testaments ── */}
           <section>
@@ -288,9 +307,9 @@ function BibleHome() {
             <SectionTitle title={t("bib.tools")} />
             <div className="grid grid-cols-3 gap-2.5">
               {tools.map((tool) => (
-                <button
+                <Link
                   key={tool.key}
-                  type="button"
+                  to={tool.to}
                   className="press vellum-card flex flex-col items-center gap-2 rounded-[22px] px-2 py-3.5"
                 >
                   <span className="grid size-10 place-items-center rounded-2xl bg-inkblue/[0.05] text-copper ring-1 ring-illum/30">
@@ -299,8 +318,9 @@ function BibleHome() {
                   <span className="text-center text-[11px] leading-tight font-semibold text-inkblue">
                     {t(tool.key)}
                   </span>
-                </button>
+                </Link>
               ))}
+
             </div>
           </section>
 

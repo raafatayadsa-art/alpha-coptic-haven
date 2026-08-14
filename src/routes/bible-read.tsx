@@ -218,7 +218,10 @@ function BibleRead() {
         } ${body}`}
         onPointerDown={(e) => {
           swipe.current = { x: e.clientX, y: e.clientY };
+          /* Any touch on the reading surface stops the auto-scroll. */
+          if (!(e.target as HTMLElement).closest("[data-reader-bar]")) setAuto(false);
         }}
+
         onPointerUp={(e) => {
           const s = swipe.current;
           swipe.current = null;
@@ -248,24 +251,25 @@ function BibleRead() {
             <div className="copt-frieze absolute inset-x-6 top-0 opacity-50" />
 
             <div className="flex items-center gap-2">
-              <button
-                type="button"
+              <Link
+                to="/bible-history"
                 aria-label={t("bib.tool.history")}
                 className={`press grid size-10 shrink-0 place-items-center rounded-full ${
                   night ? "bg-vellum/10 text-vellum" : "bg-white/80 text-inkblue"
                 }`}
               >
                 <HistoryIcon className="size-[18px]" />
-              </button>
-              <button
-                type="button"
+              </Link>
+              <Link
+                to="/bible-saved"
                 aria-label={t("bib.tool.favorites")}
                 className={`press grid size-10 shrink-0 place-items-center rounded-full ${
                   night ? "bg-vellum/10 text-vellum" : "bg-white/80 text-inkblue"
                 }`}
               >
                 <BookmarkIcon className="size-[17px]" />
-              </button>
+              </Link>
+
 
               <div className="min-w-0 flex-1 text-center">
                 <p className="font-manrope text-[10.5px] font-bold tracking-[0.08em] text-copper">
@@ -332,8 +336,8 @@ function BibleRead() {
               const on = active === verse.n;
               const reading = currentVerse === verse.n;
               return (
+                <div key={verse.n}>
                 <button
-                  key={verse.n}
                   type="button"
                   data-verse={verse.n}
                   ref={(el) => {
@@ -378,30 +382,54 @@ function BibleRead() {
                     )}
                   </span>
                 </button>
+
+                {/* Action menu — pinned directly under the tapped verse */}
+                {on ? (
+                  <div
+                    className={`mt-2 rounded-[22px] px-2.5 py-3 text-[13px] verse-rise ${surface}`}
+                  >
+                    <div className="flex items-center justify-around">
+                      {[
+                        ["bib.act.highlight", <HighlightIcon key="h" className="size-[18px]" />],
+                        ["bib.act.note", <NoteIcon key="n" className="size-[18px]" />],
+                        ["bib.act.favorite", <StarIcon key="s" className="size-[18px]" />],
+                        ["bib.act.share", <ShareGlyph key="sh" className="size-[18px]" />],
+                      ].map(([key, icon]) => (
+                        <button
+                          key={key as string}
+                          type="button"
+                          className="press flex flex-col items-center gap-1.5 px-2 text-copper"
+                        >
+                          {icon as React.ReactNode}
+                          <span className={`text-[10px] font-semibold ${body}`}>
+                            {t(key as string)}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+
+                    <div
+                      className={`mt-2.5 flex items-center gap-1.5 border-t pt-2.5 ${
+                        night ? "border-illum/15" : "border-shade/70"
+                      }`}
+                    >
+                      {["bib.act.community", "bib.act.copy", "bib.act.image"].map((key) => (
+                        <button
+                          key={key}
+                          type="button"
+                          className={`press flex-1 rounded-full px-2 py-1.5 text-[10.5px] font-semibold whitespace-nowrap ${chip}`}
+                        >
+                          {t(key)}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+                </div>
               );
             })}
           </div>
 
-          {/* Verse action sheet */}
-          {active !== null ? (
-            <div className={`mt-4 flex items-center justify-around rounded-[22px] px-2 py-3 ${surface}`}>
-              {[
-                ["bib.act.highlight", <HighlightIcon key="h" className="size-[18px]" />],
-                ["bib.act.note", <NoteIcon key="n" className="size-[18px]" />],
-                ["bib.act.favorite", <StarIcon key="s" className="size-[18px]" />],
-                ["bib.act.share", <ShareGlyph key="sh" className="size-[18px]" />],
-              ].map(([key, icon]) => (
-                <button
-                  key={key as string}
-                  type="button"
-                  className="press flex flex-col items-center gap-1.5 px-2 text-copper"
-                >
-                  {icon as React.ReactNode}
-                  <span className={`text-[10px] font-semibold ${body}`}>{t(key as string)}</span>
-                </button>
-              ))}
-            </div>
-          ) : null}
 
           {/* Chapter end frieze */}
           <div className="mt-7 flex items-center gap-3">
@@ -438,6 +466,8 @@ function BibleRead() {
 
         {/* ── Compact single-row reader bar ── */}
         <div
+          data-reader-bar=""
+
           className={`fixed inset-x-0 z-40 mx-auto max-w-[430px] px-3.5 transition-all duration-500 ${
             chrome ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"
           }`}

@@ -243,8 +243,9 @@
 
 /* Line-based pulse: two concentric hairline rings expanding outward */
 @keyframes engage-ring {
-  0% { opacity: 0.95; transform: scale(0.72); }
-  100% { opacity: 0; transform: scale(1.35); }
+  0% { opacity: 1; transform: scale(0.6); }
+  55% { opacity: 0.85; }
+  100% { opacity: 0; transform: scale(1.7); }
 }
 
 @keyframes engage-beat {
@@ -257,12 +258,13 @@
 }
 
 @utility engage-ring {
-  animation: engage-ring 0.62s var(--ease-out-expo) forwards;
+  animation: engage-ring 0.85s var(--ease-out-expo) forwards;
 }
 
 @utility engage-ring-late {
-  animation: engage-ring 0.62s var(--ease-out-expo) 0.12s forwards;
+  animation: engage-ring 0.85s var(--ease-out-expo) 0.16s forwards;
 }
+
 
 @utility engage-beat {
   animation: engage-beat 1.6s ease-in-out infinite;
