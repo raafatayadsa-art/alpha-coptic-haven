@@ -549,7 +549,13 @@ function KidsHome() {
         <SloganBand className="text-kdink" />
 
         {film && (
-          <FilmPlayer film={film} lang={lang} isArabic={isArabic} onClose={() => setFilm(null)} />
+          <FilmPlayer
+            film={film}
+            lang={lang}
+            isArabic={isArabic}
+            onClose={() => setFilm(null)}
+            onSelectFilm={(f) => setFilm(f)}
+          />
         )}
         {parent && (
           <ParentMode
