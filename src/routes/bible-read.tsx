@@ -619,11 +619,16 @@ function BibleRead() {
                                 setShareVn(verse.n);
                                 return;
                               }
+                              /* Open upward only when the popover truly fits
+                                 between the pinned header and this row. */
                               const r = e.currentTarget.getBoundingClientRect();
-                              setPopDown(r.top < 330);
+                              const need = kind === "colors" ? 250 : 232;
+                              const spaceUp = r.top - 132;
+                              const spaceDown = window.innerHeight - r.bottom - 96;
+                              setPopDown(spaceUp < need && spaceDown > spaceUp);
                               setSheet((s) => (s === kind ? null : kind));
                             }}
-                            className={`press flex h-[74px] flex-1 flex-col items-center justify-center gap-1.5 rounded-[20px] transition-colors ${
+                            className={`press flex h-[60px] flex-1 flex-col items-center justify-center gap-1 rounded-[18px] transition-colors ${
                               activeBtn
                                 ? night
                                   ? "border border-illum/35 bg-illum/12"
@@ -634,7 +639,7 @@ function BibleRead() {
                             }`}
                           >
                             <span
-                              className={`grid size-9 place-items-center rounded-full ${
+                              className={`grid size-8 place-items-center rounded-full ${
                                 night ? "bg-vellum/10 text-illum" : "bg-white text-copper"
                               }`}
                             >
