@@ -178,7 +178,15 @@ function AlphaHome() {
                 {t("hm.verse.save")}
               </button>
             </div>
-            <EngageBar likes={565} comments={38} className="mt-5 border-ink/8" />
+            <EngageBar
+              likes={565}
+              comments={38}
+              className="mt-5"
+              seed={[
+                { author: t("engage.c1.a"), text: t("engage.c1.t"), when: t("engage.c1.w") },
+                { author: t("engage.c2.a"), text: t("engage.c2.t"), when: t("engage.c2.w") },
+              ]}
+            />
           </div>
         </section>
 
@@ -362,6 +370,7 @@ function AlphaHome() {
               </Link>
             </div>
           </div>
+          <EngageBar likes={498} comments={31} compact className="mt-3 px-1" />
         </section>
 
         {/* 7 — A glimpse of Alpha Connect */}
@@ -380,6 +389,7 @@ function AlphaHome() {
             {t("hm.connect.cta")}
             <ChevronRight className="size-3.5 rtl:rotate-180" />
           </button>
+          <EngageBar likes={176} comments={8} compact className="mt-4" />
         </section>
 
         {/* 8 — Community */}
@@ -456,7 +466,12 @@ function AlphaHome() {
                 {t("hm.feed.p1.title")}
               </h3>
               <p className="mt-1.5 text-[12px] leading-relaxed text-ink/50">{t("hm.feed.p1.line")}</p>
-              <EngageBar likes={342} comments={27} className="mt-3.5" />
+              <EngageBar
+                likes={342}
+                comments={27}
+                className="mt-3.5"
+                seed={[{ author: t("engage.c2.a"), text: t("engage.c2.t"), when: t("engage.c2.w") }]}
+              />
             </div>
           </article>
 
@@ -477,7 +492,7 @@ function AlphaHome() {
               <h3 className="mt-1 truncate font-display text-[15px] font-semibold tracking-tight">
                 {t("hm.feed.p2.title")}
               </h3>
-              <EngageBar likes={128} comments={11} compact className="mt-2 border-ink/8" />
+              <EngageBar likes={128} comments={11} compact className="mt-2" />
             </div>
           </article>
 
