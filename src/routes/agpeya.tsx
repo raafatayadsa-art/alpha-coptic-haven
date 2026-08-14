@@ -123,8 +123,22 @@ function BentoSection({
   );
 }
 
+const SECTIONS: { id: string; key: string; hue: Hue }[] = [
+  { id: "ag-now", key: "ag.current", hue: HUE_NOW },
+  { id: "ag-day", key: "ag.day", hue: HUE_DAY },
+  { id: "ag-night", key: "ag.night", hue: HUE_NIGHT },
+  { id: "ag-extra", key: "ag.extra", hue: HUE_EXTRA },
+];
+const SECTION_IDS = SECTIONS.map((s) => s.id);
+
 function AgpeyaScreen() {
   const { t, dir, isArabic } = useLang();
+  const { active, progress, visible, wake } = useSectionBar(SECTION_IDS);
+  const activeIndex = Math.max(
+    0,
+    SECTIONS.findIndex((s) => s.id === active),
+  );
+
 
   return (
     <Screen className="bg-abyss">
