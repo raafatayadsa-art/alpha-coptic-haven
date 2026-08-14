@@ -46,14 +46,16 @@ export const Route = createFileRoute("/")({
 });
 
 /* Presentation-only sample content — visual prototype, no data layer. */
-const hub: { key: string; icon: ReactNode; tone: "gold" | "lavender" | "parchment" }[] = [
-  { key: "hm.hub.bible", icon: <BibleIcon className="size-[22px]" />, tone: "gold" },
-  { key: "hm.hub.agpeya", icon: <AgpeyaIcon className="size-[22px]" />, tone: "lavender" },
-  { key: "hm.hub.katameros", icon: <KatamerosIcon className="size-[22px]" />, tone: "parchment" },
-  { key: "hm.hub.synaxarium", icon: <SynaxariumIcon className="size-[22px]" />, tone: "parchment" },
-  { key: "hm.hub.khoulagy", icon: <KhoulagyIcon className="size-[22px]" />, tone: "lavender" },
-  { key: "hm.hub.fathers", icon: <MembersIcon className="size-[22px]" />, tone: "gold" },
+const hub: { key: string; sub: string; icon: ReactNode; tone: "gold" | "lavender" | "parchment" }[] = [
+  { key: "hm.hub.bible", sub: "hm.hub.sub.bible", icon: <BibleIcon className="size-6" />, tone: "gold" },
+  { key: "hm.hub.agpeya", sub: "hm.hub.sub.agpeya", icon: <AgpeyaIcon className="size-6" />, tone: "lavender" },
+  { key: "hm.hub.katameros", sub: "hm.hub.sub.katameros", icon: <KatamerosIcon className="size-6" />, tone: "parchment" },
+  { key: "hm.hub.synaxarium", sub: "hm.hub.sub.synaxarium", icon: <SynaxariumIcon className="size-6" />, tone: "parchment" },
+  { key: "hm.hub.khoulagy", sub: "hm.hub.sub.khoulagy", icon: <KhoulagyIcon className="size-6" />, tone: "lavender" },
+  { key: "hm.hub.fathers", sub: "hm.hub.sub.fathers", icon: <MembersIcon className="size-6" />, tone: "gold" },
+  { key: "hm.hub.library", sub: "hm.hub.sub.library", icon: <LibraryIcon className="size-6" />, tone: "gold" },
 ];
+
 
 const hubTone: Record<"gold" | "lavender" | "parchment", string> = {
   gold: "bg-gold/12 text-gold ring-1 ring-gold/20",
