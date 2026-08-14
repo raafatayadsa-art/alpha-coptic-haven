@@ -169,7 +169,13 @@ function KatamerosRead() {
       </section>
 
       {/* ── All parts, stacked; one open at a time ── */}
-      <section className="space-y-3">
+      <section
+        className="space-y-3"
+        onPointerDown={(e) => {
+          /* Any touch on the reading column stops the auto-scroll. */
+          if (!(e.target as HTMLElement).closest("[data-reader-bar]")) setAuto(false);
+        }}
+      >
         {readings.map((r, idx) => {
           const active = idx === open;
           const done = idx < open;
