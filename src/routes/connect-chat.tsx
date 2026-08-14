@@ -1,5 +1,5 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
 import { AcSheet, MemberAvatar, Waveform } from "@/components/connect/ConnectShell";
 import { ConnectNav } from "@/components/connect/ConnectNav";
@@ -36,7 +36,7 @@ import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/connect-chat")({
   validateSearch: (search: Record<string, unknown>) => ({
-    who: typeof search.who === "string" ? search.who : "f1",
+    who: typeof search["who"] === "string" ? (search["who"] as string) : "f1",
   }),
   head: () => ({
     meta: [
@@ -58,7 +58,7 @@ export const Route = createFileRoute("/connect-chat")({
   component: ConnectChat,
 });
 
-const rowIcon: Record<ChatSettingRow["icon"], (p: { className?: string }) => JSX.Element> = {
+const rowIcon: Record<ChatSettingRow["icon"], (p: { className?: string }) => ReactNode> = {
   clock: ClockGlyph,
   mute: MuteGlyph,
   fingerprint: FingerprintGlyph,
