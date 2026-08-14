@@ -492,7 +492,7 @@ function AlphaHome() {
               <h3 className="mt-1 truncate font-display text-[15px] font-semibold tracking-tight">
                 {t("hm.feed.p2.title")}
               </h3>
-              <EngageBar likes={128} comments={11} compact className="mt-2 border-ink/8" />
+              <EngageBar likes={128} comments={11} compact className="mt-2" />
             </div>
           </article>
 
