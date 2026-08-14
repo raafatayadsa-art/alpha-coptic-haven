@@ -60,12 +60,12 @@ export function DailyDeck({ cards }: { cards: DailyCard[] }) {
             key={`${b.eyebrow}-behind`}
             aria-hidden="true"
             className={cn(
-              "pointer-events-none absolute inset-x-0 top-0 h-[300px] overflow-hidden rounded-[30px] shadow-[var(--shadow-soft)] transition-all duration-300",
+              "pointer-events-none absolute inset-0 overflow-hidden rounded-[30px] shadow-[var(--shadow-soft)] transition-all duration-300",
               b.tone === "lavender" ? "bg-lavender/50" : "bg-card",
               "ring-1 ring-ink/5",
             )}
             style={{
-              transform: `translateY(${(i + 1) * 12}px) scale(${1 - (i + 1) * 0.045})`,
+              transform: `translateY(${(i + 1) * 14}px) scale(${1 - (i + 1) * 0.05})`,
               opacity: 1 - (i + 1) * 0.25,
               zIndex: 10 - i,
             }}
