@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { CopticCross } from "@/components/church/icons";
 import { KatamerosShell } from "@/components/katameros/KatamerosShell";
@@ -10,19 +10,24 @@ import {
   ShareGlyph,
   TextSizeGlyph,
 } from "@/components/katameros/katameros-icons";
+import { useAutoScroll } from "@/hooks/use-auto-scroll";
+import { groupHue, groupLabel, readings } from "@/lib/katameros-data";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/katameros-read")({
   head: () => ({
     meta: [
-      { title: "قراءة القطمارس — إنجيل القداس | Alpha" },
+      { title: "قراءة القطمارس — كل أجزاء اليوم | Alpha" },
       {
         name: "description",
         content:
-          "The Alpha Katameros reading view: a calm typographic column for the day's passage, with text size, bookmark, share and listen controls.",
+          "The Alpha Katameros reading view: every part of the day stacked in one column, opening in sequence as you read, with silky auto-scroll and a single-row reader bar.",
       },
-      { property: "og:title", content: "قراءة القطمارس — إنجيل القداس | Alpha" },
-      { property: "og:description", content: "A quiet reading column for the day's lectionary passage." },
+      { property: "og:title", content: "قراءة القطمارس — كل أجزاء اليوم | Alpha" },
+      {
+        property: "og:description",
+        content: "All of the day's lectionary parts in one continuous, self-advancing reading column.",
+      },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -30,15 +35,24 @@ export const Route = createFileRoute("/katameros-read")({
   component: KatamerosRead,
 });
 
-/* Presentation-only sample passage. */
-const verses = [
-  { n: 16, ar: "هَا أَنَا أُرْسِلُكُمْ كَغَنَمٍ فِي وَسْطِ ذِئَابٍ، فَكُونُوا حُكَمَاءَ كَالْحَيَّاتِ وَبُسَطَاءَ كَالْحَمَامِ.", en: "Behold, I send you out as sheep in the midst of wolves. Therefore be wise as serpents and harmless as doves." },
-  { n: 17, ar: "وَاحْذَرُوا مِنَ النَّاسِ، لِأَنَّهُمْ سَيُسَلِّمُونَكُمْ إِلَى مَجَالِسَ.", en: "But beware of men, for they will deliver you up to councils." },
-  { n: 18, ar: "وَتُقَدَّمُونَ أَمَامَ وُلَاةٍ وَمُلُوكٍ مِنْ أَجْلِي شَهَادَةً لَهُمْ وَلِلْأُمَمِ.", en: "You will be brought before governors and kings for My sake, as a testimony to them and to the Gentiles." },
-  { n: 19, ar: "فَمَتَى أَسْلَمُوكُمْ فَلَا تَهْتَمُّوا كَيْفَ أَوْ بِمَا تَتَكَلَّمُونَ.", en: "But when they deliver you up, do not worry about how or what you should speak." },
-  { n: 20, ar: "لِأَنْ لَسْتُمْ أَنْتُمُ الْمُتَكَلِّمِينَ بَلْ رُوحُ أَبِيكُمُ الَّذِي يَتَكَلَّمُ فِيكُمْ.", en: "For it is not you who speak, but the Spirit of your Father who speaks in you." },
-  { n: 21, ar: "وَسَيُسَلِّمُ الْأَخُ أَخَاهُ إِلَى الْمَوْتِ، وَالْأَبُ وَلَدَهُ.", en: "Now brother will deliver up brother to death, and a father his child." },
-  { n: 22, ar: "وَتَكُونُونَ مُبْغَضِينَ مِنَ الْجَمِيعِ مِنْ أَجْلِ اسْمِي، وَلَكِنَّ الَّذِي يَصْبِرُ إِلَى الْمُنْتَهَى فَهَذَا يَخْلُصُ.", en: "And you will be hated by all for My name’s sake. But he who endures to the end will be saved." },
+/* Presentation-only body lines per part; the first line is the part's excerpt. */
+const continuation = [
+  {
+    ar: "وَاحْذَرُوا مِنَ النَّاسِ، لِأَنَّهُمْ سَيُسَلِّمُونَكُمْ إِلَى مَجَالِسَ.",
+    en: "But beware of men, for they will deliver you up to councils.",
+  },
+  {
+    ar: "وَتُقَدَّمُونَ أَمَامَ وُلَاةٍ وَمُلُوكٍ مِنْ أَجْلِي شَهَادَةً لَهُمْ وَلِلْأُمَمِ.",
+    en: "You will be brought before governors and kings for My sake, as a testimony to them.",
+  },
+  {
+    ar: "لِأَنْ لَسْتُمْ أَنْتُمُ الْمُتَكَلِّمِينَ بَلْ رُوحُ أَبِيكُمُ الَّذِي يَتَكَلَّمُ فِيكُمْ.",
+    en: "For it is not you who speak, but the Spirit of your Father who speaks in you.",
+  },
+  {
+    ar: "وَلَكِنَّ الَّذِي يَصْبِرُ إِلَى الْمُنْتَهَى فَهَذَا يَخْلُصُ.",
+    en: "But he who endures to the end will be saved.",
+  },
 ];
 
 const sizes = [
@@ -47,17 +61,75 @@ const sizes = [
   { id: "l", cls: "text-[20px] leading-[2.2]" },
 ] as const;
 
+/** px per second — same silky presets as the Bible reader. */
+const SPEEDS = [
+  { key: "bib.speed.slow", pps: 10 },
+  { key: "bib.speed.mid", pps: 20 },
+  { key: "bib.speed.fast", pps: 38 },
+];
+
 function KatamerosRead() {
-  const { t, lang } = useLang();
+  const { t, lang, isArabic } = useLang();
   const [sizeIndex, setSizeIndex] = useState(1);
   const [saved, setSaved] = useState(false);
+  const [open, setOpen] = useState(0);
+  const [auto, setAuto] = useState(false);
+  const [speed, setSpeed] = useState(1);
+  const [speedMenu, setSpeedMenu] = useState(false);
   const size = sizes[sizeIndex]!;
+
+  const partRefs = useRef<Array<HTMLElement | null>>([]);
+  const jumpTo = useRef<number | null>(null);
+
+  useAutoScroll(auto, SPEEDS[speed]!.pps, () => setAuto(false));
+
+  /* ── Sequential advance: whichever part is open, once its body has scrolled
+        past the reading line the next part opens and this one collapses.
+        Scroll-driven, so it behaves identically for auto-scroll and dragging. ── */
+  useEffect(() => {
+    let raf = 0;
+    const check = () => {
+      raf = 0;
+      const el = partRefs.current[open];
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const line = window.innerHeight * 0.55;
+      if (rect.bottom < line && open < readings.length - 1) {
+        jumpTo.current = open + 1;
+        setOpen(open + 1);
+      } else if (rect.top > window.innerHeight * 0.92 && open > 0) {
+        setOpen(open - 1);
+      }
+    };
+    const onScroll = () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(check);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
+  }, [open]);
+
+  /* Keep the newly opened part anchored just under the header. */
+  useEffect(() => {
+    const target = jumpTo.current;
+    jumpTo.current = null;
+    if (target === null) return;
+    const el = partRefs.current[target];
+    if (!el) return;
+    const y = window.scrollY + el.getBoundingClientRect().top - 140;
+    window.scrollTo({ top: Math.max(0, y), behavior: auto ? "auto" : "smooth" });
+  }, [open, auto]);
+
+  const pct = Math.round(((open + 1) / readings.length) * 100);
 
   return (
     <KatamerosShell
       backTo="/katameros-day"
-      title={t("km.read.title")}
-      subtitle={t("km.read.sub")}
+      title={t("km.read.stackTitle")}
+      subtitle={t("km.read.stackSub")}
       action={
         <button
           type="button"
@@ -73,93 +145,208 @@ function KatamerosRead() {
         </button>
       }
     >
-      {/* ── Passage head ── */}
-      <section className="km-glass relative isolate overflow-hidden rounded-[28px] px-5 py-5 text-center">
+      {/* ── Progress of the whole day ── */}
+      <section className="km-glass relative isolate overflow-hidden rounded-[26px] px-5 py-4">
         <span
           aria-hidden="true"
-          className="km-halo candle-breathe pointer-events-none absolute inset-x-0 -top-20 -z-10 mx-auto size-56 rounded-full"
+          className="km-halo candle-breathe pointer-events-none absolute inset-x-0 -top-24 -z-10 mx-auto size-56 rounded-full"
           style={{ ["--hue" as string]: "oklch(0.560 0.130 30)" }}
         />
-        <span className="font-manrope text-[10px] font-bold tracking-[0.18em] text-brass uppercase">
-          {t("km.read.moment")}
-        </span>
-        <h2 className="mt-2 font-display text-[26px] leading-tight font-semibold text-cream">
-          {t("km.read.ref")}
-        </h2>
-        <div className="mt-3 flex items-center justify-center gap-2">
-          <span className="rounded-full border border-cream/12 bg-nightwine/40 px-3 py-1 font-manrope text-[10.5px] text-cream/55">
-            {t("km.today.coptic")}
+        <div className="flex items-center justify-between">
+          <span className="font-manrope text-[10px] font-bold tracking-[0.16em] text-brass uppercase">
+            {t("km.read.progress")}
           </span>
-          <span className="rounded-full border border-cream/12 bg-nightwine/40 px-3 py-1 font-manrope text-[10.5px] text-cream/55">
-            {t("km.read.minutes")}
+          <span className="font-manrope text-[11px] font-bold tabular-nums text-goldleaf">
+            {open + 1} / {readings.length}
           </span>
         </div>
-        <div className="km-hairline mx-auto mt-4 h-px w-2/3 opacity-60" />
+        <div className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-cream/10">
+          <div
+            className="km-cta h-full rounded-full transition-all duration-700"
+            style={{ width: `${pct}%` }}
+          />
+        </div>
       </section>
 
-      {/* ── Verses ── */}
-      <section className="space-y-2.5">
-        {verses.map((verse, i) => (
-          <article
-            key={verse.n}
-            className="rounded-[20px] border border-cream/8 bg-wine/28 px-4 py-3.5"
-          >
-            <div className="mb-1.5 flex items-center gap-2">
-              <span className="grid size-6 place-items-center rounded-full border border-goldleaf/25 bg-goldleaf/10 font-manrope text-[10px] font-bold tabular-nums text-goldleaf">
-                {verse.n}
-              </span>
-              <span className="km-hairline h-px flex-1 opacity-25" />
-            </div>
-            <p className={`font-display font-medium text-cream/90 ${size.cls}`}>
-              {/* Arabic script must never be split for a drop-cap (it would break
-                  letter joining), so the gilded initial is Latin-only. */}
-              {i === 0 && lang === "en" ? (
-                <span className="drop-cap !text-goldleaf">{verse.en.charAt(0)}</span>
-              ) : null}
-              {i === 0 && lang === "en" ? verse.en.slice(1) : lang === "ar" ? verse.ar : verse.en}
-            </p>
-          </article>
-        ))}
+      {/* ── All parts, stacked; one open at a time ── */}
+      <section
+        className="space-y-3"
+        onPointerDown={(e) => {
+          /* Any touch on the reading column stops the auto-scroll. */
+          if (!(e.target as HTMLElement).closest("[data-reader-bar]")) setAuto(false);
+        }}
+      >
+        {readings.map((r, idx) => {
+          const active = idx === open;
+          const done = idx < open;
+          const hue = groupHue[r.group];
+          const lines = [r.excerpt, ...continuation];
+
+          return (
+            <article
+              key={r.id}
+              ref={(el) => {
+                partRefs.current[idx] = el;
+              }}
+              className={`km-card relative overflow-hidden rounded-[26px] transition-all duration-500 ${
+                active ? "" : "opacity-70"
+              }`}
+              style={{
+                ["--hue" as string]: hue.hue,
+                ["--hue-2" as string]: hue.hue2,
+              }}
+            >
+              <button
+                type="button"
+                onClick={() => {
+                  jumpTo.current = idx;
+                  setOpen(idx);
+                }}
+                className="press flex w-full items-center gap-3 px-4 py-3.5 text-start"
+              >
+                <span
+                  className="grid size-9 shrink-0 place-items-center rounded-full border font-manrope text-[11px] font-bold tabular-nums"
+                  style={{
+                    borderColor: "color-mix(in oklab, var(--hue-2) 40%, transparent)",
+                    background: "color-mix(in oklab, var(--hue) 22%, transparent)",
+                    color: "color-mix(in oklab, var(--hue-2) 92%, white)",
+                  }}
+                >
+                  {done ? "✓" : idx + 1}
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block font-manrope text-[9.5px] font-bold tracking-[0.16em] uppercase hue-text opacity-80">
+                    {isArabic ? groupLabel[r.group].ar : groupLabel[r.group].en}
+                  </span>
+                  <span className="mt-0.5 block truncate font-display text-[17px] font-semibold text-cream">
+                    {isArabic ? r.kind.ar : r.kind.en}
+                  </span>
+                  <span className="mt-0.5 block font-manrope text-[10.5px] text-cream/45">
+                    {isArabic ? r.ref.ar : r.ref.en}
+                  </span>
+                </span>
+                <span
+                  className="shrink-0 rounded-full border px-2.5 py-1 font-manrope text-[9.5px] font-semibold"
+                  style={{
+                    borderColor: "color-mix(in oklab, var(--hue-2) 28%, transparent)",
+                    color: "color-mix(in oklab, var(--hue-2) 90%, white)",
+                  }}
+                >
+                  {active ? t("km.read.reading") : done ? t("km.read.done") : t("km.read.waiting")}
+                </span>
+              </button>
+
+              {/* Body — revealed only while this part is the one being read */}
+              <div
+                className={`grid transition-all duration-700 ${
+                  active ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                }`}
+                style={{ transitionTimingFunction: "var(--ease-out-expo)" }}
+              >
+                <div className="overflow-hidden">
+                  <div className="px-4 pb-5">
+                    <div className="km-hairline mb-3.5 h-px w-full opacity-45" />
+                    <div className="space-y-2.5">
+                      {lines.map((line, li) => (
+                        <div
+                          key={li}
+                          className="rounded-[18px] border border-cream/8 bg-nightwine/35 px-4 py-3"
+                        >
+                          <div className="mb-1.5 flex items-center gap-2">
+                            <span className="grid size-6 place-items-center rounded-full border border-goldleaf/25 bg-goldleaf/10 font-manrope text-[10px] font-bold tabular-nums text-goldleaf">
+                              {li + 1}
+                            </span>
+                            <span className="km-hairline h-px flex-1 opacity-25" />
+                          </div>
+                          <p className={`font-display font-medium text-cream/90 ${size.cls}`}>
+                            {lang === "ar" ? line.ar : line.en}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-4 flex items-center justify-center gap-2 opacity-60">
+                      <CopticCross className="size-4 text-brass" />
+                      <span className="font-manrope text-[10px] text-cream/40">
+                        {isArabic ? r.kind.ar : r.kind.en} · {r.minutes}′
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          );
+        })}
       </section>
 
       {/* ── Reader tools, one row ── */}
-      <section className="km-glass sticky bottom-4 z-20 flex items-center gap-2 rounded-full px-3 py-2.5">
+      <section
+        data-reader-bar
+        className="km-glass sticky bottom-4 z-20 flex items-center gap-2 rounded-full px-3 py-2.5"
+      >
         <button
           type="button"
           aria-label={t("km.tools.font")}
           onClick={() => setSizeIndex((v) => (v + 1) % sizes.length)}
-          className="press grid size-9 place-items-center rounded-full border border-goldleaf/25 bg-nightwine/45 text-goldleaf"
+          className="press grid size-9 shrink-0 place-items-center rounded-full border border-goldleaf/25 bg-nightwine/45 text-goldleaf"
         >
           <TextSizeGlyph className="size-[17px]" />
         </button>
+
         <button
           type="button"
-          className="press flex items-center gap-2 rounded-full border border-goldleaf/25 bg-nightwine/45 px-3 py-1.5 font-manrope text-[11.5px] font-semibold text-cream/80"
+          aria-label={t("bib.reader.autoscroll")}
+          onClick={() => setAuto((v) => !v)}
+          className={`press grid size-9 shrink-0 place-items-center rounded-full ${
+            auto
+              ? "km-cta text-nightwine"
+              : "border border-goldleaf/25 bg-nightwine/45 text-cream/75"
+          }`}
+        >
+          <ArrowGlyph className="size-4 -rotate-90" />
+        </button>
+
+        <div className="relative shrink-0">
+          <button
+            type="button"
+            onClick={() => setSpeedMenu((v) => !v)}
+            className="press flex items-center gap-1.5 rounded-full border border-goldleaf/25 bg-nightwine/45 px-3 py-1.5 font-manrope text-[11px] font-semibold text-cream/80"
+          >
+            {t(SPEEDS[speed]!.key)}
+          </button>
+          {speedMenu ? (
+            <div className="km-glass verse-rise absolute bottom-12 start-0 z-30 w-32 overflow-hidden rounded-[18px] p-1.5">
+              {SPEEDS.map((s, i) => (
+                <button
+                  key={s.key}
+                  type="button"
+                  onClick={() => {
+                    setSpeed(i);
+                    setSpeedMenu(false);
+                  }}
+                  className={`block w-full rounded-[13px] px-3 py-2 text-start font-manrope text-[11.5px] font-semibold ${
+                    i === speed ? "bg-goldleaf/15 text-goldleaf" : "text-cream/70"
+                  }`}
+                >
+                  {t(s.key)}
+                </button>
+              ))}
+            </div>
+          ) : null}
+        </div>
+
+        <button
+          type="button"
+          aria-label={t("km.tools.listen")}
+          className="press grid size-9 shrink-0 place-items-center rounded-full border border-goldleaf/25 bg-nightwine/45 text-cream/75"
         >
           <HeadphonesIcon className="size-4" />
-          {t("km.tools.listen")}
         </button>
         <button
           type="button"
           aria-label={t("km.tools.share")}
-          className="press grid size-9 place-items-center rounded-full border border-goldleaf/25 bg-nightwine/45 text-cream/75"
+          className="press grid size-9 shrink-0 place-items-center rounded-full border border-goldleaf/25 bg-nightwine/45 text-cream/75"
         >
           <ShareGlyph className="size-[16px]" />
-        </button>
-        <span className="km-hairline mx-1 h-px flex-1 opacity-30" />
-        <button
-          type="button"
-          aria-label={t("km.read.prev")}
-          className="press grid size-9 place-items-center rounded-full border border-cream/12 bg-nightwine/45 text-cream/70"
-        >
-          <ArrowGlyph className="size-4 ltr:rotate-180" />
-        </button>
-        <button
-          type="button"
-          aria-label={t("km.read.next")}
-          className="press grid size-9 place-items-center rounded-full km-cta text-nightwine"
-        >
-          <ArrowGlyph className="size-4 rtl:rotate-180" />
         </button>
       </section>
 
