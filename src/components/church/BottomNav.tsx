@@ -27,15 +27,17 @@ const items: Item[] = [
 ];
 
 const shell =
-  "press flex flex-1 min-w-0 flex-col items-center gap-0.5 rounded-2xl py-1 text-[color:var(--nav-fg)] opacity-70 transition-opacity hover:opacity-100";
-const active = "data-[status=active]:opacity-100";
+  "press flex flex-1 min-w-0 flex-col items-center gap-0.5 rounded-2xl py-1 text-ink/55 transition-opacity hover:text-ink/80";
+const active = "data-[status=active]:text-ink";
 
 
-/** Center tab: label-only glass pill (no icon) so the full name always fits. */
+/** Center tab: glowing gold glass pill (label only) so the full name always fits. */
 const centerShell =
-  "press group relative flex min-w-0 shrink-0 items-center justify-center rounded-[18px] px-3.5 py-1.5 text-[color:var(--nav-fg)]/75 " +
-  "ring-1 ring-gold/30 transition-all duration-500 hover:text-gold hover:ring-gold/55 " +
-  "data-[status=active]:text-gold data-[status=active]:ring-gold/60";
+  "press group relative flex min-w-0 shrink-0 items-center justify-center rounded-[18px] px-3.5 py-1.5 text-ink " +
+  "bg-linear-to-b from-gold/30 to-gold/10 shadow-[0_6px_18px_oklch(0.72_0.11_85/0.35)] " +
+  "ring-1 ring-gold/50 transition-all duration-500 hover:ring-gold/75 " +
+  "data-[status=active]:ring-gold/85";
+
 
 
 
@@ -53,12 +55,13 @@ export function BottomNav() {
       aria-label={t("nav.main")}
       data-bottom-nav=""
       aria-hidden={!visible}
-      className={`safe-bottom fixed inset-x-0 bottom-0 z-50 mx-auto max-w-[520px] px-2 transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] ${
+      className={`safe-bottom fixed inset-x-0 bottom-2 z-50 mx-auto max-w-[520px] px-3 transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] ${
         visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-[135%] opacity-0"
       }`}
     >
 
-      <div className="nav-glass flex items-stretch gap-0.5 rounded-[24px] px-2 py-1">
+      <div className="glass-card flex items-stretch gap-0.5 rounded-[24px] px-2 py-1.5">
+
         {items.map((item) =>
           item.to && item.center ? (
             <Link key={item.key} to={item.to} className={centerShell}>
