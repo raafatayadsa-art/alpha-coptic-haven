@@ -35,7 +35,6 @@ import {
   PlusIcon,
   PostIcon,
   RetryIcon,
-  SearchIcon,
   VideoIcon,
 } from "@/components/church/media-icons";
 import {
