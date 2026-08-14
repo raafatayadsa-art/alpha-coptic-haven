@@ -22,12 +22,22 @@
   --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-arabic: "Noto Kufi Arabic", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sora: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-manrope: "Manrope", ui-sans-serif, system-ui, sans-serif;
 
   --color-ivory: var(--ivory);
   --color-parchment: var(--parchment);
   --color-gold: var(--gold);
   --color-lavender: var(--lavender);
   --color-ink: var(--ink);
+
+  /* Ocean Deep — scoped theme (Agpeya) */
+  --color-abyss: var(--oc-abyss);
+  --color-deep: var(--oc-deep);
+  --color-tide: var(--oc-tide);
+  --color-teal: var(--oc-teal);
+  --color-mint: var(--oc-mint);
+  --color-foam: var(--oc-foam);
   --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
   --shadow-lift: 0 24px 60px -20px color-mix(in oklab, var(--ink) 28%, transparent);
   --shadow-soft: 0 10px 30px -14px color-mix(in oklab, var(--ink) 18%, transparent);
