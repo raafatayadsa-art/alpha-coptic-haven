@@ -37,8 +37,9 @@ export function PrayerHourCard({
   hourId?: string;
 }) {
   const shared = {
-        "press group relative isolate flex flex-col overflow-hidden rounded-[26px] p-4 text-start",
-        tone === "featured" ? "ocean-glass" : "ocean-tile",
+    className: cn(
+      "press group relative isolate flex flex-col overflow-hidden rounded-[26px] p-4 text-start",
+      tone === "featured" ? "ocean-glass" : "ocean-tile",
       spanClass[span],
     ),
   };
