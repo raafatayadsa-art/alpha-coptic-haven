@@ -351,10 +351,10 @@
 
   /* Minimum breathing room even on devices without insets */
   --safe-top-min: 14px;
-  --safe-bottom-min: 10px;
+  --safe-bottom-min: 4px;
 
   /* Height of the fixed bottom navigation bar */
-  --bottom-nav-h: 68px;
+  --bottom-nav-h: 52px;
 }
 
 @utility safe-top {
