@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { useRef, useState, type ReactNode } from "react";
 
 import { ChevronRight } from "@/components/church/icons";
@@ -11,12 +12,15 @@ export type DailyCard = {
   line: string;
   meta: string;
   action: string;
+  /** optional destination for the card's action pill */
+  to?: string;
   image: string;
   icon: ReactNode;
   tone: "lavender" | "card";
   likes: number;
   comments: number;
 };
+
 
 /**
  * Presentation-only stacked deck: one card on top, the rest tucked behind it.
