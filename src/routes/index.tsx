@@ -178,6 +178,7 @@ function AlphaHome() {
                 {t("hm.verse.save")}
               </button>
             </div>
+            <EngageBar likes={565} comments={38} className="mt-5 border-ink/8" />
           </div>
         </section>
 
