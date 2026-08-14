@@ -615,6 +615,22 @@
   animation: illum-breathe 5.5s ease-in-out infinite;
 }
 
+/* Very faint, small glowing Coptic letter band at the foot of a screen */
+@utility copt-band {
+  font-family: var(--font-display);
+  font-size: 9.5px;
+  letter-spacing: 0.42em;
+  color: color-mix(in oklab, var(--sc-gold) 90%, white);
+  opacity: 0.16;
+  text-shadow: 0 0 6px color-mix(in oklab, var(--sc-gold) 45%, transparent);
+  animation: illum-breathe 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .copt-band { animation: none !important; }
+}
+
+
 @media (prefers-reduced-motion: reduce) {
   .illum-breathe { animation: none !important; }
 }
