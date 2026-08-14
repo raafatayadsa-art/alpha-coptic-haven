@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
 import churchCover from "@/assets/church-cover.jpg";
 import churchCrest from "@/assets/church-crest.png";
@@ -19,13 +19,16 @@ import {
   HelpIcon,
   MembersIcon,
   MoreIcon,
+  ServicesIcon,
   ShieldIcon,
   VerifiedIcon,
 } from "@/components/church/icons";
 import { LanguageToggle } from "@/components/church/LanguageToggle";
+import { MembershipQr } from "@/components/church/MembershipQr";
 import { Shield } from "@/components/church/Shield";
 import { useLang } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+
 
 export const Route = createFileRoute("/profile")({
   head: () => ({
@@ -85,13 +88,25 @@ const journey = [
 
 const myShields = ["servant", "bible", "my-prayer", "meditations"] as const;
 
-const personal = [
+/** Presentation-only permission flag for the control center entry. */
+const canControl = true;
+
+const requests = [
+  { key: "me.requests.1", photo: priest2, slug: "servant" as const },
+  { key: "me.requests.2", photo: priest3, slug: "member" as const },
+  { key: "me.requests.3", photo: priest1, slug: "community" as const },
+];
+
+const personal: { key: string; icon: ReactNode; gated?: boolean }[] = [
   { key: "me.personal.account", icon: <MembersIcon className="size-[18px]" /> },
+  { key: "me.personal.prayers", icon: <HeartIcon className="size-[18px]" /> },
   { key: "me.personal.notifications", icon: <BellIcon className="size-[18px]" /> },
   { key: "me.personal.privacy", icon: <ShieldIcon className="size-[18px]" /> },
   { key: "me.personal.language", icon: <GroupsIcon className="size-[18px]" /> },
   { key: "me.personal.help", icon: <HelpIcon className="size-[18px]" /> },
+  { key: "me.personal.control", icon: <ServicesIcon className="size-[18px]" />, gated: true },
 ];
+
 
 function SectionHead({
   title,
@@ -128,6 +143,9 @@ function ViewAll({ label }: { label: string }) {
 function MyPage() {
   const { t, dir, isArabic } = useLang();
   const arabic = isArabic ? "font-arabic" : "";
+  const [familyOpen, setFamilyOpen] = useState(false);
+  const [requestsOpen, setRequestsOpen] = useState(false);
+
 
   return (
     <div
@@ -281,7 +299,43 @@ function MyPage() {
           </Link>
         </section>
 
-        {/* 3 — My Family */}
+        {/* 2b — Membership card */}
+        <section className="pt-9">
+          <SectionHead title={t("me.card.section")} note={t("me.card.note")} />
+          <div className="glass-card relative overflow-hidden rounded-[30px] p-4">
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute -left-10 -top-12 size-32 rounded-full bg-gold/12 blur-2xl"
+            />
+            <div className="relative flex items-center gap-4">
+              <div className="w-[112px] shrink-0">
+                <MembershipQr value="ALP-2019-0473" label={t("me.card.qrAlt")} />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="truncate font-display text-[15px] font-semibold tracking-tight">
+                  {t("me.name")}
+                </p>
+                <p className="mt-1 truncate text-[10.5px] text-ink/45">{t("me.church.role")}</p>
+                <p className="mt-3 text-[9.5px] font-semibold uppercase tracking-[0.16em] text-ink/40">
+                  {t("me.card.id")}
+                </p>
+                <p dir="ltr" className="mt-1 font-display text-[14px] font-semibold text-gold">
+                  {t("me.card.idValue")}
+                </p>
+                <p className="mt-2 truncate text-[10.5px] text-ink/40">{t("me.card.valid")}</p>
+              </div>
+            </div>
+            <button
+              type="button"
+              className="press mt-4 flex w-full items-center justify-center gap-1.5 rounded-2xl bg-parchment px-4 py-3 text-[12px] font-semibold text-ink/60 ring-1 ring-ink/5"
+            >
+              {t("me.card.show")}
+              <ChevronRight className="size-3.5 rtl:rotate-180" />
+            </button>
+          </div>
+        </section>
+
+        {/* 3 — My Family (collapsed summary) */}
         <section className="pt-9">
           <SectionHead
             title={t("me.family.section")}
@@ -289,34 +343,78 @@ function MyPage() {
             action={<ViewAll label={t("app.viewAll")} />}
           />
           <div className="rounded-[28px] bg-parchment p-2 ring-1 ring-ink/5">
-            <ul className="divide-y divide-ink/5">
-              {family.map((m) => (
-                <li key={m.key}>
-                  <button
-                    type="button"
-                    className="press flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-start"
-                  >
-                    <img
-                      src={m.photo}
-                      alt=""
-                      width={200}
-                      height={200}
-                      loading="lazy"
-                      className="size-11 shrink-0 rounded-full object-cover ring-1 ring-ivory"
-                    />
-                    <span className="min-w-0 flex-1">
-                      <span className="block truncate text-[13.5px] font-semibold">{t(m.key)}</span>
-                      <span className="mt-0.5 block truncate text-[11px] text-ink/45">
-                        {t(`${m.key}.rel`)}
+            <button
+              type="button"
+              onClick={() => setFamilyOpen((v) => !v)}
+              aria-expanded={familyOpen}
+              aria-label={familyOpen ? t("me.family.collapse") : t("me.family.expand")}
+              className="press flex w-full items-center gap-3 rounded-[22px] px-3 py-3 text-start"
+            >
+              <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-gold/12 text-gold ring-1 ring-gold/20">
+                <FamiliesIcon className="size-5" />
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block truncate text-[13.5px] font-semibold">
+                  {t("me.family.section")}
+                </span>
+                <span className="mt-0.5 block truncate text-[11px] text-ink/45">
+                  {t("me.family.count")}
+                </span>
+              </span>
+              <span className="flex shrink-0 -space-x-2 rtl:space-x-reverse">
+                {family.slice(0, 3).map((m) => (
+                  <img
+                    key={m.key}
+                    src={m.photo}
+                    alt=""
+                    width={200}
+                    height={200}
+                    loading="lazy"
+                    className="size-7 rounded-full object-cover ring-2 ring-parchment"
+                  />
+                ))}
+              </span>
+              <ChevronRight
+                className={cn(
+                  "size-4 shrink-0 text-ink/25 transition-transform duration-300 rtl:rotate-180",
+                  familyOpen && "rotate-90 rtl:rotate-90",
+                )}
+              />
+            </button>
+
+            {familyOpen ? (
+              <ul className="mt-1 divide-y divide-ink/5 border-t border-ink/5 pt-1">
+                {family.map((m) => (
+                  <li key={m.key}>
+                    <button
+                      type="button"
+                      className="press flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-start"
+                    >
+                      <img
+                        src={m.photo}
+                        alt=""
+                        width={200}
+                        height={200}
+                        loading="lazy"
+                        className="size-11 shrink-0 rounded-full object-cover ring-1 ring-ivory"
+                      />
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-[13.5px] font-semibold">
+                          {t(m.key)}
+                        </span>
+                        <span className="mt-0.5 block truncate text-[11px] text-ink/45">
+                          {t(`${m.key}.rel`)}
+                        </span>
                       </span>
-                    </span>
-                    <FamiliesIcon className="size-4 shrink-0 text-ink/25" />
-                  </button>
-                </li>
-              ))}
-            </ul>
+                      <ChevronRight className="size-4 shrink-0 text-ink/25 rtl:rotate-180" />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </div>
         </section>
+
 
         {/* 4 — Friends */}
         <section className="pt-9">
@@ -347,17 +445,73 @@ function MyPage() {
             </div>
             <button
               type="button"
+              onClick={() => setRequestsOpen((v) => !v)}
+              aria-expanded={requestsOpen}
               className="press mt-4 flex w-full items-center justify-between rounded-2xl bg-gold/10 px-4 py-3 ring-1 ring-gold/20"
             >
               <span className="text-[12.5px] font-semibold text-gold">
                 {t("me.friends.requests")}
               </span>
-              <span className="grid size-6 place-items-center rounded-full bg-gold/20 text-[11px] font-bold text-gold">
-                ٣
+              <span className="flex items-center gap-2">
+                <span className="grid size-6 place-items-center rounded-full bg-gold/20 text-[11px] font-bold text-gold">
+                  ٣
+                </span>
+                <ChevronRight
+                  className={cn(
+                    "size-4 text-gold/70 transition-transform duration-300 rtl:rotate-180",
+                    requestsOpen && "rotate-90 rtl:rotate-90",
+                  )}
+                />
               </span>
             </button>
+
+            {requestsOpen ? (
+              <ul className="mt-3 space-y-2">
+                {requests.map((r) => (
+                  <li
+                    key={r.key}
+                    className="flex items-center gap-3 rounded-2xl bg-ivory/70 p-2.5 ring-1 ring-ink/5"
+                  >
+                    <span className="relative shrink-0">
+                      <img
+                        src={r.photo}
+                        alt=""
+                        width={200}
+                        height={200}
+                        loading="lazy"
+                        className="size-11 rounded-full object-cover ring-1 ring-ivory"
+                      />
+                      <span className="absolute -bottom-1 -left-1 grid size-6 place-items-center rounded-full bg-ivory ring-1 ring-gold/20 rtl:-left-auto rtl:-right-1">
+                        <Shield slug={r.slug} size="sm" className="size-4" />
+                      </span>
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-[13px] font-semibold">{t(r.key)}</span>
+                      <span className="mt-0.5 block truncate text-[10.5px] text-ink/45">
+                        {t(`${r.key}.meta`)}
+                      </span>
+                    </span>
+                    <span className="flex shrink-0 items-center gap-1.5">
+                      <button
+                        type="button"
+                        className="press rounded-full bg-ink px-3 py-1.5 text-[11px] font-semibold text-ivory"
+                      >
+                        {t("me.requests.accept")}
+                      </button>
+                      <button
+                        type="button"
+                        className="press rounded-full bg-parchment px-3 py-1.5 text-[11px] font-semibold text-ink/55 ring-1 ring-ink/5"
+                      >
+                        {t("me.requests.ignore")}
+                      </button>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </div>
         </section>
+
 
         {/* 5 — My Picks */}
         <section className="pt-9">
@@ -461,25 +615,35 @@ function MyPage() {
           <SectionHead title={t("me.personal.section")} />
           <div className="overflow-hidden rounded-[28px] bg-ivory shadow-[var(--shadow-soft)] ring-1 ring-ink/5">
             <ul className="divide-y divide-ink/5">
-              {personal.map((p) => (
-                <li key={p.key}>
-                  <button
-                    type="button"
-                    className="press flex w-full items-center gap-3 px-4 py-3.5 text-start"
-                  >
-                    <span className="grid size-9 shrink-0 place-items-center rounded-2xl bg-parchment text-ink/55 ring-1 ring-ink/5">
-                      {p.icon}
-                    </span>
-                    <span className="min-w-0 flex-1 truncate text-[13px] font-medium">
-                      {t(p.key)}
-                    </span>
-                    <ChevronRight className="size-4 shrink-0 text-ink/25 rtl:rotate-180" />
-                  </button>
-                </li>
-              ))}
+              {personal
+                .filter((p) => !p.gated || canControl)
+                .map((p) => (
+                  <li key={p.key}>
+                    <button
+                      type="button"
+                      className="press flex w-full items-center gap-3 px-4 py-3.5 text-start"
+                    >
+                      <span
+                        className={cn(
+                          "grid size-9 shrink-0 place-items-center rounded-2xl ring-1",
+                          p.gated
+                            ? "bg-gold/12 text-gold ring-gold/20"
+                            : "bg-parchment text-ink/55 ring-ink/5",
+                        )}
+                      >
+                        {p.icon}
+                      </span>
+                      <span className="min-w-0 flex-1 truncate text-[13px] font-medium">
+                        {t(p.key)}
+                      </span>
+                      <ChevronRight className="size-4 shrink-0 text-ink/25 rtl:rotate-180" />
+                    </button>
+                  </li>
+                ))}
             </ul>
           </div>
         </section>
+
 
         {/* 9 — Soft footer */}
         <footer className="pb-4 pt-10 text-center">

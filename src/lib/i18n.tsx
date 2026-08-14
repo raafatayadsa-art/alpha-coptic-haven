@@ -429,7 +429,32 @@ export const dict: Dict = {
   "me.personal.privacy": { ar: "الخصوصية والظهور", en: "Privacy & visibility" },
   "me.personal.language": { ar: "اللغة", en: "Language" },
   "me.personal.help": { ar: "المساعدة والدعم", en: "Help & support" },
+  "me.personal.prayers": { ar: "طلبات الصلاة", en: "Prayer requests" },
+  "me.personal.control": { ar: "مركز التحكم", en: "Control center" },
+
+  "me.card.section": { ar: "بطاقة العضوية", en: "Membership card" },
+  "me.card.note": { ar: "اعرض الرمز عند الحضور أو الخدمة", en: "Show this code at attendance or service" },
+  "me.card.id": { ar: "رقم العضوية", en: "Member ID" },
+  "me.card.idValue": { ar: "ALP-2019-0473", en: "ALP-2019-0473" },
+  "me.card.valid": { ar: "سارية حتى ديسمبر ٢٠٢٦", en: "Valid until December 2026" },
+  "me.card.qrAlt": { ar: "رمز QR الخاص بعضويتك", en: "Your membership QR code" },
+  "me.card.show": { ar: "تكبير الرمز", en: "Enlarge code" },
+
+  "me.family.count": { ar: "٥ أفراد", en: "5 members" },
+  "me.family.expand": { ar: "اعرض أفراد العائلة", en: "Show family members" },
+  "me.family.collapse": { ar: "إخفاء أفراد العائلة", en: "Hide family members" },
+
+  "me.requests.note": { ar: "٣ طلبات في انتظار ردك", en: "3 requests awaiting you" },
+  "me.requests.accept": { ar: "قبول", en: "Accept" },
+  "me.requests.ignore": { ar: "تجاهل", en: "Ignore" },
+  "me.requests.1": { ar: "بيشوي رمزي", en: "Bishoy Ramzy" },
+  "me.requests.1.meta": { ar: "خادم اجتماع الشباب", en: "Youth meeting servant" },
+  "me.requests.2": { ar: "مريم صبحي", en: "Mariam Sobhy" },
+  "me.requests.2.meta": { ar: "كورال الملاك ميخائيل", en: "Archangel Michael Chorus" },
+  "me.requests.3": { ar: "أبانوب جورج", en: "Abanoub George" },
+  "me.requests.3.meta": { ar: "عضو مُوثَّق", en: "Verified member" },
   "me.footer": { ar: "«أنا هو الطريق والحق والحياة»", en: "\u201cI am the way, the truth and the life\u201d" },
+
 };
 
 
