@@ -31,6 +31,7 @@ import { Route as ConnectChatRouteImport } from './routes/connect-chat'
 import { Route as ConnectFriendsRouteImport } from './routes/connect-friends'
 import { Route as ConnectMessagesRouteImport } from './routes/connect-messages'
 import { Route as ConnectSettingsRouteImport } from './routes/connect-settings'
+import { Route as ControlRouteImport } from './routes/control'
 import { Route as FathersRouteImport } from './routes/fathers'
 import { Route as IntroRouteImport } from './routes/intro'
 import { Route as KatamerosRouteImport } from './routes/katameros'
@@ -162,6 +163,11 @@ const ConnectSettingsRoute = ConnectSettingsRouteImport.update({
   path: '/connect-settings',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ControlRoute = ControlRouteImport.update({
+  id: '/control',
+  path: '/control',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FathersRoute = FathersRouteImport.update({
   id: '/fathers',
   path: '/fathers',
@@ -286,6 +292,7 @@ export interface FileRoutesByFullPath {
   '/connect-friends': typeof ConnectFriendsRoute
   '/connect-messages': typeof ConnectMessagesRoute
   '/connect-settings': typeof ConnectSettingsRoute
+  '/control': typeof ControlRoute
   '/fathers': typeof FathersRoute
   '/intro': typeof IntroRoute
   '/katameros': typeof KatamerosRoute
@@ -330,6 +337,7 @@ export interface FileRoutesByTo {
   '/connect-friends': typeof ConnectFriendsRoute
   '/connect-messages': typeof ConnectMessagesRoute
   '/connect-settings': typeof ConnectSettingsRoute
+  '/control': typeof ControlRoute
   '/fathers': typeof FathersRoute
   '/intro': typeof IntroRoute
   '/katameros': typeof KatamerosRoute
@@ -375,6 +383,7 @@ export interface FileRoutesById {
   '/connect-friends': typeof ConnectFriendsRoute
   '/connect-messages': typeof ConnectMessagesRoute
   '/connect-settings': typeof ConnectSettingsRoute
+  '/control': typeof ControlRoute
   '/fathers': typeof FathersRoute
   '/intro': typeof IntroRoute
   '/katameros': typeof KatamerosRoute
@@ -421,6 +430,7 @@ export interface FileRouteTypes {
     | '/connect-friends'
     | '/connect-messages'
     | '/connect-settings'
+    | '/control'
     | '/fathers'
     | '/intro'
     | '/katameros'
@@ -465,6 +475,7 @@ export interface FileRouteTypes {
     | '/connect-friends'
     | '/connect-messages'
     | '/connect-settings'
+    | '/control'
     | '/fathers'
     | '/intro'
     | '/katameros'
@@ -509,6 +520,7 @@ export interface FileRouteTypes {
     | '/connect-friends'
     | '/connect-messages'
     | '/connect-settings'
+    | '/control'
     | '/fathers'
     | '/intro'
     | '/katameros'
@@ -554,6 +566,7 @@ export interface RootRouteChildren {
   ConnectFriendsRoute: typeof ConnectFriendsRoute
   ConnectMessagesRoute: typeof ConnectMessagesRoute
   ConnectSettingsRoute: typeof ConnectSettingsRoute
+  ControlRoute: typeof ControlRoute
   FathersRoute: typeof FathersRoute
   IntroRoute: typeof IntroRoute
   KatamerosRoute: typeof KatamerosRoute
@@ -732,6 +745,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConnectSettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/control': {
+      id: '/control'
+      path: '/control'
+      fullPath: '/control'
+      preLoaderRoute: typeof ControlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/fathers': {
       id: '/fathers'
       path: '/fathers'
@@ -898,6 +918,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConnectFriendsRoute: ConnectFriendsRoute,
   ConnectMessagesRoute: ConnectMessagesRoute,
   ConnectSettingsRoute: ConnectSettingsRoute,
+  ControlRoute: ControlRoute,
   FathersRoute: FathersRoute,
   IntroRoute: IntroRoute,
   KatamerosRoute: KatamerosRoute,
