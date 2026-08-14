@@ -432,7 +432,7 @@ function BibleRead() {
               </button>
             </div>
 
-            <div className="mt-2 flex items-center justify-between gap-1.5 overflow-x-auto no-scrollbar">
+            <div className="mt-2 grid grid-cols-2 gap-1.5">
               <ToolTabs
                 label={t("bib.reader.speed")}
                 items={SPEEDS}
