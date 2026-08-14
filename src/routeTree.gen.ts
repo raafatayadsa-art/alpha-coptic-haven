@@ -10,43 +10,43 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ChurchRouteImport } from './routes/church'
+import { Route as ChurchControlRouteImport } from './routes/church-control'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ChurchRoute = ChurchRouteImport.update({
-  id: '/church',
-  path: '/church',
+const ChurchControlRoute = ChurchControlRouteImport.update({
+  id: '/church-control',
+  path: '/church-control',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/church': typeof ChurchRoute
+  '/church-control': typeof ChurchControlRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/church': typeof ChurchRoute
+  '/church-control': typeof ChurchControlRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/church': typeof ChurchRoute
+  '/church-control': typeof ChurchControlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/church'
+  fullPaths: '/' | '/church-control'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/church'
-  id: '__root__' | '/' | '/church'
+  to: '/' | '/church-control'
+  id: '__root__' | '/' | '/church-control'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ChurchRoute: typeof ChurchRoute
+  ChurchControlRoute: typeof ChurchControlRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,11 +58,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/church': {
-      id: '/church'
-      path: '/church'
-      fullPath: '/church'
-      preLoaderRoute: typeof ChurchRouteImport
+    '/church-control': {
+      id: '/church-control'
+      path: '/church-control'
+      fullPath: '/church-control'
+      preLoaderRoute: typeof ChurchControlRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -70,7 +70,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ChurchRoute: ChurchRoute,
+  ChurchControlRoute: ChurchControlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

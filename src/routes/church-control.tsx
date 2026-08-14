@@ -45,7 +45,7 @@ import {
   type ContentItem,
 } from "@/components/church/ContentCard";
 
-export const Route = createFileRoute("/church")({
+export const Route = createFileRoute("/church-control")({
   head: () => ({
     meta: [
       { title: "كنيستك معاك — ملف الكنيسة | Alpha Coptic" },
