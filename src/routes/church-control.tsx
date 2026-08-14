@@ -217,7 +217,7 @@ function ChurchProfile() {
     >
       <TopBar />
 
-      <main className="px-4 pb-10">
+      <main className="px-4 pb-1">
         <HeroCard />
         <ResponsibleRow />
         <QuickActions />
