@@ -415,66 +415,143 @@ function BibleRead() {
                 {/* Action menu — pinned directly under the tapped verse */}
                 {on ? (
                   <div
-                    className={`mt-2 rounded-[22px] px-2.5 py-3 text-[13px] verse-rise ${surface}`}
+                    className={`verse-rise relative mt-2 rounded-[24px] px-3 py-3 ${surface}`}
                   >
-                    <div className="flex items-center justify-around">
+                    {/* Highlight colour strip — overlapping ink discs above the row */}
+                    {sheet === "colors" ? (
+                      <div
+                        aria-label={t("bib.act.colors")}
+                        className={`verse-rise absolute bottom-[calc(100%-6px)] z-20 flex items-center rounded-full px-3 py-2 shadow-xl ${
+                          night ? "border border-illum/25 bg-inkblue/95" : "vellum-card"
+                        }`}
+                        style={{ insetInlineEnd: 10 }}
+                      >
+                        {HL_COLORS.map((c, ci) => (
+                          <button
+                            key={c.id}
+                            type="button"
+                            aria-label={c.id}
+                            onClick={() => paint(verse.n, c.id)}
+                            className={`press size-8 rounded-full border-2 transition-transform ${
+                              highlights[verse.n] === c.id
+                                ? "scale-110 border-copper"
+                                : "border-white/80"
+                            }`}
+                            style={{
+                              background: `color-mix(in oklab, ${c.v} 78%, transparent)`,
+                              marginInlineStart: ci === 0 ? 0 : -10,
+                            }}
+                          />
+                        ))}
+                        <button
+                          type="button"
+                          onClick={() => paint(verse.n, null)}
+                          className={`press ms-2.5 rounded-full px-2.5 py-1 text-[10px] font-semibold ${chip}`}
+                        >
+                          {t("bib.act.clear")}
+                        </button>
+                      </div>
+                    ) : null}
+
+                    {/* Tools list — vertical popover above the row */}
+                    {sheet === "tools" ? (
+                      <div
+                        className={`verse-rise absolute bottom-[calc(100%-6px)] z-20 flex w-[186px] flex-col gap-1.5 rounded-[22px] p-2 shadow-xl ${
+                          night ? "border border-illum/25 bg-inkblue/95" : "vellum-card"
+                        }`}
+                        style={{ insetInlineStart: 10 }}
+                      >
+                        {TOOL_ITEMS.map((item) => {
+                          const inner = (
+                            <>
+                              <span
+                                className="grid size-9 place-items-center rounded-[13px] border"
+                                style={{
+                                  background: `color-mix(in oklab, ${item.tint} 22%, transparent)`,
+                                  borderColor: `color-mix(in oklab, ${item.tint} 42%, transparent)`,
+                                  color: `color-mix(in oklab, ${item.tint} 72%, black)`,
+                                }}
+                              >
+                                {item.icon}
+                              </span>
+                              <span className="flex-1 text-[12.5px] font-bold">{t(item.key)}</span>
+                            </>
+                          );
+                          const cls = `press flex flex-row-reverse items-center gap-2.5 rounded-[16px] px-2 py-1.5 text-start ${
+                            night ? "bg-vellum/[0.06] text-vellum" : "bg-white/70 text-inkblue"
+                          }`;
+                          return item.to ? (
+                            <Link key={item.key} to={item.to} className={cls}>
+                              {inner}
+                            </Link>
+                          ) : (
+                            <button
+                              key={item.key}
+                              type="button"
+                              onClick={() => {
+                                setSheet(null);
+                                setShareVn(verse.n);
+                              }}
+                              className={cls}
+                            >
+                              {inner}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    ) : null}
+
+                    {/* Three primary actions */}
+                    <div className="flex items-stretch gap-2">
                       {(
                         [
                           [
-                            "bib.act.highlight",
-                            <HighlightIcon key="h" className="size-[18px]" />,
-                            "/bible-highlights",
+                            "bib.act.share",
+                            <ShareGlyph key="sh" className="size-[19px]" />,
+                            "share",
                           ],
-                          ["bib.act.note", <NoteIcon key="n" className="size-[18px]" />, "/bible-notes"],
-                          ["bib.act.favorite", <StarIcon key="s" className="size-[18px]" />, "/bible-saved"],
+                          ["bib.act.tools", <LayersIcon key="tl" className="size-[19px]" />, "tools"],
+                          [
+                            "bib.act.highlight",
+                            <HighlightIcon key="hl" className="size-[19px]" />,
+                            "colors",
+                          ],
                         ] as const
-                      ).map(([key, icon, to]) => (
-                        <Link
-                          key={key}
-                          to={to}
-                          className="press flex flex-col items-center gap-1.5 px-2 text-copper"
-                        >
-                          {icon}
-                          <span className={`text-[10px] font-semibold ${body}`}>{t(key)}</span>
-                        </Link>
-                      ))}
-                      <button
-                        type="button"
-                        onClick={() => shareVerse(verse.n)}
-                        className="press flex flex-col items-center gap-1.5 px-2 text-copper"
-                      >
-                        <ShareGlyph className="size-[18px]" />
-                        <span className={`text-[10px] font-semibold ${body}`}>
-                          {t("bib.act.share")}
-                        </span>
-                      </button>
-                    </div>
-
-                    <div
-                      className={`mt-2.5 flex items-center gap-1.5 border-t pt-2.5 ${
-                        night ? "border-illum/15" : "border-shade/70"
-                      }`}
-                    >
-                      <Link
-                        to="/my-church"
-                        className={`press flex-1 rounded-full px-2 py-1.5 text-center text-[10.5px] font-semibold whitespace-nowrap ${chip}`}
-                      >
-                        {t("bib.act.community")}
-                      </Link>
-                      <button
-                        type="button"
-                        onClick={() => copyVerse(verse.n)}
-                        className={`press flex-1 rounded-full px-2 py-1.5 text-[10.5px] font-semibold whitespace-nowrap ${chip}`}
-                      >
-                        {t("bib.act.copy")}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => shareVerse(verse.n)}
-                        className={`press flex-1 rounded-full px-2 py-1.5 text-[10.5px] font-semibold whitespace-nowrap ${chip}`}
-                      >
-                        {t("bib.act.image")}
-                      </button>
+                      ).map(([key, icon, kind]) => {
+                        const activeBtn = sheet === kind;
+                        return (
+                          <button
+                            key={key}
+                            type="button"
+                            onClick={() => {
+                              if (kind === "share") {
+                                setSheet(null);
+                                setShareVn(verse.n);
+                                return;
+                              }
+                              setSheet((s) => (s === kind ? null : kind));
+                            }}
+                            className={`press flex flex-1 flex-col items-center gap-1.5 rounded-[20px] py-2.5 transition-colors ${
+                              activeBtn
+                                ? night
+                                  ? "border border-illum/35 bg-illum/12"
+                                  : "border border-copper/30 bg-illum/18"
+                                : night
+                                  ? "border border-vellum/10 bg-vellum/[0.05]"
+                                  : "border border-shade/60 bg-white/75"
+                            }`}
+                          >
+                            <span
+                              className={`grid size-10 place-items-center rounded-full ${
+                                night ? "bg-vellum/10 text-illum" : "bg-white text-copper"
+                              }`}
+                            >
+                              {icon}
+                            </span>
+                            <span className={`text-[10.5px] font-bold ${body}`}>{t(key)}</span>
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
                 ) : null}
