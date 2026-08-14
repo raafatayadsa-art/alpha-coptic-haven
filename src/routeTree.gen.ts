@@ -24,6 +24,7 @@ import { Route as BibleSearchRouteImport } from './routes/bible-search'
 import { Route as BibleStatsRouteImport } from './routes/bible-stats'
 import { Route as ChurchControlRouteImport } from './routes/church-control'
 import { Route as KatamerosRouteImport } from './routes/katameros'
+import { Route as KatamerosCalendarRouteImport } from './routes/katameros-calendar'
 import { Route as KatamerosDayRouteImport } from './routes/katameros-day'
 import { Route as KatamerosReadRouteImport } from './routes/katameros-read'
 import { Route as MyChurchRouteImport } from './routes/my-church'
@@ -104,6 +105,11 @@ const KatamerosRoute = KatamerosRouteImport.update({
   path: '/katameros',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KatamerosCalendarRoute = KatamerosCalendarRouteImport.update({
+  id: '/katameros-calendar',
+  path: '/katameros-calendar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const KatamerosDayRoute = KatamerosDayRouteImport.update({
   id: '/katameros-day',
   path: '/katameros-day',
@@ -141,6 +147,7 @@ export interface FileRoutesByFullPath {
   '/bible-stats': typeof BibleStatsRoute
   '/church-control': typeof ChurchControlRoute
   '/katameros': typeof KatamerosRoute
+  '/katameros-calendar': typeof KatamerosCalendarRoute
   '/katameros-day': typeof KatamerosDayRoute
   '/katameros-read': typeof KatamerosReadRoute
   '/my-church': typeof MyChurchRoute
@@ -162,6 +169,7 @@ export interface FileRoutesByTo {
   '/bible-stats': typeof BibleStatsRoute
   '/church-control': typeof ChurchControlRoute
   '/katameros': typeof KatamerosRoute
+  '/katameros-calendar': typeof KatamerosCalendarRoute
   '/katameros-day': typeof KatamerosDayRoute
   '/katameros-read': typeof KatamerosReadRoute
   '/my-church': typeof MyChurchRoute
@@ -184,6 +192,7 @@ export interface FileRoutesById {
   '/bible-stats': typeof BibleStatsRoute
   '/church-control': typeof ChurchControlRoute
   '/katameros': typeof KatamerosRoute
+  '/katameros-calendar': typeof KatamerosCalendarRoute
   '/katameros-day': typeof KatamerosDayRoute
   '/katameros-read': typeof KatamerosReadRoute
   '/my-church': typeof MyChurchRoute
@@ -207,6 +216,7 @@ export interface FileRouteTypes {
     | '/bible-stats'
     | '/church-control'
     | '/katameros'
+    | '/katameros-calendar'
     | '/katameros-day'
     | '/katameros-read'
     | '/my-church'
@@ -228,6 +238,7 @@ export interface FileRouteTypes {
     | '/bible-stats'
     | '/church-control'
     | '/katameros'
+    | '/katameros-calendar'
     | '/katameros-day'
     | '/katameros-read'
     | '/my-church'
@@ -249,6 +260,7 @@ export interface FileRouteTypes {
     | '/bible-stats'
     | '/church-control'
     | '/katameros'
+    | '/katameros-calendar'
     | '/katameros-day'
     | '/katameros-read'
     | '/my-church'
@@ -271,6 +283,7 @@ export interface RootRouteChildren {
   BibleStatsRoute: typeof BibleStatsRoute
   ChurchControlRoute: typeof ChurchControlRoute
   KatamerosRoute: typeof KatamerosRoute
+  KatamerosCalendarRoute: typeof KatamerosCalendarRoute
   KatamerosDayRoute: typeof KatamerosDayRoute
   KatamerosReadRoute: typeof KatamerosReadRoute
   MyChurchRoute: typeof MyChurchRoute
@@ -384,6 +397,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KatamerosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/katameros-calendar': {
+      id: '/katameros-calendar'
+      path: '/katameros-calendar'
+      fullPath: '/katameros-calendar'
+      preLoaderRoute: typeof KatamerosCalendarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/katameros-day': {
       id: '/katameros-day'
       path: '/katameros-day'
@@ -431,6 +451,7 @@ const rootRouteChildren: RootRouteChildren = {
   BibleStatsRoute: BibleStatsRoute,
   ChurchControlRoute: ChurchControlRoute,
   KatamerosRoute: KatamerosRoute,
+  KatamerosCalendarRoute: KatamerosCalendarRoute,
   KatamerosDayRoute: KatamerosDayRoute,
   KatamerosReadRoute: KatamerosReadRoute,
   MyChurchRoute: MyChurchRoute,
