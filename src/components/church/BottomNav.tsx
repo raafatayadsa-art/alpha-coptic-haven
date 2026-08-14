@@ -10,11 +10,11 @@ import {
   PersonIcon,
 } from "@/components/church/media-icons";
 
-type Item = { label: string; icon: ReactNode; to?: "/" | "/church" };
+type Item = { label: string; icon: ReactNode; to?: "/" };
 
 const items: Item[] = [
-  { label: "الرئيسية", icon: <HomeIcon className="size-[21px]" />, to: "/" },
-  { label: "كنيستي", icon: <ChurchIcon className="size-[21px]" />, to: "/church" },
+  { label: "الرئيسية", icon: <HomeIcon className="size-[21px]" /> },
+  { label: "كنيستي", icon: <ChurchIcon className="size-[21px]" />, to: "/" },
   { label: "المكتبة", icon: <LibraryIcon className="size-[21px]" /> },
   { label: "الصوتيات", icon: <AudioIcon className="size-[21px]" /> },
   { label: "الصور", icon: <GalleryIcon className="size-[21px]" /> },
