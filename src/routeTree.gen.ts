@@ -26,6 +26,7 @@ import { Route as BibleStatsRouteImport } from './routes/bible-stats'
 import { Route as ChurchControlRouteImport } from './routes/church-control'
 import { Route as ConnectRouteImport } from './routes/connect'
 import { Route as ConnectChannelRouteImport } from './routes/connect-channel'
+import { Route as ConnectChatRouteImport } from './routes/connect-chat'
 import { Route as ConnectFriendsRouteImport } from './routes/connect-friends'
 import { Route as ConnectMessagesRouteImport } from './routes/connect-messages'
 import { Route as ConnectSettingsRouteImport } from './routes/connect-settings'
@@ -131,6 +132,11 @@ const ConnectRoute = ConnectRouteImport.update({
 const ConnectChannelRoute = ConnectChannelRouteImport.update({
   id: '/connect-channel',
   path: '/connect-channel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConnectChatRoute = ConnectChatRouteImport.update({
+  id: '/connect-chat',
+  path: '/connect-chat',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConnectFriendsRoute = ConnectFriendsRouteImport.update({
@@ -257,6 +263,7 @@ export interface FileRoutesByFullPath {
   '/church-control': typeof ChurchControlRoute
   '/connect': typeof ConnectRoute
   '/connect-channel': typeof ConnectChannelRoute
+  '/connect-chat': typeof ConnectChatRoute
   '/connect-friends': typeof ConnectFriendsRoute
   '/connect-messages': typeof ConnectMessagesRoute
   '/connect-settings': typeof ConnectSettingsRoute
@@ -297,6 +304,7 @@ export interface FileRoutesByTo {
   '/church-control': typeof ChurchControlRoute
   '/connect': typeof ConnectRoute
   '/connect-channel': typeof ConnectChannelRoute
+  '/connect-chat': typeof ConnectChatRoute
   '/connect-friends': typeof ConnectFriendsRoute
   '/connect-messages': typeof ConnectMessagesRoute
   '/connect-settings': typeof ConnectSettingsRoute
@@ -338,6 +346,7 @@ export interface FileRoutesById {
   '/church-control': typeof ChurchControlRoute
   '/connect': typeof ConnectRoute
   '/connect-channel': typeof ConnectChannelRoute
+  '/connect-chat': typeof ConnectChatRoute
   '/connect-friends': typeof ConnectFriendsRoute
   '/connect-messages': typeof ConnectMessagesRoute
   '/connect-settings': typeof ConnectSettingsRoute
@@ -380,6 +389,7 @@ export interface FileRouteTypes {
     | '/church-control'
     | '/connect'
     | '/connect-channel'
+    | '/connect-chat'
     | '/connect-friends'
     | '/connect-messages'
     | '/connect-settings'
@@ -420,6 +430,7 @@ export interface FileRouteTypes {
     | '/church-control'
     | '/connect'
     | '/connect-channel'
+    | '/connect-chat'
     | '/connect-friends'
     | '/connect-messages'
     | '/connect-settings'
@@ -460,6 +471,7 @@ export interface FileRouteTypes {
     | '/church-control'
     | '/connect'
     | '/connect-channel'
+    | '/connect-chat'
     | '/connect-friends'
     | '/connect-messages'
     | '/connect-settings'
@@ -501,6 +513,7 @@ export interface RootRouteChildren {
   ChurchControlRoute: typeof ChurchControlRoute
   ConnectRoute: typeof ConnectRoute
   ConnectChannelRoute: typeof ConnectChannelRoute
+  ConnectChatRoute: typeof ConnectChatRoute
   ConnectFriendsRoute: typeof ConnectFriendsRoute
   ConnectMessagesRoute: typeof ConnectMessagesRoute
   ConnectSettingsRoute: typeof ConnectSettingsRoute
@@ -643,6 +656,13 @@ declare module '@tanstack/react-router' {
       path: '/connect-channel'
       fullPath: '/connect-channel'
       preLoaderRoute: typeof ConnectChannelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/connect-chat': {
+      id: '/connect-chat'
+      path: '/connect-chat'
+      fullPath: '/connect-chat'
+      preLoaderRoute: typeof ConnectChatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/connect-friends': {
@@ -813,6 +833,7 @@ const rootRouteChildren: RootRouteChildren = {
   ChurchControlRoute: ChurchControlRoute,
   ConnectRoute: ConnectRoute,
   ConnectChannelRoute: ConnectChannelRoute,
+  ConnectChatRoute: ConnectChatRoute,
   ConnectFriendsRoute: ConnectFriendsRoute,
   ConnectMessagesRoute: ConnectMessagesRoute,
   ConnectSettingsRoute: ConnectSettingsRoute,
