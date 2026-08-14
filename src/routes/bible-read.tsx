@@ -78,7 +78,7 @@ function ToolTabs({
   return (
     <div
       aria-label={label}
-      className={`flex items-center gap-0.5 rounded-full px-1 py-1 ${
+      className={`flex w-full items-center gap-1 rounded-full px-1.5 py-1 ${
         night ? "bg-vellum/10" : "bg-inkblue/[0.06]"
       }`}
     >
@@ -88,7 +88,7 @@ function ToolTabs({
           key={item.key}
           type="button"
           onClick={() => onChange(i)}
-          className={`press rounded-full px-1.5 py-1 text-[10px] font-semibold transition-colors ${
+          className={`press flex-1 rounded-full px-2 py-1 text-[10.5px] font-semibold transition-colors ${
             i === value
               ? "gold-cta text-inkblue"
               : night
@@ -432,7 +432,7 @@ function BibleRead() {
               </button>
             </div>
 
-            <div className="mt-2 grid grid-cols-2 gap-1.5">
+            <div className="mt-2 space-y-1.5">
               <ToolTabs
                 label={t("bib.reader.speed")}
                 items={SPEEDS}
