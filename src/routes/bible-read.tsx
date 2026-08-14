@@ -788,6 +788,97 @@ function BibleRead() {
           ⲁ ⲱ ⲭ ⲥ ⲡⲛⲟⲩϯ ⲁ ⲱ
         </span>
 
+        {/* ── Share sheet: "spread the blessing" ── */}
+        {shareVn ? (
+          <div className="fixed inset-0 z-50 flex items-end justify-center">
+            <button
+              type="button"
+              aria-label={t("bib.share.close")}
+              onClick={() => setShareVn(null)}
+              className="absolute inset-0 bg-inkblue/60 backdrop-blur-[3px]"
+            />
+            <div
+              dir={dir}
+              className="verse-rise safe-bottom relative mx-auto w-full max-w-[430px] rounded-t-[30px] border-t border-illum/25 bg-inkblue px-5 pt-3 pb-6 shadow-2xl"
+            >
+              <span className="mx-auto block h-1 w-11 rounded-full bg-vellum/25" />
+
+              <div className="mt-3.5 flex items-center justify-between">
+                <button
+                  type="button"
+                  aria-label={t("bib.share.close")}
+                  onClick={() => setShareVn(null)}
+                  className="press grid size-9 place-items-center rounded-full border border-vellum/15 text-vellum/70"
+                >
+                  ✕
+                </button>
+                <div className="flex items-center gap-2">
+                  <span className="font-display text-[16px] font-bold text-vellum">
+                    {t("bib.share.title")}
+                  </span>
+                  <CopticCross className="size-4 text-illum" />
+                </div>
+              </div>
+
+              <p className="mt-3 text-end font-manrope text-[11.5px] font-bold text-illum">
+                {name} {ch}:{shareVn}
+              </p>
+              <p className="mt-1 text-end text-[12.5px] leading-relaxed text-vellum/60">
+                {(() => {
+                  const v = samplePassage.find((x) => x.n === shareVn);
+                  return v ? (isArabic ? v.ar : v.en) : "";
+                })()}
+              </p>
+
+              <Link
+                to="/my-church"
+                className="press mt-4 block rounded-[20px] border py-3.5 text-center text-[13.5px] font-bold"
+                style={{
+                  borderColor: "color-mix(in oklab, var(--hl-mint) 45%, transparent)",
+                  background: "color-mix(in oklab, var(--hl-mint) 12%, transparent)",
+                  color: "var(--hl-mint)",
+                }}
+              >
+                {t("bib.share.community")}
+              </Link>
+
+              <button
+                type="button"
+                onClick={() => {
+                  shareVerse(shareVn);
+                  setShareVn(null);
+                }}
+                className="press mt-2.5 w-full rounded-[20px] border border-vellum/12 bg-vellum/[0.06] py-3.5 text-[13.5px] font-bold text-vellum"
+              >
+                {t("bib.share.system")}
+              </button>
+
+              <div className="mt-2.5 grid grid-cols-2 gap-2.5">
+                <button
+                  type="button"
+                  onClick={() => {
+                    copyVerse(shareVn);
+                    setShareVn(null);
+                  }}
+                  className="press rounded-[18px] border border-vellum/12 bg-vellum/[0.04] py-3 text-[11.5px] font-semibold text-vellum/80"
+                >
+                  {t("bib.share.copy")}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setToast(t("bib.share.image"));
+                    setShareVn(null);
+                  }}
+                  className="press rounded-[18px] border border-vellum/12 bg-vellum/[0.04] py-3 text-[11.5px] font-semibold text-vellum/80"
+                >
+                  {t("bib.share.image")}
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : null}
+
         {/* Action confirmation */}
         {toast ? (
           <div className="pointer-events-none fixed inset-x-0 top-1/2 z-50 flex justify-center">
