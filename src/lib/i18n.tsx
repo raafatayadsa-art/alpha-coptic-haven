@@ -32,6 +32,36 @@ export const dict: Dict = {
   "app.likes": { ar: "إعجاب", en: "likes" },
   "app.open": { ar: "فتح", en: "Open" },
 
+  /* ── Greeting · notifications · share ───────────────────── */
+  "hm.greet.morning": { ar: "صباح الخير", en: "Good morning" },
+  "hm.greet.afternoon": { ar: "نهارك مبارك", en: "Good afternoon" },
+  "hm.greet.evening": { ar: "مساء الخير", en: "Good evening" },
+  "hm.greet.night": { ar: "ليلة مباركة", en: "Blessed night" },
+  "hm.user.name": { ar: "رأفت", en: "Raafat" },
+  "notif.title": { ar: "التنبيهات", en: "Notifications" },
+  "notif.markAll": { ar: "تحديد الكل كمقروء", en: "Mark all read" },
+  "notif.empty": { ar: "لا توجد تنبيهات جديدة", en: "No new notifications" },
+  "notif.n1.t": { ar: "قداس الأحد", en: "Sunday liturgy" },
+  "notif.n1.l": { ar: "يبدأ القداس الإلهي غدًا ٧:٠٠ صباحًا", en: "Divine liturgy starts tomorrow at 7:00 AM" },
+  "notif.n1.w": { ar: "منذ ١٠ دقائق", en: "10m ago" },
+  "notif.n2.t": { ar: "مريم ن. أعجبها منشورك", en: "Mary N. liked your post" },
+  "notif.n2.l": { ar: "«النور يضيء في الظلمة»", en: "“The light shines in the darkness”" },
+  "notif.n2.w": { ar: "منذ ساعة", en: "1h ago" },
+  "notif.n3.t": { ar: "تذكير الأجبية", en: "Agpeya reminder" },
+  "notif.n3.l": { ar: "صلاة الساعة الثالثة في انتظارك", en: "The Third Hour prayer is waiting" },
+  "notif.n3.w": { ar: "منذ ٣ ساعات", en: "3h ago" },
+  "notif.n4.t": { ar: "طلب صداقة جديد", en: "New friend request" },
+  "notif.n4.l": { ar: "بيتر ج. يريد الانضمام إلى أصدقائك", en: "Peter G. wants to connect" },
+  "notif.n4.w": { ar: "أمس", en: "Yesterday" },
+  "engage.share.title": { ar: "مشاركة عبر", en: "Share via" },
+  "engage.share.community": { ar: "مجتمعي", en: "My community" },
+  "engage.share.whatsapp": { ar: "واتساب", en: "WhatsApp" },
+  "engage.share.telegram": { ar: "تليجرام", en: "Telegram" },
+  "engage.share.facebook": { ar: "فيسبوك", en: "Facebook" },
+  "engage.share.messenger": { ar: "ماسنجر", en: "Messenger" },
+  "engage.share.copy": { ar: "نسخ الرابط", en: "Copy link" },
+
+
 
   /* ── Bottom navigation ──────────────────────────────────── */
   "nav.main": { ar: "التنقل الرئيسي", en: "Main navigation" },
