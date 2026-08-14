@@ -5,39 +5,46 @@ import { useLang } from "@/lib/i18n";
 export type RailHue = { hue: string; hue2: string };
 export type RailItem = { id: string; label: string; hue: RailHue };
 
-type Theme = "ocean" | "manuscript";
+type Theme = "ocean" | "manuscript" | "sanctuary";
 
 const surface: Record<Theme, string> = {
+  sanctuary: "kh-glass",
   ocean: "ocean-glass",
   manuscript: "km-glass",
 };
 
 const idleTone: Record<Theme, string> = {
+  sanctuary: "border-khgold/12 bg-sanctnight/40 text-khivory/45",
   ocean: "border-foam/10 bg-abyss/30 text-foam/45",
   manuscript: "border-cream/10 bg-wine/40 text-cream/45",
 };
 
 const doneTone: Record<Theme, string> = {
+  sanctuary: "hue-ring hue-text bg-sanctnight/55",
   ocean: "hue-ring hue-text bg-abyss/40",
   manuscript: "hue-ring hue-text bg-nightwine/55",
 };
 
 const activeTone: Record<Theme, string> = {
+  sanctuary: "kh-cta border-transparent text-sanctnight",
   ocean: "hue-cta border-transparent text-abyss",
   manuscript: "km-cta border-transparent text-nightwine",
 };
 
 const trackTone: Record<Theme, string> = {
+  sanctuary: "bg-khivory/10",
   ocean: "bg-foam/10",
   manuscript: "bg-cream/10",
 };
 
 const fillTone: Record<Theme, string> = {
+  sanctuary: "kh-cta",
   ocean: "bg-gradient-to-l from-mint to-teal",
   manuscript: "km-cta",
 };
 
 const metaTone: Record<Theme, { strong: string; soft: string }> = {
+  sanctuary: { strong: "text-khgold", soft: "text-khivory/40" },
   ocean: { strong: "text-mint", soft: "text-foam/40" },
   manuscript: { strong: "text-goldleaf", soft: "text-cream/40" },
 };
