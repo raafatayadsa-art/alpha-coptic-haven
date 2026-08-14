@@ -1,4 +1,13 @@
 import filmDavid from "@/assets/kids/kids-film-david.jpg";
+import {
+  KdBook,
+  KdCross,
+  KdDove,
+  KdHeart,
+  KdMusic,
+  KdStar,
+} from "@/components/kids/kids-icons";
+
 import filmJonah from "@/assets/kids/kids-film-jonah.jpg";
 import filmNoah from "@/assets/kids/kids-film-noah.jpg";
 import saintIcon from "@/assets/kids/kids-saint.jpg";
@@ -223,4 +232,129 @@ export const missions = [
   { id: "m1", text: { ar: "اسمع قصة اليوم", en: "Listen to today's story" }, done: true },
   { id: "m2", text: { ar: "احفظ آية اليوم", en: "Learn the verse of the day" }, done: true },
   { id: "m3", text: { ar: "قول شكراً لحد النهارده", en: "Say thank you to someone today" }, done: false },
+];
+
+/* ── Colour & Craft: palette + line-art sheets ──── */
+export const colourPalette: { name: Bi; value: string }[] = [
+  { name: { ar: "ذهبي", en: "Gold" }, value: "oklch(0.856 0.150 82)" },
+  { name: { ar: "سماوي", en: "Sky" }, value: "oklch(0.802 0.116 232)" },
+  { name: { ar: "كورال", en: "Coral" }, value: "oklch(0.788 0.142 32)" },
+  { name: { ar: "نعناعي", en: "Mint" }, value: "oklch(0.846 0.114 162)" },
+  { name: { ar: "بنفسجي", en: "Grape" }, value: "oklch(0.726 0.118 300)" },
+  { name: { ar: "أزرق ليلي", en: "Night" }, value: "oklch(0.520 0.086 268)" },
+];
+
+export type ColourSheet = {
+  id: string;
+  title: Bi;
+  regions: { id: string; label: Bi; d: string }[];
+};
+
+export const colourSheets: ColourSheet[] = [
+  {
+    id: "fish",
+    title: { ar: "السمكة", en: "The Fish" },
+    regions: [
+      { id: "body", label: { ar: "الجسم", en: "Body" }, d: "M40 80c22-30 62-40 92-24 12 6 20 15 24 24-4 9-12 18-24 24-30 16-70 6-92-24Z" },
+      { id: "tail", label: { ar: "الذيل", en: "Tail" }, d: "M40 80 18 58v44L40 80Z" },
+      { id: "fin", label: { ar: "الزعنفة", en: "Fin" }, d: "M96 58c6-12 16-18 26-16-2 10-8 18-16 24l-10-8Z" },
+      { id: "eye", label: { ar: "العين", en: "Eye" }, d: "M138 74a6 6 0 1 0 .1 0Z" },
+      { id: "wave", label: { ar: "الموج", en: "Water" }, d: "M14 128c16-10 30-10 46 0s30 10 46 0 30-10 46 0 22 8 32 2v22H14v-24Z" },
+    ],
+  },
+  {
+    id: "cross",
+    title: { ar: "الصليب", en: "The Cross" },
+    regions: [
+      { id: "v", label: { ar: "العمود", en: "Beam" }, d: "M88 16h24v128H88z" },
+      { id: "h", label: { ar: "الذراع", en: "Arms" }, d: "M40 56h120v24H40z" },
+      { id: "ring", label: { ar: "الدائرة", en: "Circle" }, d: "M100 46a22 22 0 1 0 .1 0Zm0 10a12 12 0 1 1-.1 0Z" },
+      { id: "glow", label: { ar: "الشعاع", en: "Glow" }, d: "M100 148c26 0 46 4 46 8H54c0-4 20-8 46-8Z" },
+    ],
+  },
+  {
+    id: "dove",
+    title: { ar: "الحمامة", en: "The Dove" },
+    regions: [
+      { id: "body", label: { ar: "الجسم", en: "Body" }, d: "M30 92c30 6 52-8 66-32 12-20 34-30 54-24 12 4 16 12 16 20 0 38-34 66-72 66-26 0-48-12-64-30Z" },
+      { id: "wing", label: { ar: "الجناح", en: "Wing" }, d: "M92 74c16-4 32 2 42 16-14 10-32 12-46 4l4-20Z" },
+      { id: "branch", label: { ar: "الغصن", en: "Branch" }, d: "M60 118c14 8 28 12 42 12v10c-18 0-34-6-46-16l4-6Z" },
+      { id: "sky", label: { ar: "السماء", en: "Sky" }, d: "M8 8h184v22H8z" },
+    ],
+  },
+];
+
+/* ── Light touch game glyphs ────────────────────── */
+export const memoryGlyphs = [
+  { id: "star", icon: KdStar, label: { ar: "نجمة", en: "Star" }, hue: "var(--kd-honey)" },
+  { id: "cross", icon: KdCross, label: { ar: "صليب", en: "Cross" }, hue: "var(--kd-grape)" },
+  { id: "dove", icon: KdDove, label: { ar: "حمامة", en: "Dove" }, hue: "var(--kd-sky)" },
+  { id: "heart", icon: KdHeart, label: { ar: "قلب", en: "Heart" }, hue: "var(--kd-coral)" },
+  { id: "book", icon: KdBook, label: { ar: "كتاب", en: "Book" }, hue: "var(--kd-mint)" },
+  { id: "music", icon: KdMusic, label: { ar: "ترنيمة", en: "Song" }, hue: "var(--kd-grape)" },
+] as const;
+
+/* ── After-film story beats ─────────────────────── */
+export type FilmBeat = {
+  filmId: string;
+  verse: Bi;
+  ref: Bi;
+  lesson: Bi;
+  question: Bi;
+  options: Bi[];
+  answer: number;
+  badge: Bi;
+};
+
+export const filmBeats: FilmBeat[] = [
+  {
+    filmId: "noah",
+    verse: { ar: "«أَجْعَلُ قَوْسِي فِي السَّحَابِ»", en: "“I set my rainbow in the cloud.”" },
+    ref: { ar: "تكوين ٩ : ١٣", en: "Genesis 9:13" },
+    lesson: { ar: "الله بيحفظ اللي بيسمعوا كلامه.", en: "God keeps those who listen to Him." },
+    question: { ar: "إيه علامة عهد الله مع نوح؟", en: "What was the sign of God's promise?" },
+    options: [
+      { ar: "قوس قزح", en: "A rainbow" },
+      { ar: "نجمة", en: "A star" },
+      { ar: "سفينة", en: "A boat" },
+    ],
+    answer: 0,
+    badge: { ar: "درع قوس قزح", en: "Rainbow badge" },
+  },
+  {
+    filmId: "david",
+    verse: { ar: "«أَنَا آتِي إِلَيْكَ بِاسْمِ رَبِّ الْجُنُودِ»", en: "“I come to you in the name of the Lord.”" },
+    ref: { ar: "١ صموئيل ١٧ : ٤٥", en: "1 Samuel 17:45" },
+    lesson: { ar: "الشجاعة بتيجي من الثقة في الله.", en: "Courage comes from trusting God." },
+    question: { ar: "داود واجه العملاق بإيه؟", en: "What did David face the giant with?" },
+    options: [
+      { ar: "سيف كبير", en: "A big sword" },
+      { ar: "مقلاع وحجر", en: "A sling and a stone" },
+      { ar: "درع حديد", en: "Iron armour" },
+    ],
+    answer: 1,
+    badge: { ar: "درع القلب الشجاع", en: "Brave heart badge" },
+  },
+  {
+    filmId: "jonah",
+    verse: { ar: "«صَرَخْتُ فَسَمِعْتَ صَوْتِي»", en: "“I cried out, and You heard my voice.”" },
+    ref: { ar: "يونان ٢ : ٢", en: "Jonah 2:2" },
+    lesson: { ar: "ربنا بيسمعنا في أي مكان.", en: "God hears us anywhere." },
+    question: { ar: "يونان صلّى وهو فين؟", en: "Where did Jonah pray?" },
+    options: [
+      { ar: "جوه الحوت", en: "Inside the whale" },
+      { ar: "على الجبل", en: "On a mountain" },
+      { ar: "في البيت", en: "At home" },
+    ],
+    answer: 0,
+    badge: { ar: "درع الفرصة التانية", en: "Second chance badge" },
+  },
+];
+
+/* ── Parent mode ────────────────────────────────── */
+export const parentControls: { id: string; title: Bi; line: Bi; on: boolean }[] = [
+  { id: "films", title: { ar: "أفلام الأنيميشن", en: "Animated films" }, line: { ar: "السماح بمشاهدة الأفلام", en: "Allow watching films" }, on: true },
+  { id: "games", title: { ar: "الألعاب والأنشطة", en: "Games & activities" }, line: { ar: "ألعاب لمس بسيطة", en: "Light touch games" }, on: true },
+  { id: "songs", title: { ar: "الترانيم", en: "Songs" }, line: { ar: "قائمة الترانيم المعتمدة", en: "Approved songs list" }, on: true },
+  { id: "search", title: { ar: "البحث الحر", en: "Free search" }, line: { ar: "اقتراحات محتوى خارج المرحلة", en: "Suggestions beyond the age stage" }, on: false },
 ];

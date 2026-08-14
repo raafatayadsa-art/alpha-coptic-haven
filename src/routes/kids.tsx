@@ -18,6 +18,9 @@ import {
   KdStar,
   KdTrophy,
 } from "@/components/kids/kids-icons";
+import { CreativeStudio } from "@/components/kids/CreativeStudio";
+import { FilmPlayer } from "@/components/kids/FilmPlayer";
+import { ParentMode } from "@/components/kids/ParentMode";
 import { Screen } from "@/components/layout/Screen";
 import { SloganBand } from "@/components/layout/SloganBand";
 import { useLang } from "@/lib/i18n";
@@ -34,6 +37,7 @@ import {
   storyOfDay,
   verseOfDay,
   type AgeKey,
+  type Film,
   type PlayKey,
 } from "@/lib/kids-data";
 
@@ -69,6 +73,8 @@ function KidsHome() {
   const { lang, dir, isArabic } = useLang();
   const [age, setAge] = useState<AgeKey>("kids");
   const [liked, setLiked] = useState(false);
+  const [film, setFilm] = useState<Film | null>(null);
+  const [parent, setParent] = useState(false);
   const [done, setDone] = useState<string[]>(missions.filter((m) => m.done).map((m) => m.id));
 
   return (
@@ -102,6 +108,14 @@ function KidsHome() {
                   {pick(L.title, lang)}
                 </h1>
               </div>
+              <button
+                type="button"
+                onClick={() => setParent(true)}
+                aria-label={isArabic ? "وضع الآباء" : "Parent Mode"}
+                className="press grid size-10 shrink-0 place-items-center rounded-full border border-kdgrape/40 bg-kdgrape/20 text-kdink/70"
+              >
+                <KdCross className="size-[17px]" />
+              </button>
               <span className="inline-flex items-center gap-1 rounded-full border border-kdhoney/40 bg-kdhoney/25 px-2.5 py-1 font-manrope text-[11px] font-bold text-kdink/75">
                 <KdStar className="size-3.5 text-kdhoney" />
                 {isArabic ? "١٢" : "12"}
@@ -276,8 +290,10 @@ function KidsHome() {
 
             <div className="-mx-4 mt-3 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {films.map((f) => (
-                <article
+                <button
                   key={f.id}
+                  type="button"
+                  onClick={() => setFilm(f)}
                   className="press relative w-[212px] shrink-0 snap-start overflow-hidden rounded-[28px] border border-kdhoney/30 shadow-[0_22px_46px_-26px_color-mix(in_oklab,var(--kd-ink)_50%,transparent)]"
                 >
                   <img
@@ -322,7 +338,7 @@ function KidsHome() {
                       {pick(L.watch, lang)}
                     </span>
                   </div>
-                </article>
+                </button>
               ))}
             </div>
           </section>
@@ -427,6 +443,10 @@ function KidsHome() {
             ))}
           </div>
 
+          <div className="pt-3">
+            <CreativeStudio lang={lang} isArabic={isArabic} />
+          </div>
+
           {/* ── Songs ────────────────────────────────────── */}
           <SectionTitle title={pick(L.hymnsTitle, lang)} caption={pick(L.seeAll, lang)} />
           <div className="space-y-2.5">
@@ -527,6 +547,19 @@ function KidsHome() {
         </main>
 
         <SloganBand className="text-kdink" />
+
+        {film && (
+          <FilmPlayer film={film} lang={lang} isArabic={isArabic} onClose={() => setFilm(null)} />
+        )}
+        {parent && (
+          <ParentMode
+            lang={lang}
+            isArabic={isArabic}
+            age={age}
+            onAge={setAge}
+            onClose={() => setParent(false)}
+          />
+        )}
       </div>
     </Screen>
   );
