@@ -638,7 +638,7 @@ export const friends: Friend[] = [
     id: "f7",
     name: { ar: "ماما نادية", en: "Mama Nadia" },
     role: { ar: "العائلة", en: "Family" },
-    shield: "family" as ShieldSlug,
+    shield: "community",
     presence: "listening",
     initial: "ن",
     tone: "oklch(0.820 0.110 20)",
