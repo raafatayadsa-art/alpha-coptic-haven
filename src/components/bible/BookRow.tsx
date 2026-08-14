@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { ArrowIcon, CheckGlyph } from "@/components/bible/bible-icons";
-import type { BibleBook } from "@/lib/bible-data";
+import { bookInitial, type BibleBook } from "@/lib/bible-data";
 import { useLang } from "@/lib/i18n";
 
 /** A single book line inside the book-picker screen. */
@@ -17,7 +17,7 @@ export function BookRow({ book, index }: { book: BibleBook; index: number }) {
     >
       {/* Illuminated initial */}
       <span className="relative grid size-11 shrink-0 place-items-center rounded-[15px] bg-inkblue/[0.055] ring-1 ring-illum/35">
-        <span className="font-display text-[17px] font-semibold text-copper">{name.slice(0, 1)}</span>
+        <span className="font-display text-[17px] font-semibold text-copper">{bookInitial(name)}</span>
         {book.state === "done" ? (
           <span className="absolute -end-1 -bottom-1 grid size-4 place-items-center rounded-full bg-copper text-vellum">
             <CheckGlyph className="size-2.5" />

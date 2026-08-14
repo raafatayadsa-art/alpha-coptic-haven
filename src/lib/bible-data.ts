@@ -127,3 +127,7 @@ export const samplePassage: Array<{ n: number; ar: string; en: string }> = [
     en: "He was not the light, but came to bear witness about the light.",
   },
 ];
+
+/** Illuminated initial: drops the Arabic definite article so initials stay distinct. */
+export const bookInitial = (name: string) =>
+  (name.startsWith("ال") && name.length > 3 ? name.slice(2) : name).slice(0, 1);

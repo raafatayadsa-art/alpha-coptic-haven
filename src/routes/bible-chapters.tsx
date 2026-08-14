@@ -4,7 +4,7 @@ import { z } from "zod";
 
 import { ArrowIcon, CheckGlyph, GridIcon, ListIcon, StarIcon } from "@/components/bible/bible-icons";
 import { Screen } from "@/components/layout/Screen";
-import { chapterStates, newTestament, oldTestament } from "@/lib/bible-data";
+import { bookInitial, chapterStates, newTestament, oldTestament } from "@/lib/bible-data";
 import { useLang } from "@/lib/i18n";
 
 const searchSchema = z.object({
@@ -77,7 +77,7 @@ function BibleChapters() {
             />
             <div className="flex items-end gap-3">
               <span className="font-display text-[52px] leading-none font-semibold text-illum/90">
-                {name.slice(0, 1)}
+                {bookInitial(name)}
               </span>
               <div className="min-w-0 flex-1 pb-1">
                 <h1 className="truncate font-display text-[24px] leading-tight font-semibold">{name}</h1>
