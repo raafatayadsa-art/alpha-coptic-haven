@@ -12,6 +12,7 @@ import postCandles from "@/assets/post-candles.jpg";
 import { QuickLinkCard } from "@/components/church/QuickLinkCard";
 import {
   BellIcon,
+  CalendarPlusIcon,
   ChatIcon,
   ChevronRight,
   CopticCross,
