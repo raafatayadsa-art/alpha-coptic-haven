@@ -126,7 +126,7 @@ function Stage({
       />
 
       {/* content — sits on the deep bed, never cramped */}
-      <div className="absolute inset-x-0 bottom-0 flex flex-col px-6 pb-4">
+      <div className="absolute inset-x-0 bottom-0 flex flex-col px-6 pb-30">
         {children ? <div className="mb-5">{children}</div> : null}
 
         <Reveal delay={60}>{<Kicker>{kicker}</Kicker>}</Reveal>
