@@ -128,7 +128,7 @@ function AgpeyaRead() {
         <PartsRail
           items={railItems}
           activeIndex={open}
-          visible={visible}
+          visible={true}
           theme="ocean"
           onJump={(i) => {
             jumpTo.current = i;

@@ -154,7 +154,7 @@ function KatamerosRead() {
           hue: groupHue[r.group],
         }))}
         activeIndex={open}
-        visible={visible}
+        visible={true}
         theme="manuscript"
         onJump={(idx) => {
           jumpTo.current = idx;
