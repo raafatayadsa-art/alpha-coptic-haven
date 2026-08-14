@@ -4,86 +4,92 @@ import { ChevronRight } from "@/components/church/icons";
 import { cn } from "@/lib/utils";
 
 export type PrayerTone = "day" | "night" | "extra" | "featured";
+export type PrayerSpan = "wide" | "tall" | "cell";
 
-const surface: Record<PrayerTone, string> = {
-  day: "bg-gradient-to-b from-gold/16 via-parchment to-ivory ring-1 ring-gold/20",
-  night: "bg-gradient-to-b from-lavender/60 via-lavender/25 to-ivory ring-1 ring-lavender",
-  extra: "bg-gradient-to-b from-parchment to-ivory ring-1 ring-ink/8",
-  featured: "bg-ink ring-1 ring-gold/30",
+const accent: Record<PrayerTone, string> = {
+  day: "text-mint",
+  night: "text-teal",
+  extra: "text-foam/70",
+  featured: "text-mint",
 };
 
-const halo: Record<PrayerTone, string> = {
-  day: "bg-ivory text-gold ring-1 ring-gold/25 shadow-[0_6px_18px_-8px_rgba(0,0,0,0.25)]",
-  night: "bg-ivory text-ink/60 ring-1 ring-lavender shadow-[0_6px_18px_-8px_rgba(0,0,0,0.2)]",
-  extra: "bg-ivory text-ink/50 ring-1 ring-ink/8",
-  featured: "bg-ivory/10 text-gold ring-1 ring-gold/35",
+const spanClass: Record<PrayerSpan, string> = {
+  wide: "col-span-2 min-h-[112px]",
+  tall: "col-span-1 row-span-2 min-h-[196px]",
+  cell: "col-span-1 min-h-[132px]",
 };
 
-const titleTone: Record<PrayerTone, string> = {
-  day: "text-ink",
-  night: "text-ink",
-  extra: "text-ink",
-  featured: "text-ivory",
-};
-
-const chipTone: Record<PrayerTone, string> = {
-  day: "bg-ivory/80 text-ink/55 ring-1 ring-gold/20",
-  night: "bg-ivory/80 text-ink/55 ring-1 ring-lavender",
-  extra: "bg-ivory/80 text-ink/50 ring-1 ring-ink/8",
-  featured: "bg-gold/15 text-gold ring-1 ring-gold/30",
-};
-
+/**
+ * Ocean Deep bento tile for one Agpeya hour.
+ * Presentation only — no logic, no navigation.
+ */
 export function PrayerHourCard({
   name,
   time,
   icon,
   tone = "day",
+  span = "cell",
+  index,
 }: {
   name: string;
   time: string;
   icon: ReactNode;
   tone?: PrayerTone;
+  span?: PrayerSpan;
+  index?: number;
 }) {
   return (
     <button
       type="button"
       className={cn(
-        "press group relative flex w-[136px] flex-none snap-start flex-col rounded-[26px] p-4 text-start shadow-[var(--shadow-soft)]",
-        surface[tone],
+        "press group relative isolate flex flex-col overflow-hidden rounded-[24px] p-4 text-start",
+        tone === "featured" ? "ocean-glass" : "ocean-tile",
+        spanClass[span],
       )}
     >
-      <span className={cn("grid size-12 place-items-center rounded-full", halo[tone])} aria-hidden="true">
+      {/* soft tidal glow */}
+      <span
+        aria-hidden="true"
+        className={cn(
+          "ocean-halo pointer-events-none absolute -end-8 -top-10 -z-10 size-32 rounded-full opacity-70",
+          tone === "featured" && "tide-drift",
+        )}
+      />
+
+      {typeof index === "number" && (
+        <span className="absolute end-4 top-4 font-sora text-[11px] font-semibold tabular-nums text-foam/25">
+          {String(index).padStart(2, "0")}
+        </span>
+      )}
+
+      <span
+        className={cn(
+          "grid size-10 place-items-center rounded-2xl border border-mint/15 bg-abyss/50",
+          accent[tone],
+        )}
+        aria-hidden="true"
+      >
         {icon}
       </span>
 
       <h3
         className={cn(
-          "mt-4 font-display text-[17px] font-semibold leading-tight tracking-tight",
-          titleTone[tone],
+          "mt-auto pt-4 font-sora font-semibold leading-tight tracking-tight text-foam",
+          span === "wide" ? "text-[18px]" : "text-[15.5px]",
         )}
       >
         {name}
       </h3>
 
-      <div className="mt-3 flex items-center justify-between gap-2">
-        <span
+      <div className="mt-1.5 flex items-center gap-1.5">
+        <span className={cn("size-1 rounded-full", tone === "night" ? "bg-teal" : "bg-mint")} />
+        <span className="font-manrope text-[11px] font-medium text-foam/45">{time}</span>
+        <ChevronRight
           className={cn(
-            "rounded-full px-2.5 py-1 text-[10.5px] font-semibold tracking-tight",
-            chipTone[tone],
-          )}
-        >
-          {time}
-        </span>
-        <span
-          className={cn(
-            "grid size-6 shrink-0 place-items-center rounded-full transition-transform duration-500",
-            tone === "featured" ? "bg-gold/20 text-gold" : "bg-ivory text-ink/40 ring-1 ring-ink/8",
+            "ms-auto size-3.5 text-foam/30 transition-transform duration-500 rtl:rotate-180",
             "group-hover:-translate-x-0.5 rtl:group-hover:translate-x-0.5",
           )}
-          aria-hidden="true"
-        >
-          <ChevronRight className="size-3 rtl:rotate-180" />
-        </span>
+        />
       </div>
     </button>
   );
