@@ -177,16 +177,21 @@ function AlphaHome() {
   const [bell, setBell] = useState(false);
   const [seen, setSeen] = useState(false);
 
-  /* Time-aware greeting — presentation only. */
-  const hour = new Date().getHours();
+  /* Time-aware greeting — presentation only. Resolved after hydration so the
+     server-rendered text always matches the first client render. */
+  const [hour, setHour] = useState<number | null>(null);
+  useEffect(() => setHour(new Date().getHours()), []);
   const greetKey =
-    hour < 12
-      ? "hm.greet.morning"
-      : hour < 17
-        ? "hm.greet.afternoon"
-        : hour < 22
-          ? "hm.greet.evening"
-          : "hm.greet.night";
+    hour === null
+      ? "hm.greeting"
+      : hour < 12
+        ? "hm.greet.morning"
+        : hour < 17
+          ? "hm.greet.afternoon"
+          : hour < 22
+            ? "hm.greet.evening"
+            : "hm.greet.night";
+
 
   const gregorian = new Intl.DateTimeFormat(isArabic ? "ar-EG" : "en-GB", {
     day: "numeric",
