@@ -157,11 +157,11 @@ export function Bars({ data, tone = "gold" }: { data: { label: string; pct: numb
   return (
     <div className="flex h-28 items-end gap-2 px-4 pb-3">
       {data.map((d, i) => (
-        <div key={d.label} className="flex min-w-0 flex-1 flex-col items-center gap-1.5">
+        <div key={d.label} className="flex h-full min-w-0 flex-1 flex-col items-center justify-end gap-1.5">
           <span className="text-[9.5px] font-semibold text-ctl-mist/50">{d.pct}%</span>
           <span
-            className={`ctl-bar w-full rounded-t-[6px] ${toneBg[tone]}/70`}
-            style={{ height: `${d.pct}%`, animationDelay: `${i * 70}ms` }}
+            className={`ctl-bar w-full shrink-0 rounded-t-[6px] ${toneBg[tone]}/70`}
+            style={{ height: `${Math.round(d.pct * 0.72)}%`, animationDelay: `${i * 70}ms` }}
           />
           <span className="w-full truncate text-center text-[9.5px] text-ctl-mist/40">{d.label}</span>
         </div>

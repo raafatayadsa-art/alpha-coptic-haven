@@ -202,12 +202,12 @@ export const donut: { label: Bi; pct: number; tone: "gold" | "cyan" | "jade" | "
 /* ── Activity & map ──────────────────────────────────────── */
 
 export const mapPoints: { x: number; y: number; label: Bi; value: string }[] = [
-  { x: 52, y: 46, label: { ar: "القاهرة", en: "Cairo" }, value: "1,940" },
-  { x: 46, y: 38, label: { ar: "الإسكندرية", en: "Alexandria" }, value: "612" },
-  { x: 24, y: 34, label: { ar: "نيوجيرسي", en: "New Jersey" }, value: "384" },
-  { x: 70, y: 30, label: { ar: "دبي", en: "Dubai" }, value: "212" },
-  { x: 82, y: 66, label: { ar: "سيدني", en: "Sydney" }, value: "148" },
-  { x: 40, y: 24, label: { ar: "لندن", en: "London" }, value: "186" },
+  { x: 50, y: 56, label: { ar: "القاهرة", en: "Cairo" }, value: "1,940" },
+  { x: 42, y: 34, label: { ar: "الإسكندرية", en: "Alexandria" }, value: "612" },
+  { x: 18, y: 46, label: { ar: "نيوجيرسي", en: "New Jersey" }, value: "384" },
+  { x: 74, y: 40, label: { ar: "دبي", en: "Dubai" }, value: "212" },
+  { x: 84, y: 74, label: { ar: "سيدني", en: "Sydney" }, value: "148" },
+  { x: 32, y: 18, label: { ar: "لندن", en: "London" }, value: "186" },
 ];
 
 export const activityFeed: { text: Bi; time: Bi; tone: "gold" | "cyan" | "jade" | "crimson" }[] = [

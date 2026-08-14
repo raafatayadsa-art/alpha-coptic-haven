@@ -412,7 +412,7 @@ function WorldRadar({ p }: { p: P }) {
             />
             <span className="size-1.5 rounded-full bg-ctl-gold" />
           </span>
-          <span className="mt-1 block whitespace-nowrap text-[8.5px] text-ctl-mist/50">
+          <span className="pointer-events-none mt-1 block -translate-x-1/2 whitespace-nowrap text-[8px] text-ctl-mist/45">
             {p(pt.label)} · {pt.value}
           </span>
         </span>
