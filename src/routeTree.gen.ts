@@ -32,6 +32,11 @@ import { Route as KatamerosSavedRouteImport } from './routes/katameros-saved'
 import { Route as KatamerosSearchRouteImport } from './routes/katameros-search'
 import { Route as MyChurchRouteImport } from './routes/my-church'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as SynaxariumRouteImport } from './routes/synaxarium'
+import { Route as SynaxariumDayRouteImport } from './routes/synaxarium-day'
+import { Route as SynaxariumMonthsRouteImport } from './routes/synaxarium-months'
+import { Route as SynaxariumSaintRouteImport } from './routes/synaxarium-saint'
+import { Route as SynaxariumSearchRouteImport } from './routes/synaxarium-search'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -148,6 +153,31 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SynaxariumRoute = SynaxariumRouteImport.update({
+  id: '/synaxarium',
+  path: '/synaxarium',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SynaxariumDayRoute = SynaxariumDayRouteImport.update({
+  id: '/synaxarium-day',
+  path: '/synaxarium-day',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SynaxariumMonthsRoute = SynaxariumMonthsRouteImport.update({
+  id: '/synaxarium-months',
+  path: '/synaxarium-months',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SynaxariumSaintRoute = SynaxariumSaintRouteImport.update({
+  id: '/synaxarium-saint',
+  path: '/synaxarium-saint',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SynaxariumSearchRoute = SynaxariumSearchRouteImport.update({
+  id: '/synaxarium-search',
+  path: '/synaxarium-search',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -173,6 +203,11 @@ export interface FileRoutesByFullPath {
   '/katameros-search': typeof KatamerosSearchRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
+  '/synaxarium': typeof SynaxariumRoute
+  '/synaxarium-day': typeof SynaxariumDayRoute
+  '/synaxarium-months': typeof SynaxariumMonthsRoute
+  '/synaxarium-saint': typeof SynaxariumSaintRoute
+  '/synaxarium-search': typeof SynaxariumSearchRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -198,6 +233,11 @@ export interface FileRoutesByTo {
   '/katameros-search': typeof KatamerosSearchRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
+  '/synaxarium': typeof SynaxariumRoute
+  '/synaxarium-day': typeof SynaxariumDayRoute
+  '/synaxarium-months': typeof SynaxariumMonthsRoute
+  '/synaxarium-saint': typeof SynaxariumSaintRoute
+  '/synaxarium-search': typeof SynaxariumSearchRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -224,6 +264,11 @@ export interface FileRoutesById {
   '/katameros-search': typeof KatamerosSearchRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
+  '/synaxarium': typeof SynaxariumRoute
+  '/synaxarium-day': typeof SynaxariumDayRoute
+  '/synaxarium-months': typeof SynaxariumMonthsRoute
+  '/synaxarium-saint': typeof SynaxariumSaintRoute
+  '/synaxarium-search': typeof SynaxariumSearchRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -251,6 +296,11 @@ export interface FileRouteTypes {
     | '/katameros-search'
     | '/my-church'
     | '/profile'
+    | '/synaxarium'
+    | '/synaxarium-day'
+    | '/synaxarium-months'
+    | '/synaxarium-saint'
+    | '/synaxarium-search'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -276,6 +326,11 @@ export interface FileRouteTypes {
     | '/katameros-search'
     | '/my-church'
     | '/profile'
+    | '/synaxarium'
+    | '/synaxarium-day'
+    | '/synaxarium-months'
+    | '/synaxarium-saint'
+    | '/synaxarium-search'
   id:
     | '__root__'
     | '/'
@@ -301,6 +356,11 @@ export interface FileRouteTypes {
     | '/katameros-search'
     | '/my-church'
     | '/profile'
+    | '/synaxarium'
+    | '/synaxarium-day'
+    | '/synaxarium-months'
+    | '/synaxarium-saint'
+    | '/synaxarium-search'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -327,6 +387,11 @@ export interface RootRouteChildren {
   KatamerosSearchRoute: typeof KatamerosSearchRoute
   MyChurchRoute: typeof MyChurchRoute
   ProfileRoute: typeof ProfileRoute
+  SynaxariumRoute: typeof SynaxariumRoute
+  SynaxariumDayRoute: typeof SynaxariumDayRoute
+  SynaxariumMonthsRoute: typeof SynaxariumMonthsRoute
+  SynaxariumSaintRoute: typeof SynaxariumSaintRoute
+  SynaxariumSearchRoute: typeof SynaxariumSearchRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -492,6 +557,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/synaxarium': {
+      id: '/synaxarium'
+      path: '/synaxarium'
+      fullPath: '/synaxarium'
+      preLoaderRoute: typeof SynaxariumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/synaxarium-day': {
+      id: '/synaxarium-day'
+      path: '/synaxarium-day'
+      fullPath: '/synaxarium-day'
+      preLoaderRoute: typeof SynaxariumDayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/synaxarium-months': {
+      id: '/synaxarium-months'
+      path: '/synaxarium-months'
+      fullPath: '/synaxarium-months'
+      preLoaderRoute: typeof SynaxariumMonthsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/synaxarium-saint': {
+      id: '/synaxarium-saint'
+      path: '/synaxarium-saint'
+      fullPath: '/synaxarium-saint'
+      preLoaderRoute: typeof SynaxariumSaintRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/synaxarium-search': {
+      id: '/synaxarium-search'
+      path: '/synaxarium-search'
+      fullPath: '/synaxarium-search'
+      preLoaderRoute: typeof SynaxariumSearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -519,6 +619,11 @@ const rootRouteChildren: RootRouteChildren = {
   KatamerosSearchRoute: KatamerosSearchRoute,
   MyChurchRoute: MyChurchRoute,
   ProfileRoute: ProfileRoute,
+  SynaxariumRoute: SynaxariumRoute,
+  SynaxariumDayRoute: SynaxariumDayRoute,
+  SynaxariumMonthsRoute: SynaxariumMonthsRoute,
+  SynaxariumSaintRoute: SynaxariumSaintRoute,
+  SynaxariumSearchRoute: SynaxariumSearchRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
