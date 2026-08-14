@@ -186,8 +186,8 @@
 }
 
 @keyframes engage-halo {
-  0% { opacity: 0.5; transform: scale(0.5); }
-  100% { opacity: 0; transform: scale(2.1); }
+  0% { opacity: 0.9; transform: scale(0.45); }
+  100% { opacity: 0; transform: scale(2); }
 }
 
 @keyframes engage-nudge {
@@ -227,10 +227,24 @@
   animation: engage-halo 0.6s var(--ease-out-expo) forwards;
 }
 
-/* Liked state: soft golden glow + gentle heartbeat */
+/* Liked / active state: crisp golden hairline edge, no blur */
 @keyframes engage-glow {
-  0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-gold) 30%, transparent); }
-  50% { box-shadow: 0 0 14px 2px color-mix(in oklab, var(--color-gold) 42%, transparent); }
+  0%, 100% {
+    box-shadow:
+      inset 0 0 0 1px color-mix(in oklab, var(--color-gold) 55%, transparent),
+      0 0 0 1px color-mix(in oklab, var(--color-gold) 30%, transparent);
+  }
+  50% {
+    box-shadow:
+      inset 0 0 0 1px color-mix(in oklab, var(--color-gold) 95%, transparent),
+      0 0 0 1px color-mix(in oklab, var(--color-gold) 65%, transparent);
+  }
+}
+
+/* Line-based pulse: two concentric hairline rings expanding outward */
+@keyframes engage-ring {
+  0% { opacity: 0.95; transform: scale(0.72); }
+  100% { opacity: 0; transform: scale(1.35); }
 }
 
 @keyframes engage-beat {
@@ -239,7 +253,15 @@
 }
 
 @utility engage-glow {
-  animation: engage-glow 2s ease-in-out infinite;
+  animation: engage-glow 2.4s ease-in-out infinite;
+}
+
+@utility engage-ring {
+  animation: engage-ring 0.62s var(--ease-out-expo) forwards;
+}
+
+@utility engage-ring-late {
+  animation: engage-ring 0.62s var(--ease-out-expo) 0.12s forwards;
 }
 
 @utility engage-beat {
@@ -252,6 +274,8 @@
   .engage-tuck,
   .engage-count,
   .engage-halo,
+  .engage-ring,
+  .engage-ring-late,
   .engage-glow,
   .engage-beat {
     animation: none !important;
