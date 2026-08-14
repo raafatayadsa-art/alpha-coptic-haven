@@ -1,4 +1,5 @@
 /** Alpha Control — line glyph set. Presentation only. */
+import type { ReactElement } from "react";
 type P = { className?: string };
 const base = {
   viewBox: "0 0 24 24",
@@ -200,7 +201,7 @@ export function RocketGlyph({ className }: P) {
   );
 }
 
-export const glyphByKey: Record<string, (p: P) => JSX.Element> = {
+export const glyphByKey: Record<string, (p: P) => ReactElement> = {
   gauge: GaugeGlyph,
   pulse: PulseGlyph,
   users: UsersGlyph,
