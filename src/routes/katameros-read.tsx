@@ -10,7 +10,9 @@ import {
   ShareGlyph,
   TextSizeGlyph,
 } from "@/components/katameros/katameros-icons";
+import { PartsRail } from "@/components/church/PartsRail";
 import { useAutoScroll } from "@/hooks/use-auto-scroll";
+import { useReaderChrome } from "@/hooks/use-reader-chrome";
 import { groupHue, groupLabel, readings } from "@/lib/katameros-data";
 import { useLang } from "@/lib/i18n";
 
@@ -78,6 +80,7 @@ function KatamerosRead() {
   const [speedMenu, setSpeedMenu] = useState(false);
   const size = sizes[sizeIndex]!;
 
+  const { visible, wake } = useReaderChrome();
   const partRefs = useRef<Array<HTMLElement | null>>([]);
   const jumpTo = useRef<number | null>(null);
 
@@ -119,7 +122,7 @@ function KatamerosRead() {
     if (target === null) return;
     const el = partRefs.current[target];
     if (!el) return;
-    const y = window.scrollY + el.getBoundingClientRect().top - 140;
+    const y = window.scrollY + el.getBoundingClientRect().top - 150;
     window.scrollTo({ top: Math.max(0, y), behavior: auto ? "auto" : "smooth" });
   }, [open, auto]);
 
@@ -145,28 +148,21 @@ function KatamerosRead() {
         </button>
       }
     >
-      {/* ── Progress of the whole day ── */}
-      <section className="km-glass relative isolate overflow-hidden rounded-[26px] px-5 py-4">
-        <span
-          aria-hidden="true"
-          className="km-halo candle-breathe pointer-events-none absolute inset-x-0 -top-24 -z-10 mx-auto size-56 rounded-full"
-          style={{ ["--hue" as string]: "oklch(0.560 0.130 30)" }}
-        />
-        <div className="flex items-center justify-between">
-          <span className="font-manrope text-[10px] font-bold tracking-[0.16em] text-brass uppercase">
-            {t("km.read.progress")}
-          </span>
-          <span className="font-manrope text-[11px] font-bold tabular-nums text-goldleaf">
-            {open + 1} / {readings.length}
-          </span>
-        </div>
-        <div className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-cream/10">
-          <div
-            className="km-cta h-full rounded-full transition-all duration-700"
-            style={{ width: `${pct}%` }}
-          />
-        </div>
-      </section>
+      <PartsRail
+        items={readings.map((r) => ({
+          id: r.id,
+          label: isArabic ? r.kind.ar : r.kind.en,
+          hue: groupHue[r.group],
+        }))}
+        activeIndex={open}
+        visible={visible}
+        theme="manuscript"
+        onJump={(idx) => {
+          jumpTo.current = idx;
+          setOpen(idx);
+        }}
+        onWake={wake}
+      />
 
       {/* ── All parts, stacked; one open at a time ── */}
       <section
@@ -199,6 +195,7 @@ function KatamerosRead() {
               <button
                 type="button"
                 onClick={() => {
+                  wake();
                   jumpTo.current = idx;
                   setOpen(idx);
                 }}
@@ -281,8 +278,11 @@ function KatamerosRead() {
       {/* ── Reader tools, one row ── */}
       <section
         data-reader-bar
-        className="km-glass sticky bottom-4 z-20 flex items-center gap-2 rounded-full px-3 py-2.5"
+        className={`fixed inset-x-0 bottom-24 z-40 mx-auto flex w-full max-w-[430px] items-center gap-2 px-4 transition-all duration-300 ${
+          visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"
+        }`}
       >
+        <div className="km-glass flex flex-1 items-center gap-2 rounded-full px-3 py-2.5 backdrop-blur-xl">
         <button
           type="button"
           aria-label={t("km.tools.font")}
@@ -348,6 +348,7 @@ function KatamerosRead() {
         >
           <ShareGlyph className="size-[16px]" />
         </button>
+        </div>
       </section>
 
       <footer className="flex flex-col items-center gap-2 pt-1 text-center">
