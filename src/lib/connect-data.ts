@@ -550,3 +550,239 @@ export const settingGroups: SettingGroup[] = [
     ],
   },
 ];
+
+/* ── Friends (Alpha Connect friends tab) ─────────────────── */
+
+export type FriendGroup = "family" | "servants" | "priests" | "members";
+
+export type Friend = Member & {
+  group: FriendGroup;
+  lastSeen: Bi;
+  online: boolean;
+};
+
+export const friends: Friend[] = [
+  {
+    id: "f1",
+    name: { ar: "أبونا يوساب المقاري", en: "Fr. Yousab El-Makary" },
+    role: { ar: "كاهن الكنيسة", en: "Church priest" },
+    shield: "priest",
+    presence: "listening",
+    initial: "ي",
+    tone: "oklch(0.800 0.152 158)",
+    group: "priests",
+    lastSeen: { ar: "متصل الآن", en: "Online now" },
+    online: true,
+  },
+  {
+    id: "f2",
+    name: { ar: "مينا عادل", en: "Mina Adel" },
+    role: { ar: "أمين الخدمة", en: "Service lead" },
+    shield: "servant",
+    presence: "speaking",
+    initial: "م",
+    tone: "oklch(0.788 0.118 198)",
+    group: "servants",
+    lastSeen: { ar: "متصل الآن", en: "Online now" },
+    online: true,
+  },
+  {
+    id: "f3",
+    name: { ar: "مريم سامي", en: "Mariam Samy" },
+    role: { ar: "خادمة براعم", en: "Kids servant" },
+    shield: "servant",
+    presence: "listening",
+    initial: "م",
+    tone: "oklch(0.792 0.128 32)",
+    group: "servants",
+    lastSeen: { ar: "آخر ظهور ٧:١٠ م", en: "Last seen 7:10 PM" },
+    online: false,
+  },
+  {
+    id: "f4",
+    name: { ar: "بيشوي رمزي", en: "Bishoy Ramzy" },
+    role: { ar: "أخي", en: "My brother" },
+    shield: "member",
+    presence: "muted",
+    initial: "ب",
+    tone: "oklch(0.780 0.120 262)",
+    group: "family",
+    lastSeen: { ar: "متصل الآن", en: "Online now" },
+    online: true,
+  },
+  {
+    id: "f5",
+    name: { ar: "كيرلس نبيل", en: "Kyrillos Nabil" },
+    role: { ar: "شماس", en: "Deacon" },
+    shield: "control-panel",
+    presence: "away",
+    initial: "ك",
+    tone: "oklch(0.862 0.090 88)",
+    group: "members",
+    lastSeen: { ar: "آخر ظهور أمس", en: "Last seen yesterday" },
+    online: false,
+  },
+  {
+    id: "f6",
+    name: { ar: "فيبي جورج", en: "Phoebe George" },
+    role: { ar: "عضو", en: "Member" },
+    shield: "member",
+    presence: "listening",
+    initial: "ف",
+    tone: "oklch(0.796 0.104 176)",
+    group: "members",
+    lastSeen: { ar: "متصل الآن", en: "Online now" },
+    online: true,
+  },
+  {
+    id: "f7",
+    name: { ar: "ماما نادية", en: "Mama Nadia" },
+    role: { ar: "العائلة", en: "Family" },
+    shield: "family" as ShieldSlug,
+    presence: "listening",
+    initial: "ن",
+    tone: "oklch(0.820 0.110 20)",
+    group: "family",
+    lastSeen: { ar: "آخر ظهور ٥:٠٠ م", en: "Last seen 5:00 PM" },
+    online: false,
+  },
+];
+
+export const friendFilters: { key: "all" | FriendGroup | "online"; label: Bi }[] = [
+  { key: "all", label: { ar: "الكل", en: "All" } },
+  { key: "online", label: { ar: "متصل الآن", en: "Online" } },
+  { key: "family", label: { ar: "العائلة", en: "Family" } },
+  { key: "servants", label: { ar: "الخدّام", en: "Servants" } },
+  { key: "priests", label: { ar: "الكهنة", en: "Priests" } },
+];
+
+/* ── Chat thread (visual only) ───────────────────────────── */
+
+export type ChatMessage = {
+  id: string;
+  mine: boolean;
+  text?: Bi;
+  when: Bi;
+  voice?: { length: string; wave: number[] };
+  temporary?: boolean;
+  read?: boolean;
+};
+
+export const chatMessages: ChatMessage[] = [
+  {
+    id: "c1",
+    mine: false,
+    text: { ar: "سلام ونعمة يا مينا 🙏 وصلك ترتيب خدمة الأحد؟", en: "Peace and grace, Mina 🙏 did you get Sunday's plan?" },
+    when: { ar: "٧:٠٢ م", en: "7:02 PM" },
+  },
+  {
+    id: "c2",
+    mine: true,
+    text: { ar: "وصلني يا أبونا، هراجعه مع الخدّام النهارده.", en: "Got it, Father. I'll review it with the servants today." },
+    when: { ar: "٧:٠٤ م", en: "7:04 PM" },
+    read: true,
+  },
+  {
+    id: "c3",
+    mine: false,
+    voice: { length: "0:42", wave: w(5.1) },
+    when: { ar: "٧:٠٦ م", en: "7:06 PM" },
+    temporary: true,
+  },
+  {
+    id: "c4",
+    mine: true,
+    text: { ar: "تمام، وهبعتلك أسماء البراعم الجديدة.", en: "Sure, I'll send you the new kids' names." },
+    when: { ar: "٧:٠٩ م", en: "7:09 PM" },
+    temporary: true,
+    read: false,
+  },
+];
+
+/* ── Disappearing timer options ──────────────────────────── */
+
+export const disappearOptions: { key: string; label: Bi }[] = [
+  { key: "off", label: { ar: "إيقاف", en: "Off" } },
+  { key: "5s", label: { ar: "٥ ثوانٍ", en: "5 seconds" } },
+  { key: "10s", label: { ar: "١٠ ثوانٍ", en: "10 seconds" } },
+  { key: "30s", label: { ar: "٣٠ ثانية", en: "30 seconds" } },
+  { key: "1m", label: { ar: "دقيقة", en: "1 minute" } },
+  { key: "1h", label: { ar: "ساعة", en: "1 hour" } },
+  { key: "24h", label: { ar: "٢٤ ساعة", en: "24 hours" } },
+  { key: "7d", label: { ar: "أسبوع", en: "1 week" } },
+];
+
+/* ── Per-chat settings + trust center ────────────────────── */
+
+export type ChatSettingRow = {
+  id: "expire" | "mute" | "hide" | "clear" | "security";
+  label: Bi;
+  icon: "clock" | "mute" | "fingerprint" | "trash" | "shield";
+  danger?: boolean;
+};
+
+export const chatSettingsRows: ChatSettingRow[] = [
+  { id: "expire", label: { ar: "انتهاء صلاحية الرسائل", en: "Message expiry" }, icon: "clock" },
+  { id: "mute", label: { ar: "كتم الإشعارات", en: "Mute notifications" }, icon: "mute" },
+  { id: "hide", label: { ar: "إخفاء المحادثة", en: "Hide conversation" }, icon: "fingerprint" },
+  { id: "clear", label: { ar: "مسح المحادثة", en: "Clear conversation" }, icon: "trash", danger: true },
+  { id: "security", label: { ar: "معلومات الأمان", en: "Security info" }, icon: "shield" },
+];
+
+export const securityInfo: {
+  protection: { label: Bi; value: Bi }[];
+  privacy: Bi[];
+} = {
+  protection: [
+    { label: { ar: "نوع الحماية", en: "Protection" }, value: { ar: "Alpha Messages Secure", en: "Alpha Messages Secure" } },
+    { label: { ar: "حالة التشفير", en: "Encryption" }, value: { ar: "مشفّر طرفًا لطرف", en: "End-to-end encrypted" } },
+    { label: { ar: "طريقة التخزين", en: "Storage" }, value: { ar: "تخزين مشفّر داخل Alpha", en: "Encrypted inside Alpha" } },
+    { label: { ar: "سياسة الحذف", en: "Deletion policy" }, value: { ar: "حذف تلقائي بعد ٢٤ ساعة", en: "Auto-delete after 24 hours" } },
+  ],
+  privacy: [
+    { ar: "لا يتم بيع بياناتك", en: "Your data is never sold" },
+    { ar: "لا يتم مشاركة الرسائل مع أطراف خارجية", en: "Messages are never shared with third parties" },
+    { ar: "تتم حماية البيانات داخل Alpha", en: "Data stays protected inside Alpha" },
+    { ar: "الرسائل تخضع لسياسات الحذف المفعّلة", en: "Messages follow the active deletion policy" },
+  ],
+};
+
+/* ── Connect labels (nav + chat + call) ──────────────────── */
+
+export const CL = {
+  channels: { ar: "القنوات", en: "Channels" },
+  friendsTab: { ar: "الأصدقاء", en: "Friends" },
+  friendsTitle: { ar: "الأصدقاء المضافون", en: "My friends" },
+  friendsHint: { ar: "اختر صديقًا للاتصال الصوتي أو إرسال رسالة", en: "Pick a friend to call or message" },
+  call: { ar: "اتصال", en: "Call" },
+  message: { ar: "رسالة", en: "Message" },
+  encrypted: { ar: "محادثة مشفّرة", en: "Encrypted chat" },
+  encryptedBanner: {
+    ar: "محادثة خاصة ومشفّرة · لا يمكن الاطلاع عليها",
+    en: "Private and encrypted · nobody else can read it",
+  },
+  churchOnly: {
+    ar: "هذا العضو يقبل الرسائل من أعضاء كنيسته فقط",
+    en: "This member accepts messages from their church only",
+  },
+  today: { ar: "اليوم", en: "Today" },
+  emptyChat: { ar: "لا توجد رسائل", en: "No messages yet" },
+  emptyChatHint: { ar: "ابدأ محادثة جديدة", en: "Start a new conversation" },
+  typeMessage: { ar: "اكتب رسالة…", en: "Type a message…" },
+  chatSettings: { ar: "إعدادات المحادثة", en: "Chat settings" },
+  chatSettingsHint: { ar: "تحكم في خصوصية هذه المحادثة وأمانها", en: "Control this chat's privacy and safety" },
+  disappearTitle: { ar: "مؤقت الاختفاء", en: "Disappearing timer" },
+  done: { ar: "تم", en: "Done" },
+  cancel: { ar: "إلغاء", en: "Cancel" },
+  trustCenter: { ar: "مركز الثقة والأمان للرسائل", en: "Messages trust & safety" },
+  trustCenterHint: { ar: "حماية · خصوصية · تخزين", en: "Protection · privacy · storage" },
+  protection: { ar: "الحماية", en: "Protection" },
+  privacy: { ar: "الخصوصية", en: "Privacy" },
+  expiresIn: { ar: "تختفي بعد", en: "Disappears in" },
+  calling: { ar: "جاري الاتصال…", en: "Calling…" },
+  inCall: { ar: "مكالمة صوتية جارية", en: "Voice call in progress" },
+  voiceOnly: { ar: "صوت فقط · بدون فيديو", en: "Voice only · no video" },
+  mute: { ar: "كتم", en: "Mute" },
+  speaker: { ar: "مكبر الصوت", en: "Speaker" },
+  endCall: { ar: "إنهاء", en: "End" },
+};
