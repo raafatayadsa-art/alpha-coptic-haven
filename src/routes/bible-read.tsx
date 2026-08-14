@@ -621,12 +621,15 @@ function BibleRead() {
                                 return;
                               }
                               /* Open upward only when the popover truly fits
-                                 between the pinned header and this row. */
+                                 between the pinned header and this row;
+                                 otherwise flip down and cap the height. */
                               const r = e.currentTarget.getBoundingClientRect();
-                              const need = kind === "colors" ? 130 : 232;
-                              const spaceUp = r.top - 132;
-                              const spaceDown = window.innerHeight - r.bottom - 96;
-                              setPopDown(spaceUp < need && spaceDown > spaceUp);
+                              const need = kind === "colors" ? 130 : 200;
+                              const spaceUp = r.top - 138;
+                              const spaceDown = window.innerHeight - r.bottom - 104;
+                              const down = spaceUp < need;
+                              setPopDown(down);
+                              setPopMax(Math.max(140, Math.min(280, down ? spaceDown : spaceUp)));
                               setSheet((s) => (s === kind ? null : kind));
                             }}
                             className={`press flex h-[60px] flex-1 flex-col items-center justify-center gap-1 rounded-[18px] transition-colors ${
