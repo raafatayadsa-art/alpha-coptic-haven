@@ -203,3 +203,26 @@ export const AlphaOmegaMark = ({ className }: IconProps) => (
   </svg>
 );
 
+
+export const LayersIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M12 3.5 3.5 8 12 12.5 20.5 8 12 3.5Z" />
+    <path d="M4 12.5 12 16.8l8-4.3" />
+    <path d="M4 16.6 12 20.9l8-4.3" />
+  </svg>
+);
+
+export const SparkIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M12 4.5 13.6 9l4.4 1.6L13.6 12l-1.6 4.5L10.4 12 6 10.6 10.4 9 12 4.5Z" />
+    <path d="M18 17.5 18.7 19l1.5.7-1.5.7-.7 1.5-.7-1.5-1.5-.7 1.5-.7.7-1.5Z" />
+  </svg>
+);
+
+export const PeopleIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <circle cx="9.5" cy="9" r="3" />
+    <path d="M3.8 19c.6-3 2.9-4.6 5.7-4.6S14.6 16 15.2 19" />
+    <path d="M16 6.6a2.9 2.9 0 0 1 0 5.6M17.6 14.7c2 .6 3.2 2.1 3.6 4.3" />
+  </svg>
+);
