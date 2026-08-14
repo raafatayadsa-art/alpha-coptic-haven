@@ -496,10 +496,10 @@ function BibleRead() {
                     {sheet === "colors" ? (
                       <div
                         aria-label={t("bib.act.colors")}
-                        className={`verse-rise absolute z-50 flex w-[44px] flex-col items-center gap-1.5 overflow-y-auto ${
+                        className={`verse-rise absolute z-50 grid w-[86px] grid-cols-2 place-items-center gap-1.5 ${
                           night ? "alpha-pop-night" : "alpha-pop"
                         } ${popDown ? "top-[calc(100%+6px)]" : "bottom-[calc(100%+6px)]"}`}
-                        style={{ insetInlineStart: 6, maxHeight: "min(60vh, 260px)" }}
+                        style={{ insetInlineStart: 6 }}
                       >
                         {HL_COLORS.map((c) => {
                           const picked = highlights[verse.n] === c.id;
