@@ -433,3 +433,109 @@
 @media (prefers-reduced-motion: reduce) {
   .tide-drift { animation: none !important; }
 }
+
+/* ============================================================
+ * Scriptorium — scoped theme for the Bible system.
+ * Warm vellum surfaces, sapphire ink, copper + gold illumination.
+ * ============================================================ */
+:root {
+  --sc-vellum: oklch(0.976 0.014 84);
+  --sc-linen: oklch(0.944 0.020 80);
+  --sc-shade: oklch(0.902 0.024 78);
+  --sc-ink: oklch(0.262 0.046 268);
+  --sc-sapphire: oklch(0.452 0.098 264);
+  --sc-copper: oklch(0.646 0.116 52);
+  --sc-gold: oklch(0.784 0.094 88);
+  --sc-rubric: oklch(0.512 0.130 24);
+  --sc-muted: oklch(0.548 0.024 272);
+}
+
+@theme inline {
+  --color-vellum: var(--sc-vellum);
+  --color-linen: var(--sc-linen);
+  --color-shade: var(--sc-shade);
+  --color-inkblue: var(--sc-ink);
+  --color-sapphire: var(--sc-sapphire);
+  --color-copper: var(--sc-copper);
+  --color-illum: var(--sc-gold);
+  --color-rubric: var(--sc-rubric);
+  --color-quiet: var(--sc-muted);
+}
+
+/* Base page texture: vellum with a faint gold bloom */
+@utility scriptorium {
+  background-color: var(--sc-vellum);
+  background-image:
+    radial-gradient(90% 55% at 50% 0%, color-mix(in oklab, var(--sc-gold) 16%, transparent) 0%, transparent 70%),
+    radial-gradient(70% 40% at 100% 30%, color-mix(in oklab, var(--sc-sapphire) 7%, transparent) 0%, transparent 70%);
+}
+
+@utility vellum-card {
+  background: linear-gradient(
+    168deg,
+    color-mix(in oklab, white 82%, transparent) 0%,
+    color-mix(in oklab, var(--sc-linen) 92%, transparent) 100%
+  );
+  border: 1px solid color-mix(in oklab, var(--sc-gold) 30%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, white 90%, transparent),
+    0 20px 44px -26px color-mix(in oklab, var(--sc-ink) 34%, transparent);
+}
+
+@utility ink-card {
+  background:
+    radial-gradient(120% 100% at 100% 0%, color-mix(in oklab, var(--sc-sapphire) 62%, transparent) 0%, transparent 62%),
+    linear-gradient(165deg, color-mix(in oklab, var(--sc-ink) 96%, transparent) 0%, color-mix(in oklab, var(--sc-ink) 100%, black) 100%);
+  border: 1px solid color-mix(in oklab, var(--sc-gold) 26%, transparent);
+  box-shadow: 0 26px 58px -28px color-mix(in oklab, var(--sc-ink) 62%, transparent);
+}
+
+@utility gold-hairline {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--sc-gold) 70%, transparent) 50%,
+    transparent 100%
+  );
+}
+
+@utility illum-halo {
+  background: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in oklab, var(--sc-gold) 55%, transparent) 0%,
+    transparent 70%
+  );
+}
+
+@utility gold-cta {
+  background-image: linear-gradient(
+    100deg,
+    color-mix(in oklab, var(--sc-copper) 96%, black) 0%,
+    color-mix(in oklab, var(--sc-gold) 98%, white) 100%
+  );
+  box-shadow: 0 18px 36px -18px color-mix(in oklab, var(--sc-copper) 60%, transparent);
+}
+
+/* Drop-cap for the reading screen's first verse */
+@utility drop-cap {
+  float: inline-start;
+  margin-inline-end: 0.35rem;
+  margin-block-start: 0.15rem;
+  font-family: var(--font-display);
+  font-size: 3.1rem;
+  line-height: 0.82;
+  color: color-mix(in oklab, var(--sc-copper) 92%, transparent);
+}
+
+@keyframes verse-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@utility verse-rise {
+  animation: verse-rise 0.7s var(--ease-out-expo) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .verse-rise { animation: none !important; }
+}
