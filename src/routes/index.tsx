@@ -258,46 +258,52 @@ function AlphaHome() {
           </div>
         </section>
 
-        {/* 5 — Spiritual Hub */}
-        <section>
-          <div className="mb-3 px-1">
-            <Eyebrow>{t("hm.hub.eyebrow")}</Eyebrow>
-            <h2 className="mt-1 font-display text-[19px] font-semibold tracking-tight">
-              {t("hm.hub.title")}
-            </h2>
+        {/* 5 — Spiritual Hub: large card carousel (original design) */}
+        <section className="-mx-4">
+          <div className="flex items-end justify-between px-5">
+            <div>
+              <Eyebrow>{t("hm.hub.eyebrow")}</Eyebrow>
+              <h2 className="mt-1 font-display text-[26px] font-semibold tracking-tight">
+                {t("hm.hub.title")}
+              </h2>
+              <p className="mt-0.5 text-[12px] text-ink/45">{t("hm.hub.line")}</p>
+            </div>
+            <button type="button" className="text-[10px] font-semibold uppercase tracking-[0.18em] text-gold">
+              {t("app.viewAll")}
+            </button>
           </div>
-          <div className="grid grid-cols-3 gap-2.5">
+
+          <div className="no-scrollbar mt-6 flex snap-x snap-mandatory gap-3.5 overflow-x-auto px-5 pb-4">
             {hub.map((item) => (
               <button
                 key={item.key}
                 type="button"
-                className="press flex flex-col items-center gap-2.5 rounded-[24px] bg-card px-2 py-4 text-center ring-1 ring-ink/5"
+                className="press group w-[148px] flex-none snap-center rounded-[26px] border border-ink/5 bg-parchment p-4 text-start shadow-[var(--shadow-soft)]"
               >
-                <span className={`grid size-11 place-items-center rounded-2xl ${hubTone[item.tone]}`}>
+                <span
+                  className={`grid size-12 place-items-center rounded-2xl ${hubTone[item.tone]}`}
+                  aria-hidden="true"
+                >
                   {item.icon}
                 </span>
-                <span className="text-[11px] font-medium leading-tight text-ink/70">
+                <h3 className="mt-4 font-display text-[19px] font-semibold leading-tight tracking-tight">
                   {t(item.key)}
+                </h3>
+                <p
+                  className="mt-1 text-[10.5px] font-medium uppercase tracking-[0.12em] text-ink/45"
+                  dir="ltr"
+                >
+                  {t(item.sub)}
+                </p>
+                <span className="mt-4 flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-gold">
+                  {t("app.open")}
+                  <ChevronRight className="size-3 transition-transform duration-500 group-hover:translate-x-0.5 rtl:rotate-180" />
                 </span>
               </button>
             ))}
           </div>
-          {/* Library gets a wider tile — hierarchy, not sameness */}
-          <button
-            type="button"
-            className="press mt-2.5 flex w-full items-center justify-between gap-3 rounded-[24px] bg-parchment px-5 py-4 ring-1 ring-ink/5"
-          >
-            <span className="flex items-center gap-3">
-              <span className="grid size-11 place-items-center rounded-2xl bg-ivory text-gold ring-1 ring-gold/20">
-                <LibraryIcon className="size-[22px]" />
-              </span>
-              <span className="font-display text-[16px] font-semibold tracking-tight">
-                {t("hm.hub.library")}
-              </span>
-            </span>
-            <ChevronRight className="size-4 text-ink/30 rtl:rotate-180" />
-          </button>
         </section>
+
 
         {/* 6 — A glimpse of my church */}
         <section>
