@@ -156,14 +156,18 @@ function ChurchHome() {
             <BellIcon className="size-[18px] text-ink/60" />
             <span className="absolute right-2.5 top-2.5 size-1.5 rounded-full bg-gold ring-2 ring-parchment" />
           </button>
-          {/* Visible only for Priest / Church Admin / Servant */}
-          <button
-            type="button"
-            className="press grid size-10 place-items-center rounded-full bg-ink text-ivory shadow-soft"
-            aria-label="Church Control"
-          >
-            <ShieldIcon className="size-[18px]" />
-          </button>
+          {/* Visible only for the priest */}
+          {isPriest && (
+            <Link
+              to="/church-control"
+              className="press grid size-10 place-items-center rounded-full bg-ink text-ivory shadow-soft"
+              aria-label="تحكم الكنيسة"
+              title="تحكم الكنيسة"
+            >
+              <ShieldIcon className="size-[18px]" />
+            </Link>
+          )}
+
         </div>
       </header>
 
