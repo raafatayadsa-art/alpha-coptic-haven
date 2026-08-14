@@ -26,6 +26,7 @@ import { Route as BibleStatsRouteImport } from './routes/bible-stats'
 import { Route as ChurchControlRouteImport } from './routes/church-control'
 import { Route as ConnectRouteImport } from './routes/connect'
 import { Route as ConnectChannelRouteImport } from './routes/connect-channel'
+import { Route as ConnectMessagesRouteImport } from './routes/connect-messages'
 import { Route as FathersRouteImport } from './routes/fathers'
 import { Route as KatamerosRouteImport } from './routes/katameros'
 import { Route as KatamerosCalendarRouteImport } from './routes/katameros-calendar'
@@ -128,6 +129,11 @@ const ConnectRoute = ConnectRouteImport.update({
 const ConnectChannelRoute = ConnectChannelRouteImport.update({
   id: '/connect-channel',
   path: '/connect-channel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConnectMessagesRoute = ConnectMessagesRouteImport.update({
+  id: '/connect-messages',
+  path: '/connect-messages',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FathersRoute = FathersRouteImport.update({
@@ -239,6 +245,7 @@ export interface FileRoutesByFullPath {
   '/church-control': typeof ChurchControlRoute
   '/connect': typeof ConnectRoute
   '/connect-channel': typeof ConnectChannelRoute
+  '/connect-messages': typeof ConnectMessagesRoute
   '/fathers': typeof FathersRoute
   '/katameros': typeof KatamerosRoute
   '/katameros-calendar': typeof KatamerosCalendarRoute
@@ -276,6 +283,7 @@ export interface FileRoutesByTo {
   '/church-control': typeof ChurchControlRoute
   '/connect': typeof ConnectRoute
   '/connect-channel': typeof ConnectChannelRoute
+  '/connect-messages': typeof ConnectMessagesRoute
   '/fathers': typeof FathersRoute
   '/katameros': typeof KatamerosRoute
   '/katameros-calendar': typeof KatamerosCalendarRoute
@@ -314,6 +322,7 @@ export interface FileRoutesById {
   '/church-control': typeof ChurchControlRoute
   '/connect': typeof ConnectRoute
   '/connect-channel': typeof ConnectChannelRoute
+  '/connect-messages': typeof ConnectMessagesRoute
   '/fathers': typeof FathersRoute
   '/katameros': typeof KatamerosRoute
   '/katameros-calendar': typeof KatamerosCalendarRoute
@@ -353,6 +362,7 @@ export interface FileRouteTypes {
     | '/church-control'
     | '/connect'
     | '/connect-channel'
+    | '/connect-messages'
     | '/fathers'
     | '/katameros'
     | '/katameros-calendar'
@@ -390,6 +400,7 @@ export interface FileRouteTypes {
     | '/church-control'
     | '/connect'
     | '/connect-channel'
+    | '/connect-messages'
     | '/fathers'
     | '/katameros'
     | '/katameros-calendar'
@@ -427,6 +438,7 @@ export interface FileRouteTypes {
     | '/church-control'
     | '/connect'
     | '/connect-channel'
+    | '/connect-messages'
     | '/fathers'
     | '/katameros'
     | '/katameros-calendar'
@@ -465,6 +477,7 @@ export interface RootRouteChildren {
   ChurchControlRoute: typeof ChurchControlRoute
   ConnectRoute: typeof ConnectRoute
   ConnectChannelRoute: typeof ConnectChannelRoute
+  ConnectMessagesRoute: typeof ConnectMessagesRoute
   FathersRoute: typeof FathersRoute
   KatamerosRoute: typeof KatamerosRoute
   KatamerosCalendarRoute: typeof KatamerosCalendarRoute
@@ -604,6 +617,13 @@ declare module '@tanstack/react-router' {
       path: '/connect-channel'
       fullPath: '/connect-channel'
       preLoaderRoute: typeof ConnectChannelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/connect-messages': {
+      id: '/connect-messages'
+      path: '/connect-messages'
+      fullPath: '/connect-messages'
+      preLoaderRoute: typeof ConnectMessagesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fathers': {
@@ -753,6 +773,7 @@ const rootRouteChildren: RootRouteChildren = {
   ChurchControlRoute: ChurchControlRoute,
   ConnectRoute: ConnectRoute,
   ConnectChannelRoute: ConnectChannelRoute,
+  ConnectMessagesRoute: ConnectMessagesRoute,
   FathersRoute: FathersRoute,
   KatamerosRoute: KatamerosRoute,
   KatamerosCalendarRoute: KatamerosCalendarRoute,
