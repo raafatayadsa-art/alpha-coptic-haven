@@ -1,4 +1,13 @@
 import filmDavid from "@/assets/kids/kids-film-david.jpg";
+import {
+  KdBook,
+  KdCross,
+  KdDove,
+  KdHeart,
+  KdMusic,
+  KdStar,
+} from "@/components/kids/kids-icons";
+
 import filmJonah from "@/assets/kids/kids-film-jonah.jpg";
 import filmNoah from "@/assets/kids/kids-film-noah.jpg";
 import saintIcon from "@/assets/kids/kids-saint.jpg";
