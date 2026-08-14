@@ -29,6 +29,7 @@ import {
   SynaxariumIcon,
   VerifiedIcon,
 } from "@/components/church/icons";
+import { FaLamp } from "@/components/fathers/fathers-icons";
 import { LibraryIcon, PlayIcon } from "@/components/church/media-icons";
 import { useLang } from "@/lib/i18n";
 import { SloganBand } from "@/components/layout/SloganBand";
