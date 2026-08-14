@@ -141,6 +141,28 @@ function BibleRead() {
     return () => window.clearTimeout(id);
   }, [toast]);
 
+  const verseText = (n: number) => {
+    const v = samplePassage.find((x) => x.n === n);
+    const text = v ? (isArabic ? v.ar : v.en) : "";
+    return `${text} — ${name} ${ch}:${n}`;
+  };
+
+  const copyVerse = (n: number) => {
+    void navigator.clipboard?.writeText(verseText(n));
+    setToast(t("bib.act.copy"));
+  };
+
+  const shareVerse = (n: number) => {
+    const text = verseText(n);
+    if (typeof navigator !== "undefined" && navigator.share) {
+      void navigator.share({ text }).catch(() => undefined);
+    } else {
+      void navigator.clipboard?.writeText(text);
+    }
+    setToast(t("bib.act.share"));
+  };
+
+
 
   /* ── Track which verse is in view — presentation only ── */
   useEffect(() => {
