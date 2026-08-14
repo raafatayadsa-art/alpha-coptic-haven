@@ -116,7 +116,7 @@ function BibleRead() {
   const [spacing, setSpacing] = useState(1);
   const [auto, setAuto] = useState(false);
   const [menu, setMenu] = useState<null | "speed" | "spacing">(null);
-  const [chrome, setChrome] = useState(true);
+  const [toast, setToast] = useState<string | null>(null);
   const [currentVerse, setCurrentVerse] = useState(samplePassage[0]!.n);
   const verseRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
@@ -128,31 +128,19 @@ function BibleRead() {
   const pct = Math.round((currentVerse / total) * 100);
   const scale = SCALES[scaleIdx]!;
 
-  /* ── Chrome auto-hide after 5s of stillness (bar + bottom nav) ── */
-  const hideTimer = useRef<number | null>(null);
-  const wake = useCallback(() => {
-    setChrome(true);
-    if (hideTimer.current) window.clearTimeout(hideTimer.current);
-    hideTimer.current = window.setTimeout(() => {
-      setChrome(false);
-      setMenu(null);
-    }, 5000);
-  }, []);
+  /* Facebook-style chrome: hides on scroll up, returns on scroll down. */
+  const chrome = useChromeVisibility();
 
   useEffect(() => {
-    wake();
-    const events: Array<keyof WindowEventMap> = ["scroll", "pointerdown", "touchstart", "keydown"];
-    events.forEach((e) => window.addEventListener(e, wake, { passive: true }));
-    return () => {
-      events.forEach((e) => window.removeEventListener(e, wake));
-      if (hideTimer.current) window.clearTimeout(hideTimer.current);
-    };
-  }, [wake]);
-
-  useEffect(() => {
-    document.body.classList.toggle("reader-chrome-off", !chrome);
-    return () => document.body.classList.remove("reader-chrome-off");
+    if (!chrome) setMenu(null);
   }, [chrome]);
+
+  useEffect(() => {
+    if (!toast) return;
+    const id = window.setTimeout(() => setToast(null), 1600);
+    return () => window.clearTimeout(id);
+  }, [toast]);
+
 
   /* ── Track which verse is in view — presentation only ── */
   useEffect(() => {
