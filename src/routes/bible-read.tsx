@@ -526,13 +526,13 @@ function BibleRead() {
                           );
                         })}
                         <span
-                          className={`h-px w-5 shrink-0 ${night ? "bg-vellum/15" : "bg-shade/70"}`}
+                          className={`col-span-2 h-px w-full ${night ? "bg-vellum/15" : "bg-shade/70"}`}
                           aria-hidden="true"
                         />
                         <button
                           type="button"
                           onClick={() => paint(verse.n, null)}
-                          className={`press shrink-0 rounded-full px-1.5 py-0.5 text-[9px] font-bold ${chip}`}
+                          className={`press col-span-2 w-full rounded-full py-1 text-[9.5px] font-bold ${chip}`}
                         >
                           {t("bib.act.clear")}
                         </button>
