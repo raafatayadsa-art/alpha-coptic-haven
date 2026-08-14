@@ -11,6 +11,7 @@ export function useSectionBar(ids: string[], idleMs = 5000) {
   const [active, setActive] = useState(ids[0] ?? "");
   const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(true);
+  const [pinned, setPinned] = useState(false);
   const lastY = useRef(0);
   const idle = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -27,6 +28,7 @@ export function useSectionBar(ids: string[], idleMs = 5000) {
       const y = window.scrollY;
       const max = document.documentElement.scrollHeight - window.innerHeight;
       setProgress(max > 0 ? Math.min(1, Math.max(0, y / max)) : 0);
+      setPinned(y > 170);
 
       /* The section whose top has passed just under the sticky bar wins. */
       let current = ids[0] ?? "";
@@ -70,5 +72,5 @@ export function useSectionBar(ids: string[], idleMs = 5000) {
     };
   }, [ids, wake]);
 
-  return { active, progress, visible, wake };
+  return { active, progress, visible: visible && pinned, wake };
 }
