@@ -177,28 +177,29 @@ export const CopticCross = ({ className }: IconProps) => (
 
 /** Illuminated Alpha–Omega mark, used as a quiet Coptic watermark. */
 export const AlphaOmegaMark = ({ className }: IconProps) => (
-  <svg viewBox="0 0 120 60" fill="none" aria-hidden className={className}>
+  <svg viewBox="0 0 120 40" fill="none" aria-hidden className={className}>
     <text
-      x="18"
-      y="44"
+      x="34"
+      y="27"
       textAnchor="middle"
-      fontSize="40"
+      fontSize="17"
       fontFamily="var(--font-display), serif"
       fill="currentColor"
     >
-      Α
+      ⲁ
     </text>
-    <path d="M46 30h28" stroke="currentColor" strokeWidth="1.2" opacity="0.6" />
-    <path d="M60 18v24" stroke="currentColor" strokeWidth="1.2" opacity="0.6" />
+    <path d="M54 20h12" stroke="currentColor" strokeWidth="0.8" opacity="0.55" />
+    <path d="M60 14v12" stroke="currentColor" strokeWidth="0.8" opacity="0.55" />
     <text
-      x="102"
-      y="44"
+      x="86"
+      y="27"
       textAnchor="middle"
-      fontSize="40"
+      fontSize="17"
       fontFamily="var(--font-display), serif"
       fill="currentColor"
     >
-      Ω
+      ⲱ
     </text>
   </svg>
 );
+
