@@ -188,7 +188,9 @@ function ConnectMessages() {
                         <VoiceBars bars={3} />
                       ) : null}
                     </div>
+                    </Link>
                   </li>
+
                 ))}
               </ul>
             )}
