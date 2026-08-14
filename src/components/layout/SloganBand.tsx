@@ -7,11 +7,11 @@
 export function SloganBand({ className }: { className?: string }) {
   return (
     <div
-      className={`pointer-events-none relative mx-auto w-full max-w-[430px] px-6 pt-8 pb-3 text-center select-none ${className ?? ""}`}
+      className={`pointer-events-none relative mx-auto w-full max-w-[430px] px-6 pt-4 pb-1 text-center select-none ${className ?? ""}`}
     >
       <span
         aria-hidden="true"
-        className="mx-auto mb-3 block h-px w-20 bg-current opacity-15"
+        className="mx-auto mb-2 block h-px w-20 bg-current opacity-15"
       />
       <p
         className="flex items-center justify-center gap-2 font-manrope text-[8.5px] font-semibold tracking-[0.2em] uppercase opacity-40"
