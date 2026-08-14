@@ -58,19 +58,34 @@ export function EngageBar({
   const dark = tone === "dark";
   const hair = dark ? "border-ivory/12" : "border-ink/6";
   const pill = dark
-    ? "bg-ivory/10 text-ivory/75 ring-1 ring-ivory/15 hover:bg-ivory/15"
-    : "bg-parchment/80 text-ink/60 ring-1 ring-ink/5 hover:bg-parchment";
+    ? "bg-ivory/10 text-ivory/75 ring-1 ring-ivory/15 hover:bg-ivory/15 hover:ring-gold/40"
+    : "bg-parchment/80 text-ink/60 ring-1 ring-ink/5 hover:bg-parchment hover:ring-gold/35";
   const pillActive = dark
-    ? "bg-gold/25 text-gold ring-1 ring-gold/35"
-    : "bg-gold/12 text-gold ring-1 ring-gold/25";
+    ? "bg-gold/22 text-gold ring-1 ring-gold/70"
+    : "bg-gold/12 text-gold ring-1 ring-gold/60";
   const size = compact ? "size-[13px]" : "size-[15px]";
   const text = compact ? "text-[10.5px]" : "text-[11.5px]";
   const pad = compact ? "h-7 gap-1.5 px-2.5" : "h-8 gap-1.5 px-3";
   const base = cn(
-    "press inline-flex shrink-0 items-center rounded-full font-medium transition-colors duration-300",
+    "press relative inline-flex shrink-0 items-center rounded-full font-medium transition-[color,background-color,box-shadow] duration-300",
     pad,
     text,
   );
+
+  /** Line-based pulse: concentric golden hairline rings (no blur). */
+  const Rings = ({ on }: { on: boolean }) =>
+    on ? (
+      <>
+        <span
+          aria-hidden="true"
+          className="engage-ring pointer-events-none absolute inset-0 rounded-full border border-gold/80"
+        />
+        <span
+          aria-hidden="true"
+          className="engage-ring-late pointer-events-none absolute inset-0 rounded-full border border-gold/45"
+        />
+      </>
+    ) : null;
 
   const submit = () => {
     const value = draft.trim();
@@ -100,16 +115,11 @@ export function EngageBar({
               <HeartIcon
                 className={cn(size, burst === "like" && "engage-pop", liked && "engage-beat")}
               />
-              {burst === "like" && liked && (
-                <span
-                  aria-hidden="true"
-                  className="engage-halo pointer-events-none absolute size-6 rounded-full bg-gold/35"
-                />
-              )}
             </span>
             <span key={liked ? "on" : "off"} className={cn("tabular-nums", liked && "engage-count")}>
               {fmt(likes + (liked ? 1 : 0))}
             </span>
+            <Rings on={burst === "like"} />
           </button>
 
           <button
@@ -120,12 +130,13 @@ export function EngageBar({
             }}
             aria-expanded={open}
             aria-label={t("engage.comment")}
-            className={cn(base, open ? pillActive : pill)}
+            className={cn(base, open ? cn(pillActive, "engage-glow") : pill)}
           >
             <ChatIcon className={cn(size, burst === "comment" && "engage-pop")} />
             <span className="tabular-nums">
               {fmt(comments + thread.filter((c) => c.id.startsWith("c-")).length)}
             </span>
+            <Rings on={burst === "comment"} />
           </button>
 
           <div className="relative">
@@ -137,7 +148,7 @@ export function EngageBar({
               }}
               aria-expanded={shareOpen}
               aria-label={t("engage.share")}
-              className={cn(base, shareOpen || shared ? pillActive : pill)}
+              className={cn(base, shareOpen || shared ? cn(pillActive, "engage-glow") : pill)}
             >
               <ShareIcon
                 className={cn(size, burst === "share" && "engage-nudge", "rtl:-scale-x-100")}
@@ -147,6 +158,7 @@ export function EngageBar({
                   {shared ? t("engage.shared") : t("engage.share")}
                 </span>
               )}
+              <Rings on={burst === "share"} />
             </button>
 
             {shareOpen && (
@@ -218,7 +230,7 @@ export function EngageBar({
           }}
           aria-pressed={saved}
           aria-label={t("engage.save")}
-          className={cn(base, saved ? pillActive : pill)}
+          className={cn(base, saved ? cn(pillActive, "engage-glow") : pill)}
         >
           <BookmarkIcon className={cn(size, burst === "save" && "engage-tuck")} />
           {!compact && (
@@ -226,6 +238,7 @@ export function EngageBar({
               {saved ? t("engage.saved") : t("engage.save")}
             </span>
           )}
+          <Rings on={burst === "save"} />
         </button>
       </div>
 
