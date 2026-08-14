@@ -518,14 +518,7 @@ function BibleRead() {
             }`}
           >
             <button
-              type="button"
-              aria-label={t("bib.reader.play")}
-              className="press grid size-10 shrink-0 place-items-center rounded-full bg-inkblue text-illum"
-            >
-              <PlayGlyph className="size-[17px]" />
-            </button>
 
-            <button
               type="button"
               onClick={() => setAuto((v) => !v)}
               aria-label={t("bib.reader.autoscroll")}
