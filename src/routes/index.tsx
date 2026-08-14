@@ -71,29 +71,6 @@ const quickLinks = [
   { icon: <MoreIcon className="size-5" />, title: "More", subtitle: "Everything else", tone: "lavender" as const },
 ];
 
-type LibraryTone = "gold" | "lavender" | "parchment";
-
-const library: {
-  icon: ReactNode;
-  title: string;
-  subtitle: string;
-  tone: LibraryTone;
-}[] = [
-  { icon: <BibleIcon className="size-6" />, title: "الكتاب المقدس", subtitle: "The Holy Bible", tone: "gold" },
-  { icon: <AgpeyaIcon className="size-6" />, title: "الأجبية", subtitle: "The Seven Prayers", tone: "lavender" },
-  { icon: <SynaxariumIcon className="size-6" />, title: "السنكسار", subtitle: "Lives of the Saints", tone: "parchment" },
-  { icon: <KatamerosIcon className="size-6" />, title: "القطمارس", subtitle: "Daily Readings", tone: "gold" },
-  { icon: <KhoulagyIcon className="size-6" />, title: "الخولاجي", subtitle: "Liturgy Book", tone: "lavender" },
-  { icon: <KidsIcon className="size-6" />, title: "الأطفال", subtitle: "For the little ones", tone: "parchment" },
-  { icon: <MyChurchIcon className="size-6" />, title: "كنيستي", subtitle: "My Church", tone: "gold" },
-  { icon: <CommunityIcon className="size-6" />, title: "مجتمعي", subtitle: "My Community", tone: "lavender" },
-];
-
-const libraryToneClasses: Record<LibraryTone, string> = {
-  gold: "bg-gold/12 text-gold ring-1 ring-gold/20",
-  lavender: "bg-lavender/45 text-ink/70 ring-1 ring-lavender",
-  parchment: "bg-parchment text-ink/60 ring-1 ring-ink/5",
-};
 
 
 const calendar = [
