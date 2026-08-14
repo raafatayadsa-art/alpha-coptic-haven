@@ -1,14 +1,16 @@
+import { useState } from "react";
 import type { ReactNode } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import churchCover from "@/assets/church-cover.jpg";
+import churchCrest from "@/assets/church-crest.png";
 import priest1 from "@/assets/priest-1.jpg";
 import priest2 from "@/assets/priest-2.jpg";
 import priest3 from "@/assets/priest-3.jpg";
 import postYouth from "@/assets/post-youth.jpg";
 import postCandles from "@/assets/post-candles.jpg";
 
-import { QuickLinkCard } from "@/components/church/QuickLinkCard";
+
 import {
   BellIcon,
   CalendarPlusIcon,
@@ -70,6 +72,35 @@ const quickLinks = [
   { icon: <MoreIcon className="size-5" />, title: "More", subtitle: "Everything else", tone: "lavender" as const },
 ];
 
+const quickTile: Record<"gold" | "lavender" | "parchment", string> = {
+  gold: "bg-gold/12 text-gold ring-1 ring-gold/20",
+  lavender: "bg-lavender/40 text-ink/70 ring-1 ring-lavender",
+  parchment: "bg-parchment text-ink/60 ring-1 ring-ink/5",
+};
+
+const churchPosts = [
+  {
+    cover: postCandles,
+    category: "قداسات",
+    date: "الجمعة ٧ أغسطس",
+    title: "مواعيد قداسات الأسبوع وصلوات نصف الليل",
+    excerpt: "القداس الإلهي يوم الأحد الساعة السادسة صباحًا، ويتقدمه رفع بخور عشية السبت.",
+    likes: "١٨٤",
+    visibility: "public" as const,
+  },
+  {
+    cover: postYouth,
+    category: "اجتماعات",
+    date: "الأربعاء ٥ أغسطس",
+    title: "اجتماع الخدام — التحضير لخدمة العام الجديد",
+    excerpt: "لقاء الخدام في قاعة الكنيسة بعد صلاة العشية، ويشمل مراجعة خطة الخدمة.",
+    likes: "٦٢",
+    visibility: "members" as const,
+  },
+];
+
+
+
 
 
 const calendar = [
@@ -100,6 +131,8 @@ const calendar = [
 ];
 
 function ChurchHome() {
+  const [following, setFollowing] = useState(false);
+
   return (
     <div className="mx-auto min-h-screen w-full max-w-[430px] overflow-x-hidden bg-ivory pb-16 text-ink selection:bg-gold/20">
       {/* 1 — Premium Header */}
@@ -200,7 +233,22 @@ function ChurchHome() {
             <p className="mt-4 text-[12.5px] leading-relaxed text-ink/55">
               A home for 372 families in Shoubra since 1948. You belong here.
             </p>
+
+            <button
+              type="button"
+              onClick={() => setFollowing((v) => !v)}
+              aria-pressed={following}
+              className={`press mt-5 flex h-12 w-full items-center justify-center gap-2 rounded-full text-[13px] font-semibold transition-colors ${
+                following
+                  ? "border border-gold/30 bg-gold/10 text-gold"
+                  : "bg-ink text-ivory shadow-soft"
+              }`}
+            >
+              <HeartIcon className="size-4" />
+              {following ? "تمت المتابعة" : "متابعة الكنيسة"}
+            </button>
           </div>
+
         </section>
 
 
@@ -266,16 +314,106 @@ function ChurchHome() {
           </div>
         </section>
 
-        {/* 5 — Quick Links */}
+        {/* 5 — Church Life */}
         <section className="mt-12 px-5">
-          <h2 className="font-display text-[26px] font-semibold tracking-tight">Church Life</h2>
-          <p className="mt-0.5 text-[12px] text-ink/45">Everything within reach</p>
-          <div className="mt-6 grid grid-cols-2 gap-3">
+          <div className="flex items-end justify-between">
+            <div>
+              <h2 className="font-display text-[26px] font-semibold tracking-tight">Church Life</h2>
+              <p className="mt-0.5 text-[12px] text-ink/45">Everything within reach</p>
+            </div>
+            <button type="button" className="text-[10px] font-semibold uppercase tracking-[0.18em] text-gold">
+              View all
+            </button>
+          </div>
+
+          <div className="glass-card mt-6 grid grid-cols-4 gap-y-6 rounded-[30px] px-3 py-6">
             {quickLinks.map((l) => (
-              <QuickLinkCard key={l.title} icon={l.icon} title={l.title} subtitle={l.subtitle} tone={l.tone} />
+              <button
+                key={l.title}
+                type="button"
+                className="press flex flex-col items-center gap-2 px-1 text-center"
+              >
+                <span
+                  className={`grid size-12 place-items-center rounded-[20px] ${quickTile[l.tone]}`}
+                  aria-hidden="true"
+                >
+                  {l.icon}
+                </span>
+                <span className="text-[10.5px] font-semibold leading-tight tracking-tight text-ink/75">
+                  {l.title}
+                </span>
+              </button>
             ))}
           </div>
         </section>
+
+        {/* 5b — Church Posts */}
+        <section dir="rtl" className="font-arabic mt-12 px-4">
+          <div className="mb-4 flex items-end justify-between px-1">
+            <div>
+              <h2 className="text-[16px] font-bold tracking-tight">منشورات الكنيسة</h2>
+              <p className="mt-1 text-[10.5px] text-ink/40">آخر الأخبار والإعلانات</p>
+            </div>
+            <button
+              type="button"
+              className="press inline-flex items-center gap-0.5 text-[11.5px] font-semibold text-ink/50"
+            >
+              عرض الكل
+              <ChevronRight className="size-3.5 rotate-180" />
+            </button>
+          </div>
+
+          <div className="space-y-3">
+            {churchPosts.map((post) => (
+              <article key={post.title} className="press glass-card overflow-hidden rounded-[28px]">
+                <div className="flex items-center gap-2.5 px-4 pt-3.5">
+                  <img src={churchCrest} alt="" loading="lazy" width={512} height={512} className="size-7" />
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate text-[11.5px] font-semibold">
+                      كنيسة السيدة العذراء مريم والقديس مارمرقس
+                    </span>
+                    <span className="mt-0.5 block text-[9.5px] text-ink/40">
+                      {post.category} · {post.date}
+                    </span>
+                  </span>
+                  <span
+                    className={`rounded-full px-2.5 py-1 text-[9.5px] font-semibold ${
+                      post.visibility === "public"
+                        ? "bg-gold/12 text-gold ring-1 ring-gold/20"
+                        : "bg-lavender/40 text-ink/60 ring-1 ring-lavender"
+                    }`}
+                  >
+                    {post.visibility === "public" ? "عام" : "أعضاء الكنيسة"}
+                  </span>
+                </div>
+
+                <h3 className="mt-2.5 px-4 text-[14px] font-bold leading-snug">{post.title}</h3>
+                <p className="mt-1.5 px-4 text-[11.5px] leading-relaxed text-ink/50">{post.excerpt}</p>
+
+                <img
+                  src={post.cover}
+                  alt={post.title}
+                  loading="lazy"
+                  width={1024}
+                  height={640}
+                  className="mt-3 h-[152px] w-full object-cover"
+                />
+
+                <div className="flex items-center justify-between px-4 py-3">
+                  <span className="inline-flex items-center gap-1.5 text-[11.5px] text-ink/50">
+                    <HeartIcon className="size-4 text-gold" />
+                    {post.likes} إعجاب
+                  </span>
+                  <span className="inline-flex items-center gap-0.5 text-[11.5px] font-semibold text-ink/50">
+                    التفاصيل
+                    <ChevronRight className="size-3.5 rotate-180" />
+                  </span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
 
         {/* 6 — Upcoming Events */}
         <section className="mt-14 px-5">
