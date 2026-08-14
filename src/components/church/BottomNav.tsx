@@ -57,7 +57,7 @@ export function BottomNav() {
       }`}
     >
 
-      <div className="flex items-stretch gap-0.5 rounded-[24px] bg-transparent px-2 py-0.5">
+      <div className="nav-glass flex items-stretch gap-0.5 rounded-[24px] px-2 py-1">
         {items.map((item) =>
           item.to && item.center ? (
             <Link key={item.key} to={item.to} className={centerShell}>
