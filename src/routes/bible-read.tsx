@@ -244,10 +244,10 @@ function BibleRead() {
           go(forward ? 1 : -1);
         }}
       >
-        {/* Coptic Α Ω watermark behind the reading column */}
+        {/* Small lowercase Coptic ⲁ ⲱ watermark, faint gold, behind the column */}
         <AlphaOmegaMark
-          className={`pointer-events-none absolute inset-x-0 top-56 z-0 mx-auto w-[46%] text-copper illum-breathe ${
-            night ? "opacity-[0.06]" : "opacity-[0.035]"
+          className={`pointer-events-none absolute inset-x-0 top-56 z-0 mx-auto w-[26%] text-illum illum-breathe ${
+            night ? "opacity-[0.14]" : "opacity-[0.10]"
           }`}
         />
 
@@ -258,7 +258,7 @@ function BibleRead() {
             night ? "bg-inkblue/85" : "bg-vellum/85"
           } backdrop-blur-xl`}
         >
-          <div className={`relative overflow-hidden rounded-[26px] px-3 pt-3 pb-3 ${surface}`}>
+          <div className={`relative overflow-hidden rounded-[28px] px-3 pt-3.5 pb-3 ${surface}`}>
             <div className="copt-frieze absolute inset-x-6 top-0 opacity-50" />
 
             <div className="flex items-center gap-2">
@@ -283,12 +283,18 @@ function BibleRead() {
 
 
               <div className="min-w-0 flex-1 text-center">
-                <p className="font-manrope text-[10.5px] font-bold tracking-[0.08em] text-copper">
+                <p className="font-manrope text-[9px] font-bold tracking-[0.28em] text-copper/85 uppercase">
                   {isNT ? t("bib.nt") : t("bib.ot")}
                 </p>
-                <p className="truncate font-display text-[19px] font-bold text-rubric">
-                  {name} {ch}
-                </p>
+                <div className="mt-0.5 flex items-baseline justify-center gap-1.5">
+                  <span className="truncate font-display text-[23px] leading-none font-bold text-rubric">
+                    {name}
+                  </span>
+                  <span className="font-display text-[19px] leading-none font-bold text-illum">
+                    {ch}
+                  </span>
+                </div>
+                <div className="gold-hairline mx-auto mt-1.5 h-px w-16 opacity-70" />
               </div>
 
               <Link
@@ -303,33 +309,45 @@ function BibleRead() {
               </Link>
             </div>
 
-            {/* Verse counter + progress */}
+            {/* Verse counter + premium progress */}
             <div
-              className={`mt-2.5 rounded-[20px] px-3.5 py-2.5 ${
-                night ? "bg-vellum/[0.07]" : "bg-white/80"
+              className={`mt-3 flex items-center gap-3 rounded-full px-3.5 py-2 ${
+                night
+                  ? "border border-illum/20 bg-vellum/[0.07]"
+                  : "border border-illum/25 bg-white/85"
               }`}
             >
-              <div className="flex items-center justify-between">
-                <span className={`font-manrope text-[11.5px] font-semibold ${soft}`}>
-                  {t("bib.verse")} {currentVerse} {t("bib.of")} {total}
-                </span>
-                <span className="font-manrope text-[12px] font-bold text-sapphire tabular-nums">
-                  {pct}% {t("bib.complete")}
-                </span>
-              </div>
-              <div
-                className={`mt-2 h-[6px] overflow-hidden rounded-full ${
-                  night ? "bg-vellum/15" : "bg-inkblue/10"
-                }`}
-              >
+              <span className="font-display text-[17px] leading-none font-bold text-sapphire tabular-nums">
+                {pct}
+                <span className="font-manrope text-[9.5px] font-bold">%</span>
+              </span>
+
+              <div className="relative min-w-0 flex-1">
+                <div
+                  className={`h-[3px] overflow-hidden rounded-full ${
+                    night ? "bg-vellum/15" : "bg-inkblue/[0.09]"
+                  }`}
+                >
+                  <span
+                    className="block h-full rounded-full bg-gradient-to-r from-copper to-illum transition-[width] duration-700"
+                    style={{ width: `${pct}%` }}
+                  />
+                </div>
                 <span
-                  className="block h-full rounded-full bg-gradient-to-r from-copper to-illum transition-[width] duration-500"
-                  style={{ width: `${pct}%` }}
+                  className="illum-breathe absolute top-1/2 size-[7px] -translate-y-1/2 rounded-full bg-illum shadow-[0_0_0_3px_color-mix(in_oklab,var(--sc-gold)_28%,transparent)] transition-[inset-inline-start] duration-700"
+                  style={{ insetInlineStart: `calc(${pct}% - 3.5px)` }}
                 />
               </div>
+
+              <span
+                className={`font-manrope text-[10.5px] font-semibold whitespace-nowrap ${soft}`}
+              >
+                {currentVerse} / {total}
+              </span>
             </div>
           </div>
         </header>
+
 
         <main className="relative z-10 px-4 pt-4">
           {/* Chapter opener with Coptic cross */}
