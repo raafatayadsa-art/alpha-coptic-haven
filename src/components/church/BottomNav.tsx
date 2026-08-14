@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import { BibleIcon, CommunityIcon } from "@/components/church/icons";
 import {
@@ -7,7 +7,9 @@ import {
   HomeIcon,
   PersonIcon,
 } from "@/components/church/media-icons";
+import { useChromeVisibility } from "@/hooks/use-chrome-visibility";
 import { useLang } from "@/lib/i18n";
+
 
 type Item = {
   key: string;
