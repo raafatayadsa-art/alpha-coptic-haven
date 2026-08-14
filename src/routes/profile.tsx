@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
 import churchCover from "@/assets/church-cover.jpg";
 import churchCrest from "@/assets/church-crest.png";
@@ -19,13 +19,16 @@ import {
   HelpIcon,
   MembersIcon,
   MoreIcon,
+  ServicesIcon,
   ShieldIcon,
   VerifiedIcon,
 } from "@/components/church/icons";
 import { LanguageToggle } from "@/components/church/LanguageToggle";
+import { MembershipQr } from "@/components/church/MembershipQr";
 import { Shield } from "@/components/church/Shield";
 import { useLang } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+
 
 export const Route = createFileRoute("/profile")({
   head: () => ({
