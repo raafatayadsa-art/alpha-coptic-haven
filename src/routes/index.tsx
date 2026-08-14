@@ -46,14 +46,16 @@ export const Route = createFileRoute("/")({
 });
 
 /* Presentation-only sample content — visual prototype, no data layer. */
-const hub: { key: string; icon: ReactNode; tone: "gold" | "lavender" | "parchment" }[] = [
-  { key: "hm.hub.bible", icon: <BibleIcon className="size-[22px]" />, tone: "gold" },
-  { key: "hm.hub.agpeya", icon: <AgpeyaIcon className="size-[22px]" />, tone: "lavender" },
-  { key: "hm.hub.katameros", icon: <KatamerosIcon className="size-[22px]" />, tone: "parchment" },
-  { key: "hm.hub.synaxarium", icon: <SynaxariumIcon className="size-[22px]" />, tone: "parchment" },
-  { key: "hm.hub.khoulagy", icon: <KhoulagyIcon className="size-[22px]" />, tone: "lavender" },
-  { key: "hm.hub.fathers", icon: <MembersIcon className="size-[22px]" />, tone: "gold" },
+const hub: { key: string; sub: string; icon: ReactNode; tone: "gold" | "lavender" | "parchment" }[] = [
+  { key: "hm.hub.bible", sub: "hm.hub.sub.bible", icon: <BibleIcon className="size-6" />, tone: "gold" },
+  { key: "hm.hub.agpeya", sub: "hm.hub.sub.agpeya", icon: <AgpeyaIcon className="size-6" />, tone: "lavender" },
+  { key: "hm.hub.katameros", sub: "hm.hub.sub.katameros", icon: <KatamerosIcon className="size-6" />, tone: "parchment" },
+  { key: "hm.hub.synaxarium", sub: "hm.hub.sub.synaxarium", icon: <SynaxariumIcon className="size-6" />, tone: "parchment" },
+  { key: "hm.hub.khoulagy", sub: "hm.hub.sub.khoulagy", icon: <KhoulagyIcon className="size-6" />, tone: "lavender" },
+  { key: "hm.hub.fathers", sub: "hm.hub.sub.fathers", icon: <MembersIcon className="size-6" />, tone: "gold" },
+  { key: "hm.hub.library", sub: "hm.hub.sub.library", icon: <LibraryIcon className="size-6" />, tone: "gold" },
 ];
+
 
 const hubTone: Record<"gold" | "lavender" | "parchment", string> = {
   gold: "bg-gold/12 text-gold ring-1 ring-gold/20",
@@ -136,30 +138,43 @@ function AlphaHome() {
       </header>
 
       <main className="space-y-9 px-4 pt-2">
-        {/* 1 — Verse of the day: editorial, full width, no card grid */}
-        <section className="relative overflow-hidden rounded-[34px] bg-parchment px-6 py-8 ring-1 ring-gold/15">
-          <img
-            src={oliveBranch}
-            alt=""
-            width={220}
-            height={220}
-            className="pointer-events-none absolute -end-8 -top-8 size-40 opacity-25"
-          />
-          <Eyebrow>{t("hm.verse.eyebrow")}</Eyebrow>
-          <p className="mt-4 font-display text-[24px] font-medium leading-[1.55] tracking-tight text-ink">
-            {t("hm.verse.text")}
-          </p>
-          <div className="mt-5 flex items-center justify-between gap-3">
-            <span className="text-[12px] font-medium text-gold">{t("hm.verse.ref")}</span>
-            <button
-              type="button"
-              className="press flex items-center gap-1.5 rounded-full bg-ivory/80 px-3 py-1.5 text-[11px] font-medium text-ink/60 ring-1 ring-ink/5"
-            >
-              <HeartIcon className="size-[13px]" />
-              {t("hm.verse.save")}
-            </button>
+        {/* 1 — Verse of the day: original lavender manuscript card */}
+        <section className="animate-float-up relative overflow-hidden rounded-[32px] border border-lavender bg-lavender/30 p-7">
+          <div className="absolute -end-10 -top-10 size-40 rounded-full bg-gold/15 blur-3xl" />
+          <div className="relative">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-ink/45">
+              {t("hm.verse.eyebrow")}
+            </span>
+            <p className="mt-4 font-display text-[22px] italic leading-[1.45] text-pretty text-ink/85">
+              {t("hm.verse.text")}
+            </p>
+            <div className="mt-6 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <span className="grid size-12 place-items-center rounded-2xl border border-white/70 bg-ivory/70">
+                  <img
+                    src={oliveBranch}
+                    alt=""
+                    width={512}
+                    height={512}
+                    loading="lazy"
+                    className="size-8 object-contain"
+                  />
+                </span>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/55">
+                  {t("hm.verse.ref")}
+                </span>
+              </div>
+              <button
+                type="button"
+                className="press flex items-center gap-1.5 rounded-full bg-ivory/80 px-3 py-1.5 text-[11px] font-medium text-ink/60 ring-1 ring-ink/5"
+              >
+                <HeartIcon className="size-[13px]" />
+                {t("hm.verse.save")}
+              </button>
+            </div>
           </div>
         </section>
+
 
         {/* 2 — Saint of the day: image-led horizontal row */}
         <section>
@@ -258,46 +273,52 @@ function AlphaHome() {
           </div>
         </section>
 
-        {/* 5 — Spiritual Hub */}
-        <section>
-          <div className="mb-3 px-1">
-            <Eyebrow>{t("hm.hub.eyebrow")}</Eyebrow>
-            <h2 className="mt-1 font-display text-[19px] font-semibold tracking-tight">
-              {t("hm.hub.title")}
-            </h2>
+        {/* 5 — Spiritual Hub: large card carousel (original design) */}
+        <section className="-mx-4">
+          <div className="flex items-end justify-between px-5">
+            <div>
+              <Eyebrow>{t("hm.hub.eyebrow")}</Eyebrow>
+              <h2 className="mt-1 font-display text-[26px] font-semibold tracking-tight">
+                {t("hm.hub.title")}
+              </h2>
+              <p className="mt-0.5 text-[12px] text-ink/45">{t("hm.hub.line")}</p>
+            </div>
+            <button type="button" className="text-[10px] font-semibold uppercase tracking-[0.18em] text-gold">
+              {t("app.viewAll")}
+            </button>
           </div>
-          <div className="grid grid-cols-3 gap-2.5">
+
+          <div className="no-scrollbar mt-6 flex snap-x snap-mandatory gap-3.5 overflow-x-auto px-5 pb-4">
             {hub.map((item) => (
               <button
                 key={item.key}
                 type="button"
-                className="press flex flex-col items-center gap-2.5 rounded-[24px] bg-card px-2 py-4 text-center ring-1 ring-ink/5"
+                className="press group w-[148px] flex-none snap-center rounded-[26px] border border-ink/5 bg-parchment p-4 text-start shadow-[var(--shadow-soft)]"
               >
-                <span className={`grid size-11 place-items-center rounded-2xl ${hubTone[item.tone]}`}>
+                <span
+                  className={`grid size-12 place-items-center rounded-2xl ${hubTone[item.tone]}`}
+                  aria-hidden="true"
+                >
                   {item.icon}
                 </span>
-                <span className="text-[11px] font-medium leading-tight text-ink/70">
+                <h3 className="mt-4 font-display text-[19px] font-semibold leading-tight tracking-tight">
                   {t(item.key)}
+                </h3>
+                <p
+                  className="mt-1 text-[10.5px] font-medium uppercase tracking-[0.12em] text-ink/45"
+                  dir="ltr"
+                >
+                  {t(item.sub)}
+                </p>
+                <span className="mt-4 flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-gold">
+                  {t("app.open")}
+                  <ChevronRight className="size-3 transition-transform duration-500 group-hover:translate-x-0.5 rtl:rotate-180" />
                 </span>
               </button>
             ))}
           </div>
-          {/* Library gets a wider tile — hierarchy, not sameness */}
-          <button
-            type="button"
-            className="press mt-2.5 flex w-full items-center justify-between gap-3 rounded-[24px] bg-parchment px-5 py-4 ring-1 ring-ink/5"
-          >
-            <span className="flex items-center gap-3">
-              <span className="grid size-11 place-items-center rounded-2xl bg-ivory text-gold ring-1 ring-gold/20">
-                <LibraryIcon className="size-[22px]" />
-              </span>
-              <span className="font-display text-[16px] font-semibold tracking-tight">
-                {t("hm.hub.library")}
-              </span>
-            </span>
-            <ChevronRight className="size-4 text-ink/30 rtl:rotate-180" />
-          </button>
         </section>
+
 
         {/* 6 — A glimpse of my church */}
         <section>

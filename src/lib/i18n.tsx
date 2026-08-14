@@ -30,6 +30,8 @@ export const dict: Dict = {
   "app.public": { ar: "عام", en: "Public" },
   "app.members": { ar: "أعضاء الكنيسة", en: "Church members" },
   "app.likes": { ar: "إعجاب", en: "likes" },
+  "app.open": { ar: "فتح", en: "Open" },
+
 
   /* ── Bottom navigation ──────────────────────────────────── */
   "nav.main": { ar: "التنقل الرئيسي", en: "Main navigation" },
@@ -261,6 +263,15 @@ export const dict: Dict = {
   "hm.hub.khoulagy": { ar: "الخولاجي", en: "Khoulagy" },
   "hm.hub.fathers": { ar: "قسم الآباء", en: "The Fathers" },
   "hm.hub.library": { ar: "المكتبة", en: "Library" },
+  "hm.hub.line": { ar: "كتبك في مكان واحد", en: "Your books, gathered" },
+  "hm.hub.sub.bible": { ar: "Holy Bible", en: "Holy Bible" },
+  "hm.hub.sub.agpeya": { ar: "Agpeya", en: "Book of Hours" },
+  "hm.hub.sub.katameros": { ar: "Katameros", en: "Lectionary" },
+  "hm.hub.sub.synaxarium": { ar: "Synaxarium", en: "Lives of Saints" },
+  "hm.hub.sub.khoulagy": { ar: "Khoulagy", en: "Liturgy Book" },
+  "hm.hub.sub.fathers": { ar: "The Fathers", en: "Patristics" },
+  "hm.hub.sub.library": { ar: "Library", en: "All books" },
+
   "hm.church.eyebrow": { ar: "لمحة عن كنيستي", en: "A glimpse of my church" },
   "hm.church.line": { ar: "القداس القادم الأحد ٧:٠٠ صباحًا · ١٢٤٨ عضوًا", en: "Next liturgy Sunday 7:00 AM \u00b7 1,248 members" },
   "hm.church.open": { ar: "افتح كنيستي", en: "Open my church" },
