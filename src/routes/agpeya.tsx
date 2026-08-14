@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import type { CSSProperties, ReactNode } from "react";
 
 import agpeyaNightHero from "@/assets/agpeya-night-hero.jpg";
@@ -127,12 +127,6 @@ function BentoSection({
   );
 }
 
-const SECTIONS: { id: string; key: string; hue: Hue }[] = [
-  { id: "ag-now", key: "ag.current", hue: HUE_NOW },
-  { id: "ag-day", key: "ag.day", hue: HUE_DAY },
-  { id: "ag-night", key: "ag.night", hue: HUE_NIGHT },
-  { id: "ag-extra", key: "ag.extra", hue: HUE_EXTRA },
-];
 
 function AgpeyaScreen() {
   const { t, dir, isArabic } = useLang();
@@ -216,14 +210,15 @@ function AgpeyaScreen() {
               <span className="truncate font-manrope text-[11px] text-foam/60">{t("ag.current.meta")}</span>
             </div>
 
-            <button
-              type="button"
+            <Link
+              to="/agpeya-read"
+              search={{ hour: "prime" }}
               className="press hue-cta mt-4 flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3 font-sora text-[13px] font-semibold text-abyss"
             >
               <PlayIcon className="size-[15px]" />
               {t("ag.current.cta")}
               <ChevronRight className="size-3.5 rtl:rotate-180" />
-            </button>
+            </Link>
           </section>
 
           {/* ── The original three groups, each in its own colour band ── */}
