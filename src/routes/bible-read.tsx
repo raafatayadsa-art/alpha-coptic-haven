@@ -496,10 +496,10 @@ function BibleRead() {
                     {sheet === "colors" ? (
                       <div
                         aria-label={t("bib.act.colors")}
-                        className={`verse-rise absolute z-50 flex w-[62px] flex-col items-center gap-2.5 ${
+                        className={`verse-rise absolute z-50 flex w-[44px] flex-col items-center gap-1.5 overflow-y-auto ${
                           night ? "alpha-pop-night" : "alpha-pop"
-                        } ${popDown ? "top-[calc(100%+8px)]" : "bottom-[calc(100%+8px)]"}`}
-                        style={{ insetInlineStart: 6 }}
+                        } ${popDown ? "top-[calc(100%+6px)]" : "bottom-[calc(100%+6px)]"}`}
+                        style={{ insetInlineStart: 6, maxHeight: "min(60vh, 260px)" }}
                       >
                         {HL_COLORS.map((c) => {
                           const picked = highlights[verse.n] === c.id;
@@ -509,7 +509,7 @@ function BibleRead() {
                               type="button"
                               aria-label={c.id}
                               onClick={() => paint(verse.n, c.id)}
-                              className={`press grid size-9 shrink-0 place-items-center rounded-full transition-transform ${
+                              className={`press grid size-7 shrink-0 place-items-center rounded-full transition-transform ${
                                 picked ? "scale-105" : ""
                               }`}
                               style={{
@@ -520,19 +520,19 @@ function BibleRead() {
                               }}
                             >
                               {picked ? (
-                                <span className="block size-2 rounded-full bg-inkblue/70" />
+                                <span className="block size-1.5 rounded-full bg-inkblue/70" />
                               ) : null}
                             </button>
                           );
                         })}
                         <span
-                          className={`h-px w-7 ${night ? "bg-vellum/15" : "bg-shade/70"}`}
+                          className={`h-px w-5 shrink-0 ${night ? "bg-vellum/15" : "bg-shade/70"}`}
                           aria-hidden="true"
                         />
                         <button
                           type="button"
                           onClick={() => paint(verse.n, null)}
-                          className={`press rounded-full px-2 py-1 text-[10px] font-bold ${chip}`}
+                          className={`press shrink-0 rounded-full px-1.5 py-0.5 text-[9px] font-bold ${chip}`}
                         >
                           {t("bib.act.clear")}
                         </button>
