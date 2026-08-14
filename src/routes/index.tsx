@@ -26,6 +26,7 @@ import {
   KatamerosIcon,
   KhoulagyIcon,
   MembersIcon,
+  KidsIcon,
   SynaxariumIcon,
   VerifiedIcon,
 } from "@/components/church/icons";
