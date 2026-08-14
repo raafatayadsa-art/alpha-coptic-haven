@@ -12,7 +12,7 @@ import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/agpeya-read")({
   validateSearch: (search: Record<string, unknown>) => ({
-    hour: typeof search.hour === "string" ? search.hour : "prime",
+    hour: typeof search["hour"] === "string" ? (search["hour"] as string) : "prime",
   }),
   head: () => ({
     meta: [

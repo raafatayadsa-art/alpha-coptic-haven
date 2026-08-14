@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AgpeyaRouteImport } from './routes/agpeya'
+import { Route as AgpeyaReadRouteImport } from './routes/agpeya-read'
 import { Route as BibleRouteImport } from './routes/bible'
 import { Route as BibleBooksRouteImport } from './routes/bible-books'
 import { Route as BibleChaptersRouteImport } from './routes/bible-chapters'
@@ -40,6 +41,11 @@ const IndexRoute = IndexRouteImport.update({
 const AgpeyaRoute = AgpeyaRouteImport.update({
   id: '/agpeya',
   path: '/agpeya',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgpeyaReadRoute = AgpeyaReadRouteImport.update({
+  id: '/agpeya-read',
+  path: '/agpeya-read',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BibleRoute = BibleRouteImport.update({
@@ -146,6 +152,7 @@ const ProfileRoute = ProfileRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agpeya': typeof AgpeyaRoute
+  '/agpeya-read': typeof AgpeyaReadRoute
   '/bible': typeof BibleRoute
   '/bible-books': typeof BibleBooksRoute
   '/bible-chapters': typeof BibleChaptersRoute
@@ -170,6 +177,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agpeya': typeof AgpeyaRoute
+  '/agpeya-read': typeof AgpeyaReadRoute
   '/bible': typeof BibleRoute
   '/bible-books': typeof BibleBooksRoute
   '/bible-chapters': typeof BibleChaptersRoute
@@ -195,6 +203,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/agpeya': typeof AgpeyaRoute
+  '/agpeya-read': typeof AgpeyaReadRoute
   '/bible': typeof BibleRoute
   '/bible-books': typeof BibleBooksRoute
   '/bible-chapters': typeof BibleChaptersRoute
@@ -221,6 +230,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/agpeya'
+    | '/agpeya-read'
     | '/bible'
     | '/bible-books'
     | '/bible-chapters'
@@ -245,6 +255,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/agpeya'
+    | '/agpeya-read'
     | '/bible'
     | '/bible-books'
     | '/bible-chapters'
@@ -269,6 +280,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/agpeya'
+    | '/agpeya-read'
     | '/bible'
     | '/bible-books'
     | '/bible-chapters'
@@ -294,6 +306,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AgpeyaRoute: typeof AgpeyaRoute
+  AgpeyaReadRoute: typeof AgpeyaReadRoute
   BibleRoute: typeof BibleRoute
   BibleBooksRoute: typeof BibleBooksRoute
   BibleChaptersRoute: typeof BibleChaptersRoute
@@ -330,6 +343,13 @@ declare module '@tanstack/react-router' {
       path: '/agpeya'
       fullPath: '/agpeya'
       preLoaderRoute: typeof AgpeyaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agpeya-read': {
+      id: '/agpeya-read'
+      path: '/agpeya-read'
+      fullPath: '/agpeya-read'
+      preLoaderRoute: typeof AgpeyaReadRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bible': {
@@ -478,6 +498,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgpeyaRoute: AgpeyaRoute,
+  AgpeyaReadRoute: AgpeyaReadRoute,
   BibleRoute: BibleRoute,
   BibleBooksRoute: BibleBooksRoute,
   BibleChaptersRoute: BibleChaptersRoute,
