@@ -69,6 +69,7 @@ function SynaxariumHome() {
   const { lang, dir, isArabic } = useLang();
   const [cat, setCat] = useState<CategoryKey>("all");
   const [dayIndex, setDayIndex] = useState(4);
+  const [liked, setLiked] = useState(false);
 
   const list = cat === "all" ? todaySaints : todaySaints.filter((s) => s.category === cat);
   const hue = categoryHue[saintOfDay.category];
@@ -209,7 +210,7 @@ function SynaxariumHome() {
                   }`}
                 >
                   <HeartGlyph className="size-[18px]" filled={liked} />
-                  {saintOfDay.likes ?? 0 + (liked ? 1 : 0)}
+                  {188 + (liked ? 1 : 0)}
                 </button>
                 <button
                   type="button"
