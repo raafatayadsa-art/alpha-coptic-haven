@@ -132,6 +132,7 @@ const calendar = [
 
 function ChurchHome() {
   const [following, setFollowing] = useState(false);
+  const [lang, setLang] = useState<"ar" | "en">("ar");
 
   return (
     <div className="mx-auto min-h-screen w-full max-w-[430px] overflow-x-hidden bg-ivory pb-16 text-ink selection:bg-gold/20">
