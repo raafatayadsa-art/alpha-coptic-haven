@@ -16,6 +16,7 @@ import {
   SunsetIcon,
 } from "@/components/church/prayer-icons";
 import { Screen } from "@/components/layout/Screen";
+import { useSectionBar } from "@/hooks/use-section-bar";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/agpeya")({
