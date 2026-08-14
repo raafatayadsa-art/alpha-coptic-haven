@@ -531,6 +531,9 @@ export const dict: Dict = {
   "ag.p.creed": { ar: "قانون الإيمان", en: "The Creed" },
   "ag.p.creed.t": { ar: "إيمان الكنيسة", en: "Faith of the Church" },
 
+  "ag.read.eyebrow": { ar: "صلاة السواعي", en: "Hour of prayer" },
+  "ag.read.parts": { ar: "أجزاء", en: "parts" },
+
   /* ── Bible system ───────────────────────────────────────── */
   "bib.title": { ar: "الكتاب المقدس", en: "The Holy Bible" },
   "bib.subtitle": { ar: "العهد القديم والعهد الجديد", en: "The Old and New Testament" },
