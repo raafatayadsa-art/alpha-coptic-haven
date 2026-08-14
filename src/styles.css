@@ -1223,3 +1223,84 @@
   transform-origin: bottom;
   animation: ac-bar 1s ease-in-out infinite;
 }
+
+/* ── Alpha Intro — premium motion ─────────────────────────────
+   Golden progress glow, glowing next button, and a silky
+   "book opening" entrance for the manuscript scene.            */
+
+@keyframes intro-progress-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes intro-sweep {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(220%);
+  }
+}
+
+@keyframes book-open {
+  0% {
+    opacity: 0;
+    transform: perspective(1200px) rotateY(-26deg) rotateX(8deg) translateY(26px) scale(0.9);
+    filter: blur(6px);
+  }
+  60% {
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1200px) rotateY(0deg) rotateX(0deg) translateY(0) scale(1);
+  }
+}
+
+@keyframes book-leaf {
+  0% {
+    opacity: 0;
+    transform: rotate(0deg) translateY(18px);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes intro-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes intro-zoom {
+  0% {
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1.02);
+  }
+}
+
+.intro-book {
+  animation: book-open 1.1s cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+.intro-leaf {
+  animation: book-leaf 0.9s cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+.intro-rise {
+  animation: intro-rise 0.75s cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+.intro-zoom {
+  animation: intro-zoom 9s ease-out both;
+}
