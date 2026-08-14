@@ -81,16 +81,22 @@ function BentoSection({
   prayers,
   hue,
   offset = 0,
+  id,
 }: {
   title: string;
   prayers: Prayer[];
   hue: Hue;
   offset?: number;
+  id?: string;
 }) {
   const { t } = useLang();
 
   return (
-    <section className="ocean-band rounded-[32px] p-3.5 pt-4" style={hueStyle(hue)}>
+    <section
+      id={id}
+      className="ocean-band scroll-mt-[150px] rounded-[32px] p-3.5 pt-4"
+      style={hueStyle(hue)}
+    >
       <div className="mb-3.5 flex items-center gap-3 px-1.5">
         <span className="hue-bg size-1.5 rounded-full" />
         <h2 className="hue-text font-sora text-[15.5px] font-semibold tracking-tight">{title}</h2>
