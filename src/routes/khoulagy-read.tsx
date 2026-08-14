@@ -44,6 +44,24 @@ export const Route = createFileRoute("/khoulagy-read")({
   }),
 });
 
+type ViewMode = "all" | "arcop" | "encop" | "aren" | "ar" | "cop" | "en";
+
+const VIEW_MODES: { id: ViewMode; key: string; cols: ("ar" | "cop" | "en")[] }[] = [
+  { id: "all", key: "kh.view.all", cols: ["ar", "cop", "en"] },
+  { id: "arcop", key: "kh.view.arcop", cols: ["ar", "cop"] },
+  { id: "encop", key: "kh.view.encop", cols: ["cop", "en"] },
+  { id: "aren", key: "kh.view.aren", cols: ["ar", "en"] },
+  { id: "ar", key: "kh.view.ar", cols: ["ar"] },
+  { id: "cop", key: "kh.view.cop", cols: ["cop"] },
+  { id: "en", key: "kh.view.en", cols: ["en"] },
+];
+
+const COL_LABEL: Record<"ar" | "cop" | "en", string> = {
+  ar: "عربي",
+  cop: "ⲁⲃ",
+  en: "EN",
+};
+
 function KhoulagyReader() {
   const { rite } = Route.useSearch();
   const { t, dir, isArabic } = useLang();
@@ -55,10 +73,15 @@ function KhoulagyReader() {
   const [speed, setSpeed] = useState(1);
   const [size, setSize] = useState(1);
   const [spacing, setSpacing] = useState(1);
-  const [coptic, setCoptic] = useState(true);
+  const [mode, setMode] = useState<ViewMode>("all");
+  const [viewOpen, setViewOpen] = useState(false);
+
+  const cols = VIEW_MODES.find((m) => m.id === mode)!.cols;
+  const coptic = cols.includes("cop");
 
   const { visible, wake } = useReaderChrome(5000);
   useAutoScroll(auto, READER_SPEEDS[speed]!.pps, () => setAuto(false));
+
 
   /* Any touch on the page stops the auto-scroll, as in the Bible reader. */
   useEffect(() => {
@@ -108,7 +131,7 @@ function KhoulagyReader() {
             >
               <ArrowIcon className="size-4 rtl:rotate-180" />
             </Link>
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
               <p className="font-manrope text-[10px] font-bold tracking-[0.16em] text-khbrass uppercase">
                 {current.coptic}
               </p>
@@ -116,7 +139,65 @@ function KhoulagyReader() {
                 {pick(current.name)}
               </h1>
             </div>
+
+            <div className="relative shrink-0">
+              <button
+                type="button"
+                onClick={() => {
+                  wake();
+                  setViewOpen((v) => !v);
+                }}
+                className={`press flex h-9 items-center gap-1.5 rounded-full px-3 font-manrope text-[10.5px] font-semibold ${
+                  viewOpen
+                    ? "kh-cta text-sanctnight"
+                    : "border border-khgold/25 bg-sanctnight/50 text-khivory/80"
+                }`}
+              >
+                {t(VIEW_MODES.find((m) => m.id === mode)!.key)}
+                <ArrowIcon className="size-3 -rotate-90" />
+              </button>
+
+              {viewOpen ? (
+                <div className="kh-glass verse-rise absolute end-0 top-11 z-40 w-[248px] overflow-hidden rounded-[22px] p-2.5">
+                  <div className="flex items-center justify-between px-1 pb-1.5">
+                    <p className="font-manrope text-[9.5px] font-bold tracking-[0.14em] text-khbrass uppercase">
+                      {t("kh.view")}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setViewOpen(false)}
+                      className="font-manrope text-[10.5px] font-bold text-khgold"
+                    >
+                      {t("kh.view.done")}
+                    </button>
+                  </div>
+                  <p className="px-1 pb-2 font-manrope text-[9.5px] text-khivory/40">
+                    {t("kh.view.hint")}
+                  </p>
+                  <div className="grid grid-cols-2 gap-1.5">
+                    {VIEW_MODES.map((m) => (
+                      <button
+                        key={m.id}
+                        type="button"
+                        onClick={() => {
+                          setMode(m.id);
+                          setViewOpen(false);
+                        }}
+                        className={`press rounded-[15px] px-2 py-2 font-manrope text-[11px] font-semibold ${
+                          m.id === mode
+                            ? "kh-cta text-sanctnight"
+                            : "border border-khgold/18 bg-sanctnight/45 text-khivory/75"
+                        }`}
+                      >
+                        {t(m.key)}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </div>
           </div>
+
 
           {parts.map((p, i) => {
             const open = i === openIndex;
@@ -163,26 +244,50 @@ function KhoulagyReader() {
                   <div className="verse-rise space-y-3.5 px-4 pb-5">
                     <div className="kh-hairline h-px opacity-70" />
                     {p.lines.map((line, li) => (
-                      <article key={li} className="space-y-1.5">
+                      <article key={li} className="space-y-2">
                         <span className="inline-flex items-center gap-1.5 rounded-full border border-khgold/20 bg-sanctnight/45 px-2.5 py-0.5 font-manrope text-[9.5px] font-bold tracking-[0.12em] text-khbrass uppercase">
                           {pick(roleLabel[line.role])}
                         </span>
-                        <p
-                          className={`font-arabic text-khivory/90 ${textCls} ${leadCls}`}
+                        <div
                           dir="rtl"
+                          className="grid gap-x-3 divide-khgold/15 rtl:divide-x rtl:divide-x-reverse"
+                          style={{ gridTemplateColumns: `repeat(${cols.length}, minmax(0, 1fr))` }}
                         >
-                          {line.ar}
-                        </p>
-                        {coptic && line.cop ? (
-                          <p className="font-display text-[13.5px] tracking-wide text-khgold/85" dir="ltr">
-                            {line.cop}
-                          </p>
-                        ) : null}
-                        <p className="font-manrope text-[12px] leading-relaxed text-khivory/45" dir="ltr">
-                          {line.en}
-                        </p>
+                          {cols.map((c) => (
+                            <div key={c} className={cols.length > 1 ? "px-2" : ""}>
+                              {cols.length > 1 ? (
+                                <p className="mb-1 text-center font-manrope text-[9px] font-bold tracking-[0.14em] text-khbrass/80 uppercase">
+                                  {COL_LABEL[c]}
+                                </p>
+                              ) : null}
+                              {c === "ar" ? (
+                                <p
+                                  dir="rtl"
+                                  className={`font-arabic text-khivory/90 ${textCls} ${leadCls}`}
+                                >
+                                  {line.ar}
+                                </p>
+                              ) : c === "cop" ? (
+                                <p
+                                  dir="ltr"
+                                  className={`font-display tracking-wide text-khgold/85 ${textCls} ${leadCls}`}
+                                >
+                                  {line.cop ?? "—"}
+                                </p>
+                              ) : (
+                                <p
+                                  dir="ltr"
+                                  className={`font-manrope text-khivory/55 ${textCls} ${leadCls}`}
+                                >
+                                  {line.en}
+                                </p>
+                              )}
+                            </div>
+                          ))}
+                        </div>
                       </article>
                     ))}
+
 
                     {i < parts.length - 1 ? (
                       <button
@@ -218,7 +323,7 @@ function KhoulagyReader() {
         spacing={spacing}
         onSpacing={setSpacing}
         coptic={coptic}
-        onCoptic={() => setCoptic((c) => !c)}
+        onCoptic={() => setMode((m) => (m === "all" ? "ar" : "all"))}
       />
     </Screen>
   );
