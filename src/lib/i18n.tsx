@@ -30,6 +30,8 @@ export const dict: Dict = {
   "app.public": { ar: "عام", en: "Public" },
   "app.members": { ar: "أعضاء الكنيسة", en: "Church members" },
   "app.likes": { ar: "إعجاب", en: "likes" },
+  "app.open": { ar: "فتح", en: "Open" },
+
 
   /* ── Bottom navigation ──────────────────────────────────── */
   "nav.main": { ar: "التنقل الرئيسي", en: "Main navigation" },
