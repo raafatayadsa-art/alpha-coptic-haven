@@ -186,28 +186,31 @@ function AlphaHome() {
         {/* 2 — Saint of the day: image-led horizontal row */}
         <section>
           <SectionHead title={t("hm.saint.eyebrow")} />
-          <div className="flex items-stretch gap-4 rounded-[30px] bg-card px-4 py-4 shadow-[var(--shadow-soft)] ring-1 ring-ink/5">
-            <img
-              src={saintOfDay}
-              alt={t("hm.saint.name")}
-              width={768}
-              height={960}
-              loading="lazy"
-              className="size-[104px] shrink-0 rounded-[22px] object-cover ring-1 ring-gold/20"
-            />
-            <div className="flex min-w-0 flex-col justify-center">
-              <h3 className="font-display text-[17px] font-semibold leading-snug tracking-tight">
-                {t("hm.saint.name")}
-              </h3>
-              <p className="mt-1.5 text-[12px] leading-relaxed text-ink/50">{t("hm.saint.line")}</p>
-              <button
-                type="button"
-                className="press mt-3 flex w-fit items-center gap-1 text-[11.5px] font-semibold text-gold"
-              >
-                {t("hm.saint.read")}
-                <ChevronRight className="size-3.5 rtl:rotate-180" />
-              </button>
+          <div className="rounded-[30px] bg-card px-4 py-4 shadow-[var(--shadow-soft)] ring-1 ring-ink/5">
+            <div className="flex items-stretch gap-4">
+              <img
+                src={saintOfDay}
+                alt={t("hm.saint.name")}
+                width={768}
+                height={960}
+                loading="lazy"
+                className="size-[104px] shrink-0 rounded-[22px] object-cover ring-1 ring-gold/20"
+              />
+              <div className="flex min-w-0 flex-col justify-center">
+                <h3 className="font-display text-[17px] font-semibold leading-snug tracking-tight">
+                  {t("hm.saint.name")}
+                </h3>
+                <p className="mt-1.5 text-[12px] leading-relaxed text-ink/50">{t("hm.saint.line")}</p>
+                <button
+                  type="button"
+                  className="press mt-3 flex w-fit items-center gap-1 text-[11.5px] font-semibold text-gold"
+                >
+                  {t("hm.saint.read")}
+                  <ChevronRight className="size-3.5 rtl:rotate-180" />
+                </button>
+              </div>
             </div>
+            <EngageBar likes={214} comments={12} compact className="mt-3.5" />
           </div>
         </section>
 
