@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AgpeyaRouteImport } from './routes/agpeya'
 import { Route as ChurchControlRouteImport } from './routes/church-control'
 import { Route as MyChurchRouteImport } from './routes/my-church'
 import { Route as ProfileRouteImport } from './routes/profile'
@@ -17,6 +18,11 @@ import { Route as ProfileRouteImport } from './routes/profile'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgpeyaRoute = AgpeyaRouteImport.update({
+  id: '/agpeya',
+  path: '/agpeya',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ChurchControlRoute = ChurchControlRouteImport.update({
@@ -37,12 +43,14 @@ const ProfileRoute = ProfileRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agpeya': typeof AgpeyaRoute
   '/church-control': typeof ChurchControlRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agpeya': typeof AgpeyaRoute
   '/church-control': typeof ChurchControlRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
@@ -50,20 +58,23 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/agpeya': typeof AgpeyaRoute
   '/church-control': typeof ChurchControlRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/church-control' | '/my-church' | '/profile'
+  fullPaths: '/' | '/agpeya' | '/church-control' | '/my-church' | '/profile'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/church-control' | '/my-church' | '/profile'
-  id: '__root__' | '/' | '/church-control' | '/my-church' | '/profile'
+  to: '/' | '/agpeya' | '/church-control' | '/my-church' | '/profile'
+  id:
+    '__root__' | '/' | '/agpeya' | '/church-control' | '/my-church' | '/profile'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AgpeyaRoute: typeof AgpeyaRoute
   ChurchControlRoute: typeof ChurchControlRoute
   MyChurchRoute: typeof MyChurchRoute
   ProfileRoute: typeof ProfileRoute
@@ -76,6 +87,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agpeya': {
+      id: '/agpeya'
+      path: '/agpeya'
+      fullPath: '/agpeya'
+      preLoaderRoute: typeof AgpeyaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/church-control': {
@@ -104,6 +122,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AgpeyaRoute: AgpeyaRoute,
   ChurchControlRoute: ChurchControlRoute,
   MyChurchRoute: MyChurchRoute,
   ProfileRoute: ProfileRoute,
