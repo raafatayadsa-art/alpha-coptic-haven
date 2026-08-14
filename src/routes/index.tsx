@@ -389,6 +389,7 @@ function AlphaHome() {
             {t("hm.connect.cta")}
             <ChevronRight className="size-3.5 rtl:rotate-180" />
           </button>
+          <EngageBar likes={176} comments={8} compact className="mt-4" />
         </section>
 
         {/* 8 — Community */}
