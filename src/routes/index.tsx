@@ -131,6 +131,8 @@ const calendar = [
 ];
 
 function ChurchHome() {
+  const [following, setFollowing] = useState(false);
+
   return (
     <div className="mx-auto min-h-screen w-full max-w-[430px] overflow-x-hidden bg-ivory pb-16 text-ink selection:bg-gold/20">
       {/* 1 — Premium Header */}
