@@ -931,3 +931,98 @@
   background-clip: text;
   color: transparent;
 }
+
+/* ============================================================
+ * Desert Scriptorium — scoped theme for «قسم الآباء» (Fathers).
+ * Umber night, papyrus ivory, copper leaf, desert sage.
+ * ============================================================ */
+:root {
+  --fa-night: oklch(0.196 0.028 58);
+  --fa-umber: oklch(0.272 0.040 62);
+  --fa-clay: oklch(0.402 0.062 52);
+  --fa-copper: oklch(0.706 0.104 62);
+  --fa-gold: oklch(0.862 0.088 88);
+  --fa-sage: oklch(0.712 0.056 152);
+  --fa-papyrus: oklch(0.958 0.018 88);
+  --fa-quiet: oklch(0.772 0.020 70);
+}
+
+@theme inline {
+  --color-fanight: var(--fa-night);
+  --color-faumber: var(--fa-umber);
+  --color-faclay: var(--fa-clay);
+  --color-facopper: var(--fa-copper);
+  --color-fagold: var(--fa-gold);
+  --color-fasage: var(--fa-sage);
+  --color-fapapyrus: var(--fa-papyrus);
+  --color-faquiet: var(--fa-quiet);
+}
+
+@utility fa-page {
+  background-color: var(--fa-night);
+  background-image:
+    radial-gradient(92% 50% at 50% 0%, color-mix(in oklab, var(--fa-clay) 50%, transparent) 0%, transparent 74%),
+    radial-gradient(60% 40% at 100% 40%, color-mix(in oklab, var(--fa-copper) 10%, transparent) 0%, transparent 72%);
+}
+
+@utility fa-glass {
+  background: color-mix(in oklab, var(--fa-umber) 62%, transparent);
+  backdrop-filter: blur(22px) saturate(150%);
+  border: 1px solid color-mix(in oklab, var(--fa-copper) 22%, transparent);
+  box-shadow: 0 28px 62px -32px color-mix(in oklab, black 92%, transparent);
+}
+
+@utility fa-card {
+  background:
+    radial-gradient(130% 100% at 100% 0%, color-mix(in oklab, var(--hue, var(--fa-clay)) 26%, transparent) 0%, transparent 62%),
+    linear-gradient(165deg, color-mix(in oklab, var(--fa-umber) 86%, transparent) 0%, color-mix(in oklab, var(--fa-night) 96%, transparent) 100%);
+  border: 1px solid color-mix(in oklab, var(--hue-2, var(--fa-copper)) 20%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, var(--fa-papyrus) 8%, transparent),
+    0 24px 54px -30px color-mix(in oklab, black 90%, transparent);
+}
+
+@utility fa-hairline {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--fa-gold) 58%, transparent) 50%,
+    transparent 100%
+  );
+}
+
+@utility fa-gilt {
+  background-image: linear-gradient(
+    96deg,
+    color-mix(in oklab, var(--fa-gold) 96%, white) 0%,
+    color-mix(in oklab, var(--fa-copper) 92%, white) 54%,
+    color-mix(in oklab, var(--fa-gold) 96%, white) 100%
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+@utility fa-cta {
+  background-image: linear-gradient(
+    100deg,
+    color-mix(in oklab, var(--fa-copper) 96%, black) 0%,
+    color-mix(in oklab, var(--fa-gold) 98%, white) 100%
+  );
+  box-shadow: 0 18px 38px -18px color-mix(in oklab, var(--fa-copper) 58%, transparent);
+}
+
+@utility fa-arch {
+  border-radius: 999px 999px 24px 24px;
+}
+
+@utility fa-halo {
+  background: radial-gradient(circle at 50% 50%, color-mix(in oklab, var(--fa-gold) 52%, transparent) 0%, transparent 68%);
+}
+
+@utility fa-quote {
+  background:
+    linear-gradient(160deg, color-mix(in oklab, var(--fa-papyrus) 96%, transparent) 0%, color-mix(in oklab, var(--fa-papyrus) 84%, var(--fa-copper)) 100%);
+  box-shadow:
+    inset 0 1px 0 white,
+    0 22px 48px -26px color-mix(in oklab, black 82%, transparent);
+}
