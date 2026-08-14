@@ -10,12 +10,14 @@ import {
   CopticCross,
   HighlightIcon,
   HistoryIcon,
+  LayersIcon,
   NightIcon,
   NoteIcon,
+  PeopleIcon,
   ShareGlyph,
   SpacingIcon,
+  SparkIcon,
   SpeedIcon,
-  StarIcon,
   TypeIcon,
 } from "@/components/bible/bible-icons";
 import { Screen } from "@/components/layout/Screen";
