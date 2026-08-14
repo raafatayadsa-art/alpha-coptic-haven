@@ -61,11 +61,11 @@ export function DailyDeck({ cards }: { cards: DailyCard[] }) {
             aria-hidden="true"
             className={cn(
               "pointer-events-none absolute inset-0 overflow-hidden rounded-[30px] shadow-[var(--shadow-soft)] transition-all duration-300",
-              b.tone === "lavender" ? "bg-lavender/50" : "bg-card",
+              b.tone === "lavender" ? "bg-lavender/60" : "bg-parchment",
               "ring-1 ring-ink/5",
             )}
             style={{
-              transform: `translateY(${(i + 1) * 14}px) scale(${1 - (i + 1) * 0.05})`,
+              transform: `translateY(${(i + 1) * 16}px) scale(${1 - (i + 1) * 0.055})`,
               opacity: 1 - (i + 1) * 0.25,
               zIndex: 10 - i,
             }}
@@ -76,7 +76,7 @@ export function DailyDeck({ cards }: { cards: DailyCard[] }) {
               width={1024}
               height={1280}
               loading="lazy"
-              className="size-full object-cover opacity-40"
+              className="size-full object-cover opacity-25"
             />
           </div>
         ))}
