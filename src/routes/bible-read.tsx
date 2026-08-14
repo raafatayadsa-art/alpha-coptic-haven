@@ -1,5 +1,5 @@
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 
 import {
@@ -12,7 +12,6 @@ import {
   HistoryIcon,
   NightIcon,
   NoteIcon,
-  PlayGlyph,
   ShareGlyph,
   SpacingIcon,
   SpeedIcon,
@@ -20,8 +19,10 @@ import {
   TypeIcon,
 } from "@/components/bible/bible-icons";
 import { Screen } from "@/components/layout/Screen";
+import { useChromeVisibility } from "@/hooks/use-chrome-visibility";
 import { newTestament, oldTestament, samplePassage } from "@/lib/bible-data";
 import { useLang } from "@/lib/i18n";
+
 
 const searchSchema = z.object({
   book: z.string().catch("jhn"),
