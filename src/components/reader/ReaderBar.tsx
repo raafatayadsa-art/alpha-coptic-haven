@@ -23,15 +23,15 @@ export const READER_SPEEDS = [
 ];
 
 export const READER_SIZES = [
-  { key: "bib.size.s", cls: "text-[15.5px]" },
-  { key: "bib.size.m", cls: "text-[17.5px]" },
-  { key: "bib.size.l", cls: "text-[20px]" },
+  { key: "kh.size.s", cls: "text-[15.5px]" },
+  { key: "kh.size.m", cls: "text-[17.5px]" },
+  { key: "kh.size.l", cls: "text-[20px]" },
 ] as const;
 
 export const READER_SPACING = [
   { key: "bib.space.tight", cls: "leading-[1.85]" },
   { key: "bib.space.mid", cls: "leading-[2.15]" },
-  { key: "bib.space.airy", cls: "leading-[2.55]" },
+  { key: "bib.space.calm", cls: "leading-[2.55]" },
 ] as const;
 
 type Menu = "speed" | "spacing" | "settings" | null;

@@ -10,8 +10,8 @@ type RiteId = "basil" | "gregory" | "cyril";
 
 export const Route = createFileRoute("/khoulagy-liturgy")({
   validateSearch: (s: Record<string, unknown>): { rite: RiteId } => ({
-    rite: (["basil", "gregory", "cyril"] as const).includes(s.rite as RiteId)
-      ? (s.rite as RiteId)
+    rite: (["basil", "gregory", "cyril"] as const).includes(s["rite"] as RiteId)
+      ? (s["rite"] as RiteId)
       : "basil",
   }),
   component: LiturgyParts,
