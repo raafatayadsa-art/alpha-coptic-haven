@@ -13,7 +13,7 @@ import {
   ChevronGlyph,
   CrownIcon,
   HaloIcon,
-  HeadphonesGlyph,
+  HeartGlyph,
   MonkIcon,
   PalmIcon,
   ScrollIcon,
@@ -199,17 +199,24 @@ function SynaxariumHome() {
                 </Link>
                 <button
                   type="button"
-                  aria-label={pick(L.listen, lang)}
-                  className="press grid size-11 place-items-center rounded-2xl border border-icongold/25 bg-synaxnight/55 text-ivory/80"
+                  onClick={() => setLiked((v) => !v)}
+                  aria-pressed={liked}
+                  aria-label={pick(liked ? L.liked : L.like, lang)}
+                  className={`press flex h-11 items-center gap-1.5 rounded-2xl border px-3.5 font-manrope text-[11.5px] font-bold transition-colors ${
+                    liked
+                      ? "border-icongold/55 bg-icongold/18 text-icongold"
+                      : "border-icongold/25 bg-synaxnight/55 text-ivory/80"
+                  }`}
                 >
-                  <HeadphonesGlyph className="size-[18px]" />
+                  <HeartGlyph className="size-[18px]" filled={liked} />
+                  {saintOfDay.likes ?? 0 + (liked ? 1 : 0)}
                 </button>
                 <button
                   type="button"
-                  aria-label={pick(L.save, lang)}
+                  aria-label={pick(L.publish, lang)}
                   className="press grid size-11 place-items-center rounded-2xl border border-icongold/25 bg-synaxnight/55 text-ivory/80"
                 >
-                  <BookmarkGlyph className="size-[18px]" />
+                  <ShareGlyph className="size-[18px]" />
                 </button>
               </div>
             </div>
