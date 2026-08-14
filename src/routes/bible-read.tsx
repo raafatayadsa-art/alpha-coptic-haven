@@ -378,23 +378,36 @@ function BibleRead() {
                     className={`mt-2 rounded-[22px] px-2.5 py-3 text-[13px] verse-rise ${surface}`}
                   >
                     <div className="flex items-center justify-around">
-                      {[
-                        ["bib.act.highlight", <HighlightIcon key="h" className="size-[18px]" />],
-                        ["bib.act.note", <NoteIcon key="n" className="size-[18px]" />],
-                        ["bib.act.favorite", <StarIcon key="s" className="size-[18px]" />],
-                        ["bib.act.share", <ShareGlyph key="sh" className="size-[18px]" />],
-                      ].map(([key, icon]) => (
-                        <button
-                          key={key as string}
-                          type="button"
+                      {(
+                        [
+                          [
+                            "bib.act.highlight",
+                            <HighlightIcon key="h" className="size-[18px]" />,
+                            "/bible-highlights",
+                          ],
+                          ["bib.act.note", <NoteIcon key="n" className="size-[18px]" />, "/bible-notes"],
+                          ["bib.act.favorite", <StarIcon key="s" className="size-[18px]" />, "/bible-saved"],
+                        ] as const
+                      ).map(([key, icon, to]) => (
+                        <Link
+                          key={key}
+                          to={to}
                           className="press flex flex-col items-center gap-1.5 px-2 text-copper"
                         >
-                          {icon as React.ReactNode}
-                          <span className={`text-[10px] font-semibold ${body}`}>
-                            {t(key as string)}
-                          </span>
-                        </button>
+                          {icon}
+                          <span className={`text-[10px] font-semibold ${body}`}>{t(key)}</span>
+                        </Link>
                       ))}
+                      <button
+                        type="button"
+                        onClick={() => shareVerse(verse.n)}
+                        className="press flex flex-col items-center gap-1.5 px-2 text-copper"
+                      >
+                        <ShareGlyph className="size-[18px]" />
+                        <span className={`text-[10px] font-semibold ${body}`}>
+                          {t("bib.act.share")}
+                        </span>
+                      </button>
                     </div>
 
                     <div
@@ -402,18 +415,30 @@ function BibleRead() {
                         night ? "border-illum/15" : "border-shade/70"
                       }`}
                     >
-                      {["bib.act.community", "bib.act.copy", "bib.act.image"].map((key) => (
-                        <button
-                          key={key}
-                          type="button"
-                          className={`press flex-1 rounded-full px-2 py-1.5 text-[10.5px] font-semibold whitespace-nowrap ${chip}`}
-                        >
-                          {t(key)}
-                        </button>
-                      ))}
+                      <Link
+                        to="/my-church"
+                        className={`press flex-1 rounded-full px-2 py-1.5 text-center text-[10.5px] font-semibold whitespace-nowrap ${chip}`}
+                      >
+                        {t("bib.act.community")}
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => copyVerse(verse.n)}
+                        className={`press flex-1 rounded-full px-2 py-1.5 text-[10.5px] font-semibold whitespace-nowrap ${chip}`}
+                      >
+                        {t("bib.act.copy")}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => shareVerse(verse.n)}
+                        className={`press flex-1 rounded-full px-2 py-1.5 text-[10.5px] font-semibold whitespace-nowrap ${chip}`}
+                      >
+                        {t("bib.act.image")}
+                      </button>
                     </div>
                   </div>
                 ) : null}
+
                 </div>
               );
             })}
