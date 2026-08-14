@@ -160,8 +160,8 @@ export function Bars({ data, tone = "gold" }: { data: { label: string; pct: numb
         <div key={d.label} className="flex h-full min-w-0 flex-1 flex-col items-center justify-end gap-1.5">
           <span className="text-[9.5px] font-semibold text-ctl-mist/50">{d.pct}%</span>
           <span
-            className={`ctl-bar w-full shrink-0 rounded-t-[6px] ${toneBg[tone]}/70`}
-            style={{ height: `${Math.round(d.pct * 0.72)}%`, animationDelay: `${i * 70}ms` }}
+            className={`ctl-bar w-full shrink-0 rounded-t-[6px] ${toneBg[tone]}`}
+            style={{ height: `${Math.round(d.pct * 0.72)}%`, opacity: 0.78, animationDelay: `${i * 70}ms` }}
           />
           <span className="w-full truncate text-center text-[9.5px] text-ctl-mist/40">{d.label}</span>
         </div>
@@ -178,7 +178,7 @@ export function Meter({ label, value, pct, tone = "gold" }: { label: string; val
         <span className="shrink-0 text-[10.5px] font-semibold text-ctl-mist/45">{value ?? `${pct}%`}</span>
       </div>
       <span className="mt-1.5 block h-1.5 w-full overflow-hidden rounded-full bg-ctl-mist/8">
-        <span className={`block h-full rounded-full ${toneBg[tone]}/80`} style={{ width: `${pct}%` }} />
+        <span className={`block h-full rounded-full ${toneBg[tone]}`} style={{ width: `${pct}%`, opacity: 0.85 }} />
       </span>
     </div>
   );
