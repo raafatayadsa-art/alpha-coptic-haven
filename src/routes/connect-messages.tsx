@@ -16,6 +16,7 @@ import {
   PlusGlyph,
   SearchGlyph,
 } from "@/components/connect/connect-icons";
+import { ConnectNav } from "@/components/connect/ConnectNav";
 import { Screen } from "@/components/layout/Screen";
 import { SloganBand } from "@/components/layout/SloganBand";
 import {
@@ -143,11 +144,14 @@ function ConnectMessages() {
             ) : (
               <ul className="mt-3 space-y-2.5">
                 {list.map((t) => (
-                  <li
-                    key={t.id}
-                    className="ac-card flex items-center gap-3 rounded-[22px] p-3"
-                    style={{ ["--hue" as string]: t.tone }}
-                  >
+                  <li key={t.id}>
+                    <Link
+                      to="/connect-chat"
+                      search={{ who: `f${t.id.slice(1)}` }}
+                      className="press ac-card flex items-center gap-3 rounded-[22px] p-3"
+                      style={{ ["--hue" as string]: t.tone }}
+                    >
+
                     <MemberAvatar
                       member={{
                         id: t.id,
@@ -184,7 +188,9 @@ function ConnectMessages() {
                         <VoiceBars bars={3} />
                       ) : null}
                     </div>
+                    </Link>
                   </li>
+
                 ))}
               </ul>
             )}
@@ -238,6 +244,7 @@ function ConnectMessages() {
           </ul>
         </AcSheet>
       </div>
+      <ConnectNav active="messages" />
     </Screen>
   );
 }

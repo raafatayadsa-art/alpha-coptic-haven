@@ -24,6 +24,7 @@ import {
   UsersGlyph,
 } from "@/components/connect/connect-icons";
 import { SloganBand } from "@/components/layout/SloganBand";
+import { ConnectNav } from "@/components/connect/ConnectNav";
 import { Screen } from "@/components/layout/Screen";
 import {
   L,
@@ -383,6 +384,7 @@ function ConnectHome() {
           </div>
         </AcSheet>
       </div>
+      <ConnectNav active="channels" />
     </Screen>
   );
 }

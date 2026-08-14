@@ -25,7 +25,10 @@ import { Route as BibleSearchRouteImport } from './routes/bible-search'
 import { Route as BibleStatsRouteImport } from './routes/bible-stats'
 import { Route as ChurchControlRouteImport } from './routes/church-control'
 import { Route as ConnectRouteImport } from './routes/connect'
+import { Route as ConnectCallRouteImport } from './routes/connect-call'
 import { Route as ConnectChannelRouteImport } from './routes/connect-channel'
+import { Route as ConnectChatRouteImport } from './routes/connect-chat'
+import { Route as ConnectFriendsRouteImport } from './routes/connect-friends'
 import { Route as ConnectMessagesRouteImport } from './routes/connect-messages'
 import { Route as ConnectSettingsRouteImport } from './routes/connect-settings'
 import { Route as FathersRouteImport } from './routes/fathers'
@@ -127,9 +130,24 @@ const ConnectRoute = ConnectRouteImport.update({
   path: '/connect',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConnectCallRoute = ConnectCallRouteImport.update({
+  id: '/connect-call',
+  path: '/connect-call',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ConnectChannelRoute = ConnectChannelRouteImport.update({
   id: '/connect-channel',
   path: '/connect-channel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConnectChatRoute = ConnectChatRouteImport.update({
+  id: '/connect-chat',
+  path: '/connect-chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConnectFriendsRoute = ConnectFriendsRouteImport.update({
+  id: '/connect-friends',
+  path: '/connect-friends',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConnectMessagesRoute = ConnectMessagesRouteImport.update({
@@ -250,7 +268,10 @@ export interface FileRoutesByFullPath {
   '/bible-stats': typeof BibleStatsRoute
   '/church-control': typeof ChurchControlRoute
   '/connect': typeof ConnectRoute
+  '/connect-call': typeof ConnectCallRoute
   '/connect-channel': typeof ConnectChannelRoute
+  '/connect-chat': typeof ConnectChatRoute
+  '/connect-friends': typeof ConnectFriendsRoute
   '/connect-messages': typeof ConnectMessagesRoute
   '/connect-settings': typeof ConnectSettingsRoute
   '/fathers': typeof FathersRoute
@@ -289,7 +310,10 @@ export interface FileRoutesByTo {
   '/bible-stats': typeof BibleStatsRoute
   '/church-control': typeof ChurchControlRoute
   '/connect': typeof ConnectRoute
+  '/connect-call': typeof ConnectCallRoute
   '/connect-channel': typeof ConnectChannelRoute
+  '/connect-chat': typeof ConnectChatRoute
+  '/connect-friends': typeof ConnectFriendsRoute
   '/connect-messages': typeof ConnectMessagesRoute
   '/connect-settings': typeof ConnectSettingsRoute
   '/fathers': typeof FathersRoute
@@ -329,7 +353,10 @@ export interface FileRoutesById {
   '/bible-stats': typeof BibleStatsRoute
   '/church-control': typeof ChurchControlRoute
   '/connect': typeof ConnectRoute
+  '/connect-call': typeof ConnectCallRoute
   '/connect-channel': typeof ConnectChannelRoute
+  '/connect-chat': typeof ConnectChatRoute
+  '/connect-friends': typeof ConnectFriendsRoute
   '/connect-messages': typeof ConnectMessagesRoute
   '/connect-settings': typeof ConnectSettingsRoute
   '/fathers': typeof FathersRoute
@@ -370,7 +397,10 @@ export interface FileRouteTypes {
     | '/bible-stats'
     | '/church-control'
     | '/connect'
+    | '/connect-call'
     | '/connect-channel'
+    | '/connect-chat'
+    | '/connect-friends'
     | '/connect-messages'
     | '/connect-settings'
     | '/fathers'
@@ -409,7 +439,10 @@ export interface FileRouteTypes {
     | '/bible-stats'
     | '/church-control'
     | '/connect'
+    | '/connect-call'
     | '/connect-channel'
+    | '/connect-chat'
+    | '/connect-friends'
     | '/connect-messages'
     | '/connect-settings'
     | '/fathers'
@@ -448,7 +481,10 @@ export interface FileRouteTypes {
     | '/bible-stats'
     | '/church-control'
     | '/connect'
+    | '/connect-call'
     | '/connect-channel'
+    | '/connect-chat'
+    | '/connect-friends'
     | '/connect-messages'
     | '/connect-settings'
     | '/fathers'
@@ -488,7 +524,10 @@ export interface RootRouteChildren {
   BibleStatsRoute: typeof BibleStatsRoute
   ChurchControlRoute: typeof ChurchControlRoute
   ConnectRoute: typeof ConnectRoute
+  ConnectCallRoute: typeof ConnectCallRoute
   ConnectChannelRoute: typeof ConnectChannelRoute
+  ConnectChatRoute: typeof ConnectChatRoute
+  ConnectFriendsRoute: typeof ConnectFriendsRoute
   ConnectMessagesRoute: typeof ConnectMessagesRoute
   ConnectSettingsRoute: typeof ConnectSettingsRoute
   FathersRoute: typeof FathersRoute
@@ -625,11 +664,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConnectRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/connect-call': {
+      id: '/connect-call'
+      path: '/connect-call'
+      fullPath: '/connect-call'
+      preLoaderRoute: typeof ConnectCallRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/connect-channel': {
       id: '/connect-channel'
       path: '/connect-channel'
       fullPath: '/connect-channel'
       preLoaderRoute: typeof ConnectChannelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/connect-chat': {
+      id: '/connect-chat'
+      path: '/connect-chat'
+      fullPath: '/connect-chat'
+      preLoaderRoute: typeof ConnectChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/connect-friends': {
+      id: '/connect-friends'
+      path: '/connect-friends'
+      fullPath: '/connect-friends'
+      preLoaderRoute: typeof ConnectFriendsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/connect-messages': {
@@ -792,7 +852,10 @@ const rootRouteChildren: RootRouteChildren = {
   BibleStatsRoute: BibleStatsRoute,
   ChurchControlRoute: ChurchControlRoute,
   ConnectRoute: ConnectRoute,
+  ConnectCallRoute: ConnectCallRoute,
   ConnectChannelRoute: ConnectChannelRoute,
+  ConnectChatRoute: ConnectChatRoute,
+  ConnectFriendsRoute: ConnectFriendsRoute,
   ConnectMessagesRoute: ConnectMessagesRoute,
   ConnectSettingsRoute: ConnectSettingsRoute,
   FathersRoute: FathersRoute,

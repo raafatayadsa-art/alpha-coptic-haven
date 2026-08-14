@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { type ReactNode } from "react";
 
 import { BibleIcon, CommunityIcon } from "@/components/church/icons";
@@ -47,6 +47,10 @@ export function BottomNav() {
 
   /* Facebook-style: hides while scrolling up the page, returns on scroll down. */
   const visible = useChromeVisibility();
+
+  /* Alpha Connect ships its own bottom bar — never show two bars at once. */
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  if (pathname.startsWith("/connect")) return null;
 
 
   return (
