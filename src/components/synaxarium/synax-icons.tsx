@@ -114,6 +114,14 @@ export function ShareGlyph({ className }: P) {
   );
 }
 
+export function HeartGlyph({ className, filled }: P & { filled?: boolean }) {
+  return (
+    <svg {...base} className={className} aria-hidden="true" fill={filled ? "currentColor" : "none"}>
+      <path d="M12 19.5c-.4 0-.8-.15-1.1-.42C7.2 15.9 4.5 13.5 4.5 10.4A3.9 3.9 0 0 1 8.4 6.5c1.4 0 2.7.7 3.6 1.9.9-1.2 2.2-1.9 3.6-1.9a3.9 3.9 0 0 1 3.9 3.9c0 3.1-2.7 5.5-6.4 8.68-.3.27-.7.42-1.1.42Z" />
+    </svg>
+  );
+}
+
 export function HeadphonesGlyph({ className }: P) {
   return (
     <svg {...base} className={className} aria-hidden="true">
