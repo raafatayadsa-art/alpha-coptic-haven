@@ -610,7 +610,25 @@ function BibleRead() {
             </button>
           </div>
         </div>
+
+        {/* Tiny glowing Coptic letter-band, pinned faintly at the foot of the page */}
+        <span
+          aria-hidden="true"
+          className="copt-band pointer-events-none fixed inset-x-0 bottom-1 z-0 select-none text-center"
+        >
+          ⲁ ⲱ ⲭ ⲥ ⲡⲛⲟⲩϯ ⲁ ⲱ
+        </span>
+
+        {/* Action confirmation */}
+        {toast ? (
+          <div className="pointer-events-none fixed inset-x-0 top-1/2 z-50 flex justify-center">
+            <span className="verse-rise rounded-full bg-inkblue/90 px-4 py-2 font-manrope text-[11.5px] font-semibold text-illum shadow-xl">
+              {toast}
+            </span>
+          </div>
+        ) : null}
       </div>
+
     </Screen>
   );
 }
