@@ -5,7 +5,10 @@ import churchCover from "@/assets/church-cover.jpg";
 import churchCrest from "@/assets/church-crest.png";
 import contentAudio from "@/assets/content-audio.jpg";
 import contentBook from "@/assets/content-book.jpg";
-import oliveBranch from "@/assets/olive-branch.png";
+import dailyFeast from "@/assets/daily-feast.jpg";
+import dailySynaxarium from "@/assets/daily-synaxarium.jpg";
+import dailyVerse from "@/assets/daily-verse.jpg";
+
 import postCandles from "@/assets/post-candles.jpg";
 import postYouth from "@/assets/post-youth.jpg";
 import saintOfDay from "@/assets/saint-of-day.jpg";
@@ -52,6 +55,69 @@ export const Route = createFileRoute("/")({
 });
 
 /* Presentation-only sample content — visual prototype, no data layer. */
+const daily: {
+  eyebrow: string;
+  title: string;
+  line: string;
+  meta: string;
+  action: string;
+  image: string;
+  icon: ReactNode;
+  tone: "lavender" | "card";
+  likes: number;
+  comments: number;
+}[] = [
+  {
+    eyebrow: "hm.verse.eyebrow",
+    title: "hm.verse.text",
+    line: "hm.prayer.line",
+    meta: "hm.verse.ref",
+    action: "hm.verse.read",
+    image: dailyVerse,
+    icon: <BibleIcon className="size-[17px]" />,
+    tone: "lavender",
+    likes: 565,
+    comments: 38,
+  },
+  {
+    eyebrow: "hm.saint.eyebrow",
+    title: "hm.saint.name",
+    line: "hm.saint.line",
+    meta: "hm.today",
+    action: "hm.saint.read",
+    image: saintOfDay,
+    icon: <CopticCross className="size-[17px]" />,
+    tone: "card",
+    likes: 214,
+    comments: 12,
+  },
+  {
+    eyebrow: "hm.feast.eyebrow",
+    title: "hm.feast.name",
+    line: "hm.feast.line",
+    meta: "hm.today",
+    action: "hm.feast.read",
+    image: dailyFeast,
+    icon: <KhoulagyIcon className="size-[17px]" />,
+    tone: "card",
+    likes: 331,
+    comments: 21,
+  },
+  {
+    eyebrow: "hm.synax.eyebrow",
+    title: "hm.synax.name",
+    line: "hm.synax.line",
+    meta: "hm.today",
+    action: "hm.synax.read",
+    image: dailySynaxarium,
+    icon: <SynaxariumIcon className="size-[17px]" />,
+    tone: "card",
+    likes: 188,
+    comments: 9,
+  },
+];
+
+
 const hub: { key: string; sub: string; icon: ReactNode; tone: "gold" | "lavender" | "parchment" }[] = [
   { key: "hm.hub.bible", sub: "hm.hub.sub.bible", icon: <BibleIcon className="size-6" />, tone: "gold" },
   { key: "hm.hub.agpeya", sub: "hm.hub.sub.agpeya", icon: <AgpeyaIcon className="size-6" />, tone: "lavender" },
