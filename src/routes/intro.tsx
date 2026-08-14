@@ -171,29 +171,42 @@ function SceneBible({ ar }: { ar: boolean }) {
           </div>
         </div>
 
-        {/* tilted manuscript stack */}
-        <div className="relative mx-auto h-[46%] w-full max-w-[300px]">
-          <div className="absolute inset-x-6 top-4 h-full rotate-[-7deg] rounded-[26px] border border-white/70 bg-white/60 shadow-[0_20px_40px_-24px_oklch(0.245_0.026_293/0.35)]" />
-          <div className="absolute inset-x-3 top-2 h-full rotate-[-3deg] rounded-[26px] border border-white/80 bg-white/80 shadow-[0_24px_44px_-24px_oklch(0.245_0.026_293/0.35)]" />
-          <div className="animate-scale-in absolute inset-0 overflow-hidden rounded-[26px] border border-[oklch(0.735_0.096_84/0.4)] shadow-[0_30px_60px_-26px_oklch(0.245_0.026_293/0.5)]">
+        {/* tilted manuscript stack — silky "book opening" entrance */}
+        <div className="relative mx-auto h-[46%] w-full max-w-[300px] [perspective:1200px]">
+          <div
+            className="intro-leaf absolute inset-x-6 top-4 h-full rotate-[-7deg] rounded-[26px] border border-white/70 bg-white/60 shadow-[0_20px_40px_-24px_oklch(0.245_0.026_293/0.35)]"
+            style={{ animationDelay: "260ms" } as CSSProperties}
+          />
+          <div
+            className="intro-leaf absolute inset-x-3 top-2 h-full rotate-[-3deg] rounded-[26px] border border-white/80 bg-white/80 shadow-[0_24px_44px_-24px_oklch(0.245_0.026_293/0.35)]"
+            style={{ animationDelay: "160ms" } as CSSProperties}
+          />
+          <div className="intro-book absolute inset-0 overflow-hidden rounded-[26px] border border-[oklch(0.735_0.096_84/0.4)] shadow-[0_30px_60px_-26px_oklch(0.245_0.026_293/0.5)]">
             <img
               src={intro2}
               alt="مخطوط مزخرَف بماء الذهب على رقّ"
               width={1024}
               height={1280}
               loading="lazy"
-              className="h-full w-full object-cover"
+              className="intro-zoom h-full w-full object-cover"
+            />
+            {/* gilded light sweeping across the open page */}
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-linear-to-r from-transparent via-white/45 to-transparent blur-md"
+              style={{ animation: "intro-sweep 2.6s cubic-bezier(0.19,1,0.22,1) 0.5s both" } as CSSProperties}
             />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-4 pt-10 pb-4">
-              <p className="font-display text-[15px] leading-relaxed text-white/95">
+              <p className="intro-rise font-display text-[15px] leading-relaxed text-white/95" style={{ animationDelay: "700ms" } as CSSProperties}>
                 {ar ? "«سِراجٌ لِرِجْلي كلامُك»" : "“Your word is a lamp to my feet”"}
               </p>
-              <p className="mt-1 font-manrope text-[10px] tracking-[0.18em] text-[oklch(0.85_0.08_84)] uppercase">
+              <p className="intro-rise mt-1 font-manrope text-[10px] tracking-[0.18em] text-[oklch(0.85_0.08_84)] uppercase" style={{ animationDelay: "840ms" } as CSSProperties}>
                 {ar ? "مزمور ١١٩ : ١٠٥" : "Psalm 119:105"}
               </p>
             </div>
           </div>
         </div>
+
 
         {/* margin notes */}
         <ul className="mt-5 grid grid-cols-2 gap-2">
