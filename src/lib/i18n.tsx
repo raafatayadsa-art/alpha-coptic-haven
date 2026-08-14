@@ -566,6 +566,20 @@ export const dict: Dict = {
   "bib.reader.bigger": { ar: "تكبير الخط", en: "Larger text" },
   "bib.reader.smaller": { ar: "تصغير الخط", en: "Smaller text" },
   "bib.read.footer": { ar: "اضغط على أي آية لإظهار أدواتها", en: "Tap any verse to reveal its tools" },
+  "bib.verse": { ar: "الآية", en: "Verse" },
+  "bib.complete": { ar: "مكتمل", en: "complete" },
+  "bib.reader.autoscroll": { ar: "تمرير تلقائي", en: "Auto-scroll" },
+  "bib.reader.speed": { ar: "السرعة", en: "Speed" },
+  "bib.reader.spacing": { ar: "تباعد الأسطر", en: "Line spacing" },
+  "bib.speed.slow": { ar: "بطيء", en: "Slow" },
+  "bib.speed.mid": { ar: "متوسط", en: "Medium" },
+  "bib.speed.fast": { ar: "سريع", en: "Fast" },
+  "bib.space.calm": { ar: "مريح", en: "Airy" },
+  "bib.space.mid": { ar: "متوسط", en: "Medium" },
+  "bib.space.tight": { ar: "مضغوط", en: "Tight" },
+  "bib.reader.play": { ar: "تشغيل التلاوة", en: "Play recitation" },
+  "bib.chapterEnd": { ar: "نهاية الأصحاح", en: "End of chapter" },
+
 
 };
 
