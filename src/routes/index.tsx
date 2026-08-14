@@ -209,7 +209,7 @@ function AlphaHome() {
       </header>
 
       <main className="space-y-9 px-4 pt-2">
-        {/* 1 — Daily deck: verse, saint, feast, synaxarium as a swipeable stack */}
+        {/* 1 — Daily deck: verse, saint, feast, synaxarium stacked behind each other */}
         <section>
           <div className="mb-3 flex items-baseline justify-between gap-3 px-1">
             <h2 className="font-display text-[19px] font-semibold tracking-tight">
@@ -217,88 +217,9 @@ function AlphaHome() {
             </h2>
             <span className="text-[10.5px] font-medium text-ink/35">{t("hm.daily.hint")}</span>
           </div>
-
-          <div className="relative">
-            {/* stacked cards illusion behind the deck */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-x-6 -bottom-2 h-16 rounded-[30px] bg-card/70 ring-1 ring-ink/5"
-            />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-x-10 -bottom-4 h-16 rounded-[30px] bg-parchment/80 ring-1 ring-ink/5"
-            />
-            <div className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2">
-              {daily.map((card, i) => (
-                <article
-                  key={card.eyebrow}
-                  className={`animate-float-up relative w-[86%] shrink-0 snap-start overflow-hidden rounded-[32px] ${
-                    card.tone === "lavender"
-                      ? "border border-lavender bg-lavender/30"
-                      : "bg-card ring-1 ring-ink/5"
-                  } shadow-[var(--shadow-soft)]`}
-                  style={{ animationDelay: `${i * 70}ms` }}
-                >
-                  <div className="relative h-[168px] w-full overflow-hidden">
-                    <img
-                      src={card.image}
-                      alt={t(card.title)}
-                      width={1024}
-                      height={1280}
-                      loading={i === 0 ? "eager" : "lazy"}
-                      className="size-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-ink/5 to-transparent" />
-                    <span className="absolute bottom-3 start-4 rounded-full bg-ivory/85 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink/60 backdrop-blur-md">
-                      {t(card.eyebrow)}
-                    </span>
-                  </div>
-
-                  <div className="px-5 pb-4 pt-4">
-                    <h3
-                      className={
-                        card.tone === "lavender"
-                          ? "font-display text-[17.5px] italic leading-[1.5] text-pretty text-ink/85"
-                          : "font-display text-[17px] font-semibold leading-snug tracking-tight text-pretty"
-                      }
-                    >
-                      {t(card.title)}
-                    </h3>
-                    <p className="mt-2 text-[12px] leading-relaxed text-ink/50">{t(card.line)}</p>
-
-                    <div className="mt-4 flex items-center justify-between gap-3">
-                      <span className="flex items-center gap-2">
-                        <span className="grid size-9 place-items-center rounded-xl bg-gold/10 text-gold ring-1 ring-gold/20">
-                          {card.icon}
-                        </span>
-                        <span className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-ink/50">
-                          {t(card.meta)}
-                        </span>
-                      </span>
-                      <button
-                        type="button"
-                        className="press flex items-center gap-1 text-[11.5px] font-semibold text-gold"
-                      >
-                        {t(card.action)}
-                        <ChevronRight className="size-3.5 rtl:rotate-180" />
-                      </button>
-                    </div>
-
-                    <EngageBar
-                      likes={card.likes}
-                      comments={card.comments}
-                      className="mt-3.5"
-                      seed={[
-                        { author: t("engage.c1.a"), text: t("engage.c1.t"), when: t("engage.c1.w") },
-                        { author: t("engage.c2.a"), text: t("engage.c2.t"), when: t("engage.c2.w") },
-                      ]}
-                    />
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
+          <DailyDeck cards={daily} />
         </section>
+
 
 
         {/* 3 — Prayer of the day: quiet dark band for contrast */}
