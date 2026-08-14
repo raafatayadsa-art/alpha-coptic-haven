@@ -546,7 +546,7 @@ function BibleRead() {
                         className={`verse-rise absolute z-50 flex w-[172px] flex-col gap-1 overflow-y-auto ${
                           night ? "alpha-pop-night" : "alpha-pop"
                         } ${popDown ? "top-[calc(100%+6px)]" : "bottom-[calc(100%+6px)]"}`}
-                        style={{ insetInlineStart: 56, maxHeight: "min(60vh, 240px)" }}
+                        style={{ insetInlineStart: 56, maxHeight: popMax }}
                       >
                         {TOOL_ITEMS.map((item) => {
                           const inner = (
