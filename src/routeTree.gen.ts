@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ChurchControlRouteImport } from './routes/church-control'
 import { Route as MyChurchRouteImport } from './routes/my-church'
+import { Route as ProfileRouteImport } from './routes/profile'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +29,44 @@ const MyChurchRoute = MyChurchRouteImport.update({
   path: '/my-church',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/church-control': typeof ChurchControlRoute
   '/my-church': typeof MyChurchRoute
+  '/profile': typeof ProfileRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/church-control': typeof ChurchControlRoute
   '/my-church': typeof MyChurchRoute
+  '/profile': typeof ProfileRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/church-control': typeof ChurchControlRoute
   '/my-church': typeof MyChurchRoute
+  '/profile': typeof ProfileRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/church-control' | '/my-church'
+  fullPaths: '/' | '/church-control' | '/my-church' | '/profile'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/church-control' | '/my-church'
-  id: '__root__' | '/' | '/church-control' | '/my-church'
+  to: '/' | '/church-control' | '/my-church' | '/profile'
+  id: '__root__' | '/' | '/church-control' | '/my-church' | '/profile'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ChurchControlRoute: typeof ChurchControlRoute
   MyChurchRoute: typeof MyChurchRoute
+  ProfileRoute: typeof ProfileRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +92,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MyChurchRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ChurchControlRoute: ChurchControlRoute,
   MyChurchRoute: MyChurchRoute,
+  ProfileRoute: ProfileRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
