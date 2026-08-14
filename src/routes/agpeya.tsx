@@ -186,6 +186,60 @@ function AgpeyaScreen() {
           </div>
         </header>
 
+        {/* ── Sticky section rail: tells the reader where they are ── */}
+        <div
+          className={`sticky top-0 z-40 -mt-2 px-3 pb-2 transition-all duration-300 ${
+            visible ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-3 opacity-0"
+          }`}
+        >
+          <div className="ocean-glass safe-top rounded-[22px] px-2.5 pt-2 pb-2.5 backdrop-blur-xl">
+            <div className="no-scrollbar flex items-center gap-2 overflow-x-auto">
+              {SECTIONS.map((s, i) => {
+                const isActive = i === activeIndex;
+                const done = i < activeIndex;
+                return (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => {
+                      wake();
+                      document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }}
+                    style={hueStyle(s.hue)}
+                    className={`press shrink-0 rounded-full border px-3.5 py-1.5 font-sora text-[12px] font-semibold whitespace-nowrap transition-colors ${
+                      isActive
+                        ? "hue-cta border-transparent text-abyss"
+                        : done
+                          ? "hue-ring hue-text bg-abyss/40"
+                          : "border-foam/10 bg-abyss/30 text-foam/45"
+                    }`}
+                  >
+                    {t(s.key)}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="mt-2 flex items-center gap-2.5 px-1">
+              <span
+                className="font-manrope text-[10.5px] font-semibold tabular-nums text-mint"
+                aria-hidden="true"
+              >
+                {Math.round(progress * 100)}%
+              </span>
+              <span className="relative h-1 flex-1 overflow-hidden rounded-full bg-foam/10">
+                <span
+                  className="absolute inset-y-0 start-0 rounded-full bg-gradient-to-l from-mint to-teal transition-[width] duration-200"
+                  style={{ width: `${Math.max(3, progress * 100)}%` }}
+                />
+              </span>
+              <span className="font-manrope text-[10.5px] tabular-nums text-foam/40">
+                {activeIndex + 1}/{SECTIONS.length}
+              </span>
+            </div>
+          </div>
+        </div>
+
         <main className="space-y-5 px-4">
           {/* ── Current prayer: warm amber hero tile ── */}
           <section
