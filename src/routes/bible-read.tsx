@@ -10,12 +10,14 @@ import {
   CopticCross,
   HighlightIcon,
   HistoryIcon,
+  LayersIcon,
   NightIcon,
   NoteIcon,
+  PeopleIcon,
   ShareGlyph,
   SpacingIcon,
+  SparkIcon,
   SpeedIcon,
-  StarIcon,
   TypeIcon,
 } from "@/components/bible/bible-icons";
 import { Screen } from "@/components/layout/Screen";
@@ -62,6 +64,51 @@ const SPACINGS = [
 ];
 
 const SCALES = [0.9, 1, 1.14, 1.3];
+
+/** Highlighter inks — tokens declared in src/styles.css. */
+const HL_COLORS = [
+  { id: "gold", v: "var(--hl-gold)" },
+  { id: "lemon", v: "var(--hl-lemon)" },
+  { id: "mint", v: "var(--hl-mint)" },
+  { id: "sky", v: "var(--hl-sky)" },
+  { id: "rose", v: "var(--hl-rose)" },
+  { id: "violet", v: "var(--hl-violet)" },
+] as const;
+
+const hlInk = (id?: string) => HL_COLORS.find((c) => c.id === id)?.v;
+
+const TOOL_ITEMS: Array<{
+  key: string;
+  icon: React.ReactNode;
+  tint: string;
+  to?: "/my-church" | "/bible-notes" | "/bible-saved" | "/bible-journey";
+}> = [
+  {
+    key: "bib.act.community",
+    icon: <PeopleIcon className="size-[17px]" />,
+    tint: "var(--hl-mint)",
+    to: "/my-church",
+  },
+  { key: "bib.act.share", icon: <ShareGlyph className="size-[17px]" />, tint: "var(--hl-gold)" },
+  {
+    key: "bib.act.meditate",
+    icon: <SparkIcon className="size-[17px]" />,
+    tint: "var(--hl-sky)",
+    to: "/bible-journey",
+  },
+  {
+    key: "bib.act.note",
+    icon: <NoteIcon className="size-[17px]" />,
+    tint: "var(--hl-lemon)",
+    to: "/bible-notes",
+  },
+  {
+    key: "bib.act.save",
+    icon: <BookmarkIcon className="size-[17px]" />,
+    tint: "var(--hl-violet)",
+    to: "/bible-saved",
+  },
+];
 
 function Popover({
   open,
@@ -119,6 +166,18 @@ function BibleRead() {
   const [toast, setToast] = useState<string | null>(null);
   const [currentVerse, setCurrentVerse] = useState(samplePassage[0]!.n);
   const verseRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const [sheet, setSheet] = useState<null | "colors" | "tools">(null);
+  const [shareVn, setShareVn] = useState<number | null>(null);
+  const [highlights, setHighlights] = useState<Record<number, string>>({});
+
+  const paint = (n: number, id: string | null) => {
+    setHighlights((prev) => {
+      const next = { ...prev };
+      if (!id || prev[n] === id) delete next[n];
+      else next[n] = id;
+      return next;
+    });
+  };
 
   const all = [...oldTestament, ...newTestament];
   const book = all.find((b) => b.id === bookId) ?? all[0]!;
@@ -244,10 +303,10 @@ function BibleRead() {
           go(forward ? 1 : -1);
         }}
       >
-        {/* Coptic Α Ω watermark behind the reading column */}
+        {/* Small lowercase Coptic ⲁ ⲱ watermark, faint gold, behind the column */}
         <AlphaOmegaMark
-          className={`pointer-events-none absolute inset-x-0 top-56 z-0 mx-auto w-[46%] text-copper illum-breathe ${
-            night ? "opacity-[0.06]" : "opacity-[0.035]"
+          className={`pointer-events-none absolute inset-x-0 top-56 z-0 mx-auto w-[26%] text-illum illum-breathe ${
+            night ? "opacity-[0.14]" : "opacity-[0.10]"
           }`}
         />
 
@@ -258,7 +317,7 @@ function BibleRead() {
             night ? "bg-inkblue/85" : "bg-vellum/85"
           } backdrop-blur-xl`}
         >
-          <div className={`relative overflow-hidden rounded-[26px] px-3 pt-3 pb-3 ${surface}`}>
+          <div className={`relative overflow-hidden rounded-[28px] px-3 pt-3.5 pb-3 ${surface}`}>
             <div className="copt-frieze absolute inset-x-6 top-0 opacity-50" />
 
             <div className="flex items-center gap-2">
@@ -283,12 +342,18 @@ function BibleRead() {
 
 
               <div className="min-w-0 flex-1 text-center">
-                <p className="font-manrope text-[10.5px] font-bold tracking-[0.08em] text-copper">
+                <p className="font-manrope text-[9px] font-bold tracking-[0.28em] text-copper/85 uppercase">
                   {isNT ? t("bib.nt") : t("bib.ot")}
                 </p>
-                <p className="truncate font-display text-[19px] font-bold text-rubric">
-                  {name} {ch}
-                </p>
+                <div className="mt-0.5 flex items-baseline justify-center gap-1.5">
+                  <span className="truncate font-display text-[23px] leading-none font-bold text-rubric">
+                    {name}
+                  </span>
+                  <span className="font-display text-[19px] leading-none font-bold text-illum">
+                    {ch}
+                  </span>
+                </div>
+                <div className="gold-hairline mx-auto mt-1.5 h-px w-16 opacity-70" />
               </div>
 
               <Link
@@ -303,33 +368,45 @@ function BibleRead() {
               </Link>
             </div>
 
-            {/* Verse counter + progress */}
+            {/* Verse counter + premium progress */}
             <div
-              className={`mt-2.5 rounded-[20px] px-3.5 py-2.5 ${
-                night ? "bg-vellum/[0.07]" : "bg-white/80"
+              className={`mt-3 flex items-center gap-3 rounded-full px-3.5 py-2 ${
+                night
+                  ? "border border-illum/20 bg-vellum/[0.07]"
+                  : "border border-illum/25 bg-white/85"
               }`}
             >
-              <div className="flex items-center justify-between">
-                <span className={`font-manrope text-[11.5px] font-semibold ${soft}`}>
-                  {t("bib.verse")} {currentVerse} {t("bib.of")} {total}
-                </span>
-                <span className="font-manrope text-[12px] font-bold text-sapphire tabular-nums">
-                  {pct}% {t("bib.complete")}
-                </span>
-              </div>
-              <div
-                className={`mt-2 h-[6px] overflow-hidden rounded-full ${
-                  night ? "bg-vellum/15" : "bg-inkblue/10"
-                }`}
-              >
+              <span className="font-display text-[17px] leading-none font-bold text-sapphire tabular-nums">
+                {pct}
+                <span className="font-manrope text-[9.5px] font-bold">%</span>
+              </span>
+
+              <div className="relative min-w-0 flex-1">
+                <div
+                  className={`h-[3px] overflow-hidden rounded-full ${
+                    night ? "bg-vellum/15" : "bg-inkblue/[0.09]"
+                  }`}
+                >
+                  <span
+                    className="block h-full rounded-full bg-gradient-to-r from-copper to-illum transition-[width] duration-700"
+                    style={{ width: `${pct}%` }}
+                  />
+                </div>
                 <span
-                  className="block h-full rounded-full bg-gradient-to-r from-copper to-illum transition-[width] duration-500"
-                  style={{ width: `${pct}%` }}
+                  className="illum-breathe absolute top-1/2 size-[7px] -translate-y-1/2 rounded-full bg-illum shadow-[0_0_0_3px_color-mix(in_oklab,var(--sc-gold)_28%,transparent)] transition-[inset-inline-start] duration-700"
+                  style={{ insetInlineStart: `calc(${pct}% - 3.5px)` }}
                 />
               </div>
+
+              <span
+                className={`font-manrope text-[10.5px] font-semibold whitespace-nowrap ${soft}`}
+              >
+                {currentVerse} / {total}
+              </span>
             </div>
           </div>
         </header>
+
 
         <main className="relative z-10 px-4 pt-4">
           {/* Chapter opener with Coptic cross */}
@@ -346,6 +423,7 @@ function BibleRead() {
             {samplePassage.map((verse, i) => {
               const on = active === verse.n;
               const reading = currentVerse === verse.n;
+              const ink = hlInk(highlights[verse.n]);
               return (
                 <div key={verse.n}>
                 <button
@@ -354,21 +432,35 @@ function BibleRead() {
                   ref={(el) => {
                     verseRefs.current[i] = el;
                   }}
-                  onClick={() => setActive(on ? null : verse.n)}
+                  onClick={() => {
+                    setSheet(null);
+                    setActive(on ? null : verse.n);
+                  }}
                   className={`verse-rise relative block w-full overflow-hidden rounded-[22px] px-4 py-3.5 text-start transition-all duration-500 ${
-                    on
-                      ? night
-                        ? "border border-illum/40 bg-illum/12"
-                        : "border border-copper/35 bg-illum/20"
-                      : reading
+                    ink
+                      ? ""
+                      : on
                         ? night
-                          ? "border border-illum/30 bg-vellum/[0.08] verse-focus"
-                          : "border border-illum/45 bg-white/85 verse-focus"
-                        : night
-                          ? "border border-vellum/10 bg-vellum/[0.05]"
-                          : "border border-shade/60 bg-white/70"
+                          ? "border border-illum/40 bg-illum/12"
+                          : "border border-copper/35 bg-illum/20"
+                        : reading
+                          ? night
+                            ? "border border-illum/30 bg-vellum/[0.08] verse-focus"
+                            : "border border-illum/45 bg-white/85 verse-focus"
+                          : night
+                            ? "border border-vellum/10 bg-vellum/[0.05]"
+                            : "border border-shade/60 bg-white/70"
                   }`}
-                  style={{ animationDelay: `${i * 45}ms`, lineHeight: lh }}
+                  style={{
+                    animationDelay: `${i * 45}ms`,
+                    lineHeight: lh,
+                    ...(ink
+                      ? {
+                          background: `color-mix(in oklab, ${ink} ${night ? "28%" : "42%"}, transparent)`,
+                          border: `1px solid color-mix(in oklab, ${ink} 70%, transparent)`,
+                        }
+                      : {}),
+                  }}
                 >
                   {/* reading rail */}
                   <span
@@ -397,66 +489,143 @@ function BibleRead() {
                 {/* Action menu — pinned directly under the tapped verse */}
                 {on ? (
                   <div
-                    className={`mt-2 rounded-[22px] px-2.5 py-3 text-[13px] verse-rise ${surface}`}
+                    className={`verse-rise relative mt-2 rounded-[24px] px-3 py-3 ${surface}`}
                   >
-                    <div className="flex items-center justify-around">
+                    {/* Highlight colour strip — overlapping ink discs above the row */}
+                    {sheet === "colors" ? (
+                      <div
+                        aria-label={t("bib.act.colors")}
+                        className={`verse-rise absolute bottom-[calc(100%-6px)] z-20 flex items-center rounded-full px-3 py-2 shadow-xl ${
+                          night ? "border border-illum/25 bg-inkblue/95" : "vellum-card"
+                        }`}
+                        style={{ insetInlineEnd: 10 }}
+                      >
+                        {HL_COLORS.map((c, ci) => (
+                          <button
+                            key={c.id}
+                            type="button"
+                            aria-label={c.id}
+                            onClick={() => paint(verse.n, c.id)}
+                            className={`press size-8 rounded-full border-2 transition-transform ${
+                              highlights[verse.n] === c.id
+                                ? "scale-110 border-copper"
+                                : "border-white/80"
+                            }`}
+                            style={{
+                              background: `color-mix(in oklab, ${c.v} 78%, transparent)`,
+                              marginInlineStart: ci === 0 ? 0 : -10,
+                            }}
+                          />
+                        ))}
+                        <button
+                          type="button"
+                          onClick={() => paint(verse.n, null)}
+                          className={`press ms-2.5 rounded-full px-2.5 py-1 text-[10px] font-semibold ${chip}`}
+                        >
+                          {t("bib.act.clear")}
+                        </button>
+                      </div>
+                    ) : null}
+
+                    {/* Tools list — vertical popover above the row */}
+                    {sheet === "tools" ? (
+                      <div
+                        className={`verse-rise absolute bottom-[calc(100%-6px)] z-20 flex w-[186px] flex-col gap-1.5 rounded-[22px] p-2 shadow-xl ${
+                          night ? "border border-illum/25 bg-inkblue/95" : "vellum-card"
+                        }`}
+                        style={{ insetInlineStart: 10 }}
+                      >
+                        {TOOL_ITEMS.map((item) => {
+                          const inner = (
+                            <>
+                              <span
+                                className="grid size-9 place-items-center rounded-[13px] border"
+                                style={{
+                                  background: `color-mix(in oklab, ${item.tint} 22%, transparent)`,
+                                  borderColor: `color-mix(in oklab, ${item.tint} 42%, transparent)`,
+                                  color: `color-mix(in oklab, ${item.tint} 72%, black)`,
+                                }}
+                              >
+                                {item.icon}
+                              </span>
+                              <span className="flex-1 text-[12.5px] font-bold">{t(item.key)}</span>
+                            </>
+                          );
+                          const cls = `press flex flex-row-reverse items-center gap-2.5 rounded-[16px] px-2 py-1.5 text-start ${
+                            night ? "bg-vellum/[0.06] text-vellum" : "bg-white/70 text-inkblue"
+                          }`;
+                          return item.to ? (
+                            <Link key={item.key} to={item.to} className={cls}>
+                              {inner}
+                            </Link>
+                          ) : (
+                            <button
+                              key={item.key}
+                              type="button"
+                              onClick={() => {
+                                setSheet(null);
+                                setShareVn(verse.n);
+                              }}
+                              className={cls}
+                            >
+                              {inner}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    ) : null}
+
+                    {/* Three primary actions */}
+                    <div className="flex items-stretch gap-2">
                       {(
                         [
                           [
-                            "bib.act.highlight",
-                            <HighlightIcon key="h" className="size-[18px]" />,
-                            "/bible-highlights",
+                            "bib.act.share",
+                            <ShareGlyph key="sh" className="size-[19px]" />,
+                            "share",
                           ],
-                          ["bib.act.note", <NoteIcon key="n" className="size-[18px]" />, "/bible-notes"],
-                          ["bib.act.favorite", <StarIcon key="s" className="size-[18px]" />, "/bible-saved"],
+                          ["bib.act.tools", <LayersIcon key="tl" className="size-[19px]" />, "tools"],
+                          [
+                            "bib.act.highlight",
+                            <HighlightIcon key="hl" className="size-[19px]" />,
+                            "colors",
+                          ],
                         ] as const
-                      ).map(([key, icon, to]) => (
-                        <Link
-                          key={key}
-                          to={to}
-                          className="press flex flex-col items-center gap-1.5 px-2 text-copper"
-                        >
-                          {icon}
-                          <span className={`text-[10px] font-semibold ${body}`}>{t(key)}</span>
-                        </Link>
-                      ))}
-                      <button
-                        type="button"
-                        onClick={() => shareVerse(verse.n)}
-                        className="press flex flex-col items-center gap-1.5 px-2 text-copper"
-                      >
-                        <ShareGlyph className="size-[18px]" />
-                        <span className={`text-[10px] font-semibold ${body}`}>
-                          {t("bib.act.share")}
-                        </span>
-                      </button>
-                    </div>
-
-                    <div
-                      className={`mt-2.5 flex items-center gap-1.5 border-t pt-2.5 ${
-                        night ? "border-illum/15" : "border-shade/70"
-                      }`}
-                    >
-                      <Link
-                        to="/my-church"
-                        className={`press flex-1 rounded-full px-2 py-1.5 text-center text-[10.5px] font-semibold whitespace-nowrap ${chip}`}
-                      >
-                        {t("bib.act.community")}
-                      </Link>
-                      <button
-                        type="button"
-                        onClick={() => copyVerse(verse.n)}
-                        className={`press flex-1 rounded-full px-2 py-1.5 text-[10.5px] font-semibold whitespace-nowrap ${chip}`}
-                      >
-                        {t("bib.act.copy")}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => shareVerse(verse.n)}
-                        className={`press flex-1 rounded-full px-2 py-1.5 text-[10.5px] font-semibold whitespace-nowrap ${chip}`}
-                      >
-                        {t("bib.act.image")}
-                      </button>
+                      ).map(([key, icon, kind]) => {
+                        const activeBtn = sheet === kind;
+                        return (
+                          <button
+                            key={key}
+                            type="button"
+                            onClick={() => {
+                              if (kind === "share") {
+                                setSheet(null);
+                                setShareVn(verse.n);
+                                return;
+                              }
+                              setSheet((s) => (s === kind ? null : kind));
+                            }}
+                            className={`press flex flex-1 flex-col items-center gap-1.5 rounded-[20px] py-2.5 transition-colors ${
+                              activeBtn
+                                ? night
+                                  ? "border border-illum/35 bg-illum/12"
+                                  : "border border-copper/30 bg-illum/18"
+                                : night
+                                  ? "border border-vellum/10 bg-vellum/[0.05]"
+                                  : "border border-shade/60 bg-white/75"
+                            }`}
+                          >
+                            <span
+                              className={`grid size-10 place-items-center rounded-full ${
+                                night ? "bg-vellum/10 text-illum" : "bg-white text-copper"
+                              }`}
+                            >
+                              {icon}
+                            </span>
+                            <span className={`text-[10.5px] font-bold ${body}`}>{t(key)}</span>
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
                 ) : null}
@@ -618,6 +787,97 @@ function BibleRead() {
         >
           ⲁ ⲱ ⲭ ⲥ ⲡⲛⲟⲩϯ ⲁ ⲱ
         </span>
+
+        {/* ── Share sheet: "spread the blessing" ── */}
+        {shareVn ? (
+          <div className="fixed inset-0 z-50 flex items-end justify-center">
+            <button
+              type="button"
+              aria-label={t("bib.share.close")}
+              onClick={() => setShareVn(null)}
+              className="absolute inset-0 bg-inkblue/60 backdrop-blur-[3px]"
+            />
+            <div
+              dir={dir}
+              className="verse-rise safe-bottom relative mx-auto w-full max-w-[430px] rounded-t-[30px] border-t border-illum/25 bg-inkblue px-5 pt-3 pb-6 shadow-2xl"
+            >
+              <span className="mx-auto block h-1 w-11 rounded-full bg-vellum/25" />
+
+              <div className="mt-3.5 flex items-center justify-between">
+                <button
+                  type="button"
+                  aria-label={t("bib.share.close")}
+                  onClick={() => setShareVn(null)}
+                  className="press grid size-9 place-items-center rounded-full border border-vellum/15 text-vellum/70"
+                >
+                  ✕
+                </button>
+                <div className="flex items-center gap-2">
+                  <span className="font-display text-[16px] font-bold text-vellum">
+                    {t("bib.share.title")}
+                  </span>
+                  <CopticCross className="size-4 text-illum" />
+                </div>
+              </div>
+
+              <p className="mt-3 text-end font-manrope text-[11.5px] font-bold text-illum">
+                {name} {ch}:{shareVn}
+              </p>
+              <p className="mt-1 text-end text-[12.5px] leading-relaxed text-vellum/60">
+                {(() => {
+                  const v = samplePassage.find((x) => x.n === shareVn);
+                  return v ? (isArabic ? v.ar : v.en) : "";
+                })()}
+              </p>
+
+              <Link
+                to="/my-church"
+                className="press mt-4 block rounded-[20px] border py-3.5 text-center text-[13.5px] font-bold"
+                style={{
+                  borderColor: "color-mix(in oklab, var(--hl-mint) 45%, transparent)",
+                  background: "color-mix(in oklab, var(--hl-mint) 12%, transparent)",
+                  color: "var(--hl-mint)",
+                }}
+              >
+                {t("bib.share.community")}
+              </Link>
+
+              <button
+                type="button"
+                onClick={() => {
+                  shareVerse(shareVn);
+                  setShareVn(null);
+                }}
+                className="press mt-2.5 w-full rounded-[20px] border border-vellum/12 bg-vellum/[0.06] py-3.5 text-[13.5px] font-bold text-vellum"
+              >
+                {t("bib.share.system")}
+              </button>
+
+              <div className="mt-2.5 grid grid-cols-2 gap-2.5">
+                <button
+                  type="button"
+                  onClick={() => {
+                    copyVerse(shareVn);
+                    setShareVn(null);
+                  }}
+                  className="press rounded-[18px] border border-vellum/12 bg-vellum/[0.04] py-3 text-[11.5px] font-semibold text-vellum/80"
+                >
+                  {t("bib.share.copy")}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setToast(t("bib.share.image"));
+                    setShareVn(null);
+                  }}
+                  className="press rounded-[18px] border border-vellum/12 bg-vellum/[0.04] py-3 text-[11.5px] font-semibold text-vellum/80"
+                >
+                  {t("bib.share.image")}
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : null}
 
         {/* Action confirmation */}
         {toast ? (
