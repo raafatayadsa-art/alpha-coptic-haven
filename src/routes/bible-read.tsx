@@ -232,10 +232,11 @@ function BibleRead() {
       >
         {/* Coptic Α Ω watermark behind the reading column */}
         <AlphaOmegaMark
-          className={`pointer-events-none absolute inset-x-0 top-48 mx-auto w-[78%] text-copper illum-breathe ${
-            night ? "opacity-[0.07]" : "opacity-[0.045]"
+          className={`pointer-events-none absolute inset-x-0 top-56 z-0 mx-auto w-[46%] text-copper illum-breathe ${
+            night ? "opacity-[0.06]" : "opacity-[0.035]"
           }`}
         />
+
 
         {/* ── Pinned reading header with progress ── */}
         <header
@@ -315,7 +316,7 @@ function BibleRead() {
           </div>
         </header>
 
-        <main className="px-4 pt-4">
+        <main className="relative z-10 px-4 pt-4">
           {/* Chapter opener with Coptic cross */}
           <div className="text-center">
             <CopticCross className="mx-auto size-5 text-copper opacity-70" />

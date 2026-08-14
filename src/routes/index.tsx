@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
 import churchCover from "@/assets/church-cover.jpg";
 import churchCrest from "@/assets/church-crest.png";
@@ -157,9 +157,35 @@ function SectionHead({ title, action }: { title: string; action?: string }) {
   );
 }
 
+const notifications = [
+  { key: "notif.n1", tone: "gold" as const },
+  { key: "notif.n2", tone: "lavender" as const },
+  { key: "notif.n3", tone: "parchment" as const },
+  { key: "notif.n4", tone: "parchment" as const },
+];
+
 function AlphaHome() {
-  const { t, dir, isArabic } = useLang();
+  const { t, dir, isArabic, lang } = useLang();
   const arabic = isArabic ? "font-arabic" : "";
+  const [bell, setBell] = useState(false);
+  const [seen, setSeen] = useState(false);
+
+  /* Time-aware greeting — presentation only. */
+  const hour = new Date().getHours();
+  const greetKey =
+    hour < 12
+      ? "hm.greet.morning"
+      : hour < 17
+        ? "hm.greet.afternoon"
+        : hour < 22
+          ? "hm.greet.evening"
+          : "hm.greet.night";
+
+  const gregorian = new Intl.DateTimeFormat(isArabic ? "ar-EG" : "en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date());
 
   return (
     <div
@@ -167,36 +193,98 @@ function AlphaHome() {
       className={`${arabic} mx-auto min-h-screen w-full max-w-[430px] overflow-x-hidden bg-ivory pb-10 text-ink selection:bg-gold/20`}
     >
       {/* Header — personal, not a dashboard bar */}
-      <header className="safe-top safe-sticky-top sticky z-50 flex items-center justify-between gap-3 bg-ivory/80 px-5 pb-3.5 backdrop-blur-xl">
-        <div className="flex min-w-0 items-center gap-2.5">
-          <img
-            src={churchCrest}
-            alt=""
-            width={40}
-            height={40}
-            className="size-9 shrink-0 object-contain"
-          />
-          <span className="flex min-w-0 flex-col leading-none">
-            <span className="truncate font-display text-[16px] font-semibold tracking-tight">
-              {t("hm.greeting")}
+      <header className="safe-top safe-sticky-top sticky z-50 bg-ivory/80 px-5 pb-3.5 backdrop-blur-xl">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex min-w-0 items-center gap-2.5">
+            <img
+              src={churchCrest}
+              alt=""
+              width={40}
+              height={40}
+              className="size-9 shrink-0 object-contain"
+            />
+            <span className="flex min-w-0 flex-col leading-none">
+              <span className="truncate font-display text-[16px] font-semibold tracking-tight">
+                {t(greetKey)}
+                <span className="text-gold">{lang === "ar" ? "، " : ", "}</span>
+                {t("hm.user.name")}
+              </span>
+              <span className="mt-1 flex items-center gap-1.5 truncate text-[10px] font-medium tracking-[0.1em] text-ink/40">
+                {t("hm.today")}
+                <span className="text-ink/20">·</span>
+                <span className="text-ink/35">{gregorian}</span>
+              </span>
             </span>
-            <span className="mt-1 truncate text-[10px] font-medium tracking-[0.12em] text-ink/40">
-              {t("hm.today")}
-            </span>
-          </span>
+          </div>
+          <div className="flex shrink-0 items-center gap-2">
+            <LanguageToggle />
+            <button
+              type="button"
+              aria-label={t("app.notifications")}
+              aria-expanded={bell}
+              onClick={() => {
+                setBell((v) => !v);
+                setSeen(true);
+              }}
+              className={`press relative grid size-10 place-items-center rounded-full ring-1 transition-colors ${
+                bell ? "bg-gold/15 ring-gold/25" : "bg-parchment ring-ink/5"
+              }`}
+            >
+              <BellIcon className={`size-[18px] ${bell ? "text-gold" : "text-ink/60"}`} />
+              {!seen && (
+                <span className="absolute end-2.5 top-2.5 size-1.5 rounded-full bg-gold ring-2 ring-parchment" />
+              )}
+            </button>
+          </div>
         </div>
-        <div className="flex shrink-0 items-center gap-2">
-          <LanguageToggle />
-          <button
-            type="button"
-            aria-label={t("app.notifications")}
-            className="press relative grid size-10 place-items-center rounded-full bg-parchment ring-1 ring-ink/5"
-          >
-            <BellIcon className="size-[18px] text-ink/60" />
-            <span className="absolute end-2.5 top-2.5 size-1.5 rounded-full bg-gold ring-2 ring-parchment" />
-          </button>
-        </div>
+
+        {/* Notifications panel — presentation-only sample alerts */}
+        {bell && (
+          <div className="animate-float-up mt-3 rounded-[24px] bg-card p-2 shadow-lift ring-1 ring-ink/6">
+            <div className="flex items-center justify-between px-2.5 pb-1 pt-1.5">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink/35">
+                {t("notif.title")}
+              </span>
+              <button
+                type="button"
+                onClick={() => setBell(false)}
+                className="press text-[10.5px] font-semibold text-gold"
+              >
+                {t("notif.markAll")}
+              </button>
+            </div>
+            <ul className="space-y-1">
+              {notifications.map((n) => (
+                <li key={n.key}>
+                  <button
+                    type="button"
+                    className="press flex w-full items-start gap-2.5 rounded-[18px] px-2.5 py-2 text-start transition-colors hover:bg-parchment"
+                  >
+                    <span
+                      className={`mt-0.5 grid size-8 shrink-0 place-items-center rounded-2xl ${hubTone[n.tone]}`}
+                      aria-hidden="true"
+                    >
+                      <BellIcon className="size-[14px]" />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-[12px] font-semibold text-ink/80">
+                        {t(`${n.key}.t`)}
+                      </span>
+                      <span className="mt-0.5 block truncate text-[11px] text-ink/45">
+                        {t(`${n.key}.l`)}
+                      </span>
+                    </span>
+                    <span className="shrink-0 text-[9.5px] font-medium text-ink/30">
+                      {t(`${n.key}.w`)}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </header>
+
 
       <main className="space-y-9 px-4 pt-2">
         {/* 1 — Daily deck: verse, saint, feast, synaxarium stacked behind each other */}

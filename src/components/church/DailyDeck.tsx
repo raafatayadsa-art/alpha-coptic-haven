@@ -27,9 +27,14 @@ export function DailyDeck({ cards }: { cards: DailyCard[] }) {
   const [index, setIndex] = useState(0);
   const [drag, setDrag] = useState(0);
   const [snapping, setSnapping] = useState<0 | 1 | -1>(0);
+  const [duration, setDuration] = useState(260);
   const start = useRef<number | null>(null);
-  const startTime = useRef(0);
+  const startY = useRef(0);
+  const axis = useRef<"none" | "x" | "y">("none");
+  const last = useRef({ x: 0, t: 0 });
+  const velocity = useRef(0);
   const lock = useRef(false);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const go = (step: number) => {
     setIndex((i) => (i + step + cards.length) % cards.length);
@@ -37,43 +42,79 @@ export function DailyDeck({ cards }: { cards: DailyCard[] }) {
 
   /** rubber-band the drag so the card feels weighted near the edges */
   const resist = (x: number) => {
-    const max = 190;
+    const max = 200;
     const s = Math.sign(x);
     const a = Math.abs(x);
     return s * max * (1 - Math.exp(-a / max));
   };
 
-  const commit = (step: 1 | -1) => {
+  /** fling the card away, then swap — duration follows the release speed */
+  const commit = (step: 1 | -1, v: number) => {
     if (lock.current) return;
     lock.current = true;
+    const ms = Math.round(Math.min(300, Math.max(150, 260 - Math.abs(v) * 90)));
+    setDuration(ms);
     setSnapping(step);
-    window.setTimeout(() => {
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
       go(step);
       setSnapping(0);
       setDrag(0);
+      setDuration(260);
       lock.current = false;
-    }, 230);
+    }, ms);
   };
 
   const onDown = (e: React.PointerEvent) => {
     if (lock.current) return;
     (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
     start.current = e.clientX;
-    startTime.current = performance.now();
+    startY.current = e.clientY;
+    axis.current = "none";
+    velocity.current = 0;
+    last.current = { x: e.clientX, t: performance.now() };
   };
+
   const onMove = (e: React.PointerEvent) => {
     if (start.current === null) return;
-    setDrag(resist(e.clientX - start.current));
+    const dx = e.clientX - start.current;
+    const dy = e.clientY - startY.current;
+
+    /* decide the gesture axis once, so vertical scrolling stays untouched */
+    if (axis.current === "none") {
+      if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+      axis.current = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+    }
+    if (axis.current === "y") return;
+
+    const now = performance.now();
+    const dt = now - last.current.t;
+    if (dt > 0) {
+      /* smoothed instantaneous velocity in px/ms */
+      const v = (e.clientX - last.current.x) / dt;
+      velocity.current = velocity.current * 0.7 + v * 0.3;
+      last.current = { x: e.clientX, t: now };
+    }
+    setDrag(resist(dx));
   };
+
   const onUp = () => {
     if (start.current === null) return;
     const d = drag;
-    const dt = Math.max(performance.now() - startTime.current, 1);
-    const velocity = Math.abs(d) / dt; // px per ms
+    const v = velocity.current;
     start.current = null;
-    if (Math.abs(d) > 64 || velocity > 0.45) {
-      commit(d < 0 ? 1 : -1);
+    if (axis.current !== "x") {
+      setDrag(0);
+      return;
+    }
+    axis.current = "none";
+
+    /* fast flick OR far enough drag — projected offset covers both */
+    const projected = d + v * 110;
+    if (Math.abs(projected) > 78 || Math.abs(v) > 0.55) {
+      commit(projected < 0 ? 1 : -1, v);
     } else {
+      setDuration(300);
       setDrag(0);
     }
   };
@@ -83,8 +124,9 @@ export function DailyDeck({ cards }: { cards: DailyCard[] }) {
   const rtl = dir === "rtl";
   const peekSide = rtl ? -1 : 1;
 
-  const activeX = snapping !== 0 ? snapping * -420 : drag;
+  const activeX = snapping !== 0 ? snapping * -460 : drag;
   const settled = drag === 0 || snapping !== 0;
+
 
   return (
     <div className="select-none">
@@ -101,12 +143,14 @@ export function DailyDeck({ cards }: { cards: DailyCard[] }) {
             className={cn(
               "pointer-events-none absolute inset-0 overflow-hidden rounded-[30px] shadow-[var(--shadow-soft)] ring-1 ring-ink/5",
               b.tone === "lavender" ? "bg-lavender/60" : "bg-parchment",
-              settled && "transition-all duration-[260ms] ease-out",
             )}
             style={{
               transform: `translate3d(${peekSide * (depth * 12 - lift * 12)}px, ${depth * 10 - lift * 10}px, 0) scale(${1 - depth * 0.035 + lift * 0.035})`,
               opacity: 1 - depth * 0.2 + lift * 0.2,
               zIndex: 10 - i,
+              transition: settled
+                ? `transform ${duration}ms cubic-bezier(0.22,0.61,0.36,1), opacity ${duration}ms ease-out`
+                : "none",
             }}
           >
             <img
@@ -127,15 +171,15 @@ export function DailyDeck({ cards }: { cards: DailyCard[] }) {
           onPointerMove={onMove}
           onPointerUp={onUp}
           onPointerCancel={onUp}
-          className={cn(
-            "relative z-20 touch-pan-y overflow-hidden rounded-[30px] shadow-lift ring-1 ring-ink/5 will-change-transform",
-            settled &&
-              "transition-[transform,opacity] duration-[260ms] ease-[cubic-bezier(0.22,0.61,0.36,1)]",
-          )}
+          className="relative z-20 touch-pan-y overflow-hidden rounded-[30px] shadow-lift ring-1 ring-ink/5 will-change-transform"
           style={{
-            transform: `translate3d(${activeX}px, 0, 0) rotate(${activeX / 44}deg)`,
+            transform: `translate3d(${activeX}px, 0, 0) rotate(${activeX / 48}deg)`,
             opacity: snapping !== 0 ? 0 : 1,
+            transition: settled
+              ? `transform ${duration}ms cubic-bezier(0.22,0.61,0.36,1), opacity ${duration}ms ease-out`
+              : "none",
           }}
+
         >
 
           <div className="relative h-[300px] w-full">

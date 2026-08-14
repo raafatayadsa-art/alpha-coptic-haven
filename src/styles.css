@@ -227,15 +227,37 @@
   animation: engage-halo 0.6s var(--ease-out-expo) forwards;
 }
 
+/* Liked state: soft golden glow + gentle heartbeat */
+@keyframes engage-glow {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-gold) 30%, transparent); }
+  50% { box-shadow: 0 0 14px 2px color-mix(in oklab, var(--color-gold) 42%, transparent); }
+}
+
+@keyframes engage-beat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+
+@utility engage-glow {
+  animation: engage-glow 2s ease-in-out infinite;
+}
+
+@utility engage-beat {
+  animation: engage-beat 1.6s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .engage-pop,
   .engage-nudge,
   .engage-tuck,
   .engage-count,
-  .engage-halo {
+  .engage-halo,
+  .engage-glow,
+  .engage-beat {
     animation: none !important;
   }
 }
+
 
 @utility no-scrollbar {
   -ms-overflow-style: none;
