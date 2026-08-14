@@ -94,10 +94,12 @@ export function EngageBar({
             }}
             aria-pressed={liked}
             aria-label={t("engage.like")}
-            className={cn(base, liked ? pillActive : pill)}
+            className={cn(base, liked ? cn(pillActive, "engage-glow") : pill)}
           >
             <span className="relative inline-grid place-items-center">
-              <HeartIcon className={cn(size, burst === "like" && "engage-pop")} />
+              <HeartIcon
+                className={cn(size, burst === "like" && "engage-pop", liked && "engage-beat")}
+              />
               {burst === "like" && liked && (
                 <span
                   aria-hidden="true"
@@ -126,24 +128,87 @@ export function EngageBar({
             </span>
           </button>
 
-          <button
-            type="button"
-            onClick={() => {
-              setShared(true);
-              pulse("share");
-              setTimeout(() => setShared(false), 1400);
-            }}
-            aria-label={t("engage.share")}
-            className={cn(base, shared ? pillActive : pill)}
-          >
-            <ShareIcon className={cn(size, burst === "share" && "engage-nudge", "rtl:-scale-x-100")} />
-            {!compact && (
-              <span key={shared ? "on" : "off"} className="engage-count">
-                {shared ? t("engage.shared") : t("engage.share")}
-              </span>
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => {
+                setShareOpen((v) => !v);
+                pulse("share");
+              }}
+              aria-expanded={shareOpen}
+              aria-label={t("engage.share")}
+              className={cn(base, shareOpen || shared ? pillActive : pill)}
+            >
+              <ShareIcon
+                className={cn(size, burst === "share" && "engage-nudge", "rtl:-scale-x-100")}
+              />
+              {!compact && (
+                <span key={shared ? "on" : "off"} className="engage-count">
+                  {shared ? t("engage.shared") : t("engage.share")}
+                </span>
+              )}
+            </button>
+
+            {shareOpen && (
+              <div
+                role="menu"
+                aria-label={t("engage.share.title")}
+                className={cn(
+                  "animate-float-up absolute bottom-[calc(100%+8px)] z-30 w-[188px] rounded-[20px] p-1.5 shadow-lift",
+                  dark ? "bg-ink ring-1 ring-ivory/12" : "bg-ivory ring-1 ring-ink/8",
+                )}
+                style={{ insetInlineStart: 0 }}
+              >
+                <p
+                  className={cn(
+                    "px-2.5 pb-1 pt-1.5 text-[9.5px] font-semibold uppercase tracking-[0.16em]",
+                    dark ? "text-ivory/40" : "text-ink/35",
+                  )}
+                >
+                  {t("engage.share.title")}
+                </p>
+                {(
+                  [
+                    ["engage.share.community", "◎"],
+                    ["engage.share.whatsapp", "✆"],
+                    ["engage.share.telegram", "➤"],
+                    ["engage.share.facebook", "f"],
+                    ["engage.share.copy", "⧉"],
+                  ] as const
+                ).map(([key, glyph]) => (
+                  <button
+                    key={key}
+                    type="button"
+                    role="menuitem"
+                    onClick={() => {
+                      setShareOpen(false);
+                      setShared(true);
+                      setTimeout(() => setShared(false), 1400);
+                    }}
+                    className={cn(
+                      "press flex w-full items-center gap-2.5 rounded-2xl px-2.5 py-2 text-[12px] font-medium transition-colors",
+                      dark
+                        ? "text-ivory/80 hover:bg-ivory/10"
+                        : "text-ink/70 hover:bg-parchment",
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        "grid size-7 shrink-0 place-items-center rounded-full text-[12px] text-gold",
+                        dark ? "bg-gold/18 ring-1 ring-gold/25" : "bg-gold/12 ring-1 ring-gold/20",
+                      )}
+                      aria-hidden="true"
+                    >
+                      {glyph}
+                    </span>
+                    {t(key)}
+                  </button>
+                ))}
+              </div>
             )}
-          </button>
+          </div>
         </div>
+
 
         <button
           type="button"
