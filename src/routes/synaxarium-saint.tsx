@@ -156,16 +156,13 @@ function SaintLife() {
       <SynaxSectionTitle title={pick(L.life, lang)} caption={pick(s.copticDate, lang)} />
       <article className="sx-card rounded-[26px] px-4 py-5" style={{ "--hue": hue.hue, "--hue-2": hue.hue2 } as CSSProperties}>
         {s.life.map((p, i) => (
-          <p
-            key={i}
-            className={`text-[14px] leading-[2] text-ivory/78 ${i === 0 ? "" : "mt-3.5"}`}
-          >
-            {i === 0 ? (
+          <p key={i} className={`text-[14px] leading-[2] text-ivory/78 ${i === 0 ? "" : "mt-3.5"}`}>
+            {i === 0 && lang === "en" ? (
               <span className="float-start me-2 font-display text-[38px] leading-[0.9] text-icongold">
                 {pick(p, lang).slice(0, 1)}
               </span>
             ) : null}
-            {i === 0 ? pick(p, lang).slice(1) : pick(p, lang)}
+            {i === 0 && lang === "en" ? pick(p, lang).slice(1) : pick(p, lang)}
           </p>
         ))}
       </article>
