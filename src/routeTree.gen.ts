@@ -23,6 +23,12 @@ import { Route as BibleSavedRouteImport } from './routes/bible-saved'
 import { Route as BibleSearchRouteImport } from './routes/bible-search'
 import { Route as BibleStatsRouteImport } from './routes/bible-stats'
 import { Route as ChurchControlRouteImport } from './routes/church-control'
+import { Route as KatamerosRouteImport } from './routes/katameros'
+import { Route as KatamerosCalendarRouteImport } from './routes/katameros-calendar'
+import { Route as KatamerosDayRouteImport } from './routes/katameros-day'
+import { Route as KatamerosReadRouteImport } from './routes/katameros-read'
+import { Route as KatamerosSavedRouteImport } from './routes/katameros-saved'
+import { Route as KatamerosSearchRouteImport } from './routes/katameros-search'
 import { Route as MyChurchRouteImport } from './routes/my-church'
 import { Route as ProfileRouteImport } from './routes/profile'
 
@@ -96,6 +102,36 @@ const ChurchControlRoute = ChurchControlRouteImport.update({
   path: '/church-control',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KatamerosRoute = KatamerosRouteImport.update({
+  id: '/katameros',
+  path: '/katameros',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KatamerosCalendarRoute = KatamerosCalendarRouteImport.update({
+  id: '/katameros-calendar',
+  path: '/katameros-calendar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KatamerosDayRoute = KatamerosDayRouteImport.update({
+  id: '/katameros-day',
+  path: '/katameros-day',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KatamerosReadRoute = KatamerosReadRouteImport.update({
+  id: '/katameros-read',
+  path: '/katameros-read',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KatamerosSavedRoute = KatamerosSavedRouteImport.update({
+  id: '/katameros-saved',
+  path: '/katameros-saved',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KatamerosSearchRoute = KatamerosSearchRouteImport.update({
+  id: '/katameros-search',
+  path: '/katameros-search',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MyChurchRoute = MyChurchRouteImport.update({
   id: '/my-church',
   path: '/my-church',
@@ -122,6 +158,12 @@ export interface FileRoutesByFullPath {
   '/bible-search': typeof BibleSearchRoute
   '/bible-stats': typeof BibleStatsRoute
   '/church-control': typeof ChurchControlRoute
+  '/katameros': typeof KatamerosRoute
+  '/katameros-calendar': typeof KatamerosCalendarRoute
+  '/katameros-day': typeof KatamerosDayRoute
+  '/katameros-read': typeof KatamerosReadRoute
+  '/katameros-saved': typeof KatamerosSavedRoute
+  '/katameros-search': typeof KatamerosSearchRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
 }
@@ -140,6 +182,12 @@ export interface FileRoutesByTo {
   '/bible-search': typeof BibleSearchRoute
   '/bible-stats': typeof BibleStatsRoute
   '/church-control': typeof ChurchControlRoute
+  '/katameros': typeof KatamerosRoute
+  '/katameros-calendar': typeof KatamerosCalendarRoute
+  '/katameros-day': typeof KatamerosDayRoute
+  '/katameros-read': typeof KatamerosReadRoute
+  '/katameros-saved': typeof KatamerosSavedRoute
+  '/katameros-search': typeof KatamerosSearchRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
 }
@@ -159,6 +207,12 @@ export interface FileRoutesById {
   '/bible-search': typeof BibleSearchRoute
   '/bible-stats': typeof BibleStatsRoute
   '/church-control': typeof ChurchControlRoute
+  '/katameros': typeof KatamerosRoute
+  '/katameros-calendar': typeof KatamerosCalendarRoute
+  '/katameros-day': typeof KatamerosDayRoute
+  '/katameros-read': typeof KatamerosReadRoute
+  '/katameros-saved': typeof KatamerosSavedRoute
+  '/katameros-search': typeof KatamerosSearchRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
 }
@@ -179,6 +233,12 @@ export interface FileRouteTypes {
     | '/bible-search'
     | '/bible-stats'
     | '/church-control'
+    | '/katameros'
+    | '/katameros-calendar'
+    | '/katameros-day'
+    | '/katameros-read'
+    | '/katameros-saved'
+    | '/katameros-search'
     | '/my-church'
     | '/profile'
   fileRoutesByTo: FileRoutesByTo
@@ -197,6 +257,12 @@ export interface FileRouteTypes {
     | '/bible-search'
     | '/bible-stats'
     | '/church-control'
+    | '/katameros'
+    | '/katameros-calendar'
+    | '/katameros-day'
+    | '/katameros-read'
+    | '/katameros-saved'
+    | '/katameros-search'
     | '/my-church'
     | '/profile'
   id:
@@ -215,6 +281,12 @@ export interface FileRouteTypes {
     | '/bible-search'
     | '/bible-stats'
     | '/church-control'
+    | '/katameros'
+    | '/katameros-calendar'
+    | '/katameros-day'
+    | '/katameros-read'
+    | '/katameros-saved'
+    | '/katameros-search'
     | '/my-church'
     | '/profile'
   fileRoutesById: FileRoutesById
@@ -234,6 +306,12 @@ export interface RootRouteChildren {
   BibleSearchRoute: typeof BibleSearchRoute
   BibleStatsRoute: typeof BibleStatsRoute
   ChurchControlRoute: typeof ChurchControlRoute
+  KatamerosRoute: typeof KatamerosRoute
+  KatamerosCalendarRoute: typeof KatamerosCalendarRoute
+  KatamerosDayRoute: typeof KatamerosDayRoute
+  KatamerosReadRoute: typeof KatamerosReadRoute
+  KatamerosSavedRoute: typeof KatamerosSavedRoute
+  KatamerosSearchRoute: typeof KatamerosSearchRoute
   MyChurchRoute: typeof MyChurchRoute
   ProfileRoute: typeof ProfileRoute
 }
@@ -338,6 +416,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChurchControlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/katameros': {
+      id: '/katameros'
+      path: '/katameros'
+      fullPath: '/katameros'
+      preLoaderRoute: typeof KatamerosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/katameros-calendar': {
+      id: '/katameros-calendar'
+      path: '/katameros-calendar'
+      fullPath: '/katameros-calendar'
+      preLoaderRoute: typeof KatamerosCalendarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/katameros-day': {
+      id: '/katameros-day'
+      path: '/katameros-day'
+      fullPath: '/katameros-day'
+      preLoaderRoute: typeof KatamerosDayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/katameros-read': {
+      id: '/katameros-read'
+      path: '/katameros-read'
+      fullPath: '/katameros-read'
+      preLoaderRoute: typeof KatamerosReadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/katameros-saved': {
+      id: '/katameros-saved'
+      path: '/katameros-saved'
+      fullPath: '/katameros-saved'
+      preLoaderRoute: typeof KatamerosSavedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/katameros-search': {
+      id: '/katameros-search'
+      path: '/katameros-search'
+      fullPath: '/katameros-search'
+      preLoaderRoute: typeof KatamerosSearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/my-church': {
       id: '/my-church'
       path: '/my-church'
@@ -370,6 +490,12 @@ const rootRouteChildren: RootRouteChildren = {
   BibleSearchRoute: BibleSearchRoute,
   BibleStatsRoute: BibleStatsRoute,
   ChurchControlRoute: ChurchControlRoute,
+  KatamerosRoute: KatamerosRoute,
+  KatamerosCalendarRoute: KatamerosCalendarRoute,
+  KatamerosDayRoute: KatamerosDayRoute,
+  KatamerosReadRoute: KatamerosReadRoute,
+  KatamerosSavedRoute: KatamerosSavedRoute,
+  KatamerosSearchRoute: KatamerosSearchRoute,
   MyChurchRoute: MyChurchRoute,
   ProfileRoute: ProfileRoute,
 }
