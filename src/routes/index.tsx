@@ -22,7 +22,6 @@ import {
   ChevronRight,
   CopticCross,
   GroupsIcon,
-  HeartIcon,
   KatamerosIcon,
   KhoulagyIcon,
   MembersIcon,
