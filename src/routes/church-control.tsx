@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 import churchCover from "@/assets/church-cover.jpg";
 import churchCrest from "@/assets/church-crest.png";
@@ -35,7 +35,6 @@ import {
   PlusIcon,
   PostIcon,
   RetryIcon,
-  SearchIcon,
   VideoIcon,
 } from "@/components/church/media-icons";
 import {
@@ -45,19 +44,19 @@ import {
   type ContentItem,
 } from "@/components/church/ContentCard";
 
-export const Route = createFileRoute("/church")({
+export const Route = createFileRoute("/church-control")({
   head: () => ({
     meta: [
-      { title: "كنيستك معاك — ملف الكنيسة | Alpha Coptic" },
+      { title: "تحكم الكنيسة | Alpha Coptic" },
       {
         name: "description",
         content:
-          "ملف الكنيسة في ألفا: التعريف بالكنيسة، الكاهن المسؤول، المنشورات، المكتبة، الصوتيات والفيديوهات في مكان واحد.",
+          "شاشة تحكم الكنيسة في ألفا: بيانات الكنيسة، الكاهن المسؤول، المنشورات، المكتبة، الصوتيات والفيديوهات في مكان واحد.",
       },
-      { property: "og:title", content: "كنيستك معاك — ملف الكنيسة | Alpha Coptic" },
+      { property: "og:title", content: "تحكم الكنيسة | Alpha Coptic" },
       {
         property: "og:description",
-        content: "ملف كنيسة متكامل: منشورات، مكتبة، صوتيات وفيديوهات بهوية ألفا.",
+        content: "تحكم كامل في الكنيسة: منشورات، مكتبة، صوتيات وفيديوهات بهوية ألفا.",
       },
       { property: "og:type", content: "profile" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -290,13 +289,17 @@ function TopBar() {
   return (
     <header className="sticky top-0 z-40 bg-ivory/80 px-4 pb-3 pt-[max(14px,env(safe-area-inset-top))] backdrop-blur-xl">
       <div className="flex items-center justify-between gap-3">
-        <IconButton label="بحث">
-          <SearchIcon className="size-[19px]" />
-        </IconButton>
+        <Link
+          to="/"
+          aria-label="رجوع"
+          className="press grid size-10 shrink-0 place-items-center rounded-[16px] border border-ink/8 bg-card/70 text-ink/65 shadow-[var(--shadow-soft)]"
+        >
+          <ChevronRight className="size-[19px] rotate-180 rtl:rotate-0" />
+        </Link>
 
         <div className="text-center">
-          <h1 className="text-[16px] font-bold leading-none tracking-tight">كنيستك معاك</h1>
-          <p className="mt-1 text-[10px] text-ink/40">ملف الكنيسة</p>
+          <h1 className="text-[16px] font-bold leading-none tracking-tight">تحكم الكنيسة</h1>
+          <p className="mt-1 text-[10px] text-ink/40">إدارة كنيستك</p>
         </div>
 
         <IconButton label="التنبيهات">
@@ -567,7 +570,7 @@ function Footer() {
   return (
     <footer className="mt-10 flex flex-col items-center gap-2 pb-2 text-center">
       <CopticCross className="size-5 text-gold/70" />
-      <p className="text-[11px] text-ink/40">كنيستك معاك · ألفا للكنيسة القبطية الأرثوذكسية</p>
+      <p className="text-[11px] text-ink/40">تحكم الكنيسة · ألفا للكنيسة القبطية الأرثوذكسية</p>
       <p className="text-[10px] text-ink/25">«بيتي بيت الصلاة يُدعى»</p>
     </footer>
   );

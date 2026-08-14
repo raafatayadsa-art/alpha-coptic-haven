@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 import churchCover from "@/assets/church-cover.jpg";
 import oliveBranch from "@/assets/olive-branch.png";
@@ -41,13 +41,13 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Alpha Coptic — Church Home" },
+      { title: "كنيستي — Alpha Coptic" },
       {
         name: "description",
         content:
           "The church home screen of Alpha Coptic: liturgy times, the fathers, church life, gatherings and announcements in one calm place.",
       },
-      { property: "og:title", content: "Alpha Coptic — Church Home" },
+      { property: "og:title", content: "كنيستي — Alpha Coptic" },
       {
         property: "og:description",
         content: "Your church, gathered in one calm and beautiful place.",
@@ -60,6 +60,8 @@ export const Route = createFileRoute("/")({
 });
 
 /* Presentation-only sample content for the design system. */
+const isPriest = true;
+
 const priests = [
   { name: "Fr. Bishoy Samuel", rank: "Parish Priest", photo: priest1 },
   { name: "Fr. Mena Isaac", rank: "Archpriest", photo: priest2 },
@@ -156,14 +158,18 @@ function ChurchHome() {
             <BellIcon className="size-[18px] text-ink/60" />
             <span className="absolute right-2.5 top-2.5 size-1.5 rounded-full bg-gold ring-2 ring-parchment" />
           </button>
-          {/* Visible only for Priest / Church Admin / Servant */}
-          <button
-            type="button"
-            className="press grid size-10 place-items-center rounded-full bg-ink text-ivory shadow-soft"
-            aria-label="Church Control"
-          >
-            <ShieldIcon className="size-[18px]" />
-          </button>
+          {/* Visible only for the priest */}
+          {isPriest && (
+            <Link
+              to="/church-control"
+              className="press grid size-10 place-items-center rounded-full bg-ink text-ivory shadow-soft"
+              aria-label="تحكم الكنيسة"
+              title="تحكم الكنيسة"
+            >
+              <ShieldIcon className="size-[18px]" />
+            </Link>
+          )}
+
         </div>
       </header>
 
