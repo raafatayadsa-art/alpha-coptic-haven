@@ -536,26 +536,9 @@ function IntroScreen() {
   return (
     <Screen withBottomNav={false} className="bg-[oklch(0.988_0.008_85)]">
       <div className="relative mx-auto flex min-h-screen w-full max-w-[430px] flex-col">
-        {/* progress hairlines */}
-        <div className="absolute inset-x-0 top-0 z-20 safe-top">
-          <div className="flex gap-1.5 px-5 pt-3">
-            {Array.from({ length: total }).map((_, n) => (
-              <button
-                key={n}
-                type="button"
-                aria-label={`${ar ? "مشهد" : "Scene"} ${n + 1}`}
-                onClick={() => goTo(n)}
-                className={`h-[3px] flex-1 rounded-full transition-all duration-500 ${
-                  n <= i
-                    ? "bg-[oklch(0.735_0.096_84)]"
-                    : darkChrome
-                      ? "bg-white/25"
-                      : "bg-[oklch(0.245_0.026_293/0.15)]"
-                }`}
-              />
-            ))}
-          </div>
-          <div className="flex items-center justify-between px-5 pt-2">
+        {/* top chrome — counter + skip only */}
+        <div className="safe-top absolute inset-x-0 top-0 z-20">
+          <div className="flex items-center justify-between px-5 pt-3">
             <span
               className={`font-manrope text-[10px] tracking-[0.2em] ${
                 darkChrome ? "text-white/55" : "text-[oklch(0.5_0.02_293)]"
@@ -588,43 +571,40 @@ function IntroScreen() {
           </div>
         </div>
 
-        {/* footer controls */}
+        {/* footer controls — Next sits on the right and glows */}
         {i < total - 1 && (
-          <div
-            className={`relative z-20 flex items-center gap-3 px-6 pt-3 pb-2 ${
-              darkChrome ? "bg-transparent" : "bg-transparent"
-            }`}
-          >
+          <div className="relative z-20 flex items-center gap-3 px-6 pt-3 pb-2">
+            <button
+              type="button"
+              onClick={() => goTo(i + 1)}
+              className="press relative flex items-center gap-2 overflow-hidden rounded-full border border-[oklch(0.82_0.11_86/0.75)] bg-linear-to-b from-[oklch(0.86_0.1_86/0.4)] to-[oklch(0.735_0.096_84/0.22)] px-6 py-2.5 font-manrope text-[12.5px] font-semibold shadow-[0_0_28px_-4px_oklch(0.8_0.12_86/0.7)] backdrop-blur-md transition-shadow duration-500 hover:shadow-[0_0_38px_-2px_oklch(0.8_0.12_86/0.9)]"
+              style={{ color: darkChrome ? "oklch(0.97 0.03 86)" : "oklch(0.38 0.06 78)" } as CSSProperties}
+            >
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-linear-to-r from-transparent via-white/55 to-transparent"
+                style={{ animation: "intro-sweep 2.8s ease-in-out infinite" } as CSSProperties}
+              />
+              <span className="relative">{ar ? T.next.ar : T.next.en}</span>
+              <span aria-hidden="true" className="relative text-[14px] leading-none">
+                {ar ? "‹" : "›"}
+              </span>
+            </button>
             <button
               type="button"
               onClick={() => goTo(i - 1)}
               disabled={i === 0}
-              className={`font-manrope text-[12px] font-semibold transition-opacity disabled:opacity-0 ${
+              className={`ms-auto font-manrope text-[12px] font-semibold transition-opacity disabled:opacity-0 ${
                 darkChrome ? "text-white/70" : "text-[oklch(0.5_0.02_293)]"
               }`}
             >
               {ar ? T.back.ar : T.back.en}
             </button>
-            <button
-              type="button"
-              onClick={() => goTo(i + 1)}
-              className="press ms-auto flex items-center gap-2 rounded-full border border-[oklch(0.735_0.096_84/0.5)] bg-[oklch(0.735_0.096_84/0.16)] px-5 py-2.5 font-manrope text-[12.5px] font-semibold backdrop-blur-md"
-              style={
-                {
-                  color: darkChrome ? "white" : "oklch(0.4 0.06 78)",
-                } as CSSProperties
-              }
-            >
-              {ar ? T.next.ar : T.next.en}
-              <span aria-hidden="true" className="text-[14px] leading-none">
-                {ar ? "‹" : "›"}
-              </span>
-            </button>
           </div>
         )}
 
         <p
-          className={`relative z-20 pb-2 text-center font-manrope text-[8.5px] font-semibold tracking-[0.2em] uppercase ${
+          className={`relative z-20 pb-1 text-center font-manrope text-[8.5px] font-semibold tracking-[0.2em] uppercase ${
             darkChrome ? "text-white/35" : "text-[oklch(0.5_0.02_293/0.55)]"
           }`}
         >
@@ -636,6 +616,41 @@ function IntroScreen() {
             ⲱ
           </span>
         </p>
+
+        {/* glowing golden progress bar — pinned to the very bottom */}
+        <div className="safe-bottom relative z-20 px-5 pb-1">
+          <div
+            className={`relative h-[5px] w-full overflow-hidden rounded-full ${
+              darkChrome ? "bg-white/12" : "bg-[oklch(0.245_0.026_293/0.1)]"
+            }`}
+          >
+            <div
+              className="absolute inset-y-0 start-0 rounded-full bg-linear-to-r from-[oklch(0.78_0.1_84)] via-[oklch(0.9_0.11_88)] to-[oklch(0.78_0.1_84)] shadow-[0_0_18px_2px_oklch(0.85_0.12_86/0.8)] transition-[width] duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]"
+              style={{
+                width: `${((i + 1) / total) * 100}%`,
+                animation: "intro-progress-glow 2.4s ease-in-out infinite",
+              } as CSSProperties}
+            />
+          </div>
+          <div className="mt-1.5 flex gap-1.5">
+            {Array.from({ length: total }).map((_, n) => (
+              <button
+                key={n}
+                type="button"
+                aria-label={`${ar ? "مشهد" : "Scene"} ${n + 1}`}
+                onClick={() => goTo(n)}
+                className={`h-[2px] flex-1 rounded-full transition-colors duration-500 ${
+                  n <= i
+                    ? "bg-[oklch(0.8_0.1_85/0.85)]"
+                    : darkChrome
+                      ? "bg-white/18"
+                      : "bg-[oklch(0.245_0.026_293/0.12)]"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
       </div>
     </Screen>
   );
