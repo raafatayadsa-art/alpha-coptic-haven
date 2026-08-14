@@ -138,7 +138,7 @@ function AgpeyaRead() {
         />
 
         {/* ── Hour identity ── */}
-        <header className="safe-top px-4 pt-[92px]">
+        <header className="safe-top mt-[92px] px-4 pt-3">
           <div className="mb-3 flex items-center justify-between gap-3">
             <Link
               to="/agpeya"

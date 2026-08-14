@@ -41,7 +41,7 @@ export function KatamerosShell({
       >
         <header
           className={`safe-top px-4 pb-3 backdrop-blur-xl ${
-            pinHeader ? "safe-sticky-top sticky top-0 z-30" : "relative pt-[92px]"
+            pinHeader ? "safe-sticky-top sticky top-0 z-30" : "relative mt-[92px]"
           }`}
         >
           <div className="km-glass relative overflow-hidden rounded-[26px] px-4 pt-3.5 pb-4">
