@@ -3,8 +3,14 @@ import type { ReactNode } from "react";
 
 import churchCover from "@/assets/church-cover.jpg";
 import churchCrest from "@/assets/church-crest.png";
+import contentAudio from "@/assets/content-audio.jpg";
+import contentBook from "@/assets/content-book.jpg";
 import oliveBranch from "@/assets/olive-branch.png";
+import postCandles from "@/assets/post-candles.jpg";
+import postYouth from "@/assets/post-youth.jpg";
 import saintOfDay from "@/assets/saint-of-day.jpg";
+import { EngageBar } from "@/components/church/EngageBar";
+
 
 import {
   AgpeyaIcon,
