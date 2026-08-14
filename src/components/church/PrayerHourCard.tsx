@@ -34,7 +34,7 @@ export function PrayerHourCard({
   span?: PrayerSpan;
   index?: number;
   /** When given, the tile opens that hour's reading screen. */
-  hourId?: string;
+  hourId?: string | undefined;
 }) {
   const shared = {
     className: cn(
