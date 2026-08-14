@@ -132,7 +132,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
         {/* Global safe-area layout: every screen inherits iPhone safe areas from here. */}
-        <Screen>
+        <Screen withBottomNav={false}>
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
           <Outlet />
         </Screen>

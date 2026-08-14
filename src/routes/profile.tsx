@@ -152,7 +152,7 @@ function MyPage() {
       dir={dir}
       className={cn(
         arabic,
-        "mx-auto min-h-screen w-full max-w-[430px] overflow-x-hidden bg-ivory text-ink selection:bg-gold/20",
+        "mx-auto safe-nav-gap min-h-screen w-full max-w-[430px] overflow-x-hidden bg-ivory text-ink selection:bg-gold/20",
       )}
     >
       {/* Header */}

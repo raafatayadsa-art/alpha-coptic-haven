@@ -27,12 +27,12 @@ const items: Item[] = [
 ];
 
 const shell =
-  "press flex flex-1 min-w-0 flex-col items-center gap-0.5 rounded-2xl py-1 text-current/45 transition-colors hover:text-current/80";
-const active = "data-[status=active]:text-current data-[status=active]:opacity-100";
+  "press flex flex-1 min-w-0 flex-col items-center gap-0.5 rounded-2xl py-1 text-[color:var(--nav-fg)] opacity-50 transition-opacity hover:opacity-85";
+const active = "data-[status=active]:opacity-100";
 
 /** Center tab: label-only glass pill (no icon) so the full name always fits. */
 const centerShell =
-  "press group relative flex min-w-0 shrink-0 items-center justify-center rounded-[18px] px-3.5 py-1.5 text-current/60 " +
+  "press group relative flex min-w-0 shrink-0 items-center justify-center rounded-[18px] px-3.5 py-1.5 text-[color:var(--nav-fg)]/75 " +
   "ring-1 ring-gold/30 transition-all duration-500 hover:text-gold hover:ring-gold/55 " +
   "data-[status=active]:text-gold data-[status=active]:ring-gold/60";
 

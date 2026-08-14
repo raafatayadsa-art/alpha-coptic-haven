@@ -213,7 +213,7 @@ function ChurchProfile() {
   return (
     <div
       dir={dir}
-      className={`${isArabic ? "font-arabic " : ""}mx-auto min-h-screen max-w-[520px] bg-ivory text-ink`}
+      className={`${isArabic ? "font-arabic " : ""}mx-auto safe-nav-gap min-h-screen max-w-[520px] bg-ivory text-ink`}
     >
       <TopBar />
 

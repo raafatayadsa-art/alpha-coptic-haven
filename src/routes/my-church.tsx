@@ -103,7 +103,7 @@ function ChurchHome() {
   return (
     <div
       dir={dir}
-      className={`${arabic} mx-auto min-h-screen w-full max-w-[430px] overflow-x-hidden bg-ivory pb-16 text-ink selection:bg-gold/20`}
+      className={`${arabic} mx-auto min-h-screen w-full max-w-[430px] overflow-x-hidden safe-nav-gap bg-ivory text-ink selection:bg-gold/20`}
     >
       {/* 1 — Premium Header */}
       <header className="safe-top safe-sticky-top sticky z-50 flex items-center justify-between border-b border-ink/5 bg-ivory/75 px-5 pb-3.5 backdrop-blur-xl">
