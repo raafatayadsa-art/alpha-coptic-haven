@@ -24,6 +24,7 @@ import {
   SignalGlyph,
   TimerGlyph,
 } from "@/components/connect/connect-icons";
+import { ConnectNav } from "@/components/connect/ConnectNav";
 import { Screen } from "@/components/layout/Screen";
 import { SloganBand } from "@/components/layout/SloganBand";
 import {
@@ -272,6 +273,7 @@ function ConnectSettings() {
           <SloganBand className="text-acivory" />
         </main>
       </div>
+      <ConnectNav active="settings" />
     </Screen>
   );
 }

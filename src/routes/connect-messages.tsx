@@ -16,6 +16,7 @@ import {
   PlusGlyph,
   SearchGlyph,
 } from "@/components/connect/connect-icons";
+import { ConnectNav } from "@/components/connect/ConnectNav";
 import { Screen } from "@/components/layout/Screen";
 import { SloganBand } from "@/components/layout/SloganBand";
 import {
@@ -238,6 +239,7 @@ function ConnectMessages() {
           </ul>
         </AcSheet>
       </div>
+      <ConnectNav active="messages" />
     </Screen>
   );
 }

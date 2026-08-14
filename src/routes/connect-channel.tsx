@@ -26,6 +26,7 @@ import {
   TrashGlyph,
   UsersGlyph,
 } from "@/components/connect/connect-icons";
+import { ConnectNav } from "@/components/connect/ConnectNav";
 import { Screen } from "@/components/layout/Screen";
 import { SloganBand } from "@/components/layout/SloganBand";
 import {
@@ -397,6 +398,7 @@ function ConnectChannel() {
           </ul>
         </AcSheet>
       </div>
+      <ConnectNav active="channels" />
     </Screen>
   );
 }
