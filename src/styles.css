@@ -609,8 +609,8 @@
 }
 
 @utility alpha-pop-night {
-  border-radius: 22px;
-  padding: 8px;
+  border-radius: 18px;
+  padding: 6px;
   background: linear-gradient(
     168deg,
     color-mix(in oklab, var(--sc-ink) 92%, transparent) 0%,
