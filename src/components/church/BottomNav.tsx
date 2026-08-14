@@ -14,7 +14,7 @@ import { useLang } from "@/lib/i18n";
 type Item = {
   key: string;
   icon: ReactNode;
-  to?: "/" | "/my-church" | "/bible" | "/profile";
+  to?: "/" | "/my-church" | "/bible" | "/connect" | "/profile";
   center?: boolean;
 };
 
@@ -22,7 +22,7 @@ const items: Item[] = [
   { key: "nav.home", icon: <HomeIcon className="size-[21px]" />, to: "/" },
   { key: "nav.myChurch", icon: <ChurchIcon className="size-[21px]" />, to: "/my-church" },
   { key: "nav.bible", icon: <BibleIcon className="size-[21px]" />, to: "/bible", center: true },
-  { key: "nav.community", icon: <CommunityIcon className="size-[21px]" /> },
+  { key: "nav.community", icon: <CommunityIcon className="size-[21px]" />, to: "/connect" },
   { key: "nav.profile", icon: <PersonIcon className="size-[21px]" />, to: "/profile" },
 ];
 

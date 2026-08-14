@@ -1103,3 +1103,123 @@
 @utility kd-arch {
   border-radius: 999px 999px 30px 30px;
 }
+
+/* ============================================================
+ * Signal Aurora — scoped theme for Alpha Connect (voice + chat).
+ * Deep teal night, aurora aqua, living signal green, Alpha gold.
+ * ============================================================ */
+:root {
+  --ac-night: oklch(0.176 0.032 232);
+  --ac-deep: oklch(0.248 0.044 226);
+  --ac-slate: oklch(0.336 0.046 220);
+  --ac-aqua: oklch(0.788 0.118 198);
+  --ac-signal: oklch(0.800 0.152 158);
+  --ac-gold: oklch(0.862 0.090 88);
+  --ac-ivory: oklch(0.968 0.008 220);
+  --ac-quiet: oklch(0.762 0.022 220);
+}
+
+@theme inline {
+  --color-acnight: var(--ac-night);
+  --color-acdeep: var(--ac-deep);
+  --color-acslate: var(--ac-slate);
+  --color-aqua: var(--ac-aqua);
+  --color-signal: var(--ac-signal);
+  --color-acgold: var(--ac-gold);
+  --color-acivory: var(--ac-ivory);
+  --color-acquiet: var(--ac-quiet);
+}
+
+@utility ac-page {
+  background-color: var(--ac-night);
+  background-image:
+    radial-gradient(92% 46% at 50% 0%, color-mix(in oklab, var(--ac-slate) 58%, transparent) 0%, transparent 72%),
+    radial-gradient(60% 40% at 100% 34%, color-mix(in oklab, var(--ac-signal) 10%, transparent) 0%, transparent 70%),
+    radial-gradient(56% 38% at 0% 62%, color-mix(in oklab, var(--ac-aqua) 8%, transparent) 0%, transparent 70%);
+}
+
+@utility ac-glass {
+  background: color-mix(in oklab, var(--ac-deep) 58%, transparent);
+  backdrop-filter: blur(22px) saturate(155%);
+  border: 1px solid color-mix(in oklab, var(--ac-aqua) 18%, transparent);
+  box-shadow: 0 26px 60px -32px color-mix(in oklab, black 92%, transparent);
+}
+
+@utility ac-card {
+  background:
+    radial-gradient(130% 100% at 100% 0%, color-mix(in oklab, var(--hue, var(--ac-aqua)) 18%, transparent) 0%, transparent 62%),
+    linear-gradient(165deg, color-mix(in oklab, var(--ac-deep) 84%, transparent) 0%, color-mix(in oklab, var(--ac-night) 96%, transparent) 100%);
+  border: 1px solid color-mix(in oklab, var(--hue, var(--ac-aqua)) 20%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, var(--ac-ivory) 8%, transparent),
+    0 22px 50px -30px color-mix(in oklab, black 88%, transparent);
+}
+
+@utility ac-cta {
+  background-image: linear-gradient(
+    100deg,
+    color-mix(in oklab, var(--ac-signal) 92%, black) 0%,
+    color-mix(in oklab, var(--ac-aqua) 96%, white) 100%
+  );
+  box-shadow: 0 18px 38px -18px color-mix(in oklab, var(--ac-signal) 52%, transparent);
+}
+
+@utility ac-gilt {
+  background-image: linear-gradient(
+    96deg,
+    color-mix(in oklab, var(--ac-aqua) 94%, white) 0%,
+    color-mix(in oklab, var(--ac-signal) 96%, white) 52%,
+    color-mix(in oklab, var(--ac-gold) 92%, white) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility ac-hairline {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--ac-aqua) 50%, transparent) 50%,
+    transparent 100%
+  );
+}
+
+@utility ac-halo {
+  background: radial-gradient(circle at 50% 50%, color-mix(in oklab, var(--ac-signal) 46%, transparent) 0%, transparent 68%);
+}
+
+/* Push-to-talk orb: breathing aurora rings */
+@keyframes ac-sonar {
+  0% { transform: scale(0.86); opacity: 0.55; }
+  70% { opacity: 0; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+@utility ac-sonar {
+  animation: ac-sonar 2.4s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+}
+
+@utility ac-sonar-late {
+  animation: ac-sonar 2.4s cubic-bezier(0.22, 0.61, 0.36, 1) 1.2s infinite;
+}
+
+@keyframes ac-breathe {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 color-mix(in oklab, var(--ac-signal) 40%, transparent); }
+  50% { transform: scale(1.03); box-shadow: 0 0 42px 10px color-mix(in oklab, var(--ac-signal) 26%, transparent); }
+}
+
+@utility ac-breathe {
+  animation: ac-breathe 3.4s ease-in-out infinite;
+}
+
+/* Live voice level bars */
+@keyframes ac-bar {
+  0%, 100% { transform: scaleY(0.32); }
+  50% { transform: scaleY(1); }
+}
+
+@utility ac-bar {
+  transform-origin: bottom;
+  animation: ac-bar 1s ease-in-out infinite;
+}
