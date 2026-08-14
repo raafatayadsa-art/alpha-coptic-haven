@@ -167,6 +167,7 @@ function BibleRead() {
   const [currentVerse, setCurrentVerse] = useState(samplePassage[0]!.n);
   const verseRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const [sheet, setSheet] = useState<null | "colors" | "tools">(null);
+  const [popDown, setPopDown] = useState(false);
   const [shareVn, setShareVn] = useState<number | null>(null);
   const [highlights, setHighlights] = useState<Record<number, string>>({});
 
