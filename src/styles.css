@@ -496,6 +496,14 @@
   --sc-gold: oklch(0.784 0.094 88);
   --sc-rubric: oklch(0.512 0.130 24);
   --sc-muted: oklch(0.548 0.024 272);
+
+  /* Verse highlighter inks */
+  --hl-gold: oklch(0.842 0.118 88);
+  --hl-lemon: oklch(0.902 0.146 104);
+  --hl-mint: oklch(0.852 0.108 158);
+  --hl-sky: oklch(0.808 0.086 248);
+  --hl-rose: oklch(0.808 0.086 16);
+  --hl-violet: oklch(0.812 0.076 300);
 }
 
 @theme inline {
