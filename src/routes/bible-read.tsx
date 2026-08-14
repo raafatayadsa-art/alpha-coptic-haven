@@ -566,7 +566,7 @@ function BibleRead() {
                               </span>
                             </>
                           );
-                          const cls = `press flex h-9 shrink-0 items-center gap-2 rounded-full px-1.5 text-start ${
+                          const cls = `press flex h-8 shrink-0 items-center gap-2 rounded-full px-1.5 text-start ${
                             night
                               ? "bg-vellum/[0.06] text-vellum"
                               : "bg-white/70 text-inkblue"
