@@ -358,3 +358,30 @@ export const parentControls: { id: string; title: Bi; line: Bi; on: boolean }[] 
   { id: "songs", title: { ar: "الترانيم", en: "Songs" }, line: { ar: "قائمة الترانيم المعتمدة", en: "Approved songs list" }, on: true },
   { id: "search", title: { ar: "البحث الحر", en: "Free search" }, line: { ar: "اقتراحات محتوى خارج المرحلة", en: "Suggestions beyond the age stage" }, on: false },
 ];
+
+/* ── Film captions (percent-based, presentation only) ── */
+export type Caption = { at: number; text: Bi };
+
+export const filmCaptions: Record<string, Caption[]> = {
+  noah: [
+    { at: 0, text: { ar: "نوح سمع صوت الله وبدأ يبني السفينة.", en: "Noah heard God's voice and began building the ark." } },
+    { at: 20, text: { ar: "الحيوانات دخلت اتنين اتنين.", en: "The animals came in two by two." } },
+    { at: 42, text: { ar: "المطر نزل أربعين يوم وأربعين ليلة.", en: "Rain fell forty days and forty nights." } },
+    { at: 64, text: { ar: "الحمامة رجعت وفي مناقيرها ورقة زيتون.", en: "The dove returned with an olive leaf." } },
+    { at: 84, text: { ar: "وظهر قوس قزح — وعد الله الأمين.", en: "Then a rainbow appeared — God's faithful promise." } },
+  ],
+  david: [
+    { at: 0, text: { ar: "داود كان راعي غنم صغير.", en: "David was a young shepherd boy." } },
+    { at: 22, text: { ar: "الجيش كله خاف من جليات.", en: "The whole army was afraid of Goliath." } },
+    { at: 45, text: { ar: "داود اختار خمسة أحجار ملّسة.", en: "David chose five smooth stones." } },
+    { at: 68, text: { ar: "قال: أنا آتي إليك باسم الرب.", en: "He said: I come to you in the name of the Lord." } },
+    { at: 86, text: { ar: "حجر صغير وإيمان كبير كسبوا.", en: "A small stone and a big faith won." } },
+  ],
+  jonah: [
+    { at: 0, text: { ar: "يونان هرب من طريق الله.", en: "Jonah ran away from God's path." } },
+    { at: 22, text: { ar: "البحر هاج والسفينة اهتزت.", en: "The sea roared and the ship shook." } },
+    { at: 46, text: { ar: "حوت كبير خد يونان جواه.", en: "A great whale took Jonah inside." } },
+    { at: 68, text: { ar: "صلّى في الضيقة فسمعه الله.", en: "He prayed in trouble and God heard him." } },
+    { at: 88, text: { ar: "ورجع يقول كلام الله بفرح.", en: "He returned to share God's word with joy." } },
+  ],
+};
