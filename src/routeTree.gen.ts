@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AgpeyaRouteImport } from './routes/agpeya'
+import { Route as BibleRouteImport } from './routes/bible'
+import { Route as BibleBooksRouteImport } from './routes/bible-books'
 import { Route as ChurchControlRouteImport } from './routes/church-control'
 import { Route as MyChurchRouteImport } from './routes/my-church'
 import { Route as ProfileRouteImport } from './routes/profile'
@@ -23,6 +25,16 @@ const IndexRoute = IndexRouteImport.update({
 const AgpeyaRoute = AgpeyaRouteImport.update({
   id: '/agpeya',
   path: '/agpeya',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BibleRoute = BibleRouteImport.update({
+  id: '/bible',
+  path: '/bible',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BibleBooksRoute = BibleBooksRouteImport.update({
+  id: '/bible-books',
+  path: '/bible-books',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ChurchControlRoute = ChurchControlRouteImport.update({
@@ -44,6 +56,8 @@ const ProfileRoute = ProfileRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agpeya': typeof AgpeyaRoute
+  '/bible': typeof BibleRoute
+  '/bible-books': typeof BibleBooksRoute
   '/church-control': typeof ChurchControlRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
@@ -51,6 +65,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agpeya': typeof AgpeyaRoute
+  '/bible': typeof BibleRoute
+  '/bible-books': typeof BibleBooksRoute
   '/church-control': typeof ChurchControlRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
@@ -59,22 +75,47 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/agpeya': typeof AgpeyaRoute
+  '/bible': typeof BibleRoute
+  '/bible-books': typeof BibleBooksRoute
   '/church-control': typeof ChurchControlRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/agpeya' | '/church-control' | '/my-church' | '/profile'
+  fullPaths:
+    | '/'
+    | '/agpeya'
+    | '/bible'
+    | '/bible-books'
+    | '/church-control'
+    | '/my-church'
+    | '/profile'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/agpeya' | '/church-control' | '/my-church' | '/profile'
+  to:
+    | '/'
+    | '/agpeya'
+    | '/bible'
+    | '/bible-books'
+    | '/church-control'
+    | '/my-church'
+    | '/profile'
   id:
-    '__root__' | '/' | '/agpeya' | '/church-control' | '/my-church' | '/profile'
+    | '__root__'
+    | '/'
+    | '/agpeya'
+    | '/bible'
+    | '/bible-books'
+    | '/church-control'
+    | '/my-church'
+    | '/profile'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AgpeyaRoute: typeof AgpeyaRoute
+  BibleRoute: typeof BibleRoute
+  BibleBooksRoute: typeof BibleBooksRoute
   ChurchControlRoute: typeof ChurchControlRoute
   MyChurchRoute: typeof MyChurchRoute
   ProfileRoute: typeof ProfileRoute
@@ -94,6 +135,20 @@ declare module '@tanstack/react-router' {
       path: '/agpeya'
       fullPath: '/agpeya'
       preLoaderRoute: typeof AgpeyaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bible': {
+      id: '/bible'
+      path: '/bible'
+      fullPath: '/bible'
+      preLoaderRoute: typeof BibleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bible-books': {
+      id: '/bible-books'
+      path: '/bible-books'
+      fullPath: '/bible-books'
+      preLoaderRoute: typeof BibleBooksRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/church-control': {
@@ -123,6 +178,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgpeyaRoute: AgpeyaRoute,
+  BibleRoute: BibleRoute,
+  BibleBooksRoute: BibleBooksRoute,
   ChurchControlRoute: ChurchControlRoute,
   MyChurchRoute: MyChurchRoute,
   ProfileRoute: ProfileRoute,
