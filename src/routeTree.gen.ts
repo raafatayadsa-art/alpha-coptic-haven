@@ -13,6 +13,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AgpeyaRouteImport } from './routes/agpeya'
 import { Route as BibleRouteImport } from './routes/bible'
 import { Route as BibleBooksRouteImport } from './routes/bible-books'
+import { Route as BibleChaptersRouteImport } from './routes/bible-chapters'
+import { Route as BibleReadRouteImport } from './routes/bible-read'
 import { Route as ChurchControlRouteImport } from './routes/church-control'
 import { Route as MyChurchRouteImport } from './routes/my-church'
 import { Route as ProfileRouteImport } from './routes/profile'
@@ -37,6 +39,16 @@ const BibleBooksRoute = BibleBooksRouteImport.update({
   path: '/bible-books',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BibleChaptersRoute = BibleChaptersRouteImport.update({
+  id: '/bible-chapters',
+  path: '/bible-chapters',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BibleReadRoute = BibleReadRouteImport.update({
+  id: '/bible-read',
+  path: '/bible-read',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ChurchControlRoute = ChurchControlRouteImport.update({
   id: '/church-control',
   path: '/church-control',
@@ -58,6 +70,8 @@ export interface FileRoutesByFullPath {
   '/agpeya': typeof AgpeyaRoute
   '/bible': typeof BibleRoute
   '/bible-books': typeof BibleBooksRoute
+  '/bible-chapters': typeof BibleChaptersRoute
+  '/bible-read': typeof BibleReadRoute
   '/church-control': typeof ChurchControlRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
@@ -67,6 +81,8 @@ export interface FileRoutesByTo {
   '/agpeya': typeof AgpeyaRoute
   '/bible': typeof BibleRoute
   '/bible-books': typeof BibleBooksRoute
+  '/bible-chapters': typeof BibleChaptersRoute
+  '/bible-read': typeof BibleReadRoute
   '/church-control': typeof ChurchControlRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
@@ -77,6 +93,8 @@ export interface FileRoutesById {
   '/agpeya': typeof AgpeyaRoute
   '/bible': typeof BibleRoute
   '/bible-books': typeof BibleBooksRoute
+  '/bible-chapters': typeof BibleChaptersRoute
+  '/bible-read': typeof BibleReadRoute
   '/church-control': typeof ChurchControlRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
@@ -88,6 +106,8 @@ export interface FileRouteTypes {
     | '/agpeya'
     | '/bible'
     | '/bible-books'
+    | '/bible-chapters'
+    | '/bible-read'
     | '/church-control'
     | '/my-church'
     | '/profile'
@@ -97,6 +117,8 @@ export interface FileRouteTypes {
     | '/agpeya'
     | '/bible'
     | '/bible-books'
+    | '/bible-chapters'
+    | '/bible-read'
     | '/church-control'
     | '/my-church'
     | '/profile'
@@ -106,6 +128,8 @@ export interface FileRouteTypes {
     | '/agpeya'
     | '/bible'
     | '/bible-books'
+    | '/bible-chapters'
+    | '/bible-read'
     | '/church-control'
     | '/my-church'
     | '/profile'
@@ -116,6 +140,8 @@ export interface RootRouteChildren {
   AgpeyaRoute: typeof AgpeyaRoute
   BibleRoute: typeof BibleRoute
   BibleBooksRoute: typeof BibleBooksRoute
+  BibleChaptersRoute: typeof BibleChaptersRoute
+  BibleReadRoute: typeof BibleReadRoute
   ChurchControlRoute: typeof ChurchControlRoute
   MyChurchRoute: typeof MyChurchRoute
   ProfileRoute: typeof ProfileRoute
@@ -151,6 +177,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BibleBooksRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bible-chapters': {
+      id: '/bible-chapters'
+      path: '/bible-chapters'
+      fullPath: '/bible-chapters'
+      preLoaderRoute: typeof BibleChaptersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bible-read': {
+      id: '/bible-read'
+      path: '/bible-read'
+      fullPath: '/bible-read'
+      preLoaderRoute: typeof BibleReadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/church-control': {
       id: '/church-control'
       path: '/church-control'
@@ -180,6 +220,8 @@ const rootRouteChildren: RootRouteChildren = {
   AgpeyaRoute: AgpeyaRoute,
   BibleRoute: BibleRoute,
   BibleBooksRoute: BibleBooksRoute,
+  BibleChaptersRoute: BibleChaptersRoute,
+  BibleReadRoute: BibleReadRoute,
   ChurchControlRoute: ChurchControlRoute,
   MyChurchRoute: MyChurchRoute,
   ProfileRoute: ProfileRoute,

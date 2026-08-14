@@ -9,12 +9,12 @@ import {
 } from "@/components/church/media-icons";
 import { useLang } from "@/lib/i18n";
 
-type Item = { key: string; icon: ReactNode; to?: "/" | "/my-church"; center?: boolean };
+type Item = { key: string; icon: ReactNode; to?: "/" | "/my-church" | "/bible"; center?: boolean };
 
 const items: Item[] = [
   { key: "nav.home", icon: <HomeIcon className="size-[21px]" />, to: "/" },
   { key: "nav.myChurch", icon: <ChurchIcon className="size-[21px]" />, to: "/my-church" },
-  { key: "nav.bible", icon: <BibleIcon className="size-[21px]" />, center: true },
+  { key: "nav.bible", icon: <BibleIcon className="size-[21px]" />, to: "/bible", center: true },
   { key: "nav.community", icon: <CommunityIcon className="size-[21px]" /> },
   { key: "nav.profile", icon: <PersonIcon className="size-[21px]" /> },
 ];
@@ -36,7 +36,14 @@ export function BottomNav() {
     >
       <div className="glass-card flex items-stretch gap-0.5 rounded-[28px] px-2 py-1.5">
         {items.map((item) =>
-          item.to ? (
+          item.to && item.center ? (
+            <Link key={item.key} to={item.to} className={`${shell} text-gold`}>
+              <span className="grid size-[30px] place-items-center rounded-full bg-gold/12 ring-1 ring-gold/25">
+                {item.icon}
+              </span>
+              <span className={`${label} font-semibold`}>{t(item.key)}</span>
+            </Link>
+          ) : item.to ? (
             <Link
               key={item.key}
               to={item.to}

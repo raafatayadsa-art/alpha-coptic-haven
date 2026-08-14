@@ -194,11 +194,11 @@ function BibleHome() {
             </div>
 
             <div className="mt-4 grid grid-cols-3 gap-2">
-              {[
+              {([
                 ["bib.stat.streak", "bib.stat.streakV"],
                 ["bib.stat.chapters", "bib.stat.chaptersV"],
                 ["bib.stat.minutes", "bib.stat.minutesV"],
-              ].map(([label, value]) => (
+              ] as const).map(([label, value]) => (
                 <div key={label} className="rounded-2xl border border-illum/18 bg-vellum/[0.06] px-2.5 py-2 text-center">
                   <span className="block font-display text-[16px] font-semibold text-illum">{t(value)}</span>
                   <span className="mt-0.5 block font-manrope text-[9px] tracking-[0.1em] text-vellum/50 uppercase">
