@@ -50,7 +50,7 @@ export function BottomNav() {
 
   /* Alpha Connect ships its own bottom bar — never show two bars at once. */
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  if (pathname.startsWith("/connect")) return null;
+  if (pathname.startsWith("/connect") || pathname.startsWith("/intro") || pathname.startsWith("/signup")) return null;
 
 
   return (

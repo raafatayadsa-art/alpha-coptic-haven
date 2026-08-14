@@ -32,6 +32,7 @@ import { Route as ConnectFriendsRouteImport } from './routes/connect-friends'
 import { Route as ConnectMessagesRouteImport } from './routes/connect-messages'
 import { Route as ConnectSettingsRouteImport } from './routes/connect-settings'
 import { Route as FathersRouteImport } from './routes/fathers'
+import { Route as IntroRouteImport } from './routes/intro'
 import { Route as KatamerosRouteImport } from './routes/katameros'
 import { Route as KatamerosCalendarRouteImport } from './routes/katameros-calendar'
 import { Route as KatamerosDayRouteImport } from './routes/katameros-day'
@@ -44,6 +45,7 @@ import { Route as KhoulagyReadRouteImport } from './routes/khoulagy-read'
 import { Route as KidsRouteImport } from './routes/kids'
 import { Route as MyChurchRouteImport } from './routes/my-church'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as SynaxariumRouteImport } from './routes/synaxarium'
 import { Route as SynaxariumDayRouteImport } from './routes/synaxarium-day'
 import { Route as SynaxariumMonthsRouteImport } from './routes/synaxarium-months'
@@ -165,6 +167,11 @@ const FathersRoute = FathersRouteImport.update({
   path: '/fathers',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IntroRoute = IntroRouteImport.update({
+  id: '/intro',
+  path: '/intro',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const KatamerosRoute = KatamerosRouteImport.update({
   id: '/katameros',
   path: '/katameros',
@@ -225,6 +232,11 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SynaxariumRoute = SynaxariumRouteImport.update({
   id: '/synaxarium',
   path: '/synaxarium',
@@ -275,6 +287,7 @@ export interface FileRoutesByFullPath {
   '/connect-messages': typeof ConnectMessagesRoute
   '/connect-settings': typeof ConnectSettingsRoute
   '/fathers': typeof FathersRoute
+  '/intro': typeof IntroRoute
   '/katameros': typeof KatamerosRoute
   '/katameros-calendar': typeof KatamerosCalendarRoute
   '/katameros-day': typeof KatamerosDayRoute
@@ -287,6 +300,7 @@ export interface FileRoutesByFullPath {
   '/kids': typeof KidsRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
+  '/signup': typeof SignupRoute
   '/synaxarium': typeof SynaxariumRoute
   '/synaxarium-day': typeof SynaxariumDayRoute
   '/synaxarium-months': typeof SynaxariumMonthsRoute
@@ -317,6 +331,7 @@ export interface FileRoutesByTo {
   '/connect-messages': typeof ConnectMessagesRoute
   '/connect-settings': typeof ConnectSettingsRoute
   '/fathers': typeof FathersRoute
+  '/intro': typeof IntroRoute
   '/katameros': typeof KatamerosRoute
   '/katameros-calendar': typeof KatamerosCalendarRoute
   '/katameros-day': typeof KatamerosDayRoute
@@ -329,6 +344,7 @@ export interface FileRoutesByTo {
   '/kids': typeof KidsRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
+  '/signup': typeof SignupRoute
   '/synaxarium': typeof SynaxariumRoute
   '/synaxarium-day': typeof SynaxariumDayRoute
   '/synaxarium-months': typeof SynaxariumMonthsRoute
@@ -360,6 +376,7 @@ export interface FileRoutesById {
   '/connect-messages': typeof ConnectMessagesRoute
   '/connect-settings': typeof ConnectSettingsRoute
   '/fathers': typeof FathersRoute
+  '/intro': typeof IntroRoute
   '/katameros': typeof KatamerosRoute
   '/katameros-calendar': typeof KatamerosCalendarRoute
   '/katameros-day': typeof KatamerosDayRoute
@@ -372,6 +389,7 @@ export interface FileRoutesById {
   '/kids': typeof KidsRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
+  '/signup': typeof SignupRoute
   '/synaxarium': typeof SynaxariumRoute
   '/synaxarium-day': typeof SynaxariumDayRoute
   '/synaxarium-months': typeof SynaxariumMonthsRoute
@@ -404,6 +422,7 @@ export interface FileRouteTypes {
     | '/connect-messages'
     | '/connect-settings'
     | '/fathers'
+    | '/intro'
     | '/katameros'
     | '/katameros-calendar'
     | '/katameros-day'
@@ -416,6 +435,7 @@ export interface FileRouteTypes {
     | '/kids'
     | '/my-church'
     | '/profile'
+    | '/signup'
     | '/synaxarium'
     | '/synaxarium-day'
     | '/synaxarium-months'
@@ -446,6 +466,7 @@ export interface FileRouteTypes {
     | '/connect-messages'
     | '/connect-settings'
     | '/fathers'
+    | '/intro'
     | '/katameros'
     | '/katameros-calendar'
     | '/katameros-day'
@@ -458,6 +479,7 @@ export interface FileRouteTypes {
     | '/kids'
     | '/my-church'
     | '/profile'
+    | '/signup'
     | '/synaxarium'
     | '/synaxarium-day'
     | '/synaxarium-months'
@@ -488,6 +510,7 @@ export interface FileRouteTypes {
     | '/connect-messages'
     | '/connect-settings'
     | '/fathers'
+    | '/intro'
     | '/katameros'
     | '/katameros-calendar'
     | '/katameros-day'
@@ -500,6 +523,7 @@ export interface FileRouteTypes {
     | '/kids'
     | '/my-church'
     | '/profile'
+    | '/signup'
     | '/synaxarium'
     | '/synaxarium-day'
     | '/synaxarium-months'
@@ -531,6 +555,7 @@ export interface RootRouteChildren {
   ConnectMessagesRoute: typeof ConnectMessagesRoute
   ConnectSettingsRoute: typeof ConnectSettingsRoute
   FathersRoute: typeof FathersRoute
+  IntroRoute: typeof IntroRoute
   KatamerosRoute: typeof KatamerosRoute
   KatamerosCalendarRoute: typeof KatamerosCalendarRoute
   KatamerosDayRoute: typeof KatamerosDayRoute
@@ -543,6 +568,7 @@ export interface RootRouteChildren {
   KidsRoute: typeof KidsRoute
   MyChurchRoute: typeof MyChurchRoute
   ProfileRoute: typeof ProfileRoute
+  SignupRoute: typeof SignupRoute
   SynaxariumRoute: typeof SynaxariumRoute
   SynaxariumDayRoute: typeof SynaxariumDayRoute
   SynaxariumMonthsRoute: typeof SynaxariumMonthsRoute
@@ -713,6 +739,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FathersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/intro': {
+      id: '/intro'
+      path: '/intro'
+      fullPath: '/intro'
+      preLoaderRoute: typeof IntroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/katameros': {
       id: '/katameros'
       path: '/katameros'
@@ -797,6 +830,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/synaxarium': {
       id: '/synaxarium'
       path: '/synaxarium'
@@ -859,6 +899,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConnectMessagesRoute: ConnectMessagesRoute,
   ConnectSettingsRoute: ConnectSettingsRoute,
   FathersRoute: FathersRoute,
+  IntroRoute: IntroRoute,
   KatamerosRoute: KatamerosRoute,
   KatamerosCalendarRoute: KatamerosCalendarRoute,
   KatamerosDayRoute: KatamerosDayRoute,
@@ -871,6 +912,7 @@ const rootRouteChildren: RootRouteChildren = {
   KidsRoute: KidsRoute,
   MyChurchRoute: MyChurchRoute,
   ProfileRoute: ProfileRoute,
+  SignupRoute: SignupRoute,
   SynaxariumRoute: SynaxariumRoute,
   SynaxariumDayRoute: SynaxariumDayRoute,
   SynaxariumMonthsRoute: SynaxariumMonthsRoute,
