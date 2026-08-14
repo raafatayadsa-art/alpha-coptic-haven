@@ -30,6 +30,9 @@ import { Route as KatamerosDayRouteImport } from './routes/katameros-day'
 import { Route as KatamerosReadRouteImport } from './routes/katameros-read'
 import { Route as KatamerosSavedRouteImport } from './routes/katameros-saved'
 import { Route as KatamerosSearchRouteImport } from './routes/katameros-search'
+import { Route as KhoulagyRouteImport } from './routes/khoulagy'
+import { Route as KhoulagyLiturgyRouteImport } from './routes/khoulagy-liturgy'
+import { Route as KhoulagyReadRouteImport } from './routes/khoulagy-read'
 import { Route as MyChurchRouteImport } from './routes/my-church'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as SynaxariumRouteImport } from './routes/synaxarium'
@@ -143,6 +146,21 @@ const KatamerosSearchRoute = KatamerosSearchRouteImport.update({
   path: '/katameros-search',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KhoulagyRoute = KhoulagyRouteImport.update({
+  id: '/khoulagy',
+  path: '/khoulagy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KhoulagyLiturgyRoute = KhoulagyLiturgyRouteImport.update({
+  id: '/khoulagy-liturgy',
+  path: '/khoulagy-liturgy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KhoulagyReadRoute = KhoulagyReadRouteImport.update({
+  id: '/khoulagy-read',
+  path: '/khoulagy-read',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MyChurchRoute = MyChurchRouteImport.update({
   id: '/my-church',
   path: '/my-church',
@@ -201,6 +219,9 @@ export interface FileRoutesByFullPath {
   '/katameros-read': typeof KatamerosReadRoute
   '/katameros-saved': typeof KatamerosSavedRoute
   '/katameros-search': typeof KatamerosSearchRoute
+  '/khoulagy': typeof KhoulagyRoute
+  '/khoulagy-liturgy': typeof KhoulagyLiturgyRoute
+  '/khoulagy-read': typeof KhoulagyReadRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
   '/synaxarium': typeof SynaxariumRoute
@@ -231,6 +252,9 @@ export interface FileRoutesByTo {
   '/katameros-read': typeof KatamerosReadRoute
   '/katameros-saved': typeof KatamerosSavedRoute
   '/katameros-search': typeof KatamerosSearchRoute
+  '/khoulagy': typeof KhoulagyRoute
+  '/khoulagy-liturgy': typeof KhoulagyLiturgyRoute
+  '/khoulagy-read': typeof KhoulagyReadRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
   '/synaxarium': typeof SynaxariumRoute
@@ -262,6 +286,9 @@ export interface FileRoutesById {
   '/katameros-read': typeof KatamerosReadRoute
   '/katameros-saved': typeof KatamerosSavedRoute
   '/katameros-search': typeof KatamerosSearchRoute
+  '/khoulagy': typeof KhoulagyRoute
+  '/khoulagy-liturgy': typeof KhoulagyLiturgyRoute
+  '/khoulagy-read': typeof KhoulagyReadRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
   '/synaxarium': typeof SynaxariumRoute
@@ -294,6 +321,9 @@ export interface FileRouteTypes {
     | '/katameros-read'
     | '/katameros-saved'
     | '/katameros-search'
+    | '/khoulagy'
+    | '/khoulagy-liturgy'
+    | '/khoulagy-read'
     | '/my-church'
     | '/profile'
     | '/synaxarium'
@@ -324,6 +354,9 @@ export interface FileRouteTypes {
     | '/katameros-read'
     | '/katameros-saved'
     | '/katameros-search'
+    | '/khoulagy'
+    | '/khoulagy-liturgy'
+    | '/khoulagy-read'
     | '/my-church'
     | '/profile'
     | '/synaxarium'
@@ -354,6 +387,9 @@ export interface FileRouteTypes {
     | '/katameros-read'
     | '/katameros-saved'
     | '/katameros-search'
+    | '/khoulagy'
+    | '/khoulagy-liturgy'
+    | '/khoulagy-read'
     | '/my-church'
     | '/profile'
     | '/synaxarium'
@@ -385,6 +421,9 @@ export interface RootRouteChildren {
   KatamerosReadRoute: typeof KatamerosReadRoute
   KatamerosSavedRoute: typeof KatamerosSavedRoute
   KatamerosSearchRoute: typeof KatamerosSearchRoute
+  KhoulagyRoute: typeof KhoulagyRoute
+  KhoulagyLiturgyRoute: typeof KhoulagyLiturgyRoute
+  KhoulagyReadRoute: typeof KhoulagyReadRoute
   MyChurchRoute: typeof MyChurchRoute
   ProfileRoute: typeof ProfileRoute
   SynaxariumRoute: typeof SynaxariumRoute
@@ -543,6 +582,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KatamerosSearchRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/khoulagy': {
+      id: '/khoulagy'
+      path: '/khoulagy'
+      fullPath: '/khoulagy'
+      preLoaderRoute: typeof KhoulagyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/khoulagy-liturgy': {
+      id: '/khoulagy-liturgy'
+      path: '/khoulagy-liturgy'
+      fullPath: '/khoulagy-liturgy'
+      preLoaderRoute: typeof KhoulagyLiturgyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/khoulagy-read': {
+      id: '/khoulagy-read'
+      path: '/khoulagy-read'
+      fullPath: '/khoulagy-read'
+      preLoaderRoute: typeof KhoulagyReadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/my-church': {
       id: '/my-church'
       path: '/my-church'
@@ -617,6 +677,9 @@ const rootRouteChildren: RootRouteChildren = {
   KatamerosReadRoute: KatamerosReadRoute,
   KatamerosSavedRoute: KatamerosSavedRoute,
   KatamerosSearchRoute: KatamerosSearchRoute,
+  KhoulagyRoute: KhoulagyRoute,
+  KhoulagyLiturgyRoute: KhoulagyLiturgyRoute,
+  KhoulagyReadRoute: KhoulagyReadRoute,
   MyChurchRoute: MyChurchRoute,
   ProfileRoute: ProfileRoute,
   SynaxariumRoute: SynaxariumRoute,
