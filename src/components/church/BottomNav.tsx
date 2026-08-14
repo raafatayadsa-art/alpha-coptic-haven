@@ -28,12 +28,39 @@ export function BottomNav() {
   const { t, dir, isArabic } = useLang();
   const label = `${isArabic ? "font-arabic " : ""}text-[9.5px] font-medium leading-none`;
 
+  /* Auto-hide the bar after 5s of no interaction; any touch/scroll brings it back. */
+  const [visible, setVisible] = useState(true);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const arm = () => {
+      if (timer.current) clearTimeout(timer.current);
+      timer.current = setTimeout(() => setVisible(false), 5000);
+    };
+    const wake = () => {
+      setVisible(true);
+      arm();
+    };
+    arm();
+    const events = ["pointerdown", "pointermove", "touchstart", "scroll", "keydown"] as const;
+    events.forEach((e) => window.addEventListener(e, wake, { passive: true }));
+    return () => {
+      if (timer.current) clearTimeout(timer.current);
+      events.forEach((e) => window.removeEventListener(e, wake));
+    };
+  }, []);
+
   return (
     <nav
       dir={dir}
       aria-label={t("nav.main")}
-      className="safe-bottom fixed inset-x-0 bottom-0 z-50 mx-auto max-w-[520px] px-3"
+      data-bottom-nav=""
+      aria-hidden={!visible}
+      className={`safe-bottom fixed inset-x-0 bottom-0 z-50 mx-auto max-w-[520px] px-3 transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] ${
+        visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-[135%] opacity-0"
+      }`}
     >
+
       <div className="glass-card flex items-stretch gap-0.5 rounded-[28px] px-2 py-1.5">
         {items.map((item) =>
           item.to && item.center ? (
