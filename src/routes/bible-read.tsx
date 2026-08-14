@@ -490,7 +490,7 @@ function BibleRead() {
                 {/* Action menu — pinned directly under the tapped verse */}
                 {on ? (
                   <div
-                    className={`verse-rise relative mt-2 rounded-[24px] px-3 py-3 ${surface}`}
+                    className={`verse-rise relative mt-2 rounded-[20px] px-2 py-2 ${surface}`}
                   >
                     {/* Highlight inks — vertical column, anchored to the highlight button */}
                     {sheet === "colors" ? (
