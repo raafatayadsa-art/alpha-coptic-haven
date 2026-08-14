@@ -85,26 +85,26 @@ const TOOL_ITEMS: Array<{
 }> = [
   {
     key: "bib.act.community",
-    icon: <PeopleIcon className="size-[17px]" />,
+    icon: <PeopleIcon className="size-[15px]" />,
     tint: "var(--hl-mint)",
     to: "/my-church",
   },
-  { key: "bib.act.share", icon: <ShareGlyph className="size-[17px]" />, tint: "var(--hl-gold)" },
+  { key: "bib.act.share", icon: <ShareGlyph className="size-[15px]" />, tint: "var(--hl-gold)" },
   {
     key: "bib.act.meditate",
-    icon: <SparkIcon className="size-[17px]" />,
+    icon: <SparkIcon className="size-[15px]" />,
     tint: "var(--hl-sky)",
     to: "/bible-journey",
   },
   {
     key: "bib.act.note",
-    icon: <NoteIcon className="size-[17px]" />,
+    icon: <NoteIcon className="size-[15px]" />,
     tint: "var(--hl-lemon)",
     to: "/bible-notes",
   },
   {
     key: "bib.act.save",
-    icon: <BookmarkIcon className="size-[17px]" />,
+    icon: <BookmarkIcon className="size-[15px]" />,
     tint: "var(--hl-violet)",
     to: "/bible-saved",
   },
