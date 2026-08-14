@@ -55,12 +55,13 @@ export function BottomNav() {
       aria-label={t("nav.main")}
       data-bottom-nav=""
       aria-hidden={!visible}
-      className={`safe-bottom fixed inset-x-0 bottom-0 z-50 mx-auto max-w-[520px] px-2 transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] ${
+      className={`safe-bottom fixed inset-x-0 bottom-2 z-50 mx-auto max-w-[520px] px-3 transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] ${
         visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-[135%] opacity-0"
       }`}
     >
 
-      <div className="nav-glass flex items-stretch gap-0.5 rounded-[24px] px-2 py-1">
+      <div className="glass-card flex items-stretch gap-0.5 rounded-[24px] px-2 py-1.5">
+
         {items.map((item) =>
           item.to && item.center ? (
             <Link key={item.key} to={item.to} className={centerShell}>
