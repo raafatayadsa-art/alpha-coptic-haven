@@ -1,5 +1,5 @@
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useRef, useState, type CSSProperties, type PointerEvent as RPointerEvent } from "react";
+import { useRef, useState, type CSSProperties, type PointerEvent as RPointerEvent, type ReactNode } from "react";
 
 import intro1 from "@/assets/intro/intro-1-home.jpg";
 import intro2 from "@/assets/intro/intro-2-bible.jpg";
@@ -11,15 +11,13 @@ import { Screen } from "@/components/layout/Screen";
 import { useLang } from "@/lib/i18n";
 
 /**
- * Alpha — Intro / Onboarding (design prototype only).
+ * Alpha — Intro / Onboarding (visual design prototype only).
  *
- * Six scenes, each with its own composition and visual concept:
- *  1. Cathedral light      — full-bleed light + Alpha monogram seal
- *  2. Manuscript stack     — tilted card stack + margin notes
- *  3. Icon screen arches   — dark candle sanctuary + arched tiles
- *  4. Overlapping card     — congregation photo + ivory floating panel
- *  5. Sonar orb            — aurora night + push-to-talk orb & bubbles
- *  6. Milestone path       — sunrise road + vertical journey timeline
+ * One cinematic language across all six scenes:
+ *  - full-bleed edge-to-edge photograph with a slow ken-burns drift
+ *  - gilded veil bloom + deep scrim so text always reads
+ *  - blurred staggered entrance for every text block and accent module
+ *  - gilded segment progress rail at the very bottom
  */
 
 const T = {
@@ -27,7 +25,6 @@ const T = {
   next: { ar: "التالي", en: "Next" },
   start: { ar: "ابدأ رحلتك", en: "Begin your journey" },
   back: { ar: "السابق", en: "Back" },
-  of: { ar: "من", en: "of" },
 } as const;
 
 export const Route = createFileRoute("/intro")({
@@ -51,17 +48,32 @@ export const Route = createFileRoute("/intro")({
   component: IntroScreen,
 });
 
-/* ── shared atoms ───────────────────────────────────────────── */
+/* ── shared cinematic scene shell ───────────────────────────── */
 
-function Kicker({ children, tone = "gold" }: { children: string; tone?: "gold" | "ivory" }) {
+type SceneProps = {
+  ar: boolean;
+  index: number;
+};
+
+function Reveal({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+}) {
   return (
-    <span
-      className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 font-manrope text-[10px] font-semibold tracking-[0.22em] uppercase backdrop-blur-md ${
-        tone === "gold"
-          ? "border-[oklch(0.735_0.096_84/0.45)] bg-[oklch(0.735_0.096_84/0.14)] text-[oklch(0.46_0.07_78)]"
-          : "border-white/30 bg-white/12 text-white/85"
-      }`}
-    >
+    <div className={`intro-lift ${className}`} style={{ animationDelay: `${delay}ms` } as CSSProperties}>
+      {children}
+    </div>
+  );
+}
+
+function Kicker({ children }: { children: string }) {
+  return (
+    <span className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.85_0.09_86/0.5)] bg-[oklch(0.98_0.02_86/0.12)] px-3.5 py-1.5 font-manrope text-[9.5px] font-semibold tracking-[0.26em] text-[oklch(0.93_0.06_86)] uppercase backdrop-blur-md">
       <span aria-hidden="true" className="font-display text-[12px] tracking-normal">
         ⲁ
       </span>
@@ -70,165 +82,169 @@ function Kicker({ children, tone = "gold" }: { children: string; tone?: "gold" |
   );
 }
 
-function SceneCopy({
+/**
+ * Full-bleed cinematic stage shared by every scene:
+ * image → ken-burns, gilded bloom, deep bottom scrim, then content.
+ */
+function Stage({
+  image,
+  alt,
+  eager,
+  kicker,
   title,
   body,
-  dark,
-  delay = 0,
+  children,
+  footer,
 }: {
+  image: string;
+  alt: string;
+  eager?: boolean;
+  kicker: string;
   title: string;
   body: string;
-  dark?: boolean;
-  delay?: number;
+  children?: ReactNode;
+  footer?: ReactNode;
 }) {
   return (
-    <div className="animate-fade-in" style={{ animationDelay: `${delay}ms` } as CSSProperties}>
-      <h2
-        className={`font-display text-[30px] leading-[1.25] font-semibold tracking-tight ${
-          dark ? "text-white" : "text-[oklch(0.245_0.026_293)]"
-        }`}
-      >
-        {title}
-      </h2>
-      <p
-        className={`mt-3 font-manrope text-[13.5px] leading-[1.85] ${
-          dark ? "text-white/72" : "text-[oklch(0.42_0.02_293)]"
-        }`}
-      >
-        {body}
-      </p>
+    <div className="absolute inset-0 overflow-hidden bg-[oklch(0.16_0.02_290)]">
+      <img
+        src={image}
+        alt={alt}
+        width={1024}
+        height={1280}
+        loading={eager ? "eager" : "lazy"}
+        className="intro-kenburns absolute inset-0 h-full w-full object-cover"
+      />
+
+      {/* cinematic scrims — top breath, deep bottom bed for the copy */}
+      <div className="intro-veil absolute inset-0 bg-gradient-to-b from-[oklch(0.16_0.02_290/0.55)] via-[oklch(0.16_0.02_290/0.1)] to-[oklch(0.13_0.02_290/0.92)]" />
+      <div className="intro-veil absolute inset-x-0 bottom-0 h-[62%] bg-gradient-to-t from-[oklch(0.12_0.02_290/0.96)] via-[oklch(0.13_0.02_290/0.7)] to-transparent" />
+      {/* gilded bloom */}
+      <span
+        aria-hidden="true"
+        className="intro-glow-pulse pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[oklch(0.82_0.11_86/0.28)] blur-3xl"
+      />
+
+      {/* content — sits on the deep bed, never cramped */}
+      <div className="absolute inset-x-0 bottom-0 flex flex-col px-6 pb-[124px]">
+        {children ? <div className="mb-5">{children}</div> : null}
+
+        <Reveal delay={60}>{<Kicker>{kicker}</Kicker>}</Reveal>
+
+        <Reveal delay={170}>
+          <h2 className="mt-4 max-w-[330px] font-display text-[31px] leading-[1.22] font-semibold tracking-tight text-white">
+            {title}
+          </h2>
+        </Reveal>
+
+        <Reveal delay={280}>
+          <p className="mt-3 max-w-[330px] font-manrope text-[13px] leading-[1.9] text-white/70">{body}</p>
+        </Reveal>
+
+        {footer ? <Reveal delay={390}>{footer}</Reveal> : null}
+
+        <Reveal delay={480}>
+          <span aria-hidden="true" className="mt-5 block h-px w-20 bg-[oklch(0.85_0.09_86/0.55)]" />
+        </Reveal>
+      </div>
     </div>
+  );
+}
+
+/* small glass modules, each with its own staggered entrance */
+
+function GlassChips({ items, delay = 0 }: { items: string[]; delay?: number }) {
+  return (
+    <ul className="grid grid-cols-2 gap-2">
+      {items.map((n, i) => (
+        <li
+          key={n}
+          className="intro-lift flex items-center gap-2 rounded-2xl border border-white/15 bg-white/8 px-3 py-2 font-manrope text-[11px] font-semibold text-white/88 backdrop-blur-md"
+          style={{ animationDelay: `${delay + i * 90}ms` } as CSSProperties}
+        >
+          <span className="h-1.5 w-1.5 rounded-full bg-[oklch(0.85_0.1_86)]" />
+          {n}
+        </li>
+      ))}
+    </ul>
   );
 }
 
 /* ── scene 1 · cathedral light ──────────────────────────────── */
 
-function SceneLight({ ar }: { ar: boolean }) {
+function SceneLight({ ar }: SceneProps) {
   return (
-    <div className="relative h-full w-full overflow-hidden bg-[oklch(0.988_0.008_85)]">
-      <img
-        src={intro1}
-        alt="نور الفجر يعبر نافذة الكنيسة وحمامة بيضاء"
-        width={1024}
-        height={1280}
-        className="absolute inset-0 h-full w-full scale-105 object-cover"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.988_0.008_85)] via-[oklch(0.988_0.008_85/0.35)] to-transparent" />
-
-      {/* Gold seal with the Alpha / Omega monogram */}
-      <div className="absolute top-[16%] left-1/2 -translate-x-1/2">
-        <div className="relative grid h-28 w-28 place-items-center rounded-full border border-[oklch(0.735_0.096_84/0.5)] bg-[oklch(0.245_0.026_293/0.55)] shadow-[0_18px_50px_-18px_oklch(0.245_0.026_293/0.6)] backdrop-blur-xl">
-          <span className="absolute inset-2 rounded-full border border-[oklch(0.85_0.08_84/0.6)]" />
-          <span className="font-display text-[38px] leading-none text-[oklch(0.9_0.09_84)]">ⲁ</span>
+    <Stage
+      eager
+      image={intro1}
+      alt="نور الفجر يعبر نافذة الكنيسة وحمامة بيضاء"
+      kicker={ar ? "ألفا · ⲁ ⲱ" : "ALPHA · ⲁ ⲱ"}
+      title={ar ? "ألفا — البيت الرقمي المسيحي" : "Alpha — your Christian digital home"}
+      body={
+        ar
+          ? "كل ما يخصّ حياتك المسيحية في مكان واحد هادئ وجميل: كلمة الله، صلواتك، كنيستك، ومجتمعك."
+          : "Everything in your Christian life gathered in one calm, beautiful place: the Word, your prayers, your church, your people."
+      }
+    >
+      <Reveal>
+        <div className="relative mx-auto grid h-24 w-24 place-items-center rounded-full border border-[oklch(0.85_0.09_86/0.55)] bg-[oklch(0.16_0.02_290/0.45)] shadow-[0_22px_60px_-20px_oklch(0.82_0.11_86/0.55)] backdrop-blur-xl">
+          <span className="absolute inset-2 rounded-full border border-[oklch(0.9_0.08_86/0.45)]" />
+          <span className="font-display text-[36px] leading-none text-[oklch(0.92_0.09_86)]">ⲁ</span>
         </div>
-      </div>
-
-      <div className="absolute inset-x-0 bottom-0 px-7 pb-4 text-center">
-        <div className="mx-auto max-w-[320px]">
-          <Kicker>{ar ? "ألفا · ⲁ ⲱ" : "ALPHA · ⲁ ⲱ"}</Kicker>
-          <div className="mt-4">
-            <SceneCopy
-              delay={80}
-              title={ar ? "ألفا — البيت الرقمي المسيحي" : "Alpha — your Christian digital home"}
-              body={
-                ar
-                  ? "كل ما يخصّ حياتك المسيحية في مكان واحد هادئ وجميل: كلمة الله، صلواتك، كنيستك، ومجتمعك."
-                  : "Everything in your Christian life gathered in one calm, beautiful place: the Word, your prayers, your church, your people."
-              }
-            />
-          </div>
-          <span aria-hidden="true" className="mx-auto mt-5 block h-px w-16 bg-[oklch(0.735_0.096_84/0.5)]" />
-        </div>
-      </div>
-    </div>
+      </Reveal>
+    </Stage>
   );
 }
 
-/* ── scene 2 · manuscript stack ─────────────────────────────── */
+/* ── scene 2 · the Word ─────────────────────────────────────── */
 
-function SceneBible({ ar }: { ar: boolean }) {
-  const notes = ar
-    ? ["قراءة يومية", "تأمّل وتظليل", "بحث ذكي", "حفظ الآيات"]
-    : ["Daily reading", "Highlight & reflect", "Smart search", "Save verses"];
+function SceneBible({ ar }: SceneProps) {
   return (
-    <div className="relative h-full w-full overflow-hidden bg-[oklch(0.958_0.016_82)]">
-      <span
-        aria-hidden="true"
-        className="absolute -top-16 -left-16 h-64 w-64 rounded-full bg-[oklch(0.735_0.096_84/0.18)] blur-3xl"
-      />
-      <div className="relative flex h-full flex-col justify-between px-7 pt-14 pb-5">
-        <div>
-          <Kicker>{ar ? "كلمة الله" : "The Word"}</Kicker>
-          <div className="mt-4 max-w-[300px]">
-            <SceneCopy
-              title={ar ? "الكتاب المقدس بين يديك" : "Scripture in your hands"}
-              body={
-                ar
-                  ? "اقرأ، تأمّل، ظلّل، وابحث في كل الأسفار — واحفظ الآيات التي لمست قلبك لتعود إليها."
-                  : "Read, reflect, highlight and search every book — and keep the verses that moved you."
-              }
-            />
-          </div>
-        </div>
-
-        {/* tilted manuscript stack — silky "book opening" entrance */}
-        <div className="relative mx-auto h-[46%] w-full max-w-[300px] [perspective:1200px]">
-          <div
-            className="intro-leaf absolute inset-x-6 top-4 h-full rotate-[-7deg] rounded-[26px] border border-white/70 bg-white/60 shadow-[0_20px_40px_-24px_oklch(0.245_0.026_293/0.35)]"
-            style={{ animationDelay: "260ms" } as CSSProperties}
+    <Stage
+      image={intro2}
+      alt="مخطوط مزخرَف بماء الذهب على رقّ"
+      kicker={ar ? "كلمة الله" : "The Word"}
+      title={ar ? "الكتاب المقدس بين يديك" : "Scripture in your hands"}
+      body={
+        ar
+          ? "اقرأ، تأمّل، ظلّل، وابحث في كل الأسفار — واحفظ الآيات التي لمست قلبك لتعود إليها."
+          : "Read, reflect, highlight and search every book — and keep the verses that moved you."
+      }
+      footer={
+        <div className="mt-5">
+          <GlassChips
+            delay={430}
+            items={
+              ar
+                ? ["قراءة يومية", "تأمّل وتظليل", "بحث ذكي", "حفظ الآيات"]
+                : ["Daily reading", "Highlight & reflect", "Smart search", "Save verses"]
+            }
           />
-          <div
-            className="intro-leaf absolute inset-x-3 top-2 h-full rotate-[-3deg] rounded-[26px] border border-white/80 bg-white/80 shadow-[0_24px_44px_-24px_oklch(0.245_0.026_293/0.35)]"
-            style={{ animationDelay: "160ms" } as CSSProperties}
-          />
-          <div className="intro-book absolute inset-0 overflow-hidden rounded-[26px] border border-[oklch(0.735_0.096_84/0.4)] shadow-[0_30px_60px_-26px_oklch(0.245_0.026_293/0.5)]">
-            <img
-              src={intro2}
-              alt="مخطوط مزخرَف بماء الذهب على رقّ"
-              width={1024}
-              height={1280}
-              loading="lazy"
-              className="intro-zoom h-full w-full object-cover"
-            />
-            {/* gilded light sweeping across the open page */}
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-linear-to-r from-transparent via-white/45 to-transparent blur-md"
-              style={{ animation: "intro-sweep 2.6s cubic-bezier(0.19,1,0.22,1) 0.5s both" } as CSSProperties}
-            />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-4 pt-10 pb-4">
-              <p className="intro-rise font-display text-[15px] leading-relaxed text-white/95" style={{ animationDelay: "700ms" } as CSSProperties}>
-                {ar ? "«سِراجٌ لِرِجْلي كلامُك»" : "“Your word is a lamp to my feet”"}
-              </p>
-              <p className="intro-rise mt-1 font-manrope text-[10px] tracking-[0.18em] text-[oklch(0.85_0.08_84)] uppercase" style={{ animationDelay: "840ms" } as CSSProperties}>
-                {ar ? "مزمور ١١٩ : ١٠٥" : "Psalm 119:105"}
-              </p>
-            </div>
-          </div>
         </div>
-
-
-        {/* margin notes */}
-        <ul className="mt-5 grid grid-cols-2 gap-2">
-          {notes.map((n, i) => (
-            <li
-              key={n}
-              className="animate-fade-in flex items-center gap-2 rounded-2xl border border-white/70 bg-white/70 px-3 py-2 font-manrope text-[11.5px] font-semibold text-[oklch(0.34_0.02_293)] backdrop-blur-sm"
-              style={{ animationDelay: `${120 + i * 70}ms` } as CSSProperties}
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-[oklch(0.735_0.096_84)]" />
-              {n}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+      }
+    >
+      <Reveal>
+        <figure className="relative overflow-hidden rounded-[24px] border border-[oklch(0.85_0.09_86/0.35)] bg-white/6 px-5 py-4 backdrop-blur-md">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-linear-to-r from-transparent via-white/35 to-transparent blur-md"
+            style={{ animation: "intro-sweep 3.2s cubic-bezier(0.19,1,0.22,1) 0.6s both" } as CSSProperties}
+          />
+          <blockquote className="relative font-display text-[16px] leading-relaxed text-white/95">
+            {ar ? "«سِراجٌ لِرِجْلي كلامُك»" : "“Your word is a lamp to my feet”"}
+          </blockquote>
+          <figcaption className="relative mt-1.5 font-manrope text-[9.5px] tracking-[0.22em] text-[oklch(0.88_0.09_86)] uppercase">
+            {ar ? "مزمور ١١٩ : ١٠٥" : "Psalm 119:105"}
+          </figcaption>
+        </figure>
+      </Reveal>
+    </Stage>
   );
 }
 
-/* ── scene 3 · icon-screen arches ───────────────────────────── */
+/* ── scene 3 · spiritual rhythm ─────────────────────────────── */
 
-function SceneSpiritual({ ar }: { ar: boolean }) {
+function SceneSpiritual({ ar }: SceneProps) {
   const arches = ar
     ? [
         { g: "ⲁ", t: "الأجبية", s: "سبع صلوات" },
@@ -243,54 +259,38 @@ function SceneSpiritual({ ar }: { ar: boolean }) {
         { g: "☩", t: "Khoulagy", s: "Divine liturgy" },
       ];
   return (
-    <div className="relative h-full w-full overflow-hidden bg-[oklch(0.19_0.02_60)]">
-      <img
-        src={intro3}
-        alt="شموع مضاءة أمام حجاب الأيقونات الذهبي"
-        width={1024}
-        height={1280}
-        loading="lazy"
-        className="absolute inset-x-0 top-0 h-[58%] w-full object-cover"
-      />
-      <div className="absolute inset-x-0 top-0 h-[58%] bg-gradient-to-b from-black/45 via-transparent to-[oklch(0.19_0.02_60)]" />
-
-      <div className="relative flex h-full flex-col justify-end px-6 pb-5">
-        <div className="max-w-[300px]">
-          <Kicker tone="ivory">{ar ? "الحياة الروحية" : "Spiritual life"}</Kicker>
-          <div className="mt-3">
-            <SceneCopy
-              dark
-              title={ar ? "صلواتك وطقسك في نظام واحد" : "Your prayers, one rhythm"}
-              body={
-                ar
-                  ? "الأجبية والقطمارس والسنكسار والخولاجي — بترتيب الكنيسة، بقراءة مريحة، وبتمرير تلقائي هادئ."
-                  : "Agpeya, Katameros, Synaxarium and Khoulagy — in the Church's order, with calm guided reading."
-              }
-            />
-          </div>
-        </div>
-
+    <Stage
+      image={intro3}
+      alt="شموع مضاءة أمام حجاب الأيقونات الذهبي"
+      kicker={ar ? "الحياة الروحية" : "Spiritual life"}
+      title={ar ? "صلواتك وطقسك في نظام واحد" : "Your prayers, one rhythm"}
+      body={
+        ar
+          ? "الأجبية والقطمارس والسنكسار والخولاجي — بترتيب الكنيسة، بقراءة مريحة، وبتمرير تلقائي هادئ."
+          : "Agpeya, Katameros, Synaxarium and Khoulagy — in the Church's order, with calm guided reading."
+      }
+      footer={
         <div className="mt-5 grid grid-cols-4 gap-2.5">
           {arches.map((a, i) => (
             <div
               key={a.t}
-              className="animate-fade-in rounded-t-[36px] rounded-b-2xl border border-[oklch(0.735_0.096_84/0.35)] bg-white/8 px-1.5 pt-4 pb-3 text-center backdrop-blur-md"
-              style={{ animationDelay: `${100 + i * 80}ms` } as CSSProperties}
+              className="intro-lift rounded-t-[34px] rounded-b-2xl border border-[oklch(0.85_0.09_86/0.32)] bg-white/8 px-1.5 pt-4 pb-3 text-center backdrop-blur-md"
+              style={{ animationDelay: `${420 + i * 90}ms` } as CSSProperties}
             >
-              <span className="font-display text-[20px] text-[oklch(0.85_0.08_84)]">{a.g}</span>
-              <p className="mt-2 font-manrope text-[10.5px] leading-tight font-semibold text-white">{a.t}</p>
-              <p className="mt-0.5 font-manrope text-[8.5px] leading-tight text-white/55">{a.s}</p>
+              <span className="font-display text-[19px] text-[oklch(0.89_0.09_86)]">{a.g}</span>
+              <p className="mt-2 font-manrope text-[10px] leading-tight font-semibold text-white">{a.t}</p>
+              <p className="mt-0.5 font-manrope text-[8px] leading-tight text-white/55">{a.s}</p>
             </div>
           ))}
         </div>
-      </div>
-    </div>
+      }
+    />
   );
 }
 
-/* ── scene 4 · overlapping ivory panel ──────────────────────── */
+/* ── scene 4 · church & community ───────────────────────────── */
 
-function SceneCommunity({ ar }: { ar: boolean }) {
+function SceneCommunity({ ar }: SceneProps) {
   const stats = ar
     ? [
         { n: "٤٨٠+", l: "عضو" },
@@ -303,211 +303,159 @@ function SceneCommunity({ ar }: { ar: boolean }) {
         { n: "6", l: "events" },
       ];
   return (
-    <div className="relative h-full w-full overflow-hidden bg-[oklch(0.988_0.008_85)]">
-      <img
-        src={intro4}
-        alt="أسرة وأعضاء الكنيسة في فِناء الكنيسة وقت الغروب"
-        width={1024}
-        height={1280}
-        loading="lazy"
-        className="absolute inset-x-0 top-0 h-[64%] w-full object-cover"
-      />
-      <div className="absolute inset-x-0 top-0 h-[64%] bg-gradient-to-b from-black/25 to-transparent" />
-
-      <div className="absolute top-[104px] right-6">
-        <Kicker tone="ivory">{ar ? "الكنيسة والمجتمع" : "Church & community"}</Kicker>
-      </div>
-
-      {/* floating ivory panel overlapping the photo */}
-      <div className="absolute inset-x-5 bottom-6">
-        <div className="glass-card animate-fade-in rounded-[28px] border border-white/70 bg-white/82 p-5 shadow-[0_28px_60px_-26px_oklch(0.245_0.026_293/0.45)] backdrop-blur-xl">
-          <SceneCopy
-            title={ar ? "كنيستك معاك في جيبك" : "Your church, always with you"}
-            body={
-              ar
-                ? "أخبار الكنيسة، مواعيد القداسات، الخدمات والمناسبات، وتفاعل حقيقي مع أسرتك الكنسية."
-                : "Church news, liturgy times, services and events — with real, warm interaction."
-            }
-          />
-
-          <div className="mt-4 flex items-center justify-between">
-            <div className="flex -space-x-2 space-x-reverse">
-              {[0, 1, 2, 3].map((i) => (
-                <span
-                  key={i}
-                  className="grid h-8 w-8 place-items-center rounded-full border-2 border-white bg-[oklch(0.868_0.043_296)] font-manrope text-[10px] font-bold text-[oklch(0.32_0.04_293)]"
-                >
-                  {["م", "ب", "ي", "+٩"][i]}
-                </span>
-              ))}
-            </div>
-            <div className="flex gap-3">
-              {stats.map((s) => (
-                <div key={s.l} className="text-center">
-                  <p className="font-display text-[16px] font-semibold text-[oklch(0.46_0.07_78)]">{s.n}</p>
-                  <p className="font-manrope text-[9px] tracking-wide text-[oklch(0.5_0.02_293)]">{s.l}</p>
-                </div>
-              ))}
-            </div>
+    <Stage
+      image={intro4}
+      alt="أسرة وأعضاء الكنيسة في فِناء الكنيسة وقت الغروب"
+      kicker={ar ? "الكنيسة والمجتمع" : "Church & community"}
+      title={ar ? "كنيستك معاك في جيبك" : "Your church, always with you"}
+      body={
+        ar
+          ? "أخبار الكنيسة، مواعيد القداسات، الخدمات والمناسبات، وتفاعل حقيقي مع أسرتك الكنسية."
+          : "Church news, liturgy times, services and events — with real, warm interaction."
+      }
+      footer={
+        <div className="intro-lift mt-5 flex items-center justify-between rounded-[24px] border border-white/14 bg-white/8 px-4 py-3 backdrop-blur-md" style={{ animationDelay: "430ms" } as CSSProperties}>
+          <div className="flex -space-x-2 space-x-reverse">
+            {["م", "ب", "ي", "+٩"].map((c) => (
+              <span
+                key={c}
+                className="grid h-8 w-8 place-items-center rounded-full border-2 border-white/70 bg-[oklch(0.55_0.06_296)] font-manrope text-[10px] font-bold text-white"
+              >
+                {c}
+              </span>
+            ))}
+          </div>
+          <div className="flex gap-3.5">
+            {stats.map((s) => (
+              <div key={s.l} className="text-center">
+                <p className="font-display text-[16px] font-semibold text-[oklch(0.9_0.09_86)]">{s.n}</p>
+                <p className="font-manrope text-[8.5px] tracking-wide text-white/60">{s.l}</p>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
-    </div>
+      }
+    />
   );
 }
 
-/* ── scene 5 · sonar orb ────────────────────────────────────── */
+/* ── scene 5 · Alpha Connect ────────────────────────────────── */
 
-function SceneConnect({ ar }: { ar: boolean }) {
+function SceneConnect({ ar }: SceneProps) {
   const bubbles = ar
     ? ["قناة الخدام · ٤ متصلين", "رسالة مشفَّرة · تُحذف تلقائيًا", "اضغط للتحدث"]
     : ["Servants channel · 4 live", "Encrypted · auto-delete", "Push to talk"];
   return (
-    <div className="relative h-full w-full overflow-hidden bg-[oklch(0.16_0.03_200)]">
-      <img
-        src={intro5}
-        alt="أمواج صوتية ذهبية وفيروزية على خلفية ليلية"
-        width={1024}
-        height={1280}
-        loading="lazy"
-        className="absolute inset-0 h-full w-full object-cover opacity-90"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.16_0.03_200)] via-transparent to-[oklch(0.16_0.03_200/0.6)]" />
-
-      <div className="relative flex h-full flex-col px-7 pt-14 pb-5">
-        <Kicker tone="ivory">{ar ? "ألفا كونكت" : "Alpha Connect"}</Kicker>
-
-        {/* PTT orb with sonar rings */}
-        <div className="relative mt-8 grid place-items-center">
-          <span className="absolute h-44 w-44 animate-[engage-halo_2.8s_ease-out_infinite] rounded-full border border-[oklch(0.82_0.13_180/0.35)]" />
-          <span className="absolute h-32 w-32 rounded-full border border-[oklch(0.82_0.13_180/0.5)]" />
-          <div className="relative grid h-24 w-24 place-items-center rounded-full border border-[oklch(0.735_0.096_84/0.6)] bg-[oklch(0.82_0.13_180/0.16)] shadow-[0_0_60px_-8px_oklch(0.82_0.13_180/0.6)] backdrop-blur-md">
-            <span className="font-display text-[13px] font-semibold tracking-wide text-white">
-              {ar ? "اضغط" : "TALK"}
-            </span>
+    <Stage
+      image={intro5}
+      alt="أمواج صوتية ذهبية وفيروزية على خلفية ليلية"
+      kicker={ar ? "ألفا كونكت" : "Alpha Connect"}
+      title={ar ? "تواصل صوتي ورسائل بأمان" : "Voice and messages, kept safe"}
+      body={
+        ar
+          ? "قنوات صوتية، اضغط للتحدث، مجموعات ورسائل مشفَّرة بالحذف التلقائي — بدون فيديو، وبخصوصية كاملة."
+          : "Voice channels, push-to-talk, groups and encrypted messages with auto-delete — voice only, fully private."
+      }
+    >
+      <div className="space-y-4">
+        <Reveal>
+          <div className="relative grid place-items-center">
+            <span className="absolute h-36 w-36 animate-[engage-halo_2.8s_ease-out_infinite] rounded-full border border-[oklch(0.82_0.13_180/0.35)]" />
+            <span className="absolute h-26 w-26 rounded-full border border-[oklch(0.82_0.13_180/0.5)]" />
+            <div className="relative grid h-20 w-20 place-items-center rounded-full border border-[oklch(0.85_0.09_86/0.6)] bg-[oklch(0.82_0.13_180/0.16)] shadow-[0_0_60px_-8px_oklch(0.82_0.13_180/0.6)] backdrop-blur-md">
+              <span className="font-display text-[13px] font-semibold tracking-wide text-white">
+                {ar ? "اضغط" : "TALK"}
+              </span>
+            </div>
           </div>
-          {/* waveform */}
-          <div className="mt-6 flex items-end gap-1.5">
-            {[10, 20, 34, 22, 44, 26, 16, 30, 12].map((h, i) => (
-              <span
-                key={i}
-                className="w-1 rounded-full bg-[oklch(0.85_0.12_180/0.8)]"
-                style={{ height: h }}
-              />
-            ))}
-          </div>
-        </div>
+        </Reveal>
 
-        {/* asymmetric floating bubbles */}
-        <div className="mt-7 space-y-2.5">
+        <div className="space-y-2">
           {bubbles.map((b, i) => (
             <div
               key={b}
-              className={`animate-fade-in w-fit rounded-2xl border border-white/18 bg-white/10 px-4 py-2 font-manrope text-[11.5px] text-white/90 backdrop-blur-md ${
+              className={`intro-lift w-fit rounded-2xl border border-white/16 bg-white/10 px-4 py-2 font-manrope text-[11px] text-white/90 backdrop-blur-md ${
                 i === 1 ? "ms-auto" : i === 2 ? "mx-auto" : ""
               }`}
-              style={{ animationDelay: `${120 + i * 90}ms` } as CSSProperties}
+              style={{ animationDelay: `${140 + i * 100}ms` } as CSSProperties}
             >
               {b}
             </div>
           ))}
         </div>
-
-        <div className="mt-auto max-w-[300px]">
-          <SceneCopy
-            dark
-            title={ar ? "تواصل صوتي ورسائل بأمان" : "Voice and messages, kept safe"}
-            body={
-              ar
-                ? "قنوات صوتية، اضغط للتحدث، مجموعات ورسائل مشفَّرة بالحذف التلقائي — بدون فيديو، وبخصوصية كاملة."
-                : "Voice channels, push-to-talk, groups and encrypted messages with auto-delete — voice only, fully private."
-            }
-          />
-        </div>
       </div>
-    </div>
+    </Stage>
   );
 }
 
-/* ── scene 6 · milestone path ───────────────────────────────── */
+/* ── scene 6 · the journey ──────────────────────────────────── */
 
-function SceneJourney({ ar, onStart }: { ar: boolean; onStart: () => void }) {
+function SceneJourney({ ar, onStart }: SceneProps & { onStart: () => void }) {
   const steps = ar
     ? ["صلاة الصباح", "قراءة اليوم", "قديس اليوم", "خدمة ومحبة"]
     : ["Morning prayer", "Today's reading", "Saint of the day", "Serve in love"];
   return (
-    <div className="relative h-full w-full overflow-hidden bg-[oklch(0.988_0.008_85)]">
-      <img
-        src={intro6}
-        alt="طريق يصعد إلى كنيسة صغيرة عند شروق الشمس"
-        width={1024}
-        height={1280}
-        loading="lazy"
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.988_0.008_85)] via-[oklch(0.988_0.008_85/0.55)] to-transparent" />
-
-      <div className="relative flex h-full flex-col justify-end px-7 pb-4">
-        {/* vertical milestone path */}
-        <ol className="relative mb-6 ms-2 space-y-3.5 border-s border-dashed border-[oklch(0.735_0.096_84/0.6)] ps-5">
-          {steps.map((s, i) => (
-            <li
-              key={s}
-              className="animate-fade-in relative font-manrope text-[12px] font-semibold text-[oklch(0.3_0.02_293)]"
-              style={{ animationDelay: `${80 + i * 90}ms` } as CSSProperties}
-            >
-              <span className="absolute -start-[26px] top-1 grid h-3 w-3 place-items-center rounded-full border border-[oklch(0.735_0.096_84)] bg-white">
-                <span className="h-1 w-1 rounded-full bg-[oklch(0.735_0.096_84)]" />
-              </span>
-              {s}
-            </li>
-          ))}
-        </ol>
-
-        <Kicker>{ar ? "رحلتك مع ألفا" : "Your journey"}</Kicker>
-        <div className="mt-3 max-w-[310px]">
-          <SceneCopy
-            title={ar ? "رفيقك في كل يوم" : "A companion for every day"}
-            body={
-              ar
-                ? "خطوة صغيرة كل يوم — صلاة، آية، وقديس يشجّعك. ألفا يسير معك في رحلتك المسيحية."
-                : "One small step each day — a prayer, a verse, a saint. Alpha walks with you."
-            }
-          />
-        </div>
-
+    <Stage
+      image={intro6}
+      alt="طريق يصعد إلى كنيسة صغيرة عند شروق الشمس"
+      kicker={ar ? "رحلتك مع ألفا" : "Your journey"}
+      title={ar ? "رفيقك في كل يوم" : "A companion for every day"}
+      body={
+        ar
+          ? "خطوة صغيرة كل يوم — صلاة، آية، وقديس يشجّعك. ألفا يسير معك في رحلتك المسيحية."
+          : "One small step each day — a prayer, a verse, a saint. Alpha walks with you."
+      }
+      footer={
         <button
           type="button"
           onClick={onStart}
-          className="press mt-5 w-full rounded-2xl border border-[oklch(0.735_0.096_84/0.55)] bg-[oklch(0.245_0.026_293)] py-3.5 font-manrope text-[13.5px] font-semibold text-[oklch(0.988_0.008_85)] shadow-[0_18px_40px_-18px_oklch(0.245_0.026_293/0.6)]"
+          className="press intro-lift relative mt-5 w-full overflow-hidden rounded-2xl border border-[oklch(0.85_0.09_86/0.6)] bg-linear-to-b from-[oklch(0.88_0.1_86/0.35)] to-[oklch(0.78_0.1_84/0.2)] py-3.5 font-manrope text-[13.5px] font-semibold text-white shadow-[0_0_34px_-6px_oklch(0.84_0.12_86/0.8)] backdrop-blur-md"
+          style={{ animationDelay: "430ms" } as CSSProperties}
         >
-          {ar ? T.start.ar : T.start.en}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-linear-to-r from-transparent via-white/45 to-transparent"
+            style={{ animation: "intro-sweep 3s ease-in-out infinite" } as CSSProperties}
+          />
+          <span className="relative">{ar ? T.start.ar : T.start.en}</span>
         </button>
-      </div>
-    </div>
+      }
+    >
+      <ol className="ms-2 space-y-3 border-s border-dashed border-[oklch(0.85_0.09_86/0.5)] ps-5">
+        {steps.map((s, i) => (
+          <li
+            key={s}
+            className="intro-lift relative font-manrope text-[11.5px] font-semibold text-white/88"
+            style={{ animationDelay: `${100 + i * 100}ms` } as CSSProperties}
+          >
+            <span className="absolute -start-[26px] top-1 grid h-3 w-3 place-items-center rounded-full border border-[oklch(0.88_0.09_86)] bg-[oklch(0.16_0.02_290)]">
+              <span className="h-1 w-1 rounded-full bg-[oklch(0.9_0.09_86)]" />
+            </span>
+            {s}
+          </li>
+        ))}
+      </ol>
+    </Stage>
   );
 }
 
-/* ── shell · swipe + progress ───────────────────────────────── */
+/* ── shell · swipe + gilded segment progress ────────────────── */
 
 function IntroScreen() {
   const { lang } = useLang();
   const ar = lang === "ar";
   const navigate = useNavigate();
   const [i, setI] = useState(0);
-  const [dir, setDir] = useState<1 | -1>(1);
   const start = useRef<number | null>(null);
   const total = 6;
 
   const goTo = (n: number) => {
     const next = Math.max(0, Math.min(total - 1, n));
-    if (next === i) return;
-    setDir(next > i ? 1 : -1);
-    setI(next);
+    if (next !== i) setI(next);
   };
   const finish = () => navigate({ to: "/signup" });
 
-  /* RTL: swiping right (positive dx) should move forward. */
+  /* RTL: swiping right (positive dx) moves forward. */
   const onDown = (e: RPointerEvent) => {
     start.current = e.clientX;
   };
@@ -524,133 +472,101 @@ function IntroScreen() {
   };
 
   const scenes = [
-    <SceneLight key="s1" ar={ar} />,
-    <SceneBible key="s2" ar={ar} />,
-    <SceneSpiritual key="s3" ar={ar} />,
-    <SceneCommunity key="s4" ar={ar} />,
-    <SceneConnect key="s5" ar={ar} />,
-    <SceneJourney key="s6" ar={ar} onStart={finish} />,
+    <SceneLight key="s1" ar={ar} index={0} />,
+    <SceneBible key="s2" ar={ar} index={1} />,
+    <SceneSpiritual key="s3" ar={ar} index={2} />,
+    <SceneCommunity key="s4" ar={ar} index={3} />,
+    <SceneConnect key="s5" ar={ar} index={4} />,
+    <SceneJourney key="s6" ar={ar} index={5} onStart={finish} />,
   ];
-  const darkChrome = i === 2 || i === 4;
 
   return (
-    <Screen withBottomNav={false} className="bg-[oklch(0.988_0.008_85)]">
-      <div className="relative mx-auto flex min-h-screen w-full max-w-[430px] flex-col">
-        {/* top chrome — counter + skip only */}
-        <div className="safe-top absolute inset-x-0 top-0 z-20">
-          <div className="flex items-center justify-between px-5 pt-3">
-            <span
-              className={`font-manrope text-[10px] tracking-[0.2em] ${
-                darkChrome ? "text-white/55" : "text-[oklch(0.5_0.02_293)]"
-              }`}
-            >
-              {`${i + 1} ${ar ? T.of.ar : T.of.en} ${total}`}
-            </span>
-            <Link
-              to="/signup"
-              className={`font-manrope text-[11.5px] font-semibold ${
-                darkChrome ? "text-white/75" : "text-[oklch(0.46_0.07_78)]"
-              }`}
-            >
-              {ar ? T.skip.ar : T.skip.en}
-            </Link>
-          </div>
+    <Screen withBottomNav={false} className="bg-[oklch(0.13_0.02_290)]">
+      {/* full-height, edge-to-edge cinematic stage */}
+      <div
+        className="relative mx-auto h-screen min-h-screen w-full max-w-[430px] touch-pan-y overflow-hidden select-none"
+        onPointerDown={onDown}
+        onPointerUp={onUp}
+      >
+        <div key={i} className="absolute inset-0">
+          {scenes[i]}
         </div>
 
-        {/* scene stage */}
-        <div
-          className="relative flex-1 touch-pan-y select-none"
-          onPointerDown={onDown}
-          onPointerUp={onUp}
-        >
-          <div
-            key={i}
-            className={`absolute inset-0 ${dir === 1 ? "animate-[fade-in_0.45s_ease-out]" : "animate-[scale-in_0.4s_ease-out]"}`}
-          >
-            {scenes[i]}
-          </div>
-        </div>
-
-        {/* footer controls — Next sits on the right and glows */}
-        {i < total - 1 && (
-          <div className="relative z-20 flex items-center gap-3 px-6 pt-3 pb-2">
-            <button
-              type="button"
-              onClick={() => goTo(i + 1)}
-              className="press relative flex items-center gap-2 overflow-hidden rounded-full border border-[oklch(0.82_0.11_86/0.75)] bg-linear-to-b from-[oklch(0.86_0.1_86/0.4)] to-[oklch(0.735_0.096_84/0.22)] px-6 py-2.5 font-manrope text-[12.5px] font-semibold shadow-[0_0_28px_-4px_oklch(0.8_0.12_86/0.7)] backdrop-blur-md transition-shadow duration-500 hover:shadow-[0_0_38px_-2px_oklch(0.8_0.12_86/0.9)]"
-              style={{ color: darkChrome ? "oklch(0.97 0.03 86)" : "oklch(0.38 0.06 78)" } as CSSProperties}
-            >
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-linear-to-r from-transparent via-white/55 to-transparent"
-                style={{ animation: "intro-sweep 2.8s ease-in-out infinite" } as CSSProperties}
-              />
-              <span className="relative">{ar ? T.next.ar : T.next.en}</span>
-              <span aria-hidden="true" className="relative text-[14px] leading-none">
-                {ar ? "‹" : "›"}
-              </span>
-            </button>
-            <button
-              type="button"
-              onClick={() => goTo(i - 1)}
-              disabled={i === 0}
-              className={`ms-auto font-manrope text-[12px] font-semibold transition-opacity disabled:opacity-0 ${
-                darkChrome ? "text-white/70" : "text-[oklch(0.5_0.02_293)]"
-              }`}
-            >
-              {ar ? T.back.ar : T.back.en}
-            </button>
-          </div>
-        )}
-
-        <p
-          className={`relative z-20 pb-1 text-center font-manrope text-[8.5px] font-semibold tracking-[0.2em] uppercase ${
-            darkChrome ? "text-white/35" : "text-[oklch(0.5_0.02_293/0.55)]"
-          }`}
-        >
-          <span aria-hidden="true" className="font-display">
+        {/* top chrome — Alpha mark + skip */}
+        <div className="safe-top absolute inset-x-0 top-0 z-20 flex items-center justify-between px-5 pt-3">
+          <span className="font-display text-[15px] leading-none text-[oklch(0.92_0.09_86)]" aria-hidden="true">
             ⲁ
-          </span>{" "}
-          {ar ? "— البيت القبطي الأرثوذكسي الرقمي —" : "— The Coptic Orthodox Digital Home —"}{" "}
-          <span aria-hidden="true" className="font-display">
-            ⲱ
           </span>
-        </p>
+          <Link to="/signup" className="font-manrope text-[11px] font-semibold tracking-wide text-white/70">
+            {ar ? T.skip.ar : T.skip.en}
+          </Link>
+        </div>
 
-        {/* glowing golden progress bar — pinned to the very bottom */}
-        <div className="safe-bottom relative z-20 px-5 pb-3">
-          <div
-            className={`relative h-[5px] w-full overflow-hidden rounded-full ${
-              darkChrome ? "bg-white/12" : "bg-[oklch(0.245_0.026_293/0.1)]"
-            }`}
-          >
-            <div
-              className="absolute inset-y-0 start-0 rounded-full bg-linear-to-r from-[oklch(0.78_0.1_84)] via-[oklch(0.9_0.11_88)] to-[oklch(0.78_0.1_84)] shadow-[0_0_18px_2px_oklch(0.85_0.12_86/0.8)] transition-[width] duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]"
-              style={{
-                width: `${((i + 1) / total) * 100}%`,
-                animation: "intro-progress-glow 2.4s ease-in-out infinite",
-              } as CSSProperties}
-            />
-          </div>
-          <div className="mt-1.5 flex gap-1.5">
+        {/* bottom chrome — controls + gilded segment rail */}
+        <div className="safe-bottom absolute inset-x-0 bottom-0 z-20 px-5 pb-3">
+          {i < total - 1 && (
+            <div className="mb-3 flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => goTo(i + 1)}
+                className="press relative flex items-center gap-2 overflow-hidden rounded-full border border-[oklch(0.85_0.09_86/0.7)] bg-linear-to-b from-[oklch(0.88_0.1_86/0.35)] to-[oklch(0.78_0.1_84/0.2)] px-6 py-2.5 font-manrope text-[12.5px] font-semibold text-white shadow-[0_0_30px_-6px_oklch(0.84_0.12_86/0.85)] backdrop-blur-md"
+              >
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-linear-to-r from-transparent via-white/50 to-transparent"
+                  style={{ animation: "intro-sweep 3s ease-in-out infinite" } as CSSProperties}
+                />
+                <span className="relative">{ar ? T.next.ar : T.next.en}</span>
+                <span aria-hidden="true" className="relative text-[14px] leading-none">
+                  {ar ? "‹" : "›"}
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={() => goTo(i - 1)}
+                disabled={i === 0}
+                className="ms-auto font-manrope text-[12px] font-semibold text-white/65 transition-opacity disabled:opacity-0"
+              >
+                {ar ? T.back.ar : T.back.en}
+              </button>
+            </div>
+          )}
+
+          {/* segment rail: each scene owns a gilded capsule that fills */}
+          <div className="flex items-center gap-1.5">
             {Array.from({ length: total }).map((_, n) => (
               <button
                 key={n}
                 type="button"
                 aria-label={`${ar ? "مشهد" : "Scene"} ${n + 1}`}
+                aria-current={n === i}
                 onClick={() => goTo(n)}
-                className={`h-[2px] flex-1 rounded-full transition-colors duration-500 ${
-                  n <= i
-                    ? "bg-[oklch(0.8_0.1_85/0.85)]"
-                    : darkChrome
-                      ? "bg-white/18"
-                      : "bg-[oklch(0.245_0.026_293/0.12)]"
+                className={`relative h-[3px] overflow-hidden rounded-full bg-white/16 transition-all duration-500 ${
+                  n === i ? "flex-[2.2]" : "flex-1"
                 }`}
-              />
+              >
+                {n <= i ? (
+                  <span
+                    className={`absolute inset-0 rounded-full bg-linear-to-r from-[oklch(0.8_0.1_84)] via-[oklch(0.94_0.1_88)] to-[oklch(0.8_0.1_84)] ${
+                      n === i ? "intro-seg-fill" : ""
+                    } ${n === i ? "shadow-[0_0_14px_1px_oklch(0.88_0.12_86/0.9)]" : "opacity-70"}`}
+                    style={{ transformOrigin: ar ? "right center" : "left center" } as CSSProperties}
+                  />
+                ) : null}
+              </button>
             ))}
           </div>
-        </div>
 
+          <p className="mt-2 text-center font-manrope text-[8px] font-semibold tracking-[0.24em] text-white/35 uppercase">
+            <span aria-hidden="true" className="font-display">
+              ⲁ
+            </span>{" "}
+            {ar ? "— البيت القبطي الأرثوذكسي الرقمي —" : "— The Coptic Orthodox Digital Home —"}{" "}
+            <span aria-hidden="true" className="font-display">
+              ⲱ
+            </span>
+          </p>
+        </div>
       </div>
     </Screen>
   );
