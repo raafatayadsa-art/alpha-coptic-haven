@@ -823,14 +823,19 @@ function BibleRead() {
             />
             <div
               dir={dir}
-              className="verse-rise safe-bottom relative mx-auto w-full max-w-[430px] rounded-t-[30px] border-t border-illum/25 bg-inkblue px-5 pt-3 pb-5 shadow-2xl"
+              className={`verse-rise safe-bottom relative mx-auto w-full max-w-[430px] px-4 pt-2.5 pb-4 ${
+                night ? "alpha-pop-night" : "alpha-pop"
+              }`}
+              style={{ borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }}
             >
-              <span className="mx-auto block h-1 w-11 rounded-full bg-vellum/25" />
+              <span
+                className={`mx-auto block h-1 w-9 rounded-full ${night ? "bg-vellum/25" : "bg-inkblue/15"}`}
+              />
 
-              <div className="mt-3.5 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
+              <div className="mt-3 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
                 <div className="flex min-w-0 items-center gap-2">
-                  <CopticCross className="size-4 shrink-0 text-illum" />
-                  <span className="truncate font-display text-[16px] font-bold text-vellum">
+                  <CopticCross className="size-3.5 shrink-0 text-copper" />
+                  <span className={`truncate font-display text-[14.5px] font-bold ${body}`}>
                     {t("bib.share.title")}
                   </span>
                 </div>
@@ -838,58 +843,61 @@ function BibleRead() {
                   type="button"
                   aria-label={t("bib.share.close")}
                   onClick={() => setShareVn(null)}
-                  className="press grid size-9 shrink-0 place-items-center rounded-full border border-vellum/15 text-[13px] text-vellum/70"
+                  className={`press grid size-8 shrink-0 place-items-center rounded-full text-[12px] ${chip}`}
                 >
                   ✕
                 </button>
               </div>
 
               {/* Verse plate — gold hairline framing, Alpha identity */}
-              <div className="mt-3.5 rounded-[22px] border border-illum/22 bg-vellum/[0.05] px-4 py-3.5">
+              <div
+                className={`mt-3 rounded-[16px] px-3.5 py-3 ${
+                  night ? "border border-illum/20 bg-vellum/[0.05]" : "border border-shade/60 bg-white/70"
+                }`}
+              >
                 <div className="gold-hairline h-px w-full opacity-70" />
-                <p className="mt-2.5 font-manrope text-[11px] font-bold tracking-[0.1em] text-illum">
+                <p className="mt-2 font-manrope text-[10.5px] font-bold tracking-[0.1em] text-copper">
                   {name} {ch}:{shareVn}
                 </p>
-                <p className="mt-1.5 text-[13px] leading-[1.95] text-vellum/72">
+                <p className={`mt-1.5 text-[12.5px] leading-[1.9] ${soft}`}>
                   {(() => {
                     const v = samplePassage.find((x) => x.n === shareVn);
                     return v ? (isArabic ? v.ar : v.en) : "";
                   })()}
                 </p>
-                <div className="gold-hairline mt-2.5 h-px w-full opacity-45" />
+                <div className="gold-hairline mt-2 h-px w-full opacity-45" />
               </div>
 
               {/* Primary: community */}
               <Link
                 to="/my-church"
-                className="press mt-3.5 flex h-[52px] items-center justify-center gap-2 rounded-full border text-[13.5px] font-bold"
-                style={{
-                  borderColor: "color-mix(in oklab, var(--hl-mint) 45%, transparent)",
-                  background: "color-mix(in oklab, var(--hl-mint) 12%, transparent)",
-                  color: "var(--hl-mint)",
-                }}
+                className={`press mt-3 flex h-11 items-center justify-center gap-2 rounded-full text-[12.5px] font-bold ${
+                  night
+                    ? "border border-illum/35 bg-illum/12 text-illum"
+                    : "border border-copper/30 bg-illum/18 text-inkblue"
+                }`}
               >
-                <PeopleIcon className="size-[17px]" />
+                <PeopleIcon className="size-[15px]" />
                 {t("bib.share.community")}
               </Link>
 
               {/* Secondary circular action row — one consistent shape */}
-              <div className="mt-3 grid grid-cols-3 gap-2.5">
+              <div className="mt-2.5 grid grid-cols-3 gap-2">
                 {(
                   [
                     [
                       "bib.share.system",
-                      <ShareGlyph key="s" className="size-[18px]" />,
+                      <ShareGlyph key="s" className="size-[16px]" />,
                       () => shareVerse(shareVn),
                     ],
                     [
                       "bib.share.copy",
-                      <NoteIcon key="c" className="size-[18px]" />,
+                      <NoteIcon key="c" className="size-[16px]" />,
                       () => copyVerse(shareVn),
                     ],
                     [
                       "bib.share.image",
-                      <SparkIcon key="i" className="size-[18px]" />,
+                      <SparkIcon key="i" className="size-[16px]" />,
                       () => setToast(t("bib.share.image")),
                     ],
                   ] as const
@@ -901,12 +909,20 @@ function BibleRead() {
                       run();
                       setShareVn(null);
                     }}
-                    className="press flex h-[76px] flex-col items-center justify-center gap-1.5 rounded-[20px] border border-vellum/12 bg-vellum/[0.05]"
+                    className={`press flex h-[60px] flex-col items-center justify-center gap-1 rounded-[16px] ${
+                      night
+                        ? "border border-vellum/10 bg-vellum/[0.05]"
+                        : "border border-shade/60 bg-white/75"
+                    }`}
                   >
-                    <span className="grid size-9 place-items-center rounded-full bg-vellum/10 text-illum">
+                    <span
+                      className={`grid size-8 place-items-center rounded-full ${
+                        night ? "bg-vellum/10 text-illum" : "bg-white text-copper"
+                      }`}
+                    >
                       {icon}
                     </span>
-                    <span className="text-[10.5px] font-bold text-vellum/75">{t(key)}</span>
+                    <span className={`text-[10px] font-bold ${soft}`}>{t(key)}</span>
                   </button>
                 ))}
               </div>
