@@ -316,7 +316,7 @@ function BibleRead() {
           </div>
         </header>
 
-        <main className="px-4 pt-4">
+        <main className="relative z-10 px-4 pt-4">
           {/* Chapter opener with Coptic cross */}
           <div className="text-center">
             <CopticCross className="mx-auto size-5 text-copper opacity-70" />
