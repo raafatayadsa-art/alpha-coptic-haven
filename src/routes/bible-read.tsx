@@ -499,7 +499,7 @@ function BibleRead() {
                         className={`verse-rise absolute z-50 flex w-[62px] flex-col items-center gap-2.5 ${
                           night ? "alpha-pop-night" : "alpha-pop"
                         } ${popDown ? "top-[calc(100%+8px)]" : "bottom-[calc(100%+8px)]"}`}
-                        style={{ insetInlineEnd: 6 }}
+                        style={{ insetInlineStart: 6 }}
                       >
                         {HL_COLORS.map((c) => {
                           const picked = highlights[verse.n] === c.id;
@@ -545,7 +545,7 @@ function BibleRead() {
                         className={`verse-rise absolute z-50 flex w-[204px] flex-col gap-1 ${
                           night ? "alpha-pop-night" : "alpha-pop"
                         } ${popDown ? "top-[calc(100%+8px)]" : "bottom-[calc(100%+8px)]"}`}
-                        style={{ insetInlineEnd: 62 }}
+                        style={{ insetInlineStart: 70 }}
                       >
                         {TOOL_ITEMS.map((item) => {
                           const inner = (
