@@ -167,6 +167,66 @@
   }
 }
 
+/* Feed engagement micro-animations */
+@keyframes engage-pop {
+  0% { transform: scale(1); }
+  35% { transform: scale(0.86); }
+  65% { transform: scale(1.22); }
+  100% { transform: scale(1); }
+}
+
+@keyframes engage-halo {
+  0% { opacity: 0.5; transform: scale(0.5); }
+  100% { opacity: 0; transform: scale(2.1); }
+}
+
+@keyframes engage-nudge {
+  0% { transform: translateX(0) rotate(0deg); }
+  40% { transform: translateX(3px) rotate(-8deg); }
+  100% { transform: translateX(0) rotate(0deg); }
+}
+
+@keyframes engage-tuck {
+  0% { transform: translateY(0) scale(1); }
+  40% { transform: translateY(-3px) scale(1.06); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes engage-count {
+  0% { opacity: 0; transform: translateY(5px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@utility engage-pop {
+  animation: engage-pop 0.5s var(--ease-out-expo);
+}
+
+@utility engage-nudge {
+  animation: engage-nudge 0.45s var(--ease-out-expo);
+}
+
+@utility engage-tuck {
+  animation: engage-tuck 0.45s var(--ease-out-expo);
+}
+
+@utility engage-count {
+  animation: engage-count 0.35s var(--ease-out-expo);
+}
+
+@utility engage-halo {
+  animation: engage-halo 0.6s var(--ease-out-expo) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .engage-pop,
+  .engage-nudge,
+  .engage-tuck,
+  .engage-count,
+  .engage-halo {
+    animation: none !important;
+  }
+}
+
 @utility no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
