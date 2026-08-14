@@ -178,7 +178,15 @@ function AlphaHome() {
                 {t("hm.verse.save")}
               </button>
             </div>
-            <EngageBar likes={565} comments={38} className="mt-5 border-ink/8" />
+            <EngageBar
+              likes={565}
+              comments={38}
+              className="mt-5"
+              seed={[
+                { author: t("engage.c1.a"), text: t("engage.c1.t"), when: t("engage.c1.w") },
+                { author: t("engage.c2.a"), text: t("engage.c2.t"), when: t("engage.c2.w") },
+              ]}
+            />
           </div>
         </section>
 
