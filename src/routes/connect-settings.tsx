@@ -69,8 +69,8 @@ const groupIcon: Record<SettingGroup["icon"], ReactNode> = {
   about: <InfoGlyph className="size-[17px]" />,
 };
 
-function Switch({ on }: { on?: boolean }) {
-  const [v, setV] = useState(!!on);
+function Switch({ on = false }: { on?: boolean | undefined }) {
+  const [v, setV] = useState(on);
   return (
     <button
       type="button"
@@ -233,7 +233,7 @@ function ConnectSettings() {
                             ) : null}
                           </span>
                           {row.kind === "switch" ? (
-                            <Switch on={row.on} />
+                            <Switch on={row.on ?? false} />
                           ) : row.kind === "slider" ? (
                             <Slider />
                           ) : (

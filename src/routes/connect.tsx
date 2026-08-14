@@ -129,7 +129,7 @@ function ConnectHome() {
                 {pick(L.live, lang)} · {liveCount}
               </p>
               <p className="mt-0.5 truncate text-[13px] text-acivory">
-                {pick(channels[0].speaking ?? channels[0].name, lang)} — {pick(channels[0].name, lang)}
+                {pick(channels[0]!.speaking ?? channels[0]!.name, lang)} — {pick(channels[0]!.name, lang)}
               </p>
             </div>
             <VoiceBars bars={4} />
