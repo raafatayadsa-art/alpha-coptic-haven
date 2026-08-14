@@ -151,3 +151,17 @@ export const CheckIcon = ({ className }: IconProps) => (
     <path d="m6.4 12.4 3.6 3.5 7.6-7.8" />
   </svg>
 );
+
+export const ShareIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M12 3.6v11" />
+    <path d="m8.2 7.2 3.8-3.6 3.8 3.6" />
+    <path d="M5.2 13.4v5.2a1.8 1.8 0 0 0 1.8 1.8h10a1.8 1.8 0 0 0 1.8-1.8v-5.2" />
+  </svg>
+);
+
+export const BookmarkIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M6.4 4.6h11.2v15L12 15.7 6.4 19.6z" />
+  </svg>
+);

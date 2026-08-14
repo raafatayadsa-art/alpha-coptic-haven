@@ -3,8 +3,14 @@ import type { ReactNode } from "react";
 
 import churchCover from "@/assets/church-cover.jpg";
 import churchCrest from "@/assets/church-crest.png";
+import contentAudio from "@/assets/content-audio.jpg";
+import contentBook from "@/assets/content-book.jpg";
 import oliveBranch from "@/assets/olive-branch.png";
+import postCandles from "@/assets/post-candles.jpg";
+import postYouth from "@/assets/post-youth.jpg";
 import saintOfDay from "@/assets/saint-of-day.jpg";
+import { EngageBar } from "@/components/church/EngageBar";
+
 
 import {
   AgpeyaIcon,
@@ -172,6 +178,7 @@ function AlphaHome() {
                 {t("hm.verse.save")}
               </button>
             </div>
+            <EngageBar likes={565} comments={38} className="mt-5 border-ink/8" />
           </div>
         </section>
 
@@ -179,28 +186,31 @@ function AlphaHome() {
         {/* 2 — Saint of the day: image-led horizontal row */}
         <section>
           <SectionHead title={t("hm.saint.eyebrow")} />
-          <div className="flex items-stretch gap-4 rounded-[30px] bg-card px-4 py-4 shadow-[var(--shadow-soft)] ring-1 ring-ink/5">
-            <img
-              src={saintOfDay}
-              alt={t("hm.saint.name")}
-              width={768}
-              height={960}
-              loading="lazy"
-              className="size-[104px] shrink-0 rounded-[22px] object-cover ring-1 ring-gold/20"
-            />
-            <div className="flex min-w-0 flex-col justify-center">
-              <h3 className="font-display text-[17px] font-semibold leading-snug tracking-tight">
-                {t("hm.saint.name")}
-              </h3>
-              <p className="mt-1.5 text-[12px] leading-relaxed text-ink/50">{t("hm.saint.line")}</p>
-              <button
-                type="button"
-                className="press mt-3 flex w-fit items-center gap-1 text-[11.5px] font-semibold text-gold"
-              >
-                {t("hm.saint.read")}
-                <ChevronRight className="size-3.5 rtl:rotate-180" />
-              </button>
+          <div className="rounded-[30px] bg-card px-4 py-4 shadow-[var(--shadow-soft)] ring-1 ring-ink/5">
+            <div className="flex items-stretch gap-4">
+              <img
+                src={saintOfDay}
+                alt={t("hm.saint.name")}
+                width={768}
+                height={960}
+                loading="lazy"
+                className="size-[104px] shrink-0 rounded-[22px] object-cover ring-1 ring-gold/20"
+              />
+              <div className="flex min-w-0 flex-col justify-center">
+                <h3 className="font-display text-[17px] font-semibold leading-snug tracking-tight">
+                  {t("hm.saint.name")}
+                </h3>
+                <p className="mt-1.5 text-[12px] leading-relaxed text-ink/50">{t("hm.saint.line")}</p>
+                <button
+                  type="button"
+                  className="press mt-3 flex w-fit items-center gap-1 text-[11.5px] font-semibold text-gold"
+                >
+                  {t("hm.saint.read")}
+                  <ChevronRight className="size-3.5 rtl:rotate-180" />
+                </button>
+              </div>
             </div>
+            <EngageBar likes={214} comments={12} compact className="mt-3.5" />
           </div>
         </section>
 
@@ -226,6 +236,7 @@ function AlphaHome() {
             </button>
             <span className="text-[11px] text-ivory/45">{t("hm.prayer.minutes")}</span>
           </div>
+          <EngageBar likes={111} comments={9} tone="dark" compact className="mt-5" />
         </section>
 
         {/* 4 — Continue reading + reading journey */}
@@ -414,6 +425,100 @@ function AlphaHome() {
               </li>
             ))}
           </ol>
+        </section>
+
+        {/* 9.5 — Alpha feed: mixed-size, explorable cards */}
+        <section className="space-y-3.5">
+          <div className="mb-1 px-1">
+            <Eyebrow>{t("hm.feed.eyebrow")}</Eyebrow>
+            <h2 className="mt-1 font-display text-[19px] font-semibold tracking-tight">
+              {t("hm.feed.line")}
+            </h2>
+          </div>
+
+          {/* Lead card — largest, image-led */}
+          <article className="overflow-hidden rounded-[28px] bg-card shadow-[var(--shadow-soft)] ring-1 ring-ink/5">
+            <div className="relative">
+              <img
+                src={postCandles}
+                alt=""
+                width={800}
+                height={520}
+                loading="lazy"
+                className="h-[168px] w-full object-cover"
+              />
+              <span className="absolute start-3 top-3 rounded-full bg-ivory/85 px-2.5 py-1 text-[10px] font-medium text-ink/65 backdrop-blur-md">
+                {t("hm.feed.p1.tag")}
+              </span>
+            </div>
+            <div className="px-4 pb-3.5 pt-3.5">
+              <h3 className="font-display text-[16.5px] font-semibold leading-snug tracking-tight">
+                {t("hm.feed.p1.title")}
+              </h3>
+              <p className="mt-1.5 text-[12px] leading-relaxed text-ink/50">{t("hm.feed.p1.line")}</p>
+              <EngageBar likes={342} comments={27} className="mt-3.5" />
+            </div>
+          </article>
+
+          {/* Medium row card */}
+          <article className="flex items-center gap-3.5 rounded-[24px] bg-parchment px-3.5 py-3.5 ring-1 ring-ink/5">
+            <img
+              src={postYouth}
+              alt=""
+              width={240}
+              height={240}
+              loading="lazy"
+              className="size-[72px] shrink-0 rounded-[18px] object-cover"
+            />
+            <div className="min-w-0 flex-1">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink/35">
+                {t("hm.feed.p2.tag")}
+              </span>
+              <h3 className="mt-1 truncate font-display text-[15px] font-semibold tracking-tight">
+                {t("hm.feed.p2.title")}
+              </h3>
+              <EngageBar likes={128} comments={11} compact className="mt-2 border-ink/8" />
+            </div>
+          </article>
+
+          {/* Two small cards — lighter weight content */}
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { tag: "hm.feed.p3.tag", title: "hm.feed.p3.title", img: contentAudio, likes: 76, comments: 4 },
+              { tag: "hm.feed.p4.tag", title: "hm.feed.p4.title", img: contentBook, likes: 54, comments: 3 },
+            ].map((card) => (
+              <article
+                key={card.title}
+                className="overflow-hidden rounded-[22px] bg-card shadow-[var(--shadow-soft)] ring-1 ring-ink/5"
+              >
+                <img
+                  src={card.img}
+                  alt=""
+                  width={400}
+                  height={260}
+                  loading="lazy"
+                  className="h-[84px] w-full object-cover"
+                />
+                <div className="px-3 pb-2.5 pt-2.5">
+                  <span className="text-[9.5px] font-semibold uppercase tracking-[0.16em] text-ink/35">
+                    {t(card.tag)}
+                  </span>
+                  <h3 className="mt-1 line-clamp-2 font-display text-[13px] font-semibold leading-snug tracking-tight">
+                    {t(card.title)}
+                  </h3>
+                  <EngageBar likes={card.likes} comments={card.comments} compact className="mt-2.5" />
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            className="press mx-auto flex items-center gap-1 rounded-full bg-parchment px-4 py-2 text-[11.5px] font-semibold text-ink/60 ring-1 ring-ink/5"
+          >
+            {t("hm.feed.more")}
+            <ChevronRight className="size-3.5 rtl:rotate-180" />
+          </button>
         </section>
 
         {/* 10 — Soft footer */}
