@@ -622,7 +622,7 @@ function BibleRead() {
                               /* Open upward only when the popover truly fits
                                  between the pinned header and this row. */
                               const r = e.currentTarget.getBoundingClientRect();
-                              const need = kind === "colors" ? 250 : 232;
+                              const need = kind === "colors" ? 130 : 232;
                               const spaceUp = r.top - 132;
                               const spaceDown = window.innerHeight - r.bottom - 96;
                               setPopDown(spaceUp < need && spaceDown > spaceUp);
