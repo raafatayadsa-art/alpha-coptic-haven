@@ -18,6 +18,7 @@ import {
 import { Screen } from "@/components/layout/Screen";
 import { agpeyaHours } from "@/lib/agpeya-data";
 import { useLang } from "@/lib/i18n";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 export const Route = createFileRoute("/agpeya")({
   head: () => ({
@@ -244,6 +245,7 @@ function AgpeyaScreen() {
           </footer>
         </main>
       </div>
+      <SloganBand />
     </Screen>
   );
 }

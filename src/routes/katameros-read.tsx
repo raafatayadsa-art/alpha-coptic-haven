@@ -15,6 +15,7 @@ import { useAutoScroll } from "@/hooks/use-auto-scroll";
 import { useReaderChrome } from "@/hooks/use-reader-chrome";
 import { groupHue, groupLabel, readings } from "@/lib/katameros-data";
 import { useLang } from "@/lib/i18n";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 export const Route = createFileRoute("/katameros-read")({
   head: () => ({
@@ -356,6 +357,7 @@ function KatamerosRead() {
       </footer>
 
       <div aria-hidden="true" className="h-24" />
+      <SloganBand />
     </KatamerosShell>
   );
 }

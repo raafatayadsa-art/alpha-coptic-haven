@@ -31,6 +31,7 @@ import {
 } from "@/components/church/icons";
 import { LibraryIcon, PlayIcon } from "@/components/church/media-icons";
 import { useLang } from "@/lib/i18n";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -647,6 +648,7 @@ function AlphaHome() {
           </span>
         </footer>
       </main>
+      <SloganBand />
     </div>
   );
 }

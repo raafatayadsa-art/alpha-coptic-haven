@@ -20,6 +20,7 @@ import {
   ShareGlyph,
 } from "@/components/synaxarium/synax-icons";
 import { useLang } from "@/lib/i18n";
+import { SloganBand } from "@/components/layout/SloganBand";
 import {
   L,
   categories,
@@ -385,6 +386,7 @@ function SynaxariumHome() {
           </footer>
         </main>
       </div>
+      <SloganBand />
     </Screen>
   );
 }

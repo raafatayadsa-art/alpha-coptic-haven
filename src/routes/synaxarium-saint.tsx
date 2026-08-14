@@ -13,6 +13,7 @@ import {
 } from "@/components/synaxarium/synax-icons";
 import { useLang } from "@/lib/i18n";
 import { L, categoryHue, categoryLabel, pick, saintOfDay } from "@/lib/synaxarium-data";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 export const Route = createFileRoute("/synaxarium-saint")({
   head: () => ({
@@ -211,6 +212,7 @@ function SaintLife() {
           {pick(L.footer, lang)}
         </p>
       </footer>
+      <SloganBand />
     </SynaxShell>
   );
 }

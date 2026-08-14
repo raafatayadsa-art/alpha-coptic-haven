@@ -19,6 +19,7 @@ import { ProgressRing } from "@/components/bible/ProgressRing";
 import { CopticCross } from "@/components/church/icons";
 import { Screen } from "@/components/layout/Screen";
 import { useLang } from "@/lib/i18n";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 export const Route = createFileRoute("/bible")({
   head: () => ({
@@ -346,6 +347,7 @@ function BibleHome() {
           </footer>
         </main>
       </div>
+      <SloganBand />
     </Screen>
   );
 }

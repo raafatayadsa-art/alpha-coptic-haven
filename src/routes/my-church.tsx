@@ -29,6 +29,7 @@ import {
   VerifiedIcon,
 } from "@/components/church/icons";
 import { useLang } from "@/lib/i18n";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 export const Route = createFileRoute("/my-church")({
   head: () => ({
@@ -455,6 +456,7 @@ function ChurchHome() {
           </p>
         </footer>
       </main>
+      <SloganBand />
     </div>
   );
 }

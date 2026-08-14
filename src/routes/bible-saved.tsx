@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AlphaOmegaMark, BookmarkIcon, ShareGlyph } from "@/components/bible/bible-icons";
 import { StatTile, ToolScreen } from "@/components/bible/ToolScreen";
 import { useLang } from "@/lib/i18n";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 export const Route = createFileRoute("/bible-saved")({
   head: () => ({
@@ -90,6 +91,7 @@ function BibleSaved() {
           </article>
         ))}
       </div>
+      <SloganBand />
     </ToolScreen>
   );
 }

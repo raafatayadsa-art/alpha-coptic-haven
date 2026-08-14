@@ -27,6 +27,7 @@ import { MembershipQr } from "@/components/church/MembershipQr";
 import { Shield } from "@/components/church/Shield";
 import { useLang } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 
 export const Route = createFileRoute("/profile")({
@@ -652,6 +653,7 @@ function MyPage() {
           </p>
         </footer>
       </main>
+      <SloganBand />
     </div>
   );
 }

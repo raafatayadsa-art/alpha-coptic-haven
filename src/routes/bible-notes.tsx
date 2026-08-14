@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { NoteIcon } from "@/components/bible/bible-icons";
 import { StatTile, ToolScreen } from "@/components/bible/ToolScreen";
 import { useLang } from "@/lib/i18n";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 export const Route = createFileRoute("/bible-notes")({
   head: () => ({
@@ -77,6 +78,7 @@ function BibleNotes() {
           </article>
         ))}
       </div>
+      <SloganBand />
     </ToolScreen>
   );
 }

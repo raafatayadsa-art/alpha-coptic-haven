@@ -44,6 +44,7 @@ import {
   type ContentItem,
 } from "@/components/church/ContentCard";
 import { useLang } from "@/lib/i18n";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 export const Route = createFileRoute("/church-control")({
   head: () => ({
@@ -304,6 +305,7 @@ function ChurchProfile() {
 
         <Footer />
       </main>
+      <SloganBand />
     </div>
   );
 }

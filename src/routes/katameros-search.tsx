@@ -6,6 +6,7 @@ import { KatamerosShell } from "@/components/katameros/KatamerosShell";
 import { ArrowGlyph, CalendarGlyph, SearchGlass } from "@/components/katameros/katameros-icons";
 import { useLang } from "@/lib/i18n";
 import { copticMonths, groupLabel, readings } from "@/lib/katameros-data";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 export const Route = createFileRoute("/katameros-search")({
   head: () => ({
@@ -137,6 +138,7 @@ function KatamerosSearch() {
         <CopticCross className="size-5 text-brass/70" />
         <p className="font-manrope text-[11.5px] text-cream/35">{t("km.footer")}</p>
       </footer>
+      <SloganBand />
     </KatamerosShell>
   );
 }

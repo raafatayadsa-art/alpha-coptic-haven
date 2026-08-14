@@ -10,6 +10,7 @@ import {
 } from "@/components/katameros/katameros-icons";
 import { useLang } from "@/lib/i18n";
 import { groupHue, groupLabel, readings } from "@/lib/katameros-data";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 export const Route = createFileRoute("/katameros-saved")({
   head: () => ({
@@ -138,6 +139,7 @@ function KatamerosSaved() {
         <CopticCross className="size-5 text-brass/70" />
         <p className="font-manrope text-[11.5px] text-cream/35">{t("km.sv.footer")}</p>
       </footer>
+      <SloganBand />
     </KatamerosShell>
   );
 }
