@@ -218,3 +218,46 @@
   background-size: 200% 100%;
   animation: shimmer 2.2s linear infinite;
 }
+
+/* ============================================================
+ * Alpha — Global iPhone Safe Area System
+ * Single source of truth for notch / Dynamic Island (top) and
+ * Home Indicator (bottom) insets. Never hardcode insets again:
+ * use these utilities (or <Screen>) in every screen.
+ * ============================================================ */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+
+  /* Minimum breathing room even on devices without insets */
+  --safe-top-min: 14px;
+  --safe-bottom-min: 10px;
+
+  /* Height of the fixed bottom navigation bar */
+  --bottom-nav-h: 68px;
+}
+
+@utility safe-top {
+  padding-top: max(var(--safe-top-min), var(--safe-top));
+}
+
+@utility safe-bottom {
+  padding-bottom: max(var(--safe-bottom-min), var(--safe-bottom));
+}
+
+@utility safe-x {
+  padding-inline-start: var(--safe-left);
+  padding-inline-end: var(--safe-right);
+}
+
+/* Reserve room for the fixed bottom nav + home indicator */
+@utility safe-nav-gap {
+  padding-bottom: calc(var(--bottom-nav-h) + max(var(--safe-bottom-min), var(--safe-bottom)));
+}
+
+/* Offset for sticky headers so they clear the notch */
+@utility safe-sticky-top {
+  top: max(var(--safe-top), 0px);
+}
