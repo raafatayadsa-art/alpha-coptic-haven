@@ -130,10 +130,11 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
-        <div className="pb-[calc(78px+env(safe-area-inset-bottom))]">
+        {/* Global safe-area layout: every screen inherits iPhone safe areas from here. */}
+        <Screen>
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
           <Outlet />
-        </div>
+        </Screen>
         <BottomNav />
       </LanguageProvider>
     </QueryClientProvider>
