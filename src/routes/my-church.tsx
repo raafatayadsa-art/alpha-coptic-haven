@@ -31,7 +31,7 @@ import {
 import { LanguageToggle } from "@/components/church/LanguageToggle";
 import { useLang } from "@/lib/i18n";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/my-church")({
   head: () => ({
     meta: [
       { title: "كنيستي — Alpha Coptic" },
