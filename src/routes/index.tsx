@@ -191,8 +191,8 @@ function AlphaHome() {
   const gregorian = new Intl.DateTimeFormat(isArabic ? "ar-EG" : "en-GB", {
     day: "numeric",
     month: "long",
-    year: "numeric",
   }).format(new Date());
+
 
   return (
     <div
