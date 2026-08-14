@@ -241,7 +241,7 @@ function KhoulagyReader() {
         spacing={spacing}
         onSpacing={setSpacing}
         coptic={coptic}
-        onCoptic={() => setCoptic((c) => !c)}
+        onCoptic={() => setMode((m) => (m === "all" ? "ar" : "all"))}
       />
     </Screen>
   );
