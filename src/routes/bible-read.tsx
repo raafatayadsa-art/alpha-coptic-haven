@@ -423,6 +423,7 @@ function BibleRead() {
             {samplePassage.map((verse, i) => {
               const on = active === verse.n;
               const reading = currentVerse === verse.n;
+              const ink = hlInk(highlights[verse.n]);
               return (
                 <div key={verse.n}>
                 <button
@@ -431,21 +432,35 @@ function BibleRead() {
                   ref={(el) => {
                     verseRefs.current[i] = el;
                   }}
-                  onClick={() => setActive(on ? null : verse.n)}
+                  onClick={() => {
+                    setSheet(null);
+                    setActive(on ? null : verse.n);
+                  }}
                   className={`verse-rise relative block w-full overflow-hidden rounded-[22px] px-4 py-3.5 text-start transition-all duration-500 ${
-                    on
-                      ? night
-                        ? "border border-illum/40 bg-illum/12"
-                        : "border border-copper/35 bg-illum/20"
-                      : reading
+                    ink
+                      ? ""
+                      : on
                         ? night
-                          ? "border border-illum/30 bg-vellum/[0.08] verse-focus"
-                          : "border border-illum/45 bg-white/85 verse-focus"
-                        : night
-                          ? "border border-vellum/10 bg-vellum/[0.05]"
-                          : "border border-shade/60 bg-white/70"
+                          ? "border border-illum/40 bg-illum/12"
+                          : "border border-copper/35 bg-illum/20"
+                        : reading
+                          ? night
+                            ? "border border-illum/30 bg-vellum/[0.08] verse-focus"
+                            : "border border-illum/45 bg-white/85 verse-focus"
+                          : night
+                            ? "border border-vellum/10 bg-vellum/[0.05]"
+                            : "border border-shade/60 bg-white/70"
                   }`}
-                  style={{ animationDelay: `${i * 45}ms`, lineHeight: lh }}
+                  style={{
+                    animationDelay: `${i * 45}ms`,
+                    lineHeight: lh,
+                    ...(ink
+                      ? {
+                          background: `color-mix(in oklab, ${ink} ${night ? "28%" : "42%"}, transparent)`,
+                          border: `1px solid color-mix(in oklab, ${ink} 70%, transparent)`,
+                        }
+                      : {}),
+                  }}
                 >
                   {/* reading rail */}
                   <span
