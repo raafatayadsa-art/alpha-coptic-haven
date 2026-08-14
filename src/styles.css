@@ -353,46 +353,13 @@
   --safe-top-min: 14px;
   --safe-bottom-min: 4px;
 
-  /* Height of the fixed bottom navigation bar */
-  --bottom-nav-h: 52px;
+  /* Height of the fixed bottom navigation bar (incl. lift off the edge) */
+  --bottom-nav-h: 72px;
 
-  /* Bottom nav skin — glass surface tinted per screen theme */
+  /* Bottom nav ink — original ivory glass bar keeps dark ink everywhere */
   --nav-fg: var(--ink);
-  --nav-glass: oklch(0.99 0.012 92 / 0.68);
-  --nav-edge: oklch(0.82 0.09 85 / 0.45);
-  --nav-shadow: 0 -2px 24px oklch(0.32 0.05 70 / 0.14), 0 10px 30px oklch(0.32 0.05 70 / 0.1);
 }
 
-/* Dark-themed screens (Agpeya / Katameros / Bible / Synaxarium) flip nav ink to light */
-body:has(.bg-abyss),
-body:has(.km-page),
-body:has(.scriptorium),
-body:has(.sx-page) {
-  --nav-fg: oklch(0.96 0.012 95);
-  --nav-glass: oklch(0.24 0.045 250 / 0.6);
-  --nav-edge: oklch(0.85 0.11 88 / 0.35);
-  --nav-shadow: 0 -2px 24px oklch(0.1 0.03 250 / 0.45);
-}
-
-body:has(.km-page) {
-  --nav-glass: oklch(0.26 0.07 25 / 0.62);
-}
-
-body:has(.sx-page) {
-  --nav-glass: oklch(0.24 0.06 160 / 0.62);
-}
-
-body:has(.scriptorium) {
-  --nav-glass: oklch(0.25 0.05 265 / 0.62);
-}
-
-/* Frosted bar that adopts the current screen's tint */
-@utility nav-glass {
-  background: var(--nav-glass);
-  backdrop-filter: blur(22px) saturate(160%);
-  box-shadow: var(--nav-shadow);
-  border: 1px solid var(--nav-edge);
-}
 
 
 @utility safe-top {
