@@ -44,6 +44,24 @@ export const Route = createFileRoute("/khoulagy-read")({
   }),
 });
 
+type ViewMode = "all" | "arcop" | "encop" | "aren" | "ar" | "cop" | "en";
+
+const VIEW_MODES: { id: ViewMode; key: string; cols: ("ar" | "cop" | "en")[] }[] = [
+  { id: "all", key: "kh.view.all", cols: ["ar", "cop", "en"] },
+  { id: "arcop", key: "kh.view.arcop", cols: ["ar", "cop"] },
+  { id: "encop", key: "kh.view.encop", cols: ["cop", "en"] },
+  { id: "aren", key: "kh.view.aren", cols: ["ar", "en"] },
+  { id: "ar", key: "kh.view.ar", cols: ["ar"] },
+  { id: "cop", key: "kh.view.cop", cols: ["cop"] },
+  { id: "en", key: "kh.view.en", cols: ["en"] },
+];
+
+const COL_LABEL: Record<"ar" | "cop" | "en", string> = {
+  ar: "عربي",
+  cop: "ⲁⲃ",
+  en: "EN",
+};
+
 function KhoulagyReader() {
   const { rite } = Route.useSearch();
   const { t, dir, isArabic } = useLang();
@@ -55,10 +73,15 @@ function KhoulagyReader() {
   const [speed, setSpeed] = useState(1);
   const [size, setSize] = useState(1);
   const [spacing, setSpacing] = useState(1);
-  const [coptic, setCoptic] = useState(true);
+  const [mode, setMode] = useState<ViewMode>("all");
+  const [viewOpen, setViewOpen] = useState(false);
+
+  const cols = VIEW_MODES.find((m) => m.id === mode)!.cols;
+  const coptic = cols.includes("cop");
 
   const { visible, wake } = useReaderChrome(5000);
   useAutoScroll(auto, READER_SPEEDS[speed]!.pps, () => setAuto(false));
+
 
   /* Any touch on the page stops the auto-scroll, as in the Bible reader. */
   useEffect(() => {
