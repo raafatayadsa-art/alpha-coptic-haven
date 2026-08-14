@@ -207,7 +207,7 @@ function ChurchProfile() {
     title: t(entry.titleKey),
     publisher: t(entry.publisherKey),
     kind: t(entry.kindKey),
-    meta: entry.metaKey ? t(entry.metaKey) : undefined,
+    ...(entry.metaKey ? { meta: t(entry.metaKey) } : {}),
   });
 
   return (
