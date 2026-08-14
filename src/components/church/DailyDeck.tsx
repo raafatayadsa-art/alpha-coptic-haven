@@ -143,12 +143,14 @@ export function DailyDeck({ cards }: { cards: DailyCard[] }) {
             className={cn(
               "pointer-events-none absolute inset-0 overflow-hidden rounded-[30px] shadow-[var(--shadow-soft)] ring-1 ring-ink/5",
               b.tone === "lavender" ? "bg-lavender/60" : "bg-parchment",
-              settled && "transition-all duration-[260ms] ease-out",
             )}
             style={{
               transform: `translate3d(${peekSide * (depth * 12 - lift * 12)}px, ${depth * 10 - lift * 10}px, 0) scale(${1 - depth * 0.035 + lift * 0.035})`,
               opacity: 1 - depth * 0.2 + lift * 0.2,
               zIndex: 10 - i,
+              transition: settled
+                ? `transform ${duration}ms cubic-bezier(0.22,0.61,0.36,1), opacity ${duration}ms ease-out`
+                : "none",
             }}
           >
             <img
@@ -169,15 +171,15 @@ export function DailyDeck({ cards }: { cards: DailyCard[] }) {
           onPointerMove={onMove}
           onPointerUp={onUp}
           onPointerCancel={onUp}
-          className={cn(
-            "relative z-20 touch-pan-y overflow-hidden rounded-[30px] shadow-lift ring-1 ring-ink/5 will-change-transform",
-            settled &&
-              "transition-[transform,opacity] duration-[260ms] ease-[cubic-bezier(0.22,0.61,0.36,1)]",
-          )}
+          className="relative z-20 touch-pan-y overflow-hidden rounded-[30px] shadow-lift ring-1 ring-ink/5 will-change-transform"
           style={{
-            transform: `translate3d(${activeX}px, 0, 0) rotate(${activeX / 44}deg)`,
+            transform: `translate3d(${activeX}px, 0, 0) rotate(${activeX / 48}deg)`,
             opacity: snapping !== 0 ? 0 : 1,
+            transition: settled
+              ? `transform ${duration}ms cubic-bezier(0.22,0.61,0.36,1), opacity ${duration}ms ease-out`
+              : "none",
           }}
+
         >
 
           <div className="relative h-[300px] w-full">
