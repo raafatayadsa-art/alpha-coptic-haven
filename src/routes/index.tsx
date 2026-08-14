@@ -12,6 +12,7 @@ import dailyVerse from "@/assets/daily-verse.jpg";
 import postCandles from "@/assets/post-candles.jpg";
 import postYouth from "@/assets/post-youth.jpg";
 import saintOfDay from "@/assets/saint-of-day.jpg";
+import { DailyDeck, type DailyCard } from "@/components/church/DailyDeck";
 import { EngageBar } from "@/components/church/EngageBar";
 
 
@@ -54,18 +55,7 @@ export const Route = createFileRoute("/")({
 });
 
 /* Presentation-only sample content — visual prototype, no data layer. */
-const daily: {
-  eyebrow: string;
-  title: string;
-  line: string;
-  meta: string;
-  action: string;
-  image: string;
-  icon: ReactNode;
-  tone: "lavender" | "card";
-  likes: number;
-  comments: number;
-}[] = [
+const daily: DailyCard[] = [
   {
     eyebrow: "hm.verse.eyebrow",
     title: "hm.verse.text",

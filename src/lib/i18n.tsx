@@ -244,7 +244,7 @@ export const dict: Dict = {
   },
   "hm.saint.read": { ar: "اقرأ السيرة", en: "Read the life" },
   "hm.daily.title": { ar: "يومك الروحي", en: "Your daily spiritual deck" },
-  "hm.daily.hint": { ar: "اسحب لاستكشاف كروت اليوم", en: "Swipe to explore today's cards" },
+  "hm.daily.hint": { ar: "اسحب يمين أو شمال لتغيير الكارت", en: "Swipe left or right to change card" },
   "hm.verse.read": { ar: "تأمل في الآية", en: "Reflect on the verse" },
   "hm.feast.eyebrow": { ar: "مناسبة اليوم", en: "Feast of the day" },
   "hm.feast.name": { ar: "عيد التجلي المجيد", en: "The Glorious Feast of Transfiguration" },
