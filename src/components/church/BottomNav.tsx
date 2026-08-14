@@ -49,12 +49,20 @@ export function BottomNav() {
               </span>
               <span className={label}>{t(item.key)}</span>
             </Link>
+          ) : item.center ? (
+            <button key={item.key} type="button" className={`${shell} text-gold`}>
+              <span className="grid size-[30px] place-items-center rounded-full bg-gold/12 ring-1 ring-gold/25">
+                {item.icon}
+              </span>
+              <span className={`${label} font-semibold`}>{t(item.key)}</span>
+            </button>
           ) : (
             <button key={item.key} type="button" className={shell}>
               {item.icon}
               <span className={label}>{t(item.key)}</span>
             </button>
           ),
+
         )}
       </div>
     </nav>
