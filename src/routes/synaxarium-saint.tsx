@@ -35,6 +35,8 @@ function SaintLife() {
   const { lang } = useLang();
   const s = saintOfDay;
   const hue = categoryHue[s.category];
+  const [liked, setLiked] = useState(false);
+
 
   const meta = [
     { icon: <ScrollIcon className="size-[17px]" />, label: L.kind, value: categoryLabel[s.category] },
