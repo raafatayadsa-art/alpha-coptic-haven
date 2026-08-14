@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import churchCover from "@/assets/church-cover.jpg";
-import oliveBranch from "@/assets/olive-branch.png";
 import priest1 from "@/assets/priest-1.jpg";
 import priest2 from "@/assets/priest-2.jpg";
 import priest3 from "@/assets/priest-3.jpg";
@@ -204,35 +203,6 @@ function ChurchHome() {
           </div>
         </section>
 
-        {/* 3 — Smart Spiritual Card */}
-        <section className="animate-float-up mt-9 px-5 [animation-delay:160ms]">
-          <div className="relative overflow-hidden rounded-[32px] border border-lavender bg-lavender/30 p-7">
-            <div className="absolute -right-10 -top-10 size-40 rounded-full bg-gold/15 blur-3xl" />
-            <div className="relative">
-              <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-ink/45">
-                Verse of the Day
-              </span>
-              <p className="mt-4 font-display text-[22px] italic leading-[1.45] text-ink/85 text-pretty">
-                “Be still, and know that I am God; I will be exalted among the nations.”
-              </p>
-              <div className="mt-6 flex items-center gap-3">
-                <span className="grid size-12 place-items-center rounded-2xl border border-white/70 bg-ivory/70">
-                  <img
-                    src={oliveBranch}
-                    alt=""
-                    width={512}
-                    height={512}
-                    loading="lazy"
-                    className="size-8 object-contain"
-                  />
-                </span>
-                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/55">
-                  Psalm 46:10
-                </span>
-              </div>
-            </div>
-          </div>
-        </section>
 
 
         {/* 4 — Church Priests */}
