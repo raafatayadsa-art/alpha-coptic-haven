@@ -18,6 +18,7 @@ export function KatamerosShell({
   action,
   children,
   backTo = "/katameros",
+  pinHeader = true,
 }: {
   eyebrow?: string;
   title: string;
@@ -25,6 +26,8 @@ export function KatamerosShell({
   action?: ReactNode;
   children: ReactNode;
   backTo?: "/katameros" | "/katameros-calendar" | "/katameros-day";
+  /** Reading screens pin their own parts rail instead, so the header scrolls. */
+  pinHeader?: boolean;
 }) {
   const { t, dir, isArabic } = useLang();
 
@@ -36,7 +39,11 @@ export function KatamerosShell({
           isArabic ? "font-arabic" : "font-sans"
         }`}
       >
-        <header className="safe-top safe-sticky-top sticky top-0 z-30 px-4 pb-3 backdrop-blur-xl">
+        <header
+          className={`safe-top px-4 pb-3 backdrop-blur-xl ${
+            pinHeader ? "safe-sticky-top sticky top-0 z-30" : "relative mt-[92px]"
+          }`}
+        >
           <div className="km-glass relative overflow-hidden rounded-[26px] px-4 pt-3.5 pb-4">
             <div className="km-hairline absolute inset-x-6 top-0 h-px opacity-60" />
             <div className="flex items-center gap-3">

@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
 import { ChevronRight } from "@/components/church/icons";
@@ -24,6 +25,7 @@ export function PrayerHourCard({
   tone = "plain",
   span = "cell",
   index,
+  hourId,
 }: {
   name: string;
   time: string;
@@ -31,16 +33,19 @@ export function PrayerHourCard({
   tone?: PrayerTone;
   span?: PrayerSpan;
   index?: number;
+  /** When given, the tile opens that hour's reading screen. */
+  hourId?: string | undefined;
 }) {
-  return (
-    <button
-      type="button"
-      className={cn(
-        "press group relative isolate flex flex-col overflow-hidden rounded-[26px] p-4 text-start",
-        tone === "featured" ? "ocean-glass" : "ocean-tile",
-        spanClass[span],
-      )}
-    >
+  const shared = {
+    className: cn(
+      "press group relative isolate flex flex-col overflow-hidden rounded-[26px] p-4 text-start",
+      tone === "featured" ? "ocean-glass" : "ocean-tile",
+      spanClass[span],
+    ),
+  };
+
+  const body = (
+    <>
       {/* corner glow */}
       <span
         aria-hidden="true"
@@ -89,6 +94,20 @@ export function PrayerHourCard({
           <ChevronRight className="size-3 rtl:rotate-180" />
         </span>
       </div>
+    </>
+  );
+
+  if (hourId) {
+    return (
+      <Link to="/agpeya-read" search={{ hour: hourId }} {...shared}>
+        {body}
+      </Link>
+    );
+  }
+
+  return (
+    <button type="button" {...shared}>
+      {body}
     </button>
   );
 }

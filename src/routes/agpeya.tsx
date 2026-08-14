@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import type { CSSProperties, ReactNode } from "react";
 
 import agpeyaNightHero from "@/assets/agpeya-night-hero.jpg";
@@ -16,7 +16,7 @@ import {
   SunsetIcon,
 } from "@/components/church/prayer-icons";
 import { Screen } from "@/components/layout/Screen";
-import { useSectionBar } from "@/hooks/use-section-bar";
+import { agpeyaHours } from "@/lib/agpeya-data";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/agpeya")({
@@ -53,6 +53,8 @@ const HUE_NOW: Hue = { hue: "oklch(0.665 0.108 62)", hue2: "oklch(0.855 0.092 82
 const HUE_DAY: Hue = { hue: "oklch(0.660 0.108 205)", hue2: "oklch(0.840 0.090 190)" };
 const HUE_NIGHT: Hue = { hue: "oklch(0.520 0.126 278)", hue2: "oklch(0.790 0.086 288)" };
 const HUE_EXTRA: Hue = { hue: "oklch(0.620 0.100 163)", hue2: "oklch(0.830 0.088 155)" };
+
+const HOUR_IDS = new Set(agpeyaHours.map((h) => h.id));
 
 const dayPrayers: Prayer[] = [
   { key: "ag.p.prime", time: "ag.p.prime.t", icon: <SunIcon className="size-5" />, span: "wide" },
@@ -117,6 +119,7 @@ function BentoSection({
             tone={prayer.tone ?? "plain"}
             span={prayer.span ?? "cell"}
             index={offset + i + 1}
+            hourId={HOUR_IDS.has(prayer.key.replace("ag.p.", "")) ? prayer.key.replace("ag.p.", "") : undefined}
           />
         ))}
       </div>
@@ -124,21 +127,9 @@ function BentoSection({
   );
 }
 
-const SECTIONS: { id: string; key: string; hue: Hue }[] = [
-  { id: "ag-now", key: "ag.current", hue: HUE_NOW },
-  { id: "ag-day", key: "ag.day", hue: HUE_DAY },
-  { id: "ag-night", key: "ag.night", hue: HUE_NIGHT },
-  { id: "ag-extra", key: "ag.extra", hue: HUE_EXTRA },
-];
-const SECTION_IDS = SECTIONS.map((s) => s.id);
 
 function AgpeyaScreen() {
   const { t, dir, isArabic } = useLang();
-  const { active, progress, visible, wake } = useSectionBar(SECTION_IDS);
-  const activeIndex = Math.max(
-    0,
-    SECTIONS.findIndex((s) => s.id === active),
-  );
 
 
   return (
@@ -186,60 +177,6 @@ function AgpeyaScreen() {
           </div>
         </header>
 
-        {/* ── Sticky section rail: tells the reader where they are ── */}
-        <div
-          className={`fixed inset-x-0 top-0 z-40 mx-auto w-full max-w-[430px] px-3 pt-2 pb-2 transition-all duration-300 ${
-            visible ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-3 opacity-0"
-          }`}
-        >
-          <div className="ocean-glass safe-top rounded-[22px] px-2.5 pt-2 pb-2.5 backdrop-blur-xl">
-            <div className="no-scrollbar flex items-center gap-2 overflow-x-auto">
-              {SECTIONS.map((s, i) => {
-                const isActive = i === activeIndex;
-                const done = i < activeIndex;
-                return (
-                  <button
-                    key={s.id}
-                    type="button"
-                    onClick={() => {
-                      wake();
-                      document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-                    }}
-                    style={hueStyle(s.hue)}
-                    className={`press shrink-0 rounded-full border px-3.5 py-1.5 font-sora text-[12px] font-semibold whitespace-nowrap transition-colors ${
-                      isActive
-                        ? "hue-cta border-transparent text-abyss"
-                        : done
-                          ? "hue-ring hue-text bg-abyss/40"
-                          : "border-foam/10 bg-abyss/30 text-foam/45"
-                    }`}
-                  >
-                    {t(s.key)}
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="mt-2 flex items-center gap-2.5 px-1">
-              <span
-                className="font-manrope text-[10.5px] font-semibold tabular-nums text-mint"
-                aria-hidden="true"
-              >
-                {Math.round(progress * 100)}%
-              </span>
-              <span className="relative h-1 flex-1 overflow-hidden rounded-full bg-foam/10">
-                <span
-                  className="absolute inset-y-0 start-0 rounded-full bg-gradient-to-l from-mint to-teal transition-[width] duration-200"
-                  style={{ width: `${Math.max(3, progress * 100)}%` }}
-                />
-              </span>
-              <span className="font-manrope text-[10.5px] tabular-nums text-foam/40">
-                {activeIndex + 1}/{SECTIONS.length}
-              </span>
-            </div>
-          </div>
-        </div>
-
         <main className="space-y-5 px-4">
           {/* ── Current prayer: warm amber hero tile ── */}
           <section
@@ -273,14 +210,15 @@ function AgpeyaScreen() {
               <span className="truncate font-manrope text-[11px] text-foam/60">{t("ag.current.meta")}</span>
             </div>
 
-            <button
-              type="button"
+            <Link
+              to="/agpeya-read"
+              search={{ hour: "prime" }}
               className="press hue-cta mt-4 flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3 font-sora text-[13px] font-semibold text-abyss"
             >
               <PlayIcon className="size-[15px]" />
               {t("ag.current.cta")}
               <ChevronRight className="size-3.5 rtl:rotate-180" />
-            </button>
+            </Link>
           </section>
 
           {/* ── The original three groups, each in its own colour band ── */}
