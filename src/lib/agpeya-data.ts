@@ -170,7 +170,7 @@ export const agpeyaHours: PrayerHour[] = [
     { ar: "صلاة بدء النهار وشكر الله على النور الجديد", en: "The prayer that begins the day and thanks God for new light" },
     {
       label: { ar: "مزامير باكر", en: "Psalms of the Morning" },
-      ref: { ar: "مزمور ٦٢ ، ٦٦ ، ٦ٹ", en: "Psalms 62, 66, 69" },
+      ref: { ar: "مزمور ٦٢ ، ٦٦ ، ٦٩", en: "Psalms 62, 66, 69" },
       lines: [
         {
           ar: "يَا اللهُ إِلَهِي، إِلَيْكَ أَبْتَكِرُ، عَطِشَتْ إِلَيْكَ نَفْسِي.",
@@ -270,7 +270,7 @@ export const agpeyaHours: PrayerHour[] = [
     { ar: "شكر على انتهاء النهار وطلب رحمة عند الغروب", en: "Thanks for the ended day and mercy at sunset" },
     {
       label: { ar: "مزامير الغروب", en: "Psalms of Vespers" },
-      ref: { ar: "مزمور ١١٦ ، １１７ ، ١١٨", en: "Psalms 116, 117, 118" },
+      ref: { ar: "مزمور ١١٦ ، ١١٧ ، ١١٨", en: "Psalms 116, 117, 118" },
       lines: [
         {
           ar: "سَبِّحُوا الرَّبَّ يَا جَمِيعَ الأُمَمِ، بَارِكُوهُ يَا كُلَّ الشُّعُوبِ.",
