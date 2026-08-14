@@ -305,6 +305,13 @@ export const dict: Dict = {
   "engage.share": { ar: "مشاركة", en: "Share" },
   "engage.save": { ar: "حفظ", en: "Save" },
   "engage.saved": { ar: "محفوظ", en: "Saved" },
+  "engage.shared": { ar: "تم النسخ", en: "Copied" },
+  "engage.comments": { ar: "التعليقات", en: "Comments" },
+  "engage.placeholder": { ar: "اكتب تعليقًا…", en: "Write a comment…" },
+  "engage.send": { ar: "إرسال", en: "Send" },
+  "engage.empty": { ar: "كن أول من يشارك تعليقًا", en: "Be the first to comment" },
+  "engage.you": { ar: "أنت", en: "You" },
+  "engage.now": { ar: "الآن", en: "now" },
 
   /* ── Alpha Home feed ────────────────────────────────────── */
   "hm.feed.eyebrow": { ar: "جديد ألفا", en: "Alpha feed" },
