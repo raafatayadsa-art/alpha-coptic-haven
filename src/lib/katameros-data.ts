@@ -121,7 +121,7 @@ export const readings: Reading[] = [
     id: "lit-psalm",
     group: "liturgy",
     kind: { ar: "مزمور القداس", en: "Liturgy psalm" },
-    ref: { ar: "مزمour ١١٥ : ١٥", en: "Psalm 116 : 15" },
+    ref: { ar: "مزمور ١١٦ : ١٥", en: "Psalm 116 : 15" },
     excerpt: {
       ar: "كَرِيمٌ أَمَامَ الرَّبِّ مَوْتُ قِدِّيسِيهِ.",
       en: "Precious in the sight of the Lord is the death of His saints.",

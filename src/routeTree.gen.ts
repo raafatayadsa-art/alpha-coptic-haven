@@ -27,6 +27,7 @@ import { Route as KatamerosRouteImport } from './routes/katameros'
 import { Route as KatamerosCalendarRouteImport } from './routes/katameros-calendar'
 import { Route as KatamerosDayRouteImport } from './routes/katameros-day'
 import { Route as KatamerosReadRouteImport } from './routes/katameros-read'
+import { Route as KatamerosSavedRouteImport } from './routes/katameros-saved'
 import { Route as KatamerosSearchRouteImport } from './routes/katameros-search'
 import { Route as MyChurchRouteImport } from './routes/my-church'
 import { Route as ProfileRouteImport } from './routes/profile'
@@ -121,6 +122,11 @@ const KatamerosReadRoute = KatamerosReadRouteImport.update({
   path: '/katameros-read',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KatamerosSavedRoute = KatamerosSavedRouteImport.update({
+  id: '/katameros-saved',
+  path: '/katameros-saved',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const KatamerosSearchRoute = KatamerosSearchRouteImport.update({
   id: '/katameros-search',
   path: '/katameros-search',
@@ -156,6 +162,7 @@ export interface FileRoutesByFullPath {
   '/katameros-calendar': typeof KatamerosCalendarRoute
   '/katameros-day': typeof KatamerosDayRoute
   '/katameros-read': typeof KatamerosReadRoute
+  '/katameros-saved': typeof KatamerosSavedRoute
   '/katameros-search': typeof KatamerosSearchRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
@@ -179,6 +186,7 @@ export interface FileRoutesByTo {
   '/katameros-calendar': typeof KatamerosCalendarRoute
   '/katameros-day': typeof KatamerosDayRoute
   '/katameros-read': typeof KatamerosReadRoute
+  '/katameros-saved': typeof KatamerosSavedRoute
   '/katameros-search': typeof KatamerosSearchRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
@@ -203,6 +211,7 @@ export interface FileRoutesById {
   '/katameros-calendar': typeof KatamerosCalendarRoute
   '/katameros-day': typeof KatamerosDayRoute
   '/katameros-read': typeof KatamerosReadRoute
+  '/katameros-saved': typeof KatamerosSavedRoute
   '/katameros-search': typeof KatamerosSearchRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
@@ -228,6 +237,7 @@ export interface FileRouteTypes {
     | '/katameros-calendar'
     | '/katameros-day'
     | '/katameros-read'
+    | '/katameros-saved'
     | '/katameros-search'
     | '/my-church'
     | '/profile'
@@ -251,6 +261,7 @@ export interface FileRouteTypes {
     | '/katameros-calendar'
     | '/katameros-day'
     | '/katameros-read'
+    | '/katameros-saved'
     | '/katameros-search'
     | '/my-church'
     | '/profile'
@@ -274,6 +285,7 @@ export interface FileRouteTypes {
     | '/katameros-calendar'
     | '/katameros-day'
     | '/katameros-read'
+    | '/katameros-saved'
     | '/katameros-search'
     | '/my-church'
     | '/profile'
@@ -298,6 +310,7 @@ export interface RootRouteChildren {
   KatamerosCalendarRoute: typeof KatamerosCalendarRoute
   KatamerosDayRoute: typeof KatamerosDayRoute
   KatamerosReadRoute: typeof KatamerosReadRoute
+  KatamerosSavedRoute: typeof KatamerosSavedRoute
   KatamerosSearchRoute: typeof KatamerosSearchRoute
   MyChurchRoute: typeof MyChurchRoute
   ProfileRoute: typeof ProfileRoute
@@ -431,6 +444,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KatamerosReadRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/katameros-saved': {
+      id: '/katameros-saved'
+      path: '/katameros-saved'
+      fullPath: '/katameros-saved'
+      preLoaderRoute: typeof KatamerosSavedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/katameros-search': {
       id: '/katameros-search'
       path: '/katameros-search'
@@ -474,6 +494,7 @@ const rootRouteChildren: RootRouteChildren = {
   KatamerosCalendarRoute: KatamerosCalendarRoute,
   KatamerosDayRoute: KatamerosDayRoute,
   KatamerosReadRoute: KatamerosReadRoute,
+  KatamerosSavedRoute: KatamerosSavedRoute,
   KatamerosSearchRoute: KatamerosSearchRoute,
   MyChurchRoute: MyChurchRoute,
   ProfileRoute: ProfileRoute,

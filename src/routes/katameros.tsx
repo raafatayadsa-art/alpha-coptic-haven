@@ -1,5 +1,5 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 import katamerosHero from "@/assets/katameros-hero.jpg";
 import { CopticCross } from "@/components/church/icons";
@@ -55,14 +55,14 @@ export const Route = createFileRoute("/katameros")({
   component: KatamerosHome,
 });
 
-const groupIcon: Record<ReadingGroupKey, JSX.Element> = {
+const groupIcon: Record<ReadingGroupKey, ReactNode> = {
   vespers: <LampIcon className="size-[19px]" />,
   matins: <CenserIcon className="size-[19px]" />,
   liturgy: <ChaliceIcon className="size-[19px]" />,
   synaxarium: <FeastStarIcon className="size-[19px]" />,
 };
 
-const readingIcon: Record<string, JSX.Element> = {
+const readingIcon: Record<string, ReactNode> = {
   "vsp-psalm": <PsalmIcon className="size-[18px]" />,
   "vsp-gospel": <GospelIcon className="size-[18px]" />,
   "mat-psalm": <PsalmIcon className="size-[18px]" />,
