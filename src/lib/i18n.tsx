@@ -312,6 +312,12 @@ export const dict: Dict = {
   "engage.empty": { ar: "كن أول من يشارك تعليقًا", en: "Be the first to comment" },
   "engage.you": { ar: "أنت", en: "You" },
   "engage.now": { ar: "الآن", en: "now" },
+  "engage.c1.a": { ar: "مريم ن.", en: "Mary N." },
+  "engage.c1.t": { ar: "آية مباركة، ربنا يفرح قلوبكم 🙏", en: "A blessed verse — thank you 🙏" },
+  "engage.c1.w": { ar: "منذ ساعتين", en: "2h ago" },
+  "engage.c2.a": { ar: "بيتر ج.", en: "Peter G." },
+  "engage.c2.t": { ar: "شاركتها مع مجموعة الشباب.", en: "Shared it with the youth group." },
+  "engage.c2.w": { ar: "أمس", en: "Yesterday" },
 
   /* ── Alpha Home feed ────────────────────────────────────── */
   "hm.feed.eyebrow": { ar: "جديد ألفا", en: "Alpha feed" },
