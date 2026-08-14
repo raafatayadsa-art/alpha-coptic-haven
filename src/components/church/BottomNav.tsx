@@ -77,11 +77,15 @@ export function BottomNav() {
       <div className="glass-card flex items-stretch gap-0.5 rounded-[28px] px-2 py-1.5">
         {items.map((item) =>
           item.to && item.center ? (
-            <Link key={item.key} to={item.to} className={`${shell} text-gold`}>
-              <span className="grid size-[30px] place-items-center rounded-full bg-gold/12 ring-1 ring-gold/25">
-                {item.icon}
+            <Link key={item.key} to={item.to} className={centerShell}>
+              {/* soft sheen that lights up on hover / active */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-3 -top-6 h-10 rounded-full bg-gold/25 opacity-0 blur-lg transition-opacity duration-500 group-hover:opacity-100 group-data-[status=active]:opacity-100"
+              />
+              <span className={`${label} relative whitespace-nowrap text-[11px] font-semibold`}>
+                {t(item.key)}
               </span>
-              <span className={`${label} font-semibold`}>{t(item.key)}</span>
             </Link>
           ) : item.to ? (
             <Link
@@ -96,22 +100,15 @@ export function BottomNav() {
               </span>
               <span className={label}>{t(item.key)}</span>
             </Link>
-          ) : item.center ? (
-            <button key={item.key} type="button" className={`${shell} text-gold`}>
-              <span className="grid size-[30px] place-items-center rounded-full bg-gold/12 ring-1 ring-gold/25">
-                {item.icon}
-              </span>
-              <span className={`${label} font-semibold`}>{t(item.key)}</span>
-            </button>
           ) : (
             <button key={item.key} type="button" className={shell}>
               {item.icon}
               <span className={label}>{t(item.key)}</span>
             </button>
           ),
-
         )}
       </div>
+
     </nav>
   );
 }
