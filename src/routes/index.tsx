@@ -205,7 +205,7 @@ function AlphaHome() {
   return (
     <div
       dir={dir}
-      className={`${arabic} mx-auto min-h-screen w-full max-w-[430px] overflow-x-hidden bg-ivory pb-10 text-ink selection:bg-gold/20`}
+      className={`${arabic} mx-auto min-h-screen w-full max-w-[430px] overflow-x-hidden safe-nav-gap bg-ivory text-ink selection:bg-gold/20`}
     >
       {/* Header — personal, not a dashboard bar */}
       <header className="safe-top safe-sticky-top sticky z-50 bg-ivory/80 px-5 pb-3.5 backdrop-blur-xl">

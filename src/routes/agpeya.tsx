@@ -137,7 +137,7 @@ function AgpeyaScreen() {
     <Screen className="bg-abyss">
       <div
         dir={dir}
-        className={`theme-ocean relative mx-auto w-full max-w-[430px] overflow-x-hidden bg-abyss pb-10 ${
+        className={`theme-ocean relative mx-auto w-full max-w-[430px] overflow-x-hidden bg-abyss pb-1 ${
           isArabic ? "font-arabic" : "font-manrope"
         }`}
       >

@@ -351,10 +351,21 @@
 
   /* Minimum breathing room even on devices without insets */
   --safe-top-min: 14px;
-  --safe-bottom-min: 10px;
+  --safe-bottom-min: 4px;
 
   /* Height of the fixed bottom navigation bar */
-  --bottom-nav-h: 68px;
+  --bottom-nav-h: 52px;
+
+  /* Bottom nav ink — transparent bar, so it must follow the page's own theme */
+  --nav-fg: var(--ink);
+}
+
+/* Dark-themed screens (Agpeya / Katameros / Bible / Synaxarium) flip nav ink to light */
+body:has(.bg-abyss),
+body:has(.km-page),
+body:has(.scriptorium),
+body:has(.sx-page) {
+  --nav-fg: oklch(0.96 0.012 95);
 }
 
 @utility safe-top {

@@ -27,15 +27,14 @@ const items: Item[] = [
 ];
 
 const shell =
-  "press flex flex-1 min-w-0 flex-col items-center gap-1 rounded-2xl py-1.5 text-ink/40 transition-colors hover:text-ink/70";
-const active = "data-[status=active]:text-ink";
+  "press flex flex-1 min-w-0 flex-col items-center gap-0.5 rounded-2xl py-1 text-[color:var(--nav-fg)] opacity-50 transition-opacity hover:opacity-85";
+const active = "data-[status=active]:opacity-100";
 
 /** Center tab: label-only glass pill (no icon) so the full name always fits. */
 const centerShell =
-  "press group relative flex min-w-0 shrink-0 items-center justify-center overflow-hidden rounded-[20px] px-3.5 py-2 text-ink/55 " +
-  "bg-gradient-to-b from-ivory/70 to-parchment/60 ring-1 ring-ink/8 shadow-[0_1px_0_rgba(255,255,255,0.75)_inset,0_6px_16px_-8px_rgba(20,16,10,0.35)] " +
-  "backdrop-blur-xl transition-all duration-500 hover:text-gold hover:from-gold/18 hover:to-gold/8 hover:ring-gold/30 " +
-  "data-[status=active]:text-gold data-[status=active]:from-gold/22 data-[status=active]:to-gold/8 data-[status=active]:ring-gold/35";
+  "press group relative flex min-w-0 shrink-0 items-center justify-center rounded-[18px] px-3.5 py-1.5 text-[color:var(--nav-fg)]/75 " +
+  "ring-1 ring-gold/30 transition-all duration-500 hover:text-gold hover:ring-gold/55 " +
+  "data-[status=active]:text-gold data-[status=active]:ring-gold/60";
 
 
 
@@ -53,12 +52,12 @@ export function BottomNav() {
       aria-label={t("nav.main")}
       data-bottom-nav=""
       aria-hidden={!visible}
-      className={`safe-bottom fixed inset-x-0 bottom-0 z-50 mx-auto max-w-[520px] px-3 transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] ${
+      className={`safe-bottom fixed inset-x-0 bottom-0 z-50 mx-auto max-w-[520px] px-2 transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] ${
         visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-[135%] opacity-0"
       }`}
     >
 
-      <div className="glass-card flex items-stretch gap-0.5 rounded-[28px] px-2 py-1.5">
+      <div className="flex items-stretch gap-0.5 rounded-[24px] bg-transparent px-2 py-0.5">
         {items.map((item) =>
           item.to && item.center ? (
             <Link key={item.key} to={item.to} className={centerShell}>

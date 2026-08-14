@@ -138,7 +138,7 @@ function BibleHome() {
     <Screen className="scriptorium">
       <div
         dir={dir}
-        className={`relative mx-auto w-full max-w-[430px] overflow-x-hidden pb-10 ${
+        className={`relative mx-auto w-full max-w-[430px] overflow-x-hidden pb-1 ${
           isArabic ? "font-arabic" : "font-sans"
         }`}
       >
