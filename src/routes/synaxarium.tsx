@@ -7,7 +7,6 @@ import { Screen } from "@/components/layout/Screen";
 import { SaintCard } from "@/components/synaxarium/SaintCard";
 import { SynaxSectionTitle } from "@/components/synaxarium/SynaxShell";
 import {
-  BookmarkGlyph,
   CalendarGlyph,
   CenserGlyph,
   ChevronGlyph,
