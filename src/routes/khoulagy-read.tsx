@@ -186,26 +186,50 @@ function KhoulagyReader() {
                   <div className="verse-rise space-y-3.5 px-4 pb-5">
                     <div className="kh-hairline h-px opacity-70" />
                     {p.lines.map((line, li) => (
-                      <article key={li} className="space-y-1.5">
+                      <article key={li} className="space-y-2">
                         <span className="inline-flex items-center gap-1.5 rounded-full border border-khgold/20 bg-sanctnight/45 px-2.5 py-0.5 font-manrope text-[9.5px] font-bold tracking-[0.12em] text-khbrass uppercase">
                           {pick(roleLabel[line.role])}
                         </span>
-                        <p
-                          className={`font-arabic text-khivory/90 ${textCls} ${leadCls}`}
+                        <div
                           dir="rtl"
+                          className="grid gap-x-3 divide-khgold/15 rtl:divide-x rtl:divide-x-reverse"
+                          style={{ gridTemplateColumns: `repeat(${cols.length}, minmax(0, 1fr))` }}
                         >
-                          {line.ar}
-                        </p>
-                        {coptic && line.cop ? (
-                          <p className="font-display text-[13.5px] tracking-wide text-khgold/85" dir="ltr">
-                            {line.cop}
-                          </p>
-                        ) : null}
-                        <p className="font-manrope text-[12px] leading-relaxed text-khivory/45" dir="ltr">
-                          {line.en}
-                        </p>
+                          {cols.map((c) => (
+                            <div key={c} className={cols.length > 1 ? "px-2" : ""}>
+                              {cols.length > 1 ? (
+                                <p className="mb-1 text-center font-manrope text-[9px] font-bold tracking-[0.14em] text-khbrass/80 uppercase">
+                                  {COL_LABEL[c]}
+                                </p>
+                              ) : null}
+                              {c === "ar" ? (
+                                <p
+                                  dir="rtl"
+                                  className={`font-arabic text-khivory/90 ${textCls} ${leadCls}`}
+                                >
+                                  {line.ar}
+                                </p>
+                              ) : c === "cop" ? (
+                                <p
+                                  dir="ltr"
+                                  className={`font-display tracking-wide text-khgold/85 ${textCls} ${leadCls}`}
+                                >
+                                  {line.cop ?? "—"}
+                                </p>
+                              ) : (
+                                <p
+                                  dir="ltr"
+                                  className={`font-manrope text-khivory/55 ${textCls} ${leadCls}`}
+                                >
+                                  {line.en}
+                                </p>
+                              )}
+                            </div>
+                          ))}
+                        </div>
                       </article>
                     ))}
+
 
                     {i < parts.length - 1 ? (
                       <button
