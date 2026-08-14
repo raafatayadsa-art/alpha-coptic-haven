@@ -131,7 +131,7 @@ function KhoulagyReader() {
             >
               <ArrowIcon className="size-4 rtl:rotate-180" />
             </Link>
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
               <p className="font-manrope text-[10px] font-bold tracking-[0.16em] text-khbrass uppercase">
                 {current.coptic}
               </p>
@@ -139,7 +139,65 @@ function KhoulagyReader() {
                 {pick(current.name)}
               </h1>
             </div>
+
+            <div className="relative shrink-0">
+              <button
+                type="button"
+                onClick={() => {
+                  wake();
+                  setViewOpen((v) => !v);
+                }}
+                className={`press flex h-9 items-center gap-1.5 rounded-full px-3 font-manrope text-[10.5px] font-semibold ${
+                  viewOpen
+                    ? "kh-cta text-sanctnight"
+                    : "border border-khgold/25 bg-sanctnight/50 text-khivory/80"
+                }`}
+              >
+                {t(VIEW_MODES.find((m) => m.id === mode)!.key)}
+                <ArrowIcon className="size-3 -rotate-90" />
+              </button>
+
+              {viewOpen ? (
+                <div className="kh-glass verse-rise absolute end-0 top-11 z-40 w-[248px] overflow-hidden rounded-[22px] p-2.5">
+                  <div className="flex items-center justify-between px-1 pb-1.5">
+                    <p className="font-manrope text-[9.5px] font-bold tracking-[0.14em] text-khbrass uppercase">
+                      {t("kh.view")}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setViewOpen(false)}
+                      className="font-manrope text-[10.5px] font-bold text-khgold"
+                    >
+                      {t("kh.view.done")}
+                    </button>
+                  </div>
+                  <p className="px-1 pb-2 font-manrope text-[9.5px] text-khivory/40">
+                    {t("kh.view.hint")}
+                  </p>
+                  <div className="grid grid-cols-2 gap-1.5">
+                    {VIEW_MODES.map((m) => (
+                      <button
+                        key={m.id}
+                        type="button"
+                        onClick={() => {
+                          setMode(m.id);
+                          setViewOpen(false);
+                        }}
+                        className={`press rounded-[15px] px-2 py-2 font-manrope text-[11px] font-semibold ${
+                          m.id === mode
+                            ? "kh-cta text-sanctnight"
+                            : "border border-khgold/18 bg-sanctnight/45 text-khivory/75"
+                        }`}
+                      >
+                        {t(m.key)}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </div>
           </div>
+
 
           {parts.map((p, i) => {
             const open = i === openIndex;
