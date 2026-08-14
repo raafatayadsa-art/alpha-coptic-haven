@@ -11,11 +11,11 @@ import {
 } from "@/components/church/media-icons";
 import { useLang } from "@/lib/i18n";
 
-type Item = { key: string; icon: ReactNode; to?: "/" };
+type Item = { key: string; icon: ReactNode; to?: "/" | "/my-church" };
 
 const items: Item[] = [
-  { key: "nav.home", icon: <HomeIcon className="size-[21px]" /> },
-  { key: "nav.myChurch", icon: <ChurchIcon className="size-[21px]" />, to: "/" },
+  { key: "nav.home", icon: <HomeIcon className="size-[21px]" />, to: "/" },
+  { key: "nav.myChurch", icon: <ChurchIcon className="size-[21px]" />, to: "/my-church" },
   { key: "nav.library", icon: <LibraryIcon className="size-[21px]" /> },
   { key: "nav.audio", icon: <AudioIcon className="size-[21px]" /> },
   { key: "nav.photos", icon: <GalleryIcon className="size-[21px]" /> },
