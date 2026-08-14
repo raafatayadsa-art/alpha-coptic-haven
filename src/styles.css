@@ -1026,3 +1026,80 @@
     inset 0 1px 0 white,
     0 22px 48px -26px color-mix(in oklab, black 82%, transparent);
 }
+
+/* ============================================================
+ * Storybook Meadow — scoped theme for «Alpha Kids».
+ * Cream paper, honey gold, sky blue, coral, mint, grape.
+ * ============================================================ */
+:root {
+  --kd-cream: oklch(0.978 0.020 92);
+  --kd-paper: oklch(0.995 0.008 95);
+  --kd-ink: oklch(0.318 0.044 268);
+  --kd-honey: oklch(0.836 0.140 82);
+  --kd-sky: oklch(0.782 0.106 232);
+  --kd-coral: oklch(0.768 0.132 32);
+  --kd-mint: oklch(0.826 0.104 162);
+  --kd-grape: oklch(0.706 0.108 300);
+}
+
+@theme inline {
+  --color-kdcream: var(--kd-cream);
+  --color-kdpaper: var(--kd-paper);
+  --color-kdink: var(--kd-ink);
+  --color-kdhoney: var(--kd-honey);
+  --color-kdsky: var(--kd-sky);
+  --color-kdcoral: var(--kd-coral);
+  --color-kdmint: var(--kd-mint);
+  --color-kdgrape: var(--kd-grape);
+}
+
+@utility kd-page {
+  background-color: var(--kd-cream);
+  background-image:
+    radial-gradient(88% 46% at 50% 0%, color-mix(in oklab, var(--kd-sky) 34%, transparent) 0%, transparent 72%),
+    radial-gradient(60% 40% at 0% 78%, color-mix(in oklab, var(--kd-mint) 26%, transparent) 0%, transparent 70%),
+    radial-gradient(60% 40% at 100% 62%, color-mix(in oklab, var(--kd-coral) 18%, transparent) 0%, transparent 70%);
+  color: var(--kd-ink);
+}
+
+@utility kd-glass {
+  background: color-mix(in oklab, var(--kd-paper) 74%, transparent);
+  backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid color-mix(in oklab, var(--kd-honey) 30%, transparent);
+  box-shadow: 0 20px 44px -26px color-mix(in oklab, var(--kd-ink) 34%, transparent);
+}
+
+@utility kd-card {
+  background:
+    radial-gradient(130% 100% at 100% 0%, color-mix(in oklab, var(--hue, var(--kd-sky)) 26%, transparent) 0%, transparent 64%),
+    linear-gradient(168deg, color-mix(in oklab, var(--kd-paper) 96%, transparent) 0%, color-mix(in oklab, var(--kd-paper) 82%, var(--hue, var(--kd-sky))) 100%);
+  border: 1px solid color-mix(in oklab, var(--hue, var(--kd-sky)) 34%, transparent);
+  box-shadow:
+    inset 0 1px 0 white,
+    0 18px 40px -24px color-mix(in oklab, var(--hue, var(--kd-sky)) 52%, transparent);
+}
+
+@utility kd-blob {
+  border-radius: 46% 54% 52% 48% / 54% 46% 56% 44%;
+}
+
+@utility kd-pop {
+  background-image: linear-gradient(
+    100deg,
+    color-mix(in oklab, var(--kd-honey) 96%, white) 0%,
+    color-mix(in oklab, var(--kd-coral) 88%, white) 100%
+  );
+  box-shadow: 0 16px 32px -16px color-mix(in oklab, var(--kd-coral) 58%, transparent);
+}
+
+@utility kd-dash {
+  background-image: repeating-linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--kd-honey) 62%, transparent) 0 8px,
+    transparent 8px 15px
+  );
+}
+
+@utility kd-arch {
+  border-radius: 999px 999px 30px 30px;
+}

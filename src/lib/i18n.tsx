@@ -314,6 +314,7 @@ export const dict: Dict = {
   "hm.hub.synaxarium": { ar: "السنكسار", en: "Synaxarium" },
   "hm.hub.khoulagy": { ar: "الخولاجي", en: "Khoulagy" },
   "hm.hub.fathers": { ar: "قسم الآباء", en: "The Fathers" },
+  "hm.hub.kids": { ar: "ألفا كيدز", en: "Alpha Kids" },
   "hm.hub.library": { ar: "المكتبة", en: "Library" },
   "hm.hub.line": { ar: "كتبك في مكان واحد", en: "Your books, gathered" },
   "hm.hub.sub.bible": { ar: "Holy Bible", en: "Holy Bible" },
@@ -322,6 +323,7 @@ export const dict: Dict = {
   "hm.hub.sub.synaxarium": { ar: "Synaxarium", en: "Lives of Saints" },
   "hm.hub.sub.khoulagy": { ar: "Khoulagy", en: "Liturgy Book" },
   "hm.hub.sub.fathers": { ar: "The Fathers", en: "Patristics" },
+  "hm.hub.sub.kids": { ar: "Alpha Kids", en: "For children" },
   "hm.hub.sub.library": { ar: "Library", en: "All books" },
 
   "hm.church.eyebrow": { ar: "لمحة عن كنيستي", en: "A glimpse of my church" },

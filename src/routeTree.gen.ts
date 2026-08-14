@@ -34,6 +34,7 @@ import { Route as KatamerosSearchRouteImport } from './routes/katameros-search'
 import { Route as KhoulagyRouteImport } from './routes/khoulagy'
 import { Route as KhoulagyLiturgyRouteImport } from './routes/khoulagy-liturgy'
 import { Route as KhoulagyReadRouteImport } from './routes/khoulagy-read'
+import { Route as KidsRouteImport } from './routes/kids'
 import { Route as MyChurchRouteImport } from './routes/my-church'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as SynaxariumRouteImport } from './routes/synaxarium'
@@ -167,6 +168,11 @@ const KhoulagyReadRoute = KhoulagyReadRouteImport.update({
   path: '/khoulagy-read',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KidsRoute = KidsRouteImport.update({
+  id: '/kids',
+  path: '/kids',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MyChurchRoute = MyChurchRouteImport.update({
   id: '/my-church',
   path: '/my-church',
@@ -229,6 +235,7 @@ export interface FileRoutesByFullPath {
   '/khoulagy': typeof KhoulagyRoute
   '/khoulagy-liturgy': typeof KhoulagyLiturgyRoute
   '/khoulagy-read': typeof KhoulagyReadRoute
+  '/kids': typeof KidsRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
   '/synaxarium': typeof SynaxariumRoute
@@ -263,6 +270,7 @@ export interface FileRoutesByTo {
   '/khoulagy': typeof KhoulagyRoute
   '/khoulagy-liturgy': typeof KhoulagyLiturgyRoute
   '/khoulagy-read': typeof KhoulagyReadRoute
+  '/kids': typeof KidsRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
   '/synaxarium': typeof SynaxariumRoute
@@ -298,6 +306,7 @@ export interface FileRoutesById {
   '/khoulagy': typeof KhoulagyRoute
   '/khoulagy-liturgy': typeof KhoulagyLiturgyRoute
   '/khoulagy-read': typeof KhoulagyReadRoute
+  '/kids': typeof KidsRoute
   '/my-church': typeof MyChurchRoute
   '/profile': typeof ProfileRoute
   '/synaxarium': typeof SynaxariumRoute
@@ -334,6 +343,7 @@ export interface FileRouteTypes {
     | '/khoulagy'
     | '/khoulagy-liturgy'
     | '/khoulagy-read'
+    | '/kids'
     | '/my-church'
     | '/profile'
     | '/synaxarium'
@@ -368,6 +378,7 @@ export interface FileRouteTypes {
     | '/khoulagy'
     | '/khoulagy-liturgy'
     | '/khoulagy-read'
+    | '/kids'
     | '/my-church'
     | '/profile'
     | '/synaxarium'
@@ -402,6 +413,7 @@ export interface FileRouteTypes {
     | '/khoulagy'
     | '/khoulagy-liturgy'
     | '/khoulagy-read'
+    | '/kids'
     | '/my-church'
     | '/profile'
     | '/synaxarium'
@@ -437,6 +449,7 @@ export interface RootRouteChildren {
   KhoulagyRoute: typeof KhoulagyRoute
   KhoulagyLiturgyRoute: typeof KhoulagyLiturgyRoute
   KhoulagyReadRoute: typeof KhoulagyReadRoute
+  KidsRoute: typeof KidsRoute
   MyChurchRoute: typeof MyChurchRoute
   ProfileRoute: typeof ProfileRoute
   SynaxariumRoute: typeof SynaxariumRoute
@@ -623,6 +636,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KhoulagyReadRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/kids': {
+      id: '/kids'
+      path: '/kids'
+      fullPath: '/kids'
+      preLoaderRoute: typeof KidsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/my-church': {
       id: '/my-church'
       path: '/my-church'
@@ -701,6 +721,7 @@ const rootRouteChildren: RootRouteChildren = {
   KhoulagyRoute: KhoulagyRoute,
   KhoulagyLiturgyRoute: KhoulagyLiturgyRoute,
   KhoulagyReadRoute: KhoulagyReadRoute,
+  KidsRoute: KidsRoute,
   MyChurchRoute: MyChurchRoute,
   ProfileRoute: ProfileRoute,
   SynaxariumRoute: SynaxariumRoute,

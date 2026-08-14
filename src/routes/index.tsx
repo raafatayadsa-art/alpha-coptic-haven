@@ -26,6 +26,7 @@ import {
   KatamerosIcon,
   KhoulagyIcon,
   MembersIcon,
+  KidsIcon,
   SynaxariumIcon,
   VerifiedIcon,
 } from "@/components/church/icons";
@@ -115,7 +116,7 @@ const hub: {
   sub: string;
   icon: ReactNode;
   tone: "gold" | "lavender" | "parchment";
-  to?: "/bible" | "/agpeya" | "/katameros" | "/synaxarium" | "/khoulagy" | "/fathers";
+  to?: "/bible" | "/agpeya" | "/katameros" | "/synaxarium" | "/khoulagy" | "/fathers" | "/kids";
 }[] = [
   { key: "hm.hub.bible", sub: "hm.hub.sub.bible", icon: <BibleIcon className="size-6" />, tone: "gold", to: "/bible" },
   { key: "hm.hub.agpeya", sub: "hm.hub.sub.agpeya", icon: <AgpeyaIcon className="size-6" />, tone: "lavender", to: "/agpeya" },
@@ -123,6 +124,7 @@ const hub: {
   { key: "hm.hub.synaxarium", sub: "hm.hub.sub.synaxarium", icon: <SynaxariumIcon className="size-6" />, tone: "parchment", to: "/synaxarium" },
   { key: "hm.hub.khoulagy", sub: "hm.hub.sub.khoulagy", icon: <KhoulagyIcon className="size-6" />, tone: "lavender", to: "/khoulagy" },
   { key: "hm.hub.fathers", sub: "hm.hub.sub.fathers", icon: <FaLamp className="size-6" />, tone: "gold", to: "/fathers" },
+  { key: "hm.hub.kids", sub: "hm.hub.sub.kids", icon: <KidsIcon className="size-6" />, tone: "lavender", to: "/kids" },
   { key: "hm.hub.library", sub: "hm.hub.sub.library", icon: <LibraryIcon className="size-6" />, tone: "gold" },
 ];
 
