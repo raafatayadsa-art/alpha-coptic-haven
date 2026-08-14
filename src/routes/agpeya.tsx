@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import type { CSSProperties, ReactNode } from "react";
 
 import agpeyaNightHero from "@/assets/agpeya-night-hero.jpg";
-import { LanguageToggle } from "@/components/church/LanguageToggle";
 import { PrayerHourCard, type PrayerSpan, type PrayerTone } from "@/components/church/PrayerHourCard";
 import { ChevronRight, CopticCross } from "@/components/church/icons";
 import { BookmarkIcon, ClockIcon, PlayIcon } from "@/components/church/media-icons";
@@ -152,7 +151,6 @@ function AgpeyaScreen() {
                 1
               </span>
             </button>
-            <LanguageToggle />
           </div>
 
           <div className="relative px-5 pt-4 pb-6 text-center">

@@ -30,7 +30,6 @@ import {
   VerifiedIcon,
 } from "@/components/church/icons";
 import { LibraryIcon, PlayIcon } from "@/components/church/media-icons";
-import { LanguageToggle } from "@/components/church/LanguageToggle";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
@@ -224,7 +223,6 @@ function AlphaHome() {
             </span>
           </div>
           <div className="flex shrink-0 items-center gap-2">
-            <LanguageToggle />
             <button
               type="button"
               aria-label={t("app.notifications")}

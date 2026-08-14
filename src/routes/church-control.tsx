@@ -43,7 +43,6 @@ import {
   VisibilityChip,
   type ContentItem,
 } from "@/components/church/ContentCard";
-import { LanguageToggle } from "@/components/church/LanguageToggle";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/church-control")({
@@ -329,7 +328,6 @@ function TopBar() {
         </div>
 
         <div className="flex items-center gap-2">
-          <LanguageToggle />
           <IconButton label={t("app.notifications")}>
             <span className="relative">
               <BellIcon className="size-[19px]" />
