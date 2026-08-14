@@ -72,6 +72,35 @@ const quickLinks = [
   { icon: <MoreIcon className="size-5" />, title: "More", subtitle: "Everything else", tone: "lavender" as const },
 ];
 
+const quickTile: Record<"gold" | "lavender" | "parchment", string> = {
+  gold: "bg-gold/12 text-gold ring-1 ring-gold/20",
+  lavender: "bg-lavender/40 text-ink/70 ring-1 ring-lavender",
+  parchment: "bg-parchment text-ink/60 ring-1 ring-ink/5",
+};
+
+const churchPosts = [
+  {
+    cover: postCandles,
+    category: "قداسات",
+    date: "الجمعة ٧ أغسطس",
+    title: "مواعيد قداسات الأسبوع وصلوات نصف الليل",
+    excerpt: "القداس الإلهي يوم الأحد الساعة السادسة صباحًا، ويتقدمه رفع بخور عشية السبت.",
+    likes: "١٨٤",
+    visibility: "public" as const,
+  },
+  {
+    cover: postYouth,
+    category: "اجتماعات",
+    date: "الأربعاء ٥ أغسطس",
+    title: "اجتماع الخدام — التحضير لخدمة العام الجديد",
+    excerpt: "لقاء الخدام في قاعة الكنيسة بعد صلاة العشية، ويشمل مراجعة خطة الخدمة.",
+    likes: "٦٢",
+    visibility: "members" as const,
+  },
+];
+
+
+
 
 
 const calendar = [
