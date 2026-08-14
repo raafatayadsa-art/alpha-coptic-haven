@@ -637,6 +637,19 @@ export const dict: Dict = {
   "kh.size.s": { ar: "صغير", en: "Small" },
   "kh.size.m": { ar: "متوسط", en: "Medium" },
   "kh.size.l": { ar: "كبير", en: "Large" },
+  "kh.view": { ar: "طريقة العرض", en: "Display mode" },
+  "kh.view.hint": {
+    ar: "العربي يمين · القبطي وسط · الإنجليزي يسار",
+    en: "Arabic right · Coptic centre · English left",
+  },
+  "kh.view.all": { ar: "الثلاثة معًا", en: "All three" },
+  "kh.view.arcop": { ar: "عربي + قبطي", en: "Arabic + Coptic" },
+  "kh.view.encop": { ar: "إنجليزي + قبطي", en: "English + Coptic" },
+  "kh.view.aren": { ar: "عربي + إنجليزي", en: "Arabic + English" },
+  "kh.view.ar": { ar: "عربي فقط", en: "Arabic only" },
+  "kh.view.cop": { ar: "قبطي فقط", en: "Coptic only" },
+  "kh.view.en": { ar: "إنجليزي فقط", en: "English only" },
+  "kh.view.done": { ar: "تم", en: "Done" },
 
   /* ── Bible tool screens ─────────────────────────────────── */
   "bib.hl.title": { ar: "الآيات الملوّنة", en: "Coloured verses" },
