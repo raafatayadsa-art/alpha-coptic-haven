@@ -313,7 +313,7 @@ function TopBar() {
   const { t } = useLang();
 
   return (
-    <header className="sticky top-0 z-40 bg-ivory/80 px-4 pb-3 pt-[max(14px,env(safe-area-inset-top))] backdrop-blur-xl">
+    <header className="safe-top safe-sticky-top sticky z-40 bg-ivory/80 px-4 pb-3 backdrop-blur-xl">
       <div className="flex items-center justify-between gap-3">
         <Link
           to="/"

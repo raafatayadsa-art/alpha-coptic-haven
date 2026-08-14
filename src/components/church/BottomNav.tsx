@@ -34,7 +34,7 @@ export function BottomNav() {
     <nav
       dir={dir}
       aria-label={t("nav.main")}
-      className="fixed inset-x-0 bottom-0 z-50 mx-auto max-w-[520px] px-3 pb-[max(10px,env(safe-area-inset-bottom))]"
+      className="safe-bottom fixed inset-x-0 bottom-0 z-50 mx-auto max-w-[520px] px-3"
     >
       <div className="glass-card flex items-stretch gap-0.5 rounded-[28px] px-2 py-1.5">
         {items.map((item) =>

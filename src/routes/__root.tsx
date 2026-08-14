@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { BottomNav } from "@/components/church/BottomNav";
+import { Screen } from "@/components/layout/Screen";
 import { LanguageProvider } from "@/lib/i18n";
 
 
