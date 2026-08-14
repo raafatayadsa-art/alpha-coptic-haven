@@ -274,6 +274,8 @@
   .engage-tuck,
   .engage-count,
   .engage-halo,
+  .engage-ring,
+  .engage-ring-late,
   .engage-glow,
   .engage-beat {
     animation: none !important;
