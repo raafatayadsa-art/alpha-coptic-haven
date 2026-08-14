@@ -262,8 +262,14 @@ export function EngageBar({
                     {c.author.slice(0, 1)}
                   </span>
                   <div className="min-w-0">
-                    <p className="text-[11.5px] font-semibold leading-tight">
+                    <p
+                      className={cn(
+                        "text-[11.5px] font-semibold leading-tight",
+                        dark ? "text-ivory/90" : "text-ink/75",
+                      )}
+                    >
                       {c.author}
+
                       <span className={cn("ms-2 font-normal", dark ? "text-ivory/40" : "text-ink/35")}>
                         {c.when}
                       </span>
