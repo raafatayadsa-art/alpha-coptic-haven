@@ -362,17 +362,73 @@ function MyPage() {
             </div>
             <button
               type="button"
+              onClick={() => setRequestsOpen((v) => !v)}
+              aria-expanded={requestsOpen}
               className="press mt-4 flex w-full items-center justify-between rounded-2xl bg-gold/10 px-4 py-3 ring-1 ring-gold/20"
             >
               <span className="text-[12.5px] font-semibold text-gold">
                 {t("me.friends.requests")}
               </span>
-              <span className="grid size-6 place-items-center rounded-full bg-gold/20 text-[11px] font-bold text-gold">
-                ٣
+              <span className="flex items-center gap-2">
+                <span className="grid size-6 place-items-center rounded-full bg-gold/20 text-[11px] font-bold text-gold">
+                  ٣
+                </span>
+                <ChevronRight
+                  className={cn(
+                    "size-4 text-gold/70 transition-transform duration-300 rtl:rotate-180",
+                    requestsOpen && "rotate-90 rtl:rotate-90",
+                  )}
+                />
               </span>
             </button>
+
+            {requestsOpen ? (
+              <ul className="mt-3 space-y-2">
+                {requests.map((r) => (
+                  <li
+                    key={r.key}
+                    className="flex items-center gap-3 rounded-2xl bg-ivory/70 p-2.5 ring-1 ring-ink/5"
+                  >
+                    <span className="relative shrink-0">
+                      <img
+                        src={r.photo}
+                        alt=""
+                        width={200}
+                        height={200}
+                        loading="lazy"
+                        className="size-11 rounded-full object-cover ring-1 ring-ivory"
+                      />
+                      <span className="absolute -bottom-1 -left-1 grid size-6 place-items-center rounded-full bg-ivory ring-1 ring-gold/20 rtl:-left-auto rtl:-right-1">
+                        <Shield slug={r.slug} size="sm" className="size-4" />
+                      </span>
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-[13px] font-semibold">{t(r.key)}</span>
+                      <span className="mt-0.5 block truncate text-[10.5px] text-ink/45">
+                        {t(`${r.key}.meta`)}
+                      </span>
+                    </span>
+                    <span className="flex shrink-0 items-center gap-1.5">
+                      <button
+                        type="button"
+                        className="press rounded-full bg-ink px-3 py-1.5 text-[11px] font-semibold text-ivory"
+                      >
+                        {t("me.requests.accept")}
+                      </button>
+                      <button
+                        type="button"
+                        className="press rounded-full bg-parchment px-3 py-1.5 text-[11px] font-semibold text-ink/55 ring-1 ring-ink/5"
+                      >
+                        {t("me.requests.ignore")}
+                      </button>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </div>
         </section>
+
 
         {/* 5 — My Picks */}
         <section className="pt-9">
