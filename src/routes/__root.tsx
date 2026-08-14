@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { BottomNav } from "@/components/church/BottomNav";
+import { Screen } from "@/components/layout/Screen";
 import { LanguageProvider } from "@/lib/i18n";
 
 
@@ -79,7 +80,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { title: "Alpha Coptic" },
       { name: "description", content: "A warm digital home for your Coptic Orthodox church." },
       { name: "author", content: "Alpha Coptic" },
@@ -130,10 +131,11 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
-        <div className="pb-[calc(78px+env(safe-area-inset-bottom))]">
+        {/* Global safe-area layout: every screen inherits iPhone safe areas from here. */}
+        <Screen>
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
           <Outlet />
-        </div>
+        </Screen>
         <BottomNav />
       </LanguageProvider>
     </QueryClientProvider>

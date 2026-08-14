@@ -106,7 +106,7 @@ function ChurchHome() {
       className={`${arabic} mx-auto min-h-screen w-full max-w-[430px] overflow-x-hidden bg-ivory pb-16 text-ink selection:bg-gold/20`}
     >
       {/* 1 — Premium Header */}
-      <header className="sticky top-0 z-50 flex items-center justify-between border-b border-ink/5 bg-ivory/75 px-5 py-3.5 backdrop-blur-xl">
+      <header className="safe-top safe-sticky-top sticky z-50 flex items-center justify-between border-b border-ink/5 bg-ivory/75 px-5 pb-3.5 backdrop-blur-xl">
         <div className="flex items-center gap-2.5">
           <span className="grid size-9 place-items-center rounded-full bg-gold/10 ring-1 ring-gold/25">
             <CopticCross className="size-4 text-gold" />
