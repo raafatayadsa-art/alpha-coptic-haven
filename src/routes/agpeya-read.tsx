@@ -9,6 +9,7 @@ import { useAutoScroll } from "@/hooks/use-auto-scroll";
 import { useReaderChrome } from "@/hooks/use-reader-chrome";
 import { findHour } from "@/lib/agpeya-data";
 import { useLang } from "@/lib/i18n";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 export const Route = createFileRoute("/agpeya-read")({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -346,6 +347,7 @@ function AgpeyaRead() {
           </div>
         </section>
       </div>
+      <SloganBand />
     </Screen>
   );
 }

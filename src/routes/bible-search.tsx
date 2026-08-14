@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ArrowIcon, SearchGlyph } from "@/components/bible/bible-icons";
 import { ToolScreen } from "@/components/bible/ToolScreen";
 import { useLang } from "@/lib/i18n";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 export const Route = createFileRoute("/bible-search")({
   head: () => ({
@@ -121,6 +122,7 @@ function BibleSearch() {
           ))}
         </div>
       </section>
+      <SloganBand />
     </ToolScreen>
   );
 }

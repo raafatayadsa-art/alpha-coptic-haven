@@ -6,6 +6,7 @@ import { SynaxSectionTitle, SynaxShell } from "@/components/synaxarium/SynaxShel
 import { SearchGlyph } from "@/components/synaxarium/synax-icons";
 import { useLang } from "@/lib/i18n";
 import { L, categories, pick, recentSearches, saintOfDay, todaySaints } from "@/lib/synaxarium-data";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 export const Route = createFileRoute("/synaxarium-search")({
   head: () => ({
@@ -83,6 +84,7 @@ function SynaxariumSearch() {
           <SaintCard key={s.id} saint={s} />
         ))}
       </div>
+      <SloganBand />
     </SynaxShell>
   );
 }

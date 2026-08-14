@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { useRef, useState, type ReactNode } from "react";
 
 import { ChevronRight } from "@/components/church/icons";
@@ -11,12 +12,15 @@ export type DailyCard = {
   line: string;
   meta: string;
   action: string;
+  /** optional destination for the card's action pill */
+  to?: string;
   image: string;
   icon: ReactNode;
   tone: "lavender" | "card";
   likes: number;
   comments: number;
 };
+
 
 /**
  * Presentation-only stacked deck: one card on top, the rest tucked behind it.
@@ -222,13 +226,24 @@ export function DailyDeck({ cards }: { cards: DailyCard[] }) {
                 <span className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-ivory/55">
                   {t(card.meta)}
                 </span>
-                <button
-                  type="button"
-                  className="press flex items-center gap-1 rounded-full bg-ivory/12 px-3 py-1.5 text-[11px] font-semibold text-gold ring-1 ring-ivory/15 backdrop-blur-md"
-                >
-                  {t(card.action)}
-                  <ChevronRight className="size-3.5 rtl:rotate-180" />
-                </button>
+                {card.to ? (
+                  <Link
+                    to={card.to}
+                    className="press flex items-center gap-1 rounded-full bg-ivory/12 px-3 py-1.5 text-[11px] font-semibold text-gold ring-1 ring-ivory/15 backdrop-blur-md"
+                  >
+                    {t(card.action)}
+                    <ChevronRight className="size-3.5 rtl:rotate-180" />
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    className="press flex items-center gap-1 rounded-full bg-ivory/12 px-3 py-1.5 text-[11px] font-semibold text-gold ring-1 ring-ivory/15 backdrop-blur-md"
+                  >
+                    {t(card.action)}
+                    <ChevronRight className="size-3.5 rtl:rotate-180" />
+                  </button>
+                )}
+
               </div>
             </div>
           </div>

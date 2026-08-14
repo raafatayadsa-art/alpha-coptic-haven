@@ -7,13 +7,12 @@ import { Screen } from "@/components/layout/Screen";
 import { SaintCard } from "@/components/synaxarium/SaintCard";
 import { SynaxSectionTitle } from "@/components/synaxarium/SynaxShell";
 import {
-  BookmarkGlyph,
   CalendarGlyph,
   CenserGlyph,
   ChevronGlyph,
   CrownIcon,
   HaloIcon,
-  HeadphonesGlyph,
+  HeartGlyph,
   MonkIcon,
   PalmIcon,
   ScrollIcon,
@@ -21,6 +20,7 @@ import {
   ShareGlyph,
 } from "@/components/synaxarium/synax-icons";
 import { useLang } from "@/lib/i18n";
+import { SloganBand } from "@/components/layout/SloganBand";
 import {
   L,
   categories,
@@ -69,6 +69,7 @@ function SynaxariumHome() {
   const { lang, dir, isArabic } = useLang();
   const [cat, setCat] = useState<CategoryKey>("all");
   const [dayIndex, setDayIndex] = useState(4);
+  const [liked, setLiked] = useState(false);
 
   const list = cat === "all" ? todaySaints : todaySaints.filter((s) => s.category === cat);
   const hue = categoryHue[saintOfDay.category];
@@ -199,17 +200,24 @@ function SynaxariumHome() {
                 </Link>
                 <button
                   type="button"
-                  aria-label={pick(L.listen, lang)}
-                  className="press grid size-11 place-items-center rounded-2xl border border-icongold/25 bg-synaxnight/55 text-ivory/80"
+                  onClick={() => setLiked((v) => !v)}
+                  aria-pressed={liked}
+                  aria-label={pick(liked ? L.liked : L.like, lang)}
+                  className={`press flex h-11 items-center gap-1.5 rounded-2xl border px-3.5 font-manrope text-[11.5px] font-bold transition-colors ${
+                    liked
+                      ? "border-icongold/55 bg-icongold/18 text-icongold"
+                      : "border-icongold/25 bg-synaxnight/55 text-ivory/80"
+                  }`}
                 >
-                  <HeadphonesGlyph className="size-[18px]" />
+                  <HeartGlyph className="size-[18px]" filled={liked} />
+                  {188 + (liked ? 1 : 0)}
                 </button>
                 <button
                   type="button"
-                  aria-label={pick(L.save, lang)}
+                  aria-label={pick(L.publish, lang)}
                   className="press grid size-11 place-items-center rounded-2xl border border-icongold/25 bg-synaxnight/55 text-ivory/80"
                 >
-                  <BookmarkGlyph className="size-[18px]" />
+                  <ShareGlyph className="size-[18px]" />
                 </button>
               </div>
             </div>
@@ -378,6 +386,7 @@ function SynaxariumHome() {
           </footer>
         </main>
       </div>
+      <SloganBand />
     </Screen>
   );
 }

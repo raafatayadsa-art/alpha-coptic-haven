@@ -24,6 +24,7 @@ import { Screen } from "@/components/layout/Screen";
 import { useChromeVisibility } from "@/hooks/use-chrome-visibility";
 import { newTestament, oldTestament, samplePassage } from "@/lib/bible-data";
 import { useLang } from "@/lib/i18n";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 
 const searchSchema = z.object({
@@ -944,6 +945,7 @@ function BibleRead() {
         ) : null}
       </div>
 
+      <SloganBand />
     </Screen>
   );
 }

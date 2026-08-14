@@ -6,6 +6,7 @@ import { ArrowIcon, CheckGlyph, GridIcon, ListIcon, StarIcon } from "@/component
 import { Screen } from "@/components/layout/Screen";
 import { bookInitial, chapterStates, newTestament, oldTestament } from "@/lib/bible-data";
 import { useLang } from "@/lib/i18n";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 const searchSchema = z.object({
   book: z.string().catch("jhn"),
@@ -187,6 +188,7 @@ function BibleChapters() {
           )}
         </main>
       </div>
+      <SloganBand />
     </Screen>
   );
 }

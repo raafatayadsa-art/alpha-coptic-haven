@@ -6,6 +6,7 @@ import { SynaxSectionTitle, SynaxShell } from "@/components/synaxarium/SynaxShel
 import { BookmarkGlyph, ChevronGlyph } from "@/components/synaxarium/synax-icons";
 import { useLang } from "@/lib/i18n";
 import { L, categories, copticToday, dayStrip, pick, saintOfDay, todaySaints, type CategoryKey } from "@/lib/synaxarium-data";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 export const Route = createFileRoute("/synaxarium-day")({
   head: () => ({
@@ -108,6 +109,7 @@ function SynaxariumDay() {
         {lang === "ar" ? "اليوم التالي" : "Next day"}
         <ChevronGlyph className="size-3.5 rtl:rotate-180" />
       </div>
+      <SloganBand />
     </SynaxShell>
   );
 }

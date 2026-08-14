@@ -4,6 +4,7 @@ import { SynaxSectionTitle, SynaxShell } from "@/components/synaxarium/SynaxShel
 import { ChevronGlyph } from "@/components/synaxarium/synax-icons";
 import { useLang } from "@/lib/i18n";
 import { L, copticMonths, copticToday, monthFeasts, pick } from "@/lib/synaxarium-data";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 export const Route = createFileRoute("/synaxarium-months")({
   head: () => ({
@@ -83,6 +84,7 @@ function SynaxariumMonths() {
           </Link>
         ))}
       </div>
+      <SloganBand />
     </SynaxShell>
   );
 }

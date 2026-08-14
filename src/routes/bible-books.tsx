@@ -13,6 +13,7 @@ import {
   type Testament,
 } from "@/lib/bible-data";
 import { useLang } from "@/lib/i18n";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 const searchSchema = z.object({
   t: z.enum(["old", "new"]).catch("old"),
@@ -161,6 +162,7 @@ function BibleBooks() {
           ) : null}
         </main>
       </div>
+      <SloganBand />
     </Screen>
   );
 }

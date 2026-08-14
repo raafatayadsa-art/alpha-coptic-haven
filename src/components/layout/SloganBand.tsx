@@ -1,32 +1,28 @@
 /**
- * Alpha global slogan band — rendered once at the foot of every screen from
- * the root layout. Presentation only: faint gilded Coptic Alpha/Omega framing
- * the app tagline.
+ * Alpha global slogan line — rendered as the last element INSIDE each screen's
+ * own frame, so it inherits that screen's background and colour. Presentation
+ * only: faint gilded Coptic Alpha/Omega framing the app tagline, drawn in
+ * `currentColor` so it never reads as a separate band.
  */
-export function SloganBand() {
+export function SloganBand({ className }: { className?: string }) {
   return (
-    <div className="pointer-events-none relative mx-auto w-full max-w-[430px] px-6 pt-10 pb-4 text-center select-none">
+    <div
+      className={`pointer-events-none relative mx-auto w-full max-w-[430px] px-6 pt-8 pb-3 text-center select-none ${className ?? ""}`}
+    >
       <span
         aria-hidden="true"
-        className="gold-hairline mx-auto mb-3 block h-px w-24 opacity-40"
+        className="mx-auto mb-3 block h-px w-20 bg-current opacity-15"
       />
       <p
-        className="flex items-center justify-center gap-2 font-manrope text-[8.5px] font-semibold tracking-[0.2em] uppercase"
-        style={{ color: "color-mix(in oklab, var(--sc-gold) 78%, transparent)", opacity: 0.62 }}
+        className="flex items-center justify-center gap-2 font-manrope text-[8.5px] font-semibold tracking-[0.2em] uppercase opacity-40"
         dir="ltr"
       >
-        <span
-          className="font-display text-[13px] tracking-normal illum-breathe"
-          style={{ textShadow: "0 0 8px color-mix(in oklab, var(--sc-gold) 45%, transparent)" }}
-        >
-          Ⲁ
+        <span aria-hidden="true" className="font-display text-[13px] tracking-normal">
+          ⲁ
         </span>
         <span>— The Coptic Orthodox Digital Home —</span>
-        <span
-          className="font-display text-[13px] tracking-normal illum-breathe"
-          style={{ textShadow: "0 0 8px color-mix(in oklab, var(--sc-gold) 45%, transparent)" }}
-        >
-          Ⲱ
+        <span aria-hidden="true" className="font-display text-[13px] tracking-normal">
+          ⲱ
         </span>
       </p>
     </div>

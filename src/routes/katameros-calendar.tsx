@@ -10,6 +10,7 @@ import {
 } from "@/components/katameros/katameros-icons";
 import { useLang } from "@/lib/i18n";
 import { copticMonths, majorFeasts, seasons } from "@/lib/katameros-data";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 export const Route = createFileRoute("/katameros-calendar")({
   head: () => ({
@@ -206,6 +207,7 @@ function KatamerosCalendar() {
         <CopticCross className="size-5 text-brass/70" />
         <p className="font-manrope text-[11.5px] text-cream/35">{t("km.cal.footer")}</p>
       </footer>
+      <SloganBand />
     </KatamerosShell>
   );
 }

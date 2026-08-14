@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import churchCover from "@/assets/church-cover.jpg";
 import churchCrest from "@/assets/church-crest.png";
@@ -31,6 +31,7 @@ import {
 } from "@/components/church/icons";
 import { LibraryIcon, PlayIcon } from "@/components/church/media-icons";
 import { useLang } from "@/lib/i18n";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -73,6 +74,7 @@ const daily: DailyCard[] = [
     line: "hm.saint.line",
     meta: "hm.today",
     action: "hm.saint.read",
+    to: "/synaxarium-saint",
     image: saintOfDay,
     icon: <CopticCross className="size-[17px]" />,
     tone: "card",
@@ -97,6 +99,7 @@ const daily: DailyCard[] = [
     line: "hm.synax.line",
     meta: "hm.today",
     action: "hm.synax.read",
+    to: "/synaxarium",
     image: dailySynaxarium,
     icon: <SynaxariumIcon className="size-[17px]" />,
     tone: "card",
@@ -177,16 +180,21 @@ function AlphaHome() {
   const [bell, setBell] = useState(false);
   const [seen, setSeen] = useState(false);
 
-  /* Time-aware greeting — presentation only. */
-  const hour = new Date().getHours();
+  /* Time-aware greeting — presentation only. Resolved after hydration so the
+     server-rendered text always matches the first client render. */
+  const [hour, setHour] = useState<number | null>(null);
+  useEffect(() => setHour(new Date().getHours()), []);
   const greetKey =
-    hour < 12
-      ? "hm.greet.morning"
-      : hour < 17
-        ? "hm.greet.afternoon"
-        : hour < 22
-          ? "hm.greet.evening"
-          : "hm.greet.night";
+    hour === null
+      ? "hm.greeting"
+      : hour < 12
+        ? "hm.greet.morning"
+        : hour < 17
+          ? "hm.greet.afternoon"
+          : hour < 22
+            ? "hm.greet.evening"
+            : "hm.greet.night";
+
 
   const gregorian = new Intl.DateTimeFormat(isArabic ? "ar-EG" : "en-GB", {
     day: "numeric",
@@ -640,6 +648,7 @@ function AlphaHome() {
           </span>
         </footer>
       </main>
+      <SloganBand />
     </div>
   );
 }

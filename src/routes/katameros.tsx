@@ -21,6 +21,7 @@ import {
 } from "@/components/katameros/katameros-icons";
 import { Screen } from "@/components/layout/Screen";
 import { useLang } from "@/lib/i18n";
+import { SloganBand } from "@/components/layout/SloganBand";
 import {
   copticMonths,
   groupCaption,
@@ -390,6 +391,7 @@ function KatamerosHome() {
           </footer>
         </main>
       </div>
+      <SloganBand />
     </Screen>
   );
 }

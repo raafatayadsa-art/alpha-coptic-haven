@@ -1,18 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
-import type { CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
 
 import { CopticCross } from "@/components/church/icons";
 import { SynaxSectionTitle, SynaxShell } from "@/components/synaxarium/SynaxShell";
 import {
   BookmarkGlyph,
   CalendarGlyph,
-  HeadphonesGlyph,
+  HeartGlyph,
   PalmIcon,
   ScrollIcon,
   ShareGlyph,
 } from "@/components/synaxarium/synax-icons";
 import { useLang } from "@/lib/i18n";
 import { L, categoryHue, categoryLabel, pick, saintOfDay } from "@/lib/synaxarium-data";
+import { SloganBand } from "@/components/layout/SloganBand";
 
 export const Route = createFileRoute("/synaxarium-saint")({
   head: () => ({
@@ -35,6 +36,8 @@ function SaintLife() {
   const { lang } = useLang();
   const s = saintOfDay;
   const hue = categoryHue[s.category];
+  const [liked, setLiked] = useState(false);
+
 
   const meta = [
     { icon: <ScrollIcon className="size-[17px]" />, label: L.kind, value: categoryLabel[s.category] },
@@ -103,20 +106,21 @@ function SaintLife() {
         <div className="relative mt-4 flex items-center gap-2">
           <button
             type="button"
-            className="press sx-cta grid h-11 flex-1 place-items-center rounded-2xl font-display text-[13px] font-bold text-synaxnight"
+            onClick={() => setLiked((v) => !v)}
+            aria-pressed={liked}
+            className={`press flex h-11 flex-1 items-center justify-center gap-2 rounded-2xl font-display text-[13px] font-bold transition-colors ${
+              liked
+                ? "sx-cta text-synaxnight"
+                : "border border-icongold/35 bg-synaxnight/55 text-ivory/85"
+            }`}
           >
-            {pick(L.listen, lang)}
+            <HeartGlyph className="size-[18px]" filled={liked} />
+            {pick(liked ? L.liked : L.like, lang)}
+            <span className="font-manrope text-[11.5px] opacity-70">{214 + (liked ? 1 : 0)}</span>
           </button>
           <button
             type="button"
-            aria-label={pick(L.listen, lang)}
-            className="press grid size-11 place-items-center rounded-2xl border border-icongold/25 bg-synaxnight/55 text-ivory/80"
-          >
-            <HeadphonesGlyph className="size-[18px]" />
-          </button>
-          <button
-            type="button"
-            aria-label={pick(L.share, lang)}
+            aria-label={pick(L.publish, lang)}
             className="press grid size-11 place-items-center rounded-2xl border border-icongold/25 bg-synaxnight/55 text-ivory/80"
           >
             <ShareGlyph className="size-[18px]" />
@@ -208,6 +212,7 @@ function SaintLife() {
           {pick(L.footer, lang)}
         </p>
       </footer>
+      <SloganBand />
     </SynaxShell>
   );
 }
