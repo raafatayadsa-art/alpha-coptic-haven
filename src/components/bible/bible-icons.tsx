@@ -133,3 +133,72 @@ export const ArrowIcon = ({ className }: IconProps) => (
     <path d="M9 5l7 7-7 7" />
   </svg>
 );
+
+export const BookmarkIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M7 4.5h10a1 1 0 0 1 1 1V20l-6-3.5L6 20V5.5a1 1 0 0 1 1-1Z" />
+  </svg>
+);
+
+export const SpeedIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M4.5 17a8 8 0 1 1 15 0" />
+    <path d="M12 12.5 15.5 9" />
+    <circle cx="12" cy="13" r="1.1" />
+  </svg>
+);
+
+export const SpacingIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M4 6h16M4 12h16M4 18h16" />
+  </svg>
+);
+
+export const AutoScrollIcon = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M12 20V6" />
+    <path d="M7.5 10.5 12 6l4.5 4.5" />
+    <path d="M5 3.5h14" />
+  </svg>
+);
+
+export const PlayGlyph = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M9 6.5 17 12l-8 5.5V6.5Z" />
+  </svg>
+);
+
+export const CopticCross = ({ className }: IconProps) => (
+  <svg {...base} className={className}>
+    <path d="M12 3.5v17M3.5 12h17" />
+    <path d="M9 3.5h6M9 20.5h6M3.5 9v6M20.5 9v6" />
+  </svg>
+);
+
+/** Illuminated Alpha–Omega mark, used as a quiet Coptic watermark. */
+export const AlphaOmegaMark = ({ className }: IconProps) => (
+  <svg viewBox="0 0 120 60" fill="none" aria-hidden className={className}>
+    <text
+      x="18"
+      y="44"
+      textAnchor="middle"
+      fontSize="40"
+      fontFamily="var(--font-display), serif"
+      fill="currentColor"
+    >
+      Α
+    </text>
+    <path d="M46 30h28" stroke="currentColor" strokeWidth="1.2" opacity="0.6" />
+    <path d="M60 18v24" stroke="currentColor" strokeWidth="1.2" opacity="0.6" />
+    <text
+      x="102"
+      y="44"
+      textAnchor="middle"
+      fontSize="40"
+      fontFamily="var(--font-display), serif"
+      fill="currentColor"
+    >
+      Ω
+    </text>
+  </svg>
+);
