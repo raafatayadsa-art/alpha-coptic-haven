@@ -100,7 +100,22 @@ function SignupScreen() {
                 </button>
               ),
             )}
+
+            {/* Guest entry — explore Alpha without an account */}
+            <Link
+              to="/"
+              className="press flex w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-[oklch(0.735_0.096_84/0.6)] bg-[oklch(0.735_0.096_84/0.1)] py-3 font-manrope text-[12.5px] font-semibold text-[oklch(0.42_0.06_78)]"
+            >
+              <span aria-hidden="true" className="font-display text-[14px] leading-none">
+                ⲁ
+              </span>
+              {ar ? "الدخول كضيف" : "Continue as guest"}
+            </Link>
+            <p className="text-center font-manrope text-[10px] text-[oklch(0.55_0.02_293)]">
+              {ar ? "تستطيع إنشاء حسابك في أي وقت لاحقًا." : "You can create your account later."}
+            </p>
           </div>
+
 
           <p className="mt-5 text-center font-manrope text-[11.5px] text-[oklch(0.45_0.02_293)]">
             {ar ? "لديك حساب بالفعل؟ " : "Already have an account? "}
