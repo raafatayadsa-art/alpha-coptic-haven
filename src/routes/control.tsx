@@ -218,6 +218,7 @@ const GLYPHS: Record<ModuleKey, string> = {
   admin: "shield",
   settings: "settings",
   system: "system",
+  launch: "rocket",
 };
 
 function IconBtn({ label, children }: { label: string; children: React.ReactNode }) {
