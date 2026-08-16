@@ -479,23 +479,8 @@ function AlphaHome() {
         </section>
 
         {/* 7 — A glimpse of Alpha Connect */}
-        <section className="rounded-[30px] bg-card px-6 py-6 shadow-[var(--shadow-soft)] ring-1 ring-gold/15">
-          <div className="flex items-center gap-2.5">
-            <img src={churchCrest} alt="" width={36} height={36} className="size-8 object-contain" />
-            <Eyebrow>{t("hm.connect.eyebrow")}</Eyebrow>
-          </div>
-          <p className="mt-3 font-display text-[17px] font-medium leading-relaxed tracking-tight text-ink/80">
-            {t("hm.connect.line")}
-          </p>
-          <button
-            type="button"
-            className="press mt-4 flex items-center gap-1 text-[11.5px] font-semibold text-gold"
-          >
-            {t("hm.connect.cta")}
-            <ChevronRight className="size-3.5 rtl:rotate-180" />
-          </button>
-          <EngageBar likes={176} comments={8} compact className="mt-4" />
-        </section>
+        <ConnectGlimpse />
+
 
         {/* 8 — Community */}
         <section>
