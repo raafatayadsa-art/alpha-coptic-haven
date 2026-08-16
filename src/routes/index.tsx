@@ -14,6 +14,8 @@ import postYouth from "@/assets/post-youth.jpg";
 import saintOfDay from "@/assets/saint-of-day.jpg";
 import { DailyDeck, type DailyCard } from "@/components/church/DailyDeck";
 import { EngageBar } from "@/components/church/EngageBar";
+import { ConnectGlimpse } from "@/components/church/ConnectGlimpse";
+
 
 
 import {
