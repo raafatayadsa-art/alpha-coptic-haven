@@ -82,6 +82,7 @@ export function ConnectGlimpse() {
           </span>
           <Link
             to="/connect-call"
+            search={{ who: caller.id }}
             aria-label={isArabic ? "الرد على الاتصال" : "Answer call"}
             className="press grid size-9 place-items-center rounded-full ac-cta text-acnight"
           >
@@ -95,6 +96,7 @@ export function ConnectGlimpse() {
             <li key={t.id}>
               <Link
                 to="/connect-chat"
+                search={{ who: `f${t.id.slice(1)}` }}
                 className="press ac-card flex items-center gap-2.5 rounded-[20px] p-2.5"
                 style={{ ["--hue" as string]: t.tone }}
               >
