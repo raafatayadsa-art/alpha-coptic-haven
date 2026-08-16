@@ -1,145 +1,115 @@
 import { Link } from "@tanstack/react-router";
 
 import { MemberAvatar, VoiceBars } from "@/components/connect/ConnectShell";
-import { ChatGlyph, MicGlyph, PhoneGlyph } from "@/components/connect/connect-icons";
+import { MicGlyph, PhoneGlyph, ChatGlyph } from "@/components/connect/connect-icons";
 import { channels, friends, pick, threads, L } from "@/lib/connect-data";
 import { useLang } from "@/lib/i18n";
 
 /**
- * "A glimpse of Alpha Connect" — a dark Signal-Aurora card living inside the
- * ivory Home screen. Presentation only: tapping the card opens /connect, while
- * the incoming call and message rows deep-link into their own screens.
+ * "A glimpse of Alpha Connect" — compact two-line dark strip living inside the
+ * ivory Home screen. Presentation only: the whole strip opens /connect, the
+ * trailing round button answers the incoming call or opens the latest chat.
  */
 export function ConnectGlimpse() {
   const { lang, isArabic } = useLang();
 
-  const live = channels.find((c) => c.live) ?? channels[0]!;
+  const live = channels.find((c) => c.live);
   const caller = friends[0]!;
-  const inbox = threads.slice(0, 2);
+  const latest = threads[0]!;
   const unread = threads.reduce((sum, t) => sum + t.unread, 0);
+  const incoming = Boolean(live);
 
   return (
     <section
       dir={isArabic ? "rtl" : "ltr"}
-      className={`ac-page relative overflow-hidden rounded-[30px] p-4 shadow-[0_28px_60px_-28px_color-mix(in_oklab,var(--ac-night)_60%,transparent)] ring-1 ring-aqua/20 ${
+      className={`ac-page relative overflow-hidden rounded-[22px] px-3 py-2.5 shadow-[0_16px_34px_-20px_color-mix(in_oklab,var(--ac-night)_60%,transparent)] ring-1 ring-aqua/20 ${
         isArabic ? "font-arabic" : "font-sans"
       }`}
     >
-      <span
-        aria-hidden="true"
-        className="ac-halo pointer-events-none absolute -top-20 start-1/2 size-[280px] -translate-x-1/2 opacity-45 blur-2xl"
-      />
-
-      {/* whole-card tap target → Alpha Connect */}
       <Link
         to="/connect"
         aria-label={pick(L.appName, lang)}
-        className="absolute inset-0 z-0 rounded-[30px]"
+        className="absolute inset-0 z-0 rounded-[22px]"
       />
 
-      <div className="pointer-events-none relative z-10 space-y-3">
-        {/* head */}
-        <div className="flex items-start gap-2.5">
-          <span className="relative grid size-11 shrink-0 place-items-center rounded-full ac-cta text-acnight">
-            <MicGlyph className="size-[18px]" />
-            <span aria-hidden="true" className="ac-sonar absolute inset-0 rounded-full border border-signal/70" />
-          </span>
-          <div className="min-w-0 flex-1">
-            <p className="font-manrope text-[9px] font-bold tracking-[0.22em] text-aqua/75 uppercase">
-              {pick(L.appName, lang)}
-            </p>
-            <h3 className="ac-gilt mt-0.5 font-display text-[19px] leading-tight">
-              {isArabic ? "كنيستك على الهواء" : "Your church, on air"}
-            </h3>
-          </div>
-          <span className="mt-1 flex items-center gap-2 rounded-full border border-signal/35 bg-signal/12 px-2.5 py-1">
-            <span className="size-1.5 rounded-full bg-signal" />
-            <span className="font-manrope text-[9.5px] font-bold text-signal uppercase">
-              {pick(L.live, lang)}
-            </span>
-          </span>
-        </div>
-
-        {/* live channel strip */}
-        <div className="ac-glass flex items-center gap-2.5 rounded-[20px] p-2.5">
-          <span className="min-w-0 flex-1">
-            <span className="block truncate text-[12.5px] text-acivory">{pick(live.name, lang)}</span>
-            <span className="mt-0.5 block truncate font-manrope text-[10px] text-acquiet">
-              {live.onlineNow} {pick(L.online, lang)}
-            </span>
-          </span>
-          <VoiceBars bars={4} />
-        </div>
-
-        {/* incoming call */}
-        <div className="pointer-events-auto ac-card flex items-center gap-2.5 rounded-[20px] p-2.5">
-          <MemberAvatar member={caller} size={38} />
-          <span className="min-w-0 flex-1">
-            <span className="block truncate text-[12.5px] text-acivory">{pick(caller.name, lang)}</span>
-            <span className="mt-0.5 block font-manrope text-[10px] text-signal">
-              {isArabic ? "اتصال صوتي وارد…" : "Incoming voice call…"}
-            </span>
-          </span>
-          <Link
-            to="/connect-call"
-            search={{ who: caller.id }}
-            aria-label={isArabic ? "الرد على الاتصال" : "Answer call"}
-            className="press grid size-9 place-items-center rounded-full ac-cta text-acnight"
-          >
-            <PhoneGlyph className="size-[16px]" />
-          </Link>
-        </div>
-
-        {/* inbox peek */}
-        <ul className="pointer-events-auto space-y-2">
-          {inbox.map((t) => (
-            <li key={t.id}>
-              <Link
-                to="/connect-chat"
-                search={{ who: `f${t.id.slice(1)}` }}
-                className="press ac-card flex items-center gap-2.5 rounded-[20px] p-2.5"
-                style={{ ["--hue" as string]: t.tone }}
-              >
-                <span
-                  className="grid size-9 shrink-0 place-items-center rounded-full border text-[12px] text-acivory"
-                  style={{ borderColor: t.tone, background: `color-mix(in oklab, ${t.tone} 16%, transparent)` }}
-                >
-                  {t.initial}
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block truncate text-[12px] text-acivory">{pick(t.name, lang)}</span>
-                  <span className="mt-0.5 block truncate text-[10.5px] text-acquiet">{pick(t.preview, lang)}</span>
-                </span>
-                {t.unread ? (
-                  <span className="grid size-5 shrink-0 place-items-center rounded-full bg-signal font-manrope text-[9.5px] font-bold text-acnight">
-                    {t.unread}
-                  </span>
-                ) : null}
-              </Link>
-            </li>
-          ))}
-        </ul>
-
-        {/* footer actions */}
-        <div className="pointer-events-auto flex items-center gap-2 pt-0.5">
-          <Link
-            to="/connect"
-            className="press ac-cta inline-flex flex-1 items-center justify-center gap-1.5 rounded-full py-2.5 font-manrope text-[11.5px] font-bold text-acnight"
-          >
-            {isArabic ? "افتح Alpha Connect" : "Open Alpha Connect"}
-          </Link>
-          <Link
-            to="/connect-messages"
-            aria-label={pick(L.messages, lang)}
-            className="press relative grid size-10 place-items-center rounded-full border border-aqua/25 bg-acdeep/55 text-acivory/85"
-          >
-            <ChatGlyph className="size-[17px]" />
-            {unread ? (
-              <span className="absolute -end-0.5 -top-0.5 grid size-4 place-items-center rounded-full bg-acgold font-manrope text-[8.5px] font-bold text-acnight">
-                {unread}
-              </span>
+      <div className="pointer-events-none relative z-10 space-y-1.5">
+        {/* line 1 — identity + live */}
+        <div className="flex items-center gap-2">
+          <span className="relative grid size-7 shrink-0 place-items-center rounded-full ac-cta text-acnight">
+            <MicGlyph className="size-[13px]" />
+            {live ? (
+              <span
+                aria-hidden="true"
+                className="ac-sonar absolute inset-0 rounded-full border border-signal/70"
+              />
             ) : null}
-          </Link>
+          </span>
+          <span className="ac-gilt min-w-0 flex-1 truncate font-display text-[13px] leading-none">
+            Alpha Connect
+          </span>
+          {live ? (
+            <>
+              <span className="flex items-center gap-1 rounded-full border border-signal/35 bg-signal/12 px-1.5 py-0.5">
+                <span className="size-1 rounded-full bg-signal" />
+                <span className="font-manrope text-[8px] font-bold text-signal uppercase">
+                  {pick(L.live, lang)}
+                </span>
+              </span>
+              <VoiceBars bars={3} className="h-2.5" />
+            </>
+          ) : null}
+        </div>
+
+        {/* line 2 — one activity row */}
+        <div className="flex items-center gap-2">
+          {incoming ? (
+            <MemberAvatar member={caller} size={26} />
+          ) : (
+            <span
+              className="grid size-[26px] shrink-0 place-items-center rounded-full border text-[10px] text-acivory"
+              style={{
+                borderColor: latest.tone,
+                background: `color-mix(in oklab, ${latest.tone} 16%, transparent)`,
+              }}
+            >
+              {latest.initial}
+            </span>
+          )}
+          <span className="min-w-0 flex-1 truncate text-[11px] text-acivory/90">
+            {incoming ? pick(caller.name, lang) : pick(latest.name, lang)}
+            <span className="mx-1 text-acquiet">·</span>
+            <span className={incoming ? "text-signal" : "text-acquiet"}>
+              {incoming
+                ? isArabic
+                  ? "اتصال صوتي وارد"
+                  : "Incoming call"
+                : pick(latest.preview, lang)}
+            </span>
+          </span>
+          {unread ? (
+            <span className="grid size-[18px] shrink-0 place-items-center rounded-full bg-acgold font-manrope text-[9px] font-bold text-acnight">
+              {unread}
+            </span>
+          ) : null}
+          {incoming ? (
+            <Link
+              to="/connect-call"
+              search={{ who: caller.id }}
+              aria-label={isArabic ? "الرد على الاتصال" : "Answer call"}
+              className="pointer-events-auto press grid size-8 shrink-0 place-items-center rounded-full ac-cta text-acnight"
+            >
+              <PhoneGlyph className="size-[14px]" />
+            </Link>
+          ) : (
+            <Link
+              to="/connect-chat"
+              search={{ who: `f${latest.id.slice(1)}` }}
+              aria-label={pick(L.messages, lang)}
+              className="pointer-events-auto press grid size-8 shrink-0 place-items-center rounded-full border border-aqua/25 bg-acdeep/55 text-acivory/85"
+            >
+              <ChatGlyph className="size-[14px]" />
+            </Link>
+          )}
         </div>
       </div>
     </section>
