@@ -331,6 +331,7 @@ export const LL = {
   regions: { ar: "أمريكا · أوروبا · الشرق الأوسط", en: "Americas · Europe · Middle East" },
   staging: { ar: "التطوير", en: "Staging" },
   testsPass: { ar: "الاختبارات ناجحة", en: "All tests pass" },
+  ok2: { ar: "سليم", en: "Healthy" },
   env: { ar: "البيئة", en: "Environment" },
   rolloutPct: { ar: "الطرح 25%", en: "Rollout 25%" },
   launchProgress: { ar: "تقدّم الإطلاق", en: "Launch progress" },

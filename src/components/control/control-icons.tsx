@@ -220,4 +220,5 @@ export const glyphByKey: Record<string, (p: P) => ReactElement> = {
   list: ListGlyph,
   mail: MailGlyph,
   toggle: ToggleGlyph,
+  rocket: RocketGlyph,
 };
