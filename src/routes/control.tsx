@@ -754,20 +754,25 @@ function SystemModule({ p }: { p: P }) {
 
 /* ── Launch Control teaser (module added later) ───────────── */
 
-function LaunchTeaser({ p }: { p: P }) {
+function LaunchTeaser({ p, onOpen }: { p: P; onOpen: () => void }) {
   return (
-    <Panel className="mt-6 flex items-center gap-3 p-4 opacity-70">
-      <span className="grid size-10 shrink-0 place-items-center rounded-[14px] border border-ctl-gold/25 bg-ctl-gold/8 text-ctl-gold">
-        <RocketGlyph className="size-[19px]" />
-      </span>
-      <span className="min-w-0 flex-1">
-        <span className="flex items-center gap-2">
-          <span className="truncate text-[12.5px] font-semibold">{p(L.launchControl)}</span>
-          <Tag tone="gold">{p(L.soon)}</Tag>
+    <button type="button" onClick={onOpen} className="press mt-6 block w-full text-start">
+      <Panel className="flex items-center gap-3 p-4">
+        <span className="grid size-10 shrink-0 place-items-center rounded-[14px] border border-ctl-gold/30 bg-ctl-gold/10 text-ctl-gold">
+          <RocketGlyph className="size-[19px]" />
         </span>
-        <span className="mt-0.5 block truncate text-[10px] text-ctl-mist/40">{p(L.launchNote)}</span>
-      </span>
-    </Panel>
+        <span className="min-w-0 flex-1">
+          <span className="flex items-center gap-2">
+            <span className="truncate text-[12.5px] font-semibold">{p(L.launchControl)}</span>
+            <Tag tone="gold">{p(mod("launch").name)}</Tag>
+          </span>
+          <span className="mt-0.5 block truncate text-[10px] text-ctl-mist/45">
+            {p(L.launchNote)}
+          </span>
+        </span>
+        <ChevronGlyph className="size-4 shrink-0 text-ctl-mist/35 rtl:rotate-180" />
+      </Panel>
+    </button>
   );
 }
 
