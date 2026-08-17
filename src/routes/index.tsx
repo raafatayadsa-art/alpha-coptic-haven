@@ -15,6 +15,8 @@ import saintOfDay from "@/assets/saint-of-day.jpg";
 import { DailyDeck, type DailyCard } from "@/components/church/DailyDeck";
 import { EngageBar } from "@/components/church/EngageBar";
 import { ConnectGlimpse } from "@/components/church/ConnectGlimpse";
+import { MicGlyph } from "@/components/connect/connect-icons";
+import { threads as connectThreads } from "@/lib/connect-data";
 
 
 
@@ -183,6 +185,7 @@ function AlphaHome() {
   const arabic = isArabic ? "font-arabic" : "";
   const [bell, setBell] = useState(false);
   const [seen, setSeen] = useState(false);
+  const connectUnread = connectThreads.reduce((sum, t) => sum + t.unread, 0);
 
   /* Time-aware greeting — presentation only. Resolved after hydration so the
      server-rendered text always matches the first client render. */
@@ -236,6 +239,22 @@ function AlphaHome() {
             </span>
           </div>
           <div className="flex shrink-0 items-center gap-2">
+            <Link
+              to="/connect"
+              aria-label="Alpha Connect"
+              className="press ac-page relative grid size-10 place-items-center rounded-full ring-1 ring-aqua/25"
+            >
+              <MicGlyph className="size-[17px] text-signal" />
+              <span
+                aria-hidden="true"
+                className="ac-sonar pointer-events-none absolute inset-0 rounded-full border border-signal/60"
+              />
+              {connectUnread ? (
+                <span className="absolute -end-0.5 -top-0.5 grid size-4 place-items-center rounded-full bg-acgold font-manrope text-[8.5px] font-bold text-acnight ring-2 ring-ivory">
+                  {connectUnread}
+                </span>
+              ) : null}
+            </Link>
             <button
               type="button"
               aria-label={t("app.notifications")}

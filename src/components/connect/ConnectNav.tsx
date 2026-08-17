@@ -65,8 +65,8 @@ export function ConnectNav({ active }: { active: ConnectTab }) {
     >
       <div className="ac-glass flex items-stretch gap-1 rounded-[26px] px-2 py-1.5">
         <Link
-          to="/connect"
-          aria-label={pick(L.appName, lang)}
+          to="/"
+          aria-label={isArabic ? "الشاشة الرئيسية" : "Alpha home"}
           className={`press flex min-w-0 flex-1 flex-col items-center gap-1 rounded-[20px] py-1.5 transition-colors ${
             active === "alpha" ? "text-acgold" : "text-acquiet"
           }`}
