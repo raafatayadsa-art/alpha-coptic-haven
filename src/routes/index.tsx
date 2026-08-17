@@ -15,6 +15,8 @@ import saintOfDay from "@/assets/saint-of-day.jpg";
 import { DailyDeck, type DailyCard } from "@/components/church/DailyDeck";
 import { EngageBar } from "@/components/church/EngageBar";
 import { ConnectGlimpse } from "@/components/church/ConnectGlimpse";
+import { MicGlyph } from "@/components/connect/connect-icons";
+import { threads as connectThreads } from "@/lib/connect-data";
 
 
 
@@ -183,6 +185,7 @@ function AlphaHome() {
   const arabic = isArabic ? "font-arabic" : "";
   const [bell, setBell] = useState(false);
   const [seen, setSeen] = useState(false);
+  const connectUnread = connectThreads.reduce((sum, t) => sum + t.unread, 0);
 
   /* Time-aware greeting — presentation only. Resolved after hydration so the
      server-rendered text always matches the first client render. */
