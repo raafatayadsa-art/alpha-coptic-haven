@@ -20,6 +20,7 @@ import {
   toneText,
   type Tone,
 } from "@/components/control/ControlShell";
+import { LaunchModule } from "@/components/control/LaunchModule";
 import {
   BellGlyph,
   CheckGlyph,
