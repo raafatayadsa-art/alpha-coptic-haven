@@ -178,8 +178,9 @@ function AlphaControl() {
           {active === "admin" && <AdminModule p={p} />}
           {active === "settings" && <SettingsModule p={p} />}
           {active === "system" && <SystemModule p={p} />}
+          {active === "launch" && <LaunchModule p={p} />}
 
-          <LaunchTeaser p={p} />
+          {active !== "launch" && <LaunchTeaser p={p} onOpen={() => setActive("launch")} />}
           <SloganBand />
         </main>
 
