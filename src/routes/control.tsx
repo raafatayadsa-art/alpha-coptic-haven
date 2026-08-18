@@ -98,27 +98,29 @@ function AlphaControl() {
         className={`relative mx-auto w-full max-w-[430px] overflow-x-hidden pb-1 ${isArabic ? "font-arabic" : "font-sans"}`}
       >
         {/* ── Command bar ───────────────────────────────── */}
-        <header className="safe-top safe-sticky-top sticky z-40 bg-ctl-obsidian/85 px-4 pt-2 pb-2.5 backdrop-blur-xl">
+        <header className="safe-top safe-sticky-top sticky z-40 border-b border-ctl-mist/6 bg-ctl-obsidian/72 px-4 pt-2 pb-2.5 backdrop-blur-2xl">
           <div className="flex items-center gap-2">
-            <span className="relative grid size-10 shrink-0 place-items-center rounded-[15px] border border-ctl-gold/30 bg-ctl-gold/10 text-ctl-gold">
-              <PowerGlyph className="size-[19px]" />
-              <span aria-hidden="true" className="absolute inset-0 rounded-[15px] ring-1 ring-ctl-gold/15" />
+            <span className="relative grid size-10 shrink-0 place-items-center rounded-full text-ctl-gold ctl-halo">
+              <span aria-hidden="true" className="absolute inset-0 rounded-full bg-ctl-gold/10" />
+              <PowerGlyph className="relative size-[19px]" />
             </span>
-            <div className="min-w-0 flex-1">
-              <h1 className="truncate text-[15px] font-bold tracking-tight">{p(L.appName)}</h1>
-              <p className="mt-0.5 flex items-center gap-1.5 truncate text-[9.5px] text-ctl-mist/45">
-                <span className="size-1.5 rounded-full bg-ctl-jade" />
-                {p(L.liveNow)} · {p(L.tagline)}
-              </p>
-            </div>
             <IconBtn label={p(L.search)}>
               <SearchGlyph className="size-[18px]" />
             </IconBtn>
+            <div className="min-w-0 flex-1 text-center">
+              <h1 className="truncate font-manrope text-[15px] font-extrabold tracking-[0.22em] text-ctl-gold uppercase">
+                {p(L.appName)}
+              </h1>
+              <p className="mt-0.5 flex items-center justify-center gap-1.5 truncate text-[8.5px] tracking-[0.2em] text-ctl-mist/45 uppercase">
+                <span className="size-1.5 rounded-full bg-ctl-jade text-ctl-jade ctl-halo" />
+                {p(L.tagline)}
+              </p>
+            </div>
             <button
               type="button"
               onClick={() => setLauncher(true)}
               aria-label={p(L.allModules)}
-              className="press grid size-10 shrink-0 place-items-center rounded-[15px] border border-ctl-mist/12 bg-ctl-mist/5 text-ctl-mist/70"
+              className="press grid size-10 shrink-0 place-items-center rounded-[14px] border border-ctl-mist/10 bg-ctl-mist/6 text-ctl-mist/70 backdrop-blur-md"
             >
               <GridGlyph className="size-[18px]" />
             </button>
@@ -136,17 +138,17 @@ function AlphaControl() {
                   key={m.key}
                   type="button"
                   onClick={() => setActive(m.key)}
-                  className={`press inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-semibold transition-colors duration-400 ${
+                  className={`press inline-flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[11px] font-semibold transition-all duration-400 ${
                     on
-                      ? "bg-ctl-gold/15 text-ctl-gold ring-1 ring-ctl-gold/35"
-                      : "border border-ctl-mist/10 bg-ctl-mist/4 text-ctl-mist/55"
+                      ? "ctl-gold-btn"
+                      : "border border-ctl-mist/8 bg-ctl-mist/4 text-ctl-mist/55"
                   }`}
                 >
                   {p(m.name)}
                   {m.badge && (
                     <span
-                      className={`grid min-w-[16px] place-items-center rounded-full px-1 text-[8.5px] ${
-                        on ? "bg-ctl-gold/25" : "bg-ctl-mist/10"
+                      className={`grid min-w-[16px] place-items-center rounded-full px-1 text-[8.5px] font-bold ${
+                        on ? "bg-ctl-obsidian/25" : "bg-ctl-mist/10"
                       }`}
                     >
                       {m.badge}
