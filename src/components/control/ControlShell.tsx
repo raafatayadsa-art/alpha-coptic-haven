@@ -156,14 +156,21 @@ export function AreaChart({ data, tone = "cyan" }: { data: number[]; tone?: Tone
 
 export function Bars({ data, tone = "gold" }: { data: { label: string; pct: number }[]; tone?: Tone }) {
   return (
-    <div className="flex h-28 items-end gap-2 px-4 pb-3">
+    <div className="flex h-32 items-end gap-2 px-4 pt-3 pb-3">
       {data.map((d, i) => (
         <div key={d.label} className="flex h-full min-w-0 flex-1 flex-col items-center justify-end gap-1.5">
-          <span className="text-[9.5px] font-semibold text-ctl-mist/50">{d.pct}%</span>
-          <span
-            className={`ctl-bar w-full shrink-0 rounded-t-[6px] ${toneBg[tone]}`}
-            style={{ height: `${Math.round(d.pct * 0.72)}%`, opacity: 0.78, animationDelay: `${i * 70}ms` }}
-          />
+          <span className="font-manrope text-[9.5px] font-bold text-ctl-mist/55">{d.pct}%</span>
+          <span className="flex w-full flex-1 items-end overflow-hidden rounded-[8px] bg-ctl-mist/5">
+            <span
+              className={`ctl-bar w-full rounded-[8px] ${toneBg[tone]}`}
+              style={{
+                height: `${Math.max(6, d.pct)}%`,
+                opacity: 0.9,
+                animationDelay: `${i * 70}ms`,
+                maskImage: "linear-gradient(to top, black, color-mix(in oklab, black 55%, transparent))",
+              }}
+            />
+          </span>
           <span className="w-full truncate text-center text-[9.5px] text-ctl-mist/40">{d.label}</span>
         </div>
       ))}
@@ -175,11 +182,18 @@ export function Meter({ label, value, pct, tone = "gold" }: { label: string; val
   return (
     <div>
       <div className="flex items-baseline justify-between gap-2">
-        <span className="truncate text-[11.5px] text-ctl-mist/70">{label}</span>
-        <span className="shrink-0 text-[10.5px] font-semibold text-ctl-mist/45">{value ?? `${pct}%`}</span>
+        <span className="truncate text-[11.5px] font-medium text-ctl-mist/75">{label}</span>
+        <span className={`shrink-0 font-manrope text-[10.5px] font-bold ${toneText[tone]}`}>{value ?? `${pct}%`}</span>
       </div>
-      <span className="mt-1.5 block h-1.5 w-full overflow-hidden rounded-full bg-ctl-mist/8">
-        <span className={`block h-full rounded-full ${toneBg[tone]}`} style={{ width: `${pct}%`, opacity: 0.85 }} />
+      <span className="mt-2 block h-[7px] w-full overflow-hidden rounded-full bg-ctl-mist/7 ring-1 ring-inset ring-ctl-mist/5">
+        <span
+          className={`block h-full rounded-full ${toneBg[tone]}`}
+          style={{
+            width: `${pct}%`,
+            opacity: 0.92,
+            boxShadow: "0 0 12px -2px currentColor",
+          }}
+        />
       </span>
     </div>
   );
