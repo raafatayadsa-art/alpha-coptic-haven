@@ -50,7 +50,7 @@ export function PanelHead({
   action?: ReactNode;
 }) {
   return (
-    <div className="flex items-start justify-between gap-3 px-4 pt-3.5 pb-2">
+    <div className="flex items-start justify-between gap-3 border-b border-ctl-mist/6 px-4 pt-4 pb-3">
       <div className="min-w-0">
         <h3 className="truncate text-[13.5px] font-semibold tracking-tight">{title}</h3>
         {caption && <p className="mt-0.5 truncate text-[10px] text-ctl-mist/40">{caption}</p>}
@@ -62,12 +62,13 @@ export function PanelHead({
 
 export function SectionTitle({ title, caption }: { title: string; caption?: string }) {
   return (
-    <div className="mt-6 mb-3 flex items-end gap-2.5 px-1">
-      <span aria-hidden="true" className="mb-1.5 h-px w-6 shrink-0 bg-ctl-gold/60" />
-      <div className="min-w-0">
-        <h2 className="truncate text-[15px] font-bold tracking-tight">{title}</h2>
-        {caption && <p className="mt-0.5 truncate text-[10px] text-ctl-mist/40">{caption}</p>}
-      </div>
+    <div className="mt-7 mb-3 flex items-center gap-2.5 px-0.5">
+      <span aria-hidden="true" className="ctl-tile size-7 shrink-0 text-ctl-gold">
+        <span className="size-1.5 rounded-full bg-current" />
+      </span>
+      <h2 className="min-w-0 shrink-0 truncate text-[15.5px] font-bold tracking-tight">{title}</h2>
+      <span aria-hidden="true" className="h-px min-w-3 flex-1 bg-gradient-to-r from-ctl-gold/35 to-transparent rtl:bg-gradient-to-l" />
+      {caption && <p className="shrink-0 truncate text-[9.5px] text-ctl-mist/40">{caption}</p>}
     </div>
   );
 }
@@ -76,7 +77,7 @@ export function GhostButton({ children }: { children: ReactNode }) {
   return (
     <button
       type="button"
-      className="press inline-flex items-center gap-1 rounded-full border border-ctl-mist/12 bg-ctl-mist/5 px-3 py-1.5 text-[10.5px] font-semibold text-ctl-mist/70"
+      className="press inline-flex items-center gap-1 rounded-full border border-ctl-gold/25 bg-ctl-gold/8 px-3 py-1.5 text-[10.5px] font-semibold text-ctl-gold/85 transition-colors duration-300 hover:bg-ctl-gold/14"
     >
       {children}
     </button>
@@ -86,9 +87,9 @@ export function GhostButton({ children }: { children: ReactNode }) {
 export function StatusDot({ health }: { health: Health }) {
   const tone = healthTone[health];
   return (
-    <span className="relative grid size-2.5 shrink-0 place-items-center">
+    <span className={`relative grid size-2.5 shrink-0 place-items-center ${toneText[tone]}`}>
       <span className={`absolute size-2.5 rounded-full opacity-30 ${toneBg[tone]} ctl-blip`} />
-      <span className={`size-1.5 rounded-full ${toneBg[tone]}`} />
+      <span className={`ctl-halo size-1.5 rounded-full ${toneBg[tone]}`} />
     </span>
   );
 }
@@ -96,9 +97,9 @@ export function StatusDot({ health }: { health: Health }) {
 export function Tag({ children, tone = "gold" }: { children: ReactNode; tone?: Tone }) {
   return (
     <span
-      className={`inline-flex items-center rounded-full border border-current/25 px-2 py-0.5 text-[9.5px] font-semibold ${toneText[tone]}`}
+      className={`inline-flex items-center rounded-full bg-current/12 px-2 py-0.5 text-[9.5px] font-semibold ring-1 ring-current/22 ${toneText[tone]}`}
     >
-      {children}
+      <span className="text-current">{children}</span>
     </span>
   );
 }
