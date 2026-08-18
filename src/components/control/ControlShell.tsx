@@ -257,13 +257,17 @@ export function Row({
   trailing?: ReactNode;
 }) {
   return (
-    <div className="flex items-center gap-3 border-t border-ctl-mist/7 px-4 py-3 first:border-t-0">
+    <div className="flex items-center gap-3 border-t border-ctl-mist/6 px-4 py-3.5 transition-colors duration-300 first:border-t-0 hover:bg-ctl-mist/3">
       {health && <StatusDot health={health} />}
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-[12.5px] font-semibold">{title}</span>
-        {note && <span className="mt-0.5 block truncate text-[10px] text-ctl-mist/40">{note}</span>}
+        <span className="block truncate text-[12.5px] font-semibold tracking-tight">{title}</span>
+        {note && <span className="mt-0.5 block truncate text-[10px] leading-snug text-ctl-mist/40">{note}</span>}
       </span>
-      {value && <span className="shrink-0 font-manrope text-[11px] text-ctl-mist/55">{value}</span>}
+      {value && (
+        <span className="shrink-0 rounded-full bg-ctl-mist/6 px-2 py-0.5 font-manrope text-[10.5px] font-semibold text-ctl-mist/60">
+          {value}
+        </span>
+      )}
       {trailing}
     </div>
   );
