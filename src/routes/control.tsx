@@ -244,38 +244,47 @@ function Overview({ p, onOpen }: { p: P; onOpen: (k: ModuleKey) => void }) {
     <>
       {/* Command panel */}
       <Panel crest className="mt-3 overflow-hidden">
-        <div className="flex items-center gap-4 px-4 pt-4">
+        <div className="flex items-center gap-4 px-4 pt-5">
           <UptimeRing pct={99.98} />
           <div className="min-w-0 flex-1">
-            <p className="text-[10px] tracking-[0.18em] text-ctl-gold/70 uppercase">{p(L.uptime)}</p>
-            <h2 className="mt-1 truncate text-[17px] font-bold tracking-tight">{p(L.greeting)}</h2>
+            <p className="text-[9.5px] tracking-[0.2em] text-ctl-gold/70 uppercase">{p(L.uptime)}</p>
+            <h2 className="mt-1.5 truncate text-[18px] font-bold tracking-tight">{p(L.greeting)}</h2>
             <p className="mt-1 text-[10.5px] leading-relaxed text-ctl-mist/60">{p(L.tagline)}</p>
           </div>
         </div>
-        <div className="mt-4 grid grid-cols-3 divide-x divide-ctl-mist/8 border-t border-ctl-mist/8 rtl:divide-x-reverse">
+        <div className="mt-4 grid grid-cols-3 divide-x divide-ctl-mist/6 border-t border-ctl-mist/6 bg-ctl-obsidian/25 rtl:divide-x-reverse">
           {heroStats.map((s) => (
-            <div key={s.label.en} className="px-3 py-3 text-center">
-              <p className="font-manrope text-[15px] font-bold">{s.value}</p>
-              <p className="mt-0.5 text-[9.5px] text-ctl-mist/40">{p(s.label)}</p>
+            <div key={s.label.en} className="px-3 py-3.5 text-center">
+              <p className="font-manrope text-[16px] font-bold tracking-tight">{s.value}</p>
+              <p className="mt-1 text-[9px] tracking-[0.1em] text-ctl-mist/40 uppercase">{p(s.label)}</p>
             </div>
           ))}
         </div>
       </Panel>
 
       {/* KPI grid */}
-      <div className="mt-3 grid grid-cols-2 gap-2.5">
-        {kpis.map((k, i) => (
-          <Panel key={k.label.en} className="p-3.5">
-            <p className="truncate text-[10px] text-ctl-mist/45">{p(k.label)}</p>
-            <p className="mt-1 font-manrope text-[19px] font-bold leading-none">{k.value}</p>
-            <p className={`mt-1 text-[10px] font-semibold ${k.up ? "text-ctl-jade" : "text-ctl-crimson"}`}>
-              {k.delta}
-            </p>
-            <div className="mt-1.5">
-              <Sparkline data={k.spark} tone={toneAt(i)} />
-            </div>
-          </Panel>
-        ))}
+      <div className="mt-2.5 grid grid-cols-2 gap-2.5">
+        {kpis.map((k, i) => {
+          const tone = toneAt(i);
+          return (
+            <Panel key={k.label.en} className="overflow-hidden p-3.5">
+              <div className="flex items-start justify-between gap-2">
+                <p className="min-w-0 truncate text-[10px] text-ctl-mist/45">{p(k.label)}</p>
+                <span
+                  className={`shrink-0 rounded-full px-1.5 py-0.5 text-[9px] font-bold ${
+                    k.up ? "bg-ctl-jade/12 text-ctl-jade" : "bg-ctl-crimson/12 text-ctl-crimson"
+                  }`}
+                >
+                  {k.up ? "↗" : "↘"} {k.delta}
+                </span>
+              </div>
+              <p className="mt-1.5 font-manrope text-[21px] font-extrabold leading-none tracking-tight">{k.value}</p>
+              <div className="-mx-1 mt-2">
+                <Sparkline data={k.spark} tone={tone} />
+              </div>
+            </Panel>
+          );
+        })}
       </div>
 
       {/* Quick actions */}
