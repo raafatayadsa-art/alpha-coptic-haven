@@ -247,7 +247,7 @@ function Overview({ p, onOpen }: { p: P; onOpen: (k: ModuleKey) => void }) {
           <div className="min-w-0 flex-1">
             <p className="text-[10px] tracking-[0.18em] text-ctl-gold/70 uppercase">{p(L.uptime)}</p>
             <h2 className="mt-1 truncate text-[17px] font-bold tracking-tight">{p(L.greeting)}</h2>
-            <p className="mt-1 text-[10.5px] leading-relaxed text-ctl-mist/45">{p(L.tagline)}</p>
+            <p className="mt-1 text-[10.5px] leading-relaxed text-ctl-mist/60">{p(L.tagline)}</p>
           </div>
         </div>
         <div className="mt-4 grid grid-cols-3 divide-x divide-ctl-mist/8 border-t border-ctl-mist/8 rtl:divide-x-reverse">
