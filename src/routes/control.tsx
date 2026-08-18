@@ -98,27 +98,29 @@ function AlphaControl() {
         className={`relative mx-auto w-full max-w-[430px] overflow-x-hidden pb-1 ${isArabic ? "font-arabic" : "font-sans"}`}
       >
         {/* ── Command bar ───────────────────────────────── */}
-        <header className="safe-top safe-sticky-top sticky z-40 bg-ctl-obsidian/85 px-4 pt-2 pb-2.5 backdrop-blur-xl">
+        <header className="safe-top safe-sticky-top sticky z-40 border-b border-ctl-mist/6 bg-ctl-obsidian/72 px-4 pt-2 pb-2.5 backdrop-blur-2xl">
           <div className="flex items-center gap-2">
-            <span className="relative grid size-10 shrink-0 place-items-center rounded-[15px] border border-ctl-gold/30 bg-ctl-gold/10 text-ctl-gold">
-              <PowerGlyph className="size-[19px]" />
-              <span aria-hidden="true" className="absolute inset-0 rounded-[15px] ring-1 ring-ctl-gold/15" />
+            <span className="relative grid size-10 shrink-0 place-items-center rounded-full text-ctl-gold ctl-halo">
+              <span aria-hidden="true" className="absolute inset-0 rounded-full bg-ctl-gold/10" />
+              <PowerGlyph className="relative size-[19px]" />
             </span>
-            <div className="min-w-0 flex-1">
-              <h1 className="truncate text-[15px] font-bold tracking-tight">{p(L.appName)}</h1>
-              <p className="mt-0.5 flex items-center gap-1.5 truncate text-[9.5px] text-ctl-mist/45">
-                <span className="size-1.5 rounded-full bg-ctl-jade" />
-                {p(L.liveNow)} · {p(L.tagline)}
-              </p>
-            </div>
             <IconBtn label={p(L.search)}>
               <SearchGlyph className="size-[18px]" />
             </IconBtn>
+            <div className="min-w-0 flex-1 text-center">
+              <h1 className="truncate font-manrope text-[15px] font-extrabold tracking-[0.22em] text-ctl-gold uppercase">
+                {p(L.appName)}
+              </h1>
+              <p className="mt-0.5 flex items-center justify-center gap-1.5 truncate text-[8.5px] tracking-[0.2em] text-ctl-mist/45 uppercase">
+                <span className="size-1.5 rounded-full bg-ctl-jade text-ctl-jade ctl-halo" />
+                {p(L.tagline)}
+              </p>
+            </div>
             <button
               type="button"
               onClick={() => setLauncher(true)}
               aria-label={p(L.allModules)}
-              className="press grid size-10 shrink-0 place-items-center rounded-[15px] border border-ctl-mist/12 bg-ctl-mist/5 text-ctl-mist/70"
+              className="press grid size-10 shrink-0 place-items-center rounded-[14px] border border-ctl-mist/10 bg-ctl-mist/6 text-ctl-mist/70 backdrop-blur-md"
             >
               <GridGlyph className="size-[18px]" />
             </button>
@@ -136,17 +138,17 @@ function AlphaControl() {
                   key={m.key}
                   type="button"
                   onClick={() => setActive(m.key)}
-                  className={`press inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-semibold transition-colors duration-400 ${
+                  className={`press inline-flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[11px] font-semibold transition-all duration-400 ${
                     on
-                      ? "bg-ctl-gold/15 text-ctl-gold ring-1 ring-ctl-gold/35"
-                      : "border border-ctl-mist/10 bg-ctl-mist/4 text-ctl-mist/55"
+                      ? "ctl-gold-btn"
+                      : "border border-ctl-mist/8 bg-ctl-mist/4 text-ctl-mist/55"
                   }`}
                 >
                   {p(m.name)}
                   {m.badge && (
                     <span
-                      className={`grid min-w-[16px] place-items-center rounded-full px-1 text-[8.5px] ${
-                        on ? "bg-ctl-gold/25" : "bg-ctl-mist/10"
+                      className={`grid min-w-[16px] place-items-center rounded-full px-1 text-[8.5px] font-bold ${
+                        on ? "bg-ctl-obsidian/25" : "bg-ctl-mist/10"
                       }`}
                     >
                       {m.badge}
@@ -242,38 +244,47 @@ function Overview({ p, onOpen }: { p: P; onOpen: (k: ModuleKey) => void }) {
     <>
       {/* Command panel */}
       <Panel crest className="mt-3 overflow-hidden">
-        <div className="flex items-center gap-4 px-4 pt-4">
+        <div className="flex items-center gap-4 px-4 pt-5">
           <UptimeRing pct={99.98} />
           <div className="min-w-0 flex-1">
-            <p className="text-[10px] tracking-[0.18em] text-ctl-gold/70 uppercase">{p(L.uptime)}</p>
-            <h2 className="mt-1 truncate text-[17px] font-bold tracking-tight">{p(L.greeting)}</h2>
+            <p className="text-[9.5px] tracking-[0.2em] text-ctl-gold/70 uppercase">{p(L.uptime)}</p>
+            <h2 className="mt-1.5 truncate text-[18px] font-bold tracking-tight">{p(L.greeting)}</h2>
             <p className="mt-1 text-[10.5px] leading-relaxed text-ctl-mist/60">{p(L.tagline)}</p>
           </div>
         </div>
-        <div className="mt-4 grid grid-cols-3 divide-x divide-ctl-mist/8 border-t border-ctl-mist/8 rtl:divide-x-reverse">
+        <div className="mt-4 grid grid-cols-3 divide-x divide-ctl-mist/6 border-t border-ctl-mist/6 bg-ctl-obsidian/25 rtl:divide-x-reverse">
           {heroStats.map((s) => (
-            <div key={s.label.en} className="px-3 py-3 text-center">
-              <p className="font-manrope text-[15px] font-bold">{s.value}</p>
-              <p className="mt-0.5 text-[9.5px] text-ctl-mist/40">{p(s.label)}</p>
+            <div key={s.label.en} className="px-3 py-3.5 text-center">
+              <p className="font-manrope text-[16px] font-bold tracking-tight">{s.value}</p>
+              <p className="mt-1 text-[9px] tracking-[0.1em] text-ctl-mist/40 uppercase">{p(s.label)}</p>
             </div>
           ))}
         </div>
       </Panel>
 
       {/* KPI grid */}
-      <div className="mt-3 grid grid-cols-2 gap-2.5">
-        {kpis.map((k, i) => (
-          <Panel key={k.label.en} className="p-3.5">
-            <p className="truncate text-[10px] text-ctl-mist/45">{p(k.label)}</p>
-            <p className="mt-1 font-manrope text-[19px] font-bold leading-none">{k.value}</p>
-            <p className={`mt-1 text-[10px] font-semibold ${k.up ? "text-ctl-jade" : "text-ctl-crimson"}`}>
-              {k.delta}
-            </p>
-            <div className="mt-1.5">
-              <Sparkline data={k.spark} tone={toneAt(i)} />
-            </div>
-          </Panel>
-        ))}
+      <div className="mt-2.5 grid grid-cols-2 gap-2.5">
+        {kpis.map((k, i) => {
+          const tone = toneAt(i);
+          return (
+            <Panel key={k.label.en} className="overflow-hidden p-3.5">
+              <div className="flex items-start justify-between gap-2">
+                <p className="min-w-0 truncate text-[10px] text-ctl-mist/45">{p(k.label)}</p>
+                <span
+                  className={`shrink-0 rounded-full px-1.5 py-0.5 text-[9px] font-bold ${
+                    k.up ? "bg-ctl-jade/12 text-ctl-jade" : "bg-ctl-crimson/12 text-ctl-crimson"
+                  }`}
+                >
+                  {k.up ? "↗" : "↘"} {k.delta}
+                </span>
+              </div>
+              <p className="mt-1.5 font-manrope text-[21px] font-extrabold leading-none tracking-tight">{k.value}</p>
+              <div className="-mx-1 mt-2">
+                <Sparkline data={k.spark} tone={tone} />
+              </div>
+            </Panel>
+          );
+        })}
       </div>
 
       {/* Quick actions */}

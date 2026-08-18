@@ -50,7 +50,7 @@ export function PanelHead({
   action?: ReactNode;
 }) {
   return (
-    <div className="flex items-start justify-between gap-3 px-4 pt-3.5 pb-2">
+    <div className="flex items-start justify-between gap-3 border-b border-ctl-mist/6 px-4 pt-4 pb-3">
       <div className="min-w-0">
         <h3 className="truncate text-[13.5px] font-semibold tracking-tight">{title}</h3>
         {caption && <p className="mt-0.5 truncate text-[10px] text-ctl-mist/40">{caption}</p>}
@@ -62,12 +62,13 @@ export function PanelHead({
 
 export function SectionTitle({ title, caption }: { title: string; caption?: string }) {
   return (
-    <div className="mt-6 mb-3 flex items-end gap-2.5 px-1">
-      <span aria-hidden="true" className="mb-1.5 h-px w-6 shrink-0 bg-ctl-gold/60" />
-      <div className="min-w-0">
-        <h2 className="truncate text-[15px] font-bold tracking-tight">{title}</h2>
-        {caption && <p className="mt-0.5 truncate text-[10px] text-ctl-mist/40">{caption}</p>}
-      </div>
+    <div className="mt-7 mb-3 flex items-center gap-2.5 px-0.5">
+      <span aria-hidden="true" className="ctl-tile size-7 shrink-0 text-ctl-gold">
+        <span className="size-1.5 rounded-full bg-current" />
+      </span>
+      <h2 className="min-w-0 shrink-0 truncate text-[15.5px] font-bold tracking-tight">{title}</h2>
+      <span aria-hidden="true" className="h-px min-w-3 flex-1 bg-gradient-to-r from-ctl-gold/35 to-transparent rtl:bg-gradient-to-l" />
+      {caption && <p className="shrink-0 truncate text-[9.5px] text-ctl-mist/40">{caption}</p>}
     </div>
   );
 }
@@ -76,7 +77,7 @@ export function GhostButton({ children }: { children: ReactNode }) {
   return (
     <button
       type="button"
-      className="press inline-flex items-center gap-1 rounded-full border border-ctl-mist/12 bg-ctl-mist/5 px-3 py-1.5 text-[10.5px] font-semibold text-ctl-mist/70"
+      className="press inline-flex items-center gap-1 rounded-full border border-ctl-gold/25 bg-ctl-gold/8 px-3 py-1.5 text-[10.5px] font-semibold text-ctl-gold/85 transition-colors duration-300 hover:bg-ctl-gold/14"
     >
       {children}
     </button>
@@ -86,9 +87,9 @@ export function GhostButton({ children }: { children: ReactNode }) {
 export function StatusDot({ health }: { health: Health }) {
   const tone = healthTone[health];
   return (
-    <span className="relative grid size-2.5 shrink-0 place-items-center">
+    <span className={`relative grid size-2.5 shrink-0 place-items-center ${toneText[tone]}`}>
       <span className={`absolute size-2.5 rounded-full opacity-30 ${toneBg[tone]} ctl-blip`} />
-      <span className={`size-1.5 rounded-full ${toneBg[tone]}`} />
+      <span className={`ctl-halo size-1.5 rounded-full ${toneBg[tone]}`} />
     </span>
   );
 }
@@ -96,9 +97,9 @@ export function StatusDot({ health }: { health: Health }) {
 export function Tag({ children, tone = "gold" }: { children: ReactNode; tone?: Tone }) {
   return (
     <span
-      className={`inline-flex items-center rounded-full border border-current/25 px-2 py-0.5 text-[9.5px] font-semibold ${toneText[tone]}`}
+      className={`inline-flex items-center rounded-full bg-current/12 px-2 py-0.5 text-[9.5px] font-semibold ring-1 ring-current/22 ${toneText[tone]}`}
     >
-      {children}
+      <span className="text-current">{children}</span>
     </span>
   );
 }
@@ -155,14 +156,21 @@ export function AreaChart({ data, tone = "cyan" }: { data: number[]; tone?: Tone
 
 export function Bars({ data, tone = "gold" }: { data: { label: string; pct: number }[]; tone?: Tone }) {
   return (
-    <div className="flex h-28 items-end gap-2 px-4 pb-3">
+    <div className="flex h-32 items-end gap-2 px-4 pt-3 pb-3">
       {data.map((d, i) => (
         <div key={d.label} className="flex h-full min-w-0 flex-1 flex-col items-center justify-end gap-1.5">
-          <span className="text-[9.5px] font-semibold text-ctl-mist/50">{d.pct}%</span>
-          <span
-            className={`ctl-bar w-full shrink-0 rounded-t-[6px] ${toneBg[tone]}`}
-            style={{ height: `${Math.round(d.pct * 0.72)}%`, opacity: 0.78, animationDelay: `${i * 70}ms` }}
-          />
+          <span className="font-manrope text-[9.5px] font-bold text-ctl-mist/55">{d.pct}%</span>
+          <span className="flex w-full flex-1 items-end overflow-hidden rounded-[8px] bg-ctl-mist/5">
+            <span
+              className={`ctl-bar w-full rounded-[8px] ${toneBg[tone]}`}
+              style={{
+                height: `${Math.max(6, d.pct)}%`,
+                opacity: 0.9,
+                animationDelay: `${i * 70}ms`,
+                maskImage: "linear-gradient(to top, black, color-mix(in oklab, black 55%, transparent))",
+              }}
+            />
+          </span>
           <span className="w-full truncate text-center text-[9.5px] text-ctl-mist/40">{d.label}</span>
         </div>
       ))}
@@ -174,11 +182,18 @@ export function Meter({ label, value, pct, tone = "gold" }: { label: string; val
   return (
     <div>
       <div className="flex items-baseline justify-between gap-2">
-        <span className="truncate text-[11.5px] text-ctl-mist/70">{label}</span>
-        <span className="shrink-0 text-[10.5px] font-semibold text-ctl-mist/45">{value ?? `${pct}%`}</span>
+        <span className="truncate text-[11.5px] font-medium text-ctl-mist/75">{label}</span>
+        <span className={`shrink-0 font-manrope text-[10.5px] font-bold ${toneText[tone]}`}>{value ?? `${pct}%`}</span>
       </div>
-      <span className="mt-1.5 block h-1.5 w-full overflow-hidden rounded-full bg-ctl-mist/8">
-        <span className={`block h-full rounded-full ${toneBg[tone]}`} style={{ width: `${pct}%`, opacity: 0.85 }} />
+      <span className="mt-2 block h-[7px] w-full overflow-hidden rounded-full bg-ctl-mist/7 ring-1 ring-inset ring-ctl-mist/5">
+        <span
+          className={`block h-full rounded-full ${toneBg[tone]}`}
+          style={{
+            width: `${pct}%`,
+            opacity: 0.92,
+            boxShadow: "0 0 12px -2px currentColor",
+          }}
+        />
       </span>
     </div>
   );
@@ -242,13 +257,17 @@ export function Row({
   trailing?: ReactNode;
 }) {
   return (
-    <div className="flex items-center gap-3 border-t border-ctl-mist/7 px-4 py-3 first:border-t-0">
+    <div className="flex items-center gap-3 border-t border-ctl-mist/6 px-4 py-3.5 transition-colors duration-300 first:border-t-0 hover:bg-ctl-mist/3">
       {health && <StatusDot health={health} />}
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-[12.5px] font-semibold">{title}</span>
-        {note && <span className="mt-0.5 block truncate text-[10px] text-ctl-mist/40">{note}</span>}
+        <span className="block truncate text-[12.5px] font-semibold tracking-tight">{title}</span>
+        {note && <span className="mt-0.5 block truncate text-[10px] leading-snug text-ctl-mist/40">{note}</span>}
       </span>
-      {value && <span className="shrink-0 font-manrope text-[11px] text-ctl-mist/55">{value}</span>}
+      {value && (
+        <span className="shrink-0 rounded-full bg-ctl-mist/6 px-2 py-0.5 font-manrope text-[10.5px] font-semibold text-ctl-mist/60">
+          {value}
+        </span>
+      )}
       {trailing}
     </div>
   );
