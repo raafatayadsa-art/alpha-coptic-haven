@@ -534,3 +534,115 @@ export const governanceRows: { label: Bi; value: Bi; note: Bi }[] = [
     note: { ar: "غير قابل للتعديل · حفظ سنتين", en: "Immutable · 2-year retention" },
   },
 ];
+
+/* ── Geo presence (map redesign) ─────────────────────────── */
+
+export const geoCountries: {
+  code: string;
+  flag: string;
+  name: Bi;
+  city: Bi;
+  members: string;
+  share: number;
+  x: number;
+  y: number;
+  up: boolean;
+  delta: string;
+}[] = [
+  { code: "EG", flag: "🇪🇬", name: { ar: "مصر", en: "Egypt" }, city: { ar: "القاهرة · الإسكندرية", en: "Cairo · Alexandria" }, members: "29,410", share: 61, x: 55, y: 58, up: true, delta: "+4.2%" },
+  { code: "US", flag: "🇺🇸", name: { ar: "الولايات المتحدة", en: "United States" }, city: { ar: "نيوجيرسي · لوس أنجلوس", en: "New Jersey · Los Angeles" }, members: "7,180", share: 15, x: 20, y: 44, up: true, delta: "+2.8%" },
+  { code: "AE", flag: "🇦🇪", name: { ar: "الإمارات", en: "United Arab Emirates" }, city: { ar: "دبي · أبوظبي", en: "Dubai · Abu Dhabi" }, members: "3,940", share: 8, x: 72, y: 52, up: true, delta: "+6.1%" },
+  { code: "GB", flag: "🇬🇧", name: { ar: "بريطانيا", en: "United Kingdom" }, city: { ar: "لندن · مانشستر", en: "London · Manchester" }, members: "3,120", share: 7, x: 40, y: 24, up: false, delta: "-0.6%" },
+  { code: "AU", flag: "🇦🇺", name: { ar: "أستراليا", en: "Australia" }, city: { ar: "سيدني · ملبورن", en: "Sydney · Melbourne" }, members: "2,640", share: 5, x: 86, y: 80, up: true, delta: "+1.9%" },
+  { code: "CA", flag: "🇨🇦", name: { ar: "كندا", en: "Canada" }, city: { ar: "تورونتو · مونتريال", en: "Toronto · Montreal" }, members: "2,010", share: 4, x: 24, y: 22, up: true, delta: "+3.4%" },
+];
+
+/* ── Appearance (colors + scale) ─────────────────────────── */
+
+export const AL = {
+  title: { ar: "إعدادات المظهر", en: "Appearance settings" },
+  caption: { ar: "اللون واللمعان ونسبة الحجم — معاينة قبل التطبيق", en: "Accent, glow and size scale — preview before applying" },
+  accent: { ar: "لون التمييز", en: "Accent color" },
+  scale: { ar: "نسبة الحجم", en: "Size scale" },
+  density: { ar: "كثافة اللوحة", en: "Panel density" },
+  labels: { ar: "حجم أسماء البلاد", en: "Country label size" },
+  previewTitle: { ar: "معاينة التغييرات", en: "Preview changes" },
+  previewNote: {
+    ar: "التغييرات تظهر هنا فقط. اضغط «تطبيق» لسريانها على كامل ألفا كنترول.",
+    en: "Changes stay in this window. Press Apply to push them across Alpha Control.",
+  },
+  applyAll: { ar: "تطبيق على كامل الشاشة", en: "Apply to whole screen" },
+  applied: { ar: "تم التطبيق على كامل ألفا كنترول", en: "Applied across Alpha Control" },
+  discard: { ar: "تجاهل", en: "Discard" },
+  resetDefaults: { ar: "استعادة الافتراضي", en: "Reset defaults" },
+  openAppearance: { ar: "المظهر", en: "Appearance" },
+  geoTitle: { ar: "الحضور حسب البلد", en: "Presence by country" },
+  geoCaption: { ar: "أعداد المنتمين ونسبة كل بلد", en: "Members and share per country" },
+  members: { ar: "منتمٍ", en: "members" },
+  totalMembers: { ar: "إجمالي المنتمين", en: "Total members" },
+  countries: { ar: "بلدًا", en: "countries" },
+};
+
+export const accentPresets: { key: string; name: Bi; token: string; swatch: string }[] = [
+  { key: "gold", name: { ar: "ذهبي", en: "Gold" }, token: "var(--ct-gold)", swatch: "bg-ctl-gold" },
+  { key: "cyan", name: { ar: "سماوي", en: "Cyan" }, token: "var(--ct-cyan)", swatch: "bg-ctl-cyan" },
+  { key: "jade", name: { ar: "زمردي", en: "Jade" }, token: "var(--ct-jade)", swatch: "bg-ctl-jade" },
+  { key: "violet", name: { ar: "بنفسجي", en: "Violet" }, token: "var(--ct-violet)", swatch: "bg-ctl-violet" },
+  { key: "amber", name: { ar: "عنبري", en: "Amber" }, token: "var(--ct-amber)", swatch: "bg-ctl-amber" },
+  { key: "crimson", name: { ar: "قرمزي", en: "Crimson" }, token: "var(--ct-crimson)", swatch: "bg-ctl-crimson" },
+];
+
+export const scaleSteps = [90, 100, 110, 120, 130];
+
+/* ── Pilot mode + trial app modules ──────────────────────── */
+
+export const PL = {
+  pilot: { ar: "الوضع التجريبي", en: "Pilot mode" },
+  pilotCaption: { ar: "بيئة معزولة لكنيسة أو مجموعة", en: "Isolated environment for a church or group" },
+  trial: { ar: "التطبيق التجريبي", en: "Trial app" },
+  trialCaption: { ar: "نسخ الاختبار والمختبرون والدعوات", en: "Test builds, testers and invites" },
+  env: { ar: "البيئة", en: "Environment" },
+  status: { ar: "الحالة", en: "Status" },
+  running: { ar: "يعمل", en: "Running" },
+  stopped: { ar: "متوقف", en: "Stopped" },
+  start: { ar: "تشغيل الوضع التجريبي", en: "Start pilot" },
+  stop: { ar: "إيقاف الوضع التجريبي", en: "Stop pilot" },
+  seed: { ar: "توليد بيانات تجريبية", en: "Generate sample data" },
+  invite: { ar: "دعوة مختبرين", en: "Invite testers" },
+  build: { ar: "نسخة الاختبار", en: "Test build" },
+  channel: { ar: "قناة التوزيع", en: "Distribution channel" },
+  testers: { ar: "المختبرون", en: "Testers" },
+  feedback: { ar: "الملاحظات", en: "Feedback" },
+  crashFree: { ar: "جلسات بلا أعطال", en: "Crash-free sessions" },
+  sessions: { ar: "جلسات", en: "Sessions" },
+  installs: { ar: "تثبيتات", en: "Installs" },
+  expiry: { ar: "انتهاء النسخة", en: "Build expiry" },
+  pushBuild: { ar: "دفع نسخة جديدة", en: "Push new build" },
+  revoke: { ar: "سحب النسخة", en: "Revoke build" },
+};
+
+export const pilotGroups: { name: Bi; note: Bi; users: string; health: Health; on: boolean }[] = [
+  { name: { ar: "كنيسة السيدة العذراء — شبرا", en: "St. Mary — Shubra" }, note: { ar: "٢٥٠ مستخدمًا · بيانات معزولة", en: "250 users · isolated data" }, users: "250", health: "ok", on: true },
+  { name: { ar: "خدّام الشباب", en: "Youth servants" }, note: { ar: "٦٤ مستخدمًا · محتوى مولّد", en: "64 users · generated content" }, users: "64", health: "ok", on: true },
+  { name: { ar: "فريق ألفا الداخلي", en: "Alpha internal team" }, note: { ar: "١٢ مستخدمًا · كل الميزات", en: "12 users · all features" }, users: "12", health: "ok", on: true },
+  { name: { ar: "كنيسة مار مرقس — نيوجيرسي", en: "St. Mark — New Jersey" }, note: { ar: "بانتظار الموافقة", en: "Awaiting approval" }, users: "0", health: "warn", on: false },
+];
+
+export const pilotMetrics: { label: Bi; value: string; pct: number }[] = [
+  { label: { ar: "التغطية التجريبية", en: "Pilot coverage" }, value: "326 / 48,712", pct: 12 },
+  { label: { ar: "اكتمال البيانات المولّدة", en: "Seeded data completeness" }, value: "84%", pct: 84 },
+  { label: { ar: "الملاحظات المعالجة", en: "Feedback resolved" }, value: "38 / 52", pct: 73 },
+];
+
+export const trialBuilds: { version: string; note: Bi; channel: Bi; state: Bi; health: Health }[] = [
+  { version: "1.9.0 (2041)", note: { ar: "أحدث نسخة تجريبية", en: "Latest trial build" }, channel: { ar: "TestFlight · داخلي", en: "TestFlight · internal" }, state: { ar: "موزّعة", en: "Distributed" }, health: "ok" },
+  { version: "1.9.0 (2039)", note: { ar: "إصلاح شاشة الأجبية", en: "Agpeya screen fix" }, channel: { ar: "أندرويد · بيتا", en: "Android · beta" }, state: { ar: "منتهية", en: "Expired" }, health: "warn" },
+  { version: "1.8.9 (2036)", note: { ar: "نسخة مستقرة للمختبرين", en: "Stable tester build" }, channel: { ar: "ويب · معاينة", en: "Web · preview" }, state: { ar: "مؤرشفة", en: "Archived" }, health: "ok" },
+];
+
+export const trialStats: { label: Bi; value: string }[] = [
+  { label: PL.testers, value: "326" },
+  { label: PL.installs, value: "412" },
+  { label: PL.crashFree, value: "99.4%" },
+  { label: PL.feedback, value: "52" },
+];
