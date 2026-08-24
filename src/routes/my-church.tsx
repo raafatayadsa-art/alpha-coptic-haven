@@ -438,13 +438,14 @@ function ChurchHome() {
                 <div className="flex items-center justify-between px-4 py-3">
                   <span className="inline-flex items-center gap-1.5 text-[11.5px] text-ink/50">
                     <HeartIcon className="size-4 text-gold" />
-                    {t(`${post.id}.likes`)} {t("app.likes")}
+                    {formatNumber(t(`${post.id}.likes`))} {t("app.likes")}
                   </span>
                   <span className="inline-flex items-center gap-0.5 text-[11.5px] font-semibold text-ink/50">
                     {t("app.details")}
                     <ChevronRight className="size-3.5 rtl:rotate-180" />
                   </span>
                 </div>
+
               </article>
             ))}
           </div>
