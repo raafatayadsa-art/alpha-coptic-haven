@@ -62,21 +62,14 @@ const priests = [
 ];
 
 const quickLinks = [
-  { key: "link.members", icon: <MembersIcon className="size-5" />, tone: "parchment" as const },
-  { key: "link.families", icon: <FamiliesIcon className="size-5" />, tone: "lavender" as const },
-  { key: "link.services", icon: <ServicesIcon className="size-5" />, tone: "parchment" as const },
-  { key: "link.groups", icon: <GroupsIcon className="size-5" />, tone: "lavender" as const },
-  { key: "link.events", icon: <EventsIcon className="size-5" />, tone: "gold" as const },
-  { key: "link.help", icon: <HelpIcon className="size-5" />, tone: "gold" as const },
-  { key: "link.location", icon: <LocationIcon className="size-5" />, tone: "parchment" as const },
-  { key: "link.more", icon: <MoreIcon className="size-5" />, tone: "lavender" as const },
+  { key: "link.members", caption: "link.members.caption", icon: <MembersIcon className="size-4" />, image: lifeMembers },
+  { key: "link.families", caption: "link.families.caption", icon: <FamiliesIcon className="size-4" />, image: lifeFamilies },
+  { key: "link.services", caption: "link.services.caption", icon: <ServicesIcon className="size-4" />, image: lifeServices },
+  { key: "link.groups", caption: "link.groups.caption", icon: <GroupsIcon className="size-4" />, image: lifeGroups },
+  { key: "link.events", caption: "link.events.caption", icon: <EventsIcon className="size-4" />, image: lifeEvents },
+  { key: "link.help", caption: "link.help.caption", icon: <HelpIcon className="size-4" />, image: lifeHelp },
 ];
 
-const quickTile: Record<"gold" | "lavender" | "parchment", string> = {
-  gold: "bg-gold/12 text-gold ring-1 ring-gold/20",
-  lavender: "bg-lavender/40 text-ink/70 ring-1 ring-lavender",
-  parchment: "bg-parchment text-ink/60 ring-1 ring-ink/5",
-};
 
 const churchPosts = [
   { id: "post.1", cover: postCandles, visibility: "public" as const },
