@@ -115,9 +115,8 @@ function ChurchHome() {
     return raw.toLocaleString("en-US");
   };
 
-  const arabic = isArabic ? "font-arabic" : "";
-
   return (
+
     <div
       dir={dir}
       className={`${arabic} mx-auto min-h-screen w-full max-w-[430px] overflow-x-hidden safe-nav-gap bg-ivory text-ink selection:bg-gold/20`}
