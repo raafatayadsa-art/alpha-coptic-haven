@@ -161,6 +161,15 @@ function ChurchHome() {
       </header>
 
       <main>
+        {showToast && (
+          <div className="px-4 pt-3">
+            <div className="flex animate-in fade-in slide-in-from-top-2 items-center justify-center gap-2 rounded-full bg-ink px-4 py-2.5 text-[12px] font-semibold text-ivory shadow-soft">
+              <VerifiedIcon className="size-4 text-gold" />
+              {t("home.joinSuccess")}
+            </div>
+          </div>
+        )}
+
         {/* 2 — Premium Hero */}
         <section className="relative px-4 pt-3">
           <div className="relative h-[236px] overflow-hidden rounded-[30px] ring-1 ring-ink/10">
