@@ -97,7 +97,24 @@ const feed = [
 
 function ChurchHome() {
   const [following, setFollowing] = useState(false);
+  const [showToast, setShowToast] = useState(false);
   const { t, dir, isArabic } = useLang();
+  const arabic = isArabic ? "font-arabic" : "";
+
+  const handleJoin = () => {
+    if (following) return;
+    setFollowing(true);
+    setShowToast(true);
+    window.setTimeout(() => setShowToast(false), 2200);
+  };
+
+  const formatNumber = (n: string | number | undefined) => {
+    if (n === undefined) return "";
+    const raw = typeof n === "number" ? n : Number(String(n).replace(/,/g, ""));
+    if (Number.isNaN(raw)) return String(n);
+    return raw.toLocaleString("en-US");
+  };
+
   const arabic = isArabic ? "font-arabic" : "";
 
   return (
