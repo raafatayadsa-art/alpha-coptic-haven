@@ -27,9 +27,8 @@ import {
   GroupsIcon,
   HeartIcon,
   HelpIcon,
-  LocationIcon,
   MembersIcon,
-  MoreIcon,
+
   PhoneIcon,
   ServicesIcon,
   ShieldIcon,

@@ -111,6 +111,13 @@ export const dict: Dict = {
   "link.groups": { ar: "المجموعات", en: "Groups" },
   "link.events": { ar: "المناسبات", en: "Events" },
   "link.help": { ar: "طلب مساعدة", en: "Request Help" },
+  "link.members.caption": { ar: "1,248 عضو", en: "1,248 members" },
+  "link.families.caption": { ar: "372 أسرة", en: "372 families" },
+  "link.services.caption": { ar: "قداسات وأسرار", en: "Liturgies & sacraments" },
+  "link.groups.caption": { ar: "اجتماعات وخدمات", en: "Meetings & servants" },
+  "link.events.caption": { ar: "أعياد وتذكارات", en: "Feasts & commemorations" },
+  "link.help.caption": { ar: "افتقاد ومحبة", en: "Care & charity" },
+
   "link.location": { ar: "الموقع", en: "Location" },
   "link.more": { ar: "المزيد", en: "More" },
 
