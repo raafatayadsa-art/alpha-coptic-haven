@@ -83,11 +83,12 @@ export const dict: Dict = {
   "home.stat.families": { ar: "الأسر", en: "Families" },
   "home.stat.nextLiturgy": { ar: "القداس القادم", en: "Next Liturgy" },
   "home.stat.nextLiturgyValue": { ar: "الأحد 7:00", en: "Sun 7:00" },
-  "home.stat.membersValue": { ar: "1248", en: "1,248" },
+  "home.stat.membersValue": { ar: "1,248", en: "1,248" },
   "home.stat.familiesValue": { ar: "372", en: "372" },
   "home.intro": { ar: "بيت لـ 372 أسرة في شبرا منذ عام 1948. أنت من هنا.", en: "A home for 372 families in Shoubra since 1948. You belong here." },
-  "home.follow": { ar: "متابعة الكنيسة", en: "Follow church" },
-  "home.following": { ar: "تمت المتابعة", en: "Following" },
+  "home.follow": { ar: "انضمام", en: "Join" },
+  "home.following": { ar: "تم الانضمام", en: "Joined" },
+
 
   "home.fathers": { ar: "الآباء الكهنة", en: "The Fathers" },
   "home.fathers.caption": { ar: "رعاة كنيستنا", en: "Shepherds of our parish" },
