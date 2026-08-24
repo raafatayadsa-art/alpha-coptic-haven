@@ -68,13 +68,14 @@ const priests = [
 ];
 
 const quickLinks = [
-  { key: "link.members", caption: "link.members.caption", icon: <MembersIcon className="size-4" />, image: lifeMembers },
-  { key: "link.families", caption: "link.families.caption", icon: <FamiliesIcon className="size-4" />, image: lifeFamilies },
+  { key: "link.members", caption: "link.members.caption", count: 1248, icon: <MembersIcon className="size-4" />, image: lifeMembers },
+  { key: "link.families", caption: "link.families.caption", count: 372, icon: <FamiliesIcon className="size-4" />, image: lifeFamilies },
   { key: "link.services", caption: "link.services.caption", icon: <ServicesIcon className="size-4" />, image: lifeServices },
   { key: "link.groups", caption: "link.groups.caption", icon: <GroupsIcon className="size-4" />, image: lifeGroups },
   { key: "link.events", caption: "link.events.caption", icon: <EventsIcon className="size-4" />, image: lifeEvents },
   { key: "link.help", caption: "link.help.caption", icon: <HelpIcon className="size-4" />, image: lifeHelp },
 ];
+
 
 
 const churchPosts = [
