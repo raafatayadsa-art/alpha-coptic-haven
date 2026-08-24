@@ -191,9 +191,14 @@ function ChurchHome() {
 
           {/* Floating identity card */}
           <div className="glass-card animate-float-up relative -mt-16 mx-1.5 rounded-[30px] p-4">
-            <div className="flex items-center gap-3">
-              <span className="grid size-12 shrink-0 place-items-center rounded-[18px] bg-parchment ring-1 ring-gold/25">
-                <CopticCross className="size-6 text-gold" />
+            {/* Soft coptic glow behind the identity */}
+            <span className="pointer-events-none absolute -start-10 -top-8 size-32 rounded-full bg-gradient-to-br from-gold/20 via-lavender/10 to-transparent blur-2xl" />
+
+            <div className="relative flex items-center gap-3">
+              <span className="relative grid size-12 shrink-0 place-items-center rounded-[18px] bg-parchment ring-1 ring-gold/25">
+                <span className="absolute inset-[-7px] rounded-[22px] border border-dashed border-gold/20" aria-hidden="true" />
+                <span className="absolute inset-[-4px] rounded-[20px] bg-gradient-to-tr from-gold/30 to-transparent blur-md" aria-hidden="true" />
+                <CopticCross className="relative size-6 text-gold" />
               </span>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5">
@@ -212,15 +217,15 @@ function ChurchHome() {
               </div>
             </div>
 
-            <div className="mt-3.5 flex items-center justify-between border-y border-ink/8 py-3">
+            <div className="relative mt-3.5 flex items-center justify-between border-y border-ink/8 py-3">
               <div className="flex flex-col">
                 <span className="text-[10px] text-ink/45">{t("home.stat.members")}</span>
-                <span className="font-display text-[17px] font-semibold">{t("home.stat.membersValue")}</span>
+                <span className="font-display text-[17px] font-semibold">{formatNumber(t("home.stat.membersValue"))}</span>
               </div>
               <div className="h-8 w-px bg-ink/8" />
               <div className="flex flex-col">
                 <span className="text-[10px] text-ink/45">{t("home.stat.families")}</span>
-                <span className="font-display text-[17px] font-semibold">{t("home.stat.familiesValue")}</span>
+                <span className="font-display text-[17px] font-semibold">{formatNumber(t("home.stat.familiesValue"))}</span>
               </div>
               <div className="h-8 w-px bg-ink/8" />
               <div className="flex flex-col text-end">
@@ -233,9 +238,9 @@ function ChurchHome() {
 
             <button
               type="button"
-              onClick={() => setFollowing((v) => !v)}
+              onClick={handleJoin}
               aria-pressed={following}
-              className={`press mt-3.5 flex h-11 w-full items-center justify-center gap-2 rounded-full text-[13px] font-semibold transition-colors ${
+              className={`press relative mt-3.5 flex h-11 w-full items-center justify-center gap-2 rounded-full text-[13px] font-semibold transition-colors ${
                 following
                   ? "border border-gold/30 bg-gold/10 text-gold"
                   : "bg-ink text-ivory shadow-soft"
@@ -245,6 +250,7 @@ function ChurchHome() {
               {following ? t("home.following") : t("home.follow")}
             </button>
           </div>
+
         </section>
 
 
