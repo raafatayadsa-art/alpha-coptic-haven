@@ -147,7 +147,7 @@ function ChurchHome() {
       <main>
         {/* 2 — Premium Hero */}
         <section className="relative px-4 pt-3">
-          <div className="relative h-[420px] overflow-hidden rounded-[34px] ring-1 ring-ink/10">
+          <div className="relative h-[236px] overflow-hidden rounded-[30px] ring-1 ring-ink/10">
             <img
               src={churchCover}
               alt={t("home.cover.alt")}
@@ -165,54 +165,52 @@ function ChurchHome() {
           </div>
 
           {/* Floating identity card */}
-          <div className="glass-card animate-float-up relative -mt-28 mx-1.5 rounded-[32px] p-6">
-            <div className="flex items-start gap-3">
-              <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-parchment ring-1 ring-gold/25">
-                <CopticCross className="size-7 text-gold" />
+          <div className="glass-card animate-float-up relative -mt-16 mx-1.5 rounded-[30px] p-4">
+            <div className="flex items-center gap-3">
+              <span className="grid size-12 shrink-0 place-items-center rounded-[18px] bg-parchment ring-1 ring-gold/25">
+                <CopticCross className="size-6 text-gold" />
               </span>
-              <div className="min-w-0">
+              <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold">
+                  <span className="text-[9.5px] font-semibold uppercase tracking-[0.2em] text-gold">
                     {t("home.location")}
                   </span>
-                  <VerifiedIcon className="size-4 text-gold" />
+                  <VerifiedIcon className="size-3.5 text-gold" />
                 </div>
                 <h1
-                  className={`mt-1.5 text-balance font-display text-[27px] font-semibold leading-[1.12] tracking-tight ${
+                  className={`mt-1 truncate font-display text-[18px] font-semibold leading-tight tracking-tight ${
                     isArabic ? "" : "italic"
                   }`}
                 >
-                  {t("app.church")}
+                  {t("app.churchShort")}
                 </h1>
               </div>
             </div>
 
-            <div className="mt-5 flex items-center justify-between border-y border-ink/8 py-4">
+            <div className="mt-3.5 flex items-center justify-between border-y border-ink/8 py-3">
               <div className="flex flex-col">
-                <span className="text-[11px] text-ink/45">{t("home.stat.members")}</span>
-                <span className="font-display text-xl font-semibold">{t("home.stat.membersValue")}</span>
+                <span className="text-[10px] text-ink/45">{t("home.stat.members")}</span>
+                <span className="font-display text-[17px] font-semibold">{t("home.stat.membersValue")}</span>
               </div>
-              <div className="h-9 w-px bg-ink/8" />
+              <div className="h-8 w-px bg-ink/8" />
               <div className="flex flex-col">
-                <span className="text-[11px] text-ink/45">{t("home.stat.families")}</span>
-                <span className="font-display text-xl font-semibold">{t("home.stat.familiesValue")}</span>
+                <span className="text-[10px] text-ink/45">{t("home.stat.families")}</span>
+                <span className="font-display text-[17px] font-semibold">{t("home.stat.familiesValue")}</span>
               </div>
-              <div className="h-9 w-px bg-ink/8" />
+              <div className="h-8 w-px bg-ink/8" />
               <div className="flex flex-col text-end">
-                <span className="text-[11px] text-ink/45">{t("home.stat.nextLiturgy")}</span>
-                <span className="font-display text-xl font-semibold text-gold">
+                <span className="text-[10px] text-ink/45">{t("home.stat.nextLiturgy")}</span>
+                <span className="font-display text-[17px] font-semibold text-gold">
                   {t("home.stat.nextLiturgyValue")}
                 </span>
               </div>
             </div>
 
-            <p className="mt-4 text-[12.5px] leading-relaxed text-ink/55">{t("home.intro")}</p>
-
             <button
               type="button"
               onClick={() => setFollowing((v) => !v)}
               aria-pressed={following}
-              className={`press mt-5 flex h-12 w-full items-center justify-center gap-2 rounded-full text-[13px] font-semibold transition-colors ${
+              className={`press mt-3.5 flex h-11 w-full items-center justify-center gap-2 rounded-full text-[13px] font-semibold transition-colors ${
                 following
                   ? "border border-gold/30 bg-gold/10 text-gold"
                   : "bg-ink text-ivory shadow-soft"
@@ -223,6 +221,7 @@ function ChurchHome() {
             </button>
           </div>
         </section>
+
 
         {/* 4 — Church Priests */}
         <section className="mt-12">
