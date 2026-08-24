@@ -8,6 +8,13 @@ import priest2 from "@/assets/priest-2.jpg";
 import priest3 from "@/assets/priest-3.jpg";
 import postYouth from "@/assets/post-youth.jpg";
 import postCandles from "@/assets/post-candles.jpg";
+import lifeMembers from "@/assets/life/life-members.jpg";
+import lifeFamilies from "@/assets/life/life-families.jpg";
+import lifeServices from "@/assets/life/life-services.jpg";
+import lifeGroups from "@/assets/life/life-groups.jpg";
+import lifeEvents from "@/assets/life/life-events.jpg";
+import lifeHelp from "@/assets/life/life-help.jpg";
+
 
 import {
   BellIcon,
