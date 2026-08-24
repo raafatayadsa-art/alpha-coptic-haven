@@ -303,25 +303,49 @@ function ChurchHome() {
             </button>
           </div>
 
-          <div className="glass-card mt-6 grid grid-cols-4 gap-y-6 rounded-[30px] px-3 py-6">
-            {quickLinks.map((l) => (
+          <div className="mt-6 grid grid-cols-2 gap-3.5">
+            {quickLinks.map((l, i) => (
               <button
                 key={l.key}
                 type="button"
-                className="press flex flex-col items-center gap-2 px-1 text-center"
+                className={`press group relative overflow-hidden rounded-[28px] ring-1 ring-ink/8 text-start shadow-soft ${
+                  i === 0 ? "col-span-2" : ""
+                }`}
               >
-                <span
-                  className={`grid size-12 place-items-center rounded-[20px] ${quickTile[l.tone]}`}
+                <img
+                  src={l.image}
+                  alt=""
                   aria-hidden="true"
-                >
-                  {l.icon}
-                </span>
-                <span className="text-[10.5px] font-semibold leading-tight tracking-tight text-ink/75">
-                  {t(l.key)}
+                  loading="lazy"
+                  width={800}
+                  height={600}
+                  className={`w-full object-cover transition-transform duration-[900ms] ease-[var(--ease-out-expo)] group-hover:scale-[1.05] ${
+                    i === 0 ? "h-[150px]" : "h-[118px]"
+                  }`}
+                />
+                <span className="absolute inset-0 bg-gradient-to-t from-ink/78 via-ink/25 to-transparent" />
+                {/* Coptic watermark */}
+                <CopticCross className="absolute end-3.5 top-3.5 size-5 text-ivory/45" />
+                <span className="absolute inset-x-4 bottom-3.5">
+                  <span className="flex items-center gap-2">
+                    <span className="grid size-8 place-items-center rounded-[14px] bg-ivory/18 text-ivory ring-1 ring-ivory/25 backdrop-blur-md">
+                      {l.icon}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-[12.5px] font-semibold leading-tight text-ivory">
+                        {t(l.key)}
+                      </span>
+                      <span className="mt-0.5 block text-[9.5px] font-medium uppercase tracking-[0.16em] text-gold/85">
+                        {t(l.caption)}
+                      </span>
+                    </span>
+                    <ChevronRight className="size-4 shrink-0 text-ivory/60 rtl:rotate-180" />
+                  </span>
                 </span>
               </button>
             ))}
           </div>
+
         </section>
 
         {/* 5b — Church Posts */}
