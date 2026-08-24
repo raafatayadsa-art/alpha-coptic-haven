@@ -25,7 +25,7 @@ export const Route = createFileRoute("/bible-notes")({
 const notes = [
   {
     id: 1,
-    refAr: "يوحنا ١ : ٥",
+    refAr: "يوحنا 1 : 5",
     refEn: "John 1:5",
     verseAr: "«والنور يضيء في الظلمة، والظلمة لم تدركه»",
     verseEn: "“The light shines in the darkness, and the darkness has not overcome it.”",
@@ -36,7 +36,7 @@ const notes = [
   },
   {
     id: 2,
-    refAr: "مزمور ٤٦ : ١٠",
+    refAr: "مزمور 46 : 10",
     refEn: "Psalm 46:10",
     verseAr: "«كفوا واعلموا أني أنا الله»",
     verseEn: "“Be still, and know that I am God.”",
@@ -53,8 +53,8 @@ function BibleNotes() {
   return (
     <ToolScreen title={t("bib.nt.title")} subtitle={t("bib.nt.sub")}>
       <div className="grid grid-cols-2 gap-2.5">
-        <StatTile value={isArabic ? "٢" : "2"} label={t("bib.nt.count")} />
-        <StatTile value={isArabic ? "٢" : "2"} label={t("bib.hl.books")} />
+        <StatTile value={isArabic ? "2" : "2"} label={t("bib.nt.count")} />
+        <StatTile value={isArabic ? "2" : "2"} label={t("bib.hl.books")} />
       </div>
 
       <div className="space-y-3">

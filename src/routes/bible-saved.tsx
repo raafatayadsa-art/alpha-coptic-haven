@@ -27,21 +27,21 @@ const saved = [
     id: 1,
     ar: "«أَسْتَطِيعُ كُلَّ شَيْءٍ فِي المَسِيحِ الَّذِي يُقَوِّينِي»",
     en: "“I can do all things through Christ who strengthens me.”",
-    refAr: "فيلبي ٤ : ١٣",
+    refAr: "فيلبي 4 : 13",
     refEn: "Philippians 4:13",
   },
   {
     id: 2,
     ar: "«تَعَالَوْا إِلَيَّ يَا جَمِيعَ المُتْعَبِينَ وَالثَّقِيلِي الأَحْمَالِ وَأَنَا أُرِيحُكُمْ»",
     en: "“Come to me, all you who are weary and burdened, and I will give you rest.”",
-    refAr: "متى ١١ : ٢٨",
+    refAr: "متى 11 : 28",
     refEn: "Matthew 11:28",
   },
   {
     id: 3,
     ar: "«الرَّبُّ رَاعِيَّ فَلاَ يُعْوِزُنِي شَيْءٌ»",
     en: "“The Lord is my shepherd; I shall not want.”",
-    refAr: "مزمور ٢٣ : ١",
+    refAr: "مزمور 23 : 1",
     refEn: "Psalm 23:1",
   },
 ];
@@ -52,8 +52,8 @@ function BibleSaved() {
   return (
     <ToolScreen title={t("bib.sv.title")} subtitle={t("bib.sv.sub")}>
       <div className="grid grid-cols-2 gap-2.5">
-        <StatTile value={isArabic ? "٣" : "3"} label={t("bib.sv.count")} />
-        <StatTile value={isArabic ? "٢" : "2"} label={t("bib.hl.books")} />
+        <StatTile value={isArabic ? "3" : "3"} label={t("bib.sv.count")} />
+        <StatTile value={isArabic ? "2" : "2"} label={t("bib.hl.books")} />
       </div>
 
       <div className="space-y-3.5">

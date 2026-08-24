@@ -130,7 +130,7 @@ function buildHour(
       {
         id: "psalm50",
         label: { ar: "المزمور الخمسون", en: "Psalm 50" },
-        ref: { ar: "مزمور ٥٠", en: "Psalm 50" },
+        ref: { ar: "مزمور 50", en: "Psalm 50" },
         lines: psalm50,
         hue: hue(2),
       },
@@ -170,7 +170,7 @@ export const agpeyaHours: PrayerHour[] = [
     { ar: "صلاة بدء النهار وشكر الله على النور الجديد", en: "The prayer that begins the day and thanks God for new light" },
     {
       label: { ar: "مزامير باكر", en: "Psalms of the Morning" },
-      ref: { ar: "مزمور ٦٢ ، ٦٦ ، ٦٩", en: "Psalms 62, 66, 69" },
+      ref: { ar: "مزمور 62 ، 66 ، 69", en: "Psalms 62, 66, 69" },
       lines: [
         {
           ar: "يَا اللهُ إِلَهِي، إِلَيْكَ أَبْتَكِرُ، عَطِشَتْ إِلَيْكَ نَفْسِي.",
@@ -183,7 +183,7 @@ export const agpeyaHours: PrayerHour[] = [
       ],
     },
     {
-      ref: { ar: "يوحنا ١ : ١ - ١٧", en: "John 1 : 1 - 17" },
+      ref: { ar: "يوحنا 1 : 1 - 17", en: "John 1 : 1 - 17" },
       lines: [
         {
           ar: "فِي الْبَدْءِ كَانَ الْكَلِمَةُ، وَالْكَلِمَةُ كَانَ عِنْدَ اللهِ، وَكَانَ الْكَلِمَةُ اللهَ.",
@@ -201,7 +201,7 @@ export const agpeyaHours: PrayerHour[] = [
     { ar: "تذكار حلول الروح القدس على التلاميذ", en: "A remembrance of the Spirit descending on the disciples" },
     {
       label: { ar: "مزامير الثالثة", en: "Psalms of the Third Hour" },
-      ref: { ar: "مزمور ١٩ ، ٢٢ ، ٢٣", en: "Psalms 19, 22, 23" },
+      ref: { ar: "مزمور 19 ، 22 ، 23", en: "Psalms 19, 22, 23" },
       lines: [
         {
           ar: "الرَّبُّ يَرْعَانِي فَلَا يُعْوِزُنِي شَيْءٌ.",
@@ -210,7 +210,7 @@ export const agpeyaHours: PrayerHour[] = [
       ],
     },
     {
-      ref: { ar: "يوحنا ١٤ : ٢٦ - ٣١", en: "John 14 : 26 - 31" },
+      ref: { ar: "يوحنا 14 : 26 - 31", en: "John 14 : 26 - 31" },
       lines: [
         {
           ar: "وَأَمَّا الْمُعَزِّي، الرُّوحُ الْقُدُسُ، فَهُوَ يُعَلِّمُكُمْ كُلَّ شَيْءٍ.",
@@ -224,7 +224,7 @@ export const agpeyaHours: PrayerHour[] = [
     { ar: "تذكار صلب المخلص عن خلاص العالم", en: "A remembrance of the Saviour’s crucifixion for the world" },
     {
       label: { ar: "مزامير السادسة", en: "Psalms of the Sixth Hour" },
-      ref: { ar: "مزمور ٥٣ ، ٦٦ ، ٦٩", en: "Psalms 53, 66, 69" },
+      ref: { ar: "مزمور 53 ، 66 ، 69", en: "Psalms 53, 66, 69" },
       lines: [
         {
           ar: "أَمَّا أَنَا فَإِلَى اللهِ صَرَخْتُ، وَالرَّبُّ يَسْمَعُ لِي.",
@@ -233,7 +233,7 @@ export const agpeyaHours: PrayerHour[] = [
       ],
     },
     {
-      ref: { ar: "متى ٥ : ١ - ١٦", en: "Matthew 5 : 1 - 16" },
+      ref: { ar: "متى 5 : 1 - 16", en: "Matthew 5 : 1 - 16" },
       lines: [
         {
           ar: "طُوبَى لِلْمَسَاكِينِ بِالرُّوحِ، لِأَنَّ لَهُمْ مَلَكُوتَ السَّمَاوَاتِ.",
@@ -247,7 +247,7 @@ export const agpeyaHours: PrayerHour[] = [
     { ar: "تذكار موت الرب على الصليب", en: "A remembrance of the Lord’s death on the cross" },
     {
       label: { ar: "مزامير التاسعة", en: "Psalms of the Ninth Hour" },
-      ref: { ar: "مزمور ٩٦ ، ٩٧ ، ٩٨", en: "Psalms 96, 97, 98" },
+      ref: { ar: "مزمور 96 ، 97 ، 98", en: "Psalms 96, 97, 98" },
       lines: [
         {
           ar: "الرَّبُّ قَدْ مَلَكَ فَلْتَتَهَلَّلِ الأَرْضُ.",
@@ -256,7 +256,7 @@ export const agpeyaHours: PrayerHour[] = [
       ],
     },
     {
-      ref: { ar: "لوقا ٩ : ١٠ - ١٧", en: "Luke 9 : 10 - 17" },
+      ref: { ar: "لوقا 9 : 10 - 17", en: "Luke 9 : 10 - 17" },
       lines: [
         {
           ar: "فَأَخَذَ الْأَرْغِفَةَ وَبَارَكَ وَكَسَّرَ وَأَعْطَى التَّلَامِيذَ.",
@@ -270,7 +270,7 @@ export const agpeyaHours: PrayerHour[] = [
     { ar: "شكر على انتهاء النهار وطلب رحمة عند الغروب", en: "Thanks for the ended day and mercy at sunset" },
     {
       label: { ar: "مزامير الغروب", en: "Psalms of Vespers" },
-      ref: { ar: "مزمور ١١٦ ، ١١٧ ، ١١٨", en: "Psalms 116, 117, 118" },
+      ref: { ar: "مزمور 116 ، 117 ، 118", en: "Psalms 116, 117, 118" },
       lines: [
         {
           ar: "سَبِّحُوا الرَّبَّ يَا جَمِيعَ الأُمَمِ، بَارِكُوهُ يَا كُلَّ الشُّعُوبِ.",
@@ -279,7 +279,7 @@ export const agpeyaHours: PrayerHour[] = [
       ],
     },
     {
-      ref: { ar: "لوقا ٤ : ٣٨ - ٤١", en: "Luke 4 : 38 - 41" },
+      ref: { ar: "لوقا 4 : 38 - 41", en: "Luke 4 : 38 - 41" },
       lines: [
         {
           ar: "وَعِنْدَ غُرُوبِ الشَّمْسِ جَمِيعُ الَّذِينَ كَانَ عِنْدَهُمْ مَرْضَى أَتَوْا بِهِمْ إِلَيْهِ.",
@@ -293,7 +293,7 @@ export const agpeyaHours: PrayerHour[] = [
     { ar: "صلاة قبل النوم وفحص القلب أمام الله", en: "A prayer before sleep, examining the heart before God" },
     {
       label: { ar: "مزامير النوم", en: "Psalms of Compline" },
-      ref: { ar: "مزمور ١٢٩ ، ١٣٠ ، ١٣١", en: "Psalms 129, 130, 131" },
+      ref: { ar: "مزمور 129 ، 130 ، 131", en: "Psalms 129, 130, 131" },
       lines: [
         {
           ar: "مِنَ الأَعْمَاقِ صَرَخْتُ إِلَيْكَ يَا رَبُّ، يَا رَبُّ اسْتَمِعْ صَوْتِي.",
@@ -302,7 +302,7 @@ export const agpeyaHours: PrayerHour[] = [
       ],
     },
     {
-      ref: { ar: "لوقا ٧ : ٣٦ - ٥٠", en: "Luke 7 : 36 - 50" },
+      ref: { ar: "لوقا 7 : 36 - 50", en: "Luke 7 : 36 - 50" },
       lines: [
         {
           ar: "مَغْفُورَةٌ لَكِ خَطَايَاكِ. إِيمَانُكِ قَدْ خَلَّصَكِ، اذْهَبِي بِسَلَامٍ.",
@@ -316,7 +316,7 @@ export const agpeyaHours: PrayerHour[] = [
     { ar: "صلاة الستار للرهبان قبل السكون", en: "The Prayer of the Veil, before the night’s stillness" },
     {
       label: { ar: "مزامير الستار", en: "Psalms of the Veil" },
-      ref: { ar: "مزمور ٤ ، ٦ ، ١٢", en: "Psalms 4, 6, 12" },
+      ref: { ar: "مزمور 4 ، 6 ، 12", en: "Psalms 4, 6, 12" },
       lines: [
         {
           ar: "بِسَلَامٍ أَنَامُ وَأَسْتَرِيحُ، لِأَنَّكَ أَنْتَ يَا رَبُّ وَحْدَكَ فِي رَجَاءٍ أَسْكَنْتَنِي.",
@@ -325,7 +325,7 @@ export const agpeyaHours: PrayerHour[] = [
       ],
     },
     {
-      ref: { ar: "لوقا ٢٣ : ٣٩ - ٤٣", en: "Luke 23 : 39 - 43" },
+      ref: { ar: "لوقا 23 : 39 - 43", en: "Luke 23 : 39 - 43" },
       lines: [
         {
           ar: "الْيَوْمَ تَكُونُ مَعِي فِي الْفِرْدَوْسِ.",
@@ -339,7 +339,7 @@ export const agpeyaHours: PrayerHour[] = [
     { ar: "الخدمة الأولى من صلاة نصف الليل", en: "The first service of the Midnight Prayer" },
     {
       label: { ar: "مزامير الخدمة الأولى", en: "Psalms of the first watch" },
-      ref: { ar: "مزمور ١١٩", en: "Psalm 119" },
+      ref: { ar: "مزمور 119", en: "Psalm 119" },
       lines: [
         {
           ar: "سِرَاجٌ لِرِجْلِي كَلَامُكَ وَنُورٌ لِسَبِيلِي.",
@@ -348,7 +348,7 @@ export const agpeyaHours: PrayerHour[] = [
       ],
     },
     {
-      ref: { ar: "متى ٢٥ : ١ - ١٣", en: "Matthew 25 : 1 - 13" },
+      ref: { ar: "متى 25 : 1 - 13", en: "Matthew 25 : 1 - 13" },
       lines: [
         {
           ar: "هُوَذَا الْعَرِيسُ مُقْبِلٌ، فَاخْرُجُوا لِلِقَائِهِ.",
@@ -362,7 +362,7 @@ export const agpeyaHours: PrayerHour[] = [
     { ar: "الخدمة الثانية من صلاة نصف الليل", en: "The second service of the Midnight Prayer" },
     {
       label: { ar: "مزامير الخدمة الثانية", en: "Psalms of the second watch" },
-      ref: { ar: "مزمور ١٢٠ - ١٢٨", en: "Psalms 120 - 128" },
+      ref: { ar: "مزمور 120 - 128", en: "Psalms 120 - 128" },
       lines: [
         {
           ar: "رَفَعْتُ عَيْنَيَّ إِلَى الْجِبَالِ، مِنْ حَيْثُ يَأْتِي عَوْنِي.",
@@ -371,7 +371,7 @@ export const agpeyaHours: PrayerHour[] = [
       ],
     },
     {
-      ref: { ar: "لوقا ١٢ : ٣٢ - ٤٦", en: "Luke 12 : 32 - 46" },
+      ref: { ar: "لوقا 12 : 32 - 46", en: "Luke 12 : 32 - 46" },
       lines: [
         {
           ar: "لِتَكُنْ أَحْقَاؤُكُمْ مُمَنْطَقَةً وَسُرُجُكُمْ مُوقَدَةً.",
@@ -385,7 +385,7 @@ export const agpeyaHours: PrayerHour[] = [
     { ar: "الخدمة الثالثة من صلاة نصف الليل", en: "The third service of the Midnight Prayer" },
     {
       label: { ar: "مزامير الخدمة الثالثة", en: "Psalms of the third watch" },
-      ref: { ar: "مزمور ١٢٩ - ١٣٣", en: "Psalms 129 - 133" },
+      ref: { ar: "مزمور 129 - 133", en: "Psalms 129 - 133" },
       lines: [
         {
           ar: "هَا مَا أَحْسَنَ وَمَا أَجْمَلَ أَنْ يَسْكُنَ الإِخْوَةُ مَعًا.",
@@ -394,7 +394,7 @@ export const agpeyaHours: PrayerHour[] = [
       ],
     },
     {
-      ref: { ar: "لوقا ١٨ : ١ - ٨", en: "Luke 18 : 1 - 8" },
+      ref: { ar: "لوقا 18 : 1 - 8", en: "Luke 18 : 1 - 8" },
       lines: [
         {
           ar: "يَنْبَغِي أَنْ يُصَلَّى كُلَّ حِينٍ وَلَا يُمَلَّ.",

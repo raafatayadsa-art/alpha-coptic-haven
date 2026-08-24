@@ -27,9 +27,9 @@ export const L = {
   approve: { ar: "اعتماد", en: "Approve" },
   reject: { ar: "رفض", en: "Reject" },
   export: { ar: "تصدير", en: "Export" },
-  last24h: { ar: "آخر ٢٤ ساعة", en: "Last 24h" },
-  last7d: { ar: "آخر ٧ أيام", en: "Last 7 days" },
-  last30d: { ar: "آخر ٣٠ يومًا", en: "Last 30 days" },
+  last24h: { ar: "آخر 24 ساعة", en: "Last 24h" },
+  last7d: { ar: "آخر 7 أيام", en: "Last 7 days" },
+  last30d: { ar: "آخر 30 يومًا", en: "Last 30 days" },
   uptime: { ar: "جهوزية النظام", en: "System uptime" },
   soon: { ar: "قادم قريبًا", en: "Coming soon" },
   launchControl: { ar: "لوحة الإطلاق", en: "Launch Control" },
@@ -188,10 +188,10 @@ export const moderationQueue: { text: Bi; kind: Bi; health: Health }[] = [
 export const growthSeries = [18, 26, 24, 34, 40, 38, 52, 58, 55, 68, 74, 82, 79, 92];
 
 export const retention: { label: Bi; pct: number }[] = [
-  { label: { ar: "اليوم ١", en: "Day 1" }, pct: 82 },
-  { label: { ar: "اليوم ٧", en: "Day 7" }, pct: 61 },
-  { label: { ar: "اليوم ٣٠", en: "Day 30" }, pct: 44 },
-  { label: { ar: "اليوم ٩٠", en: "Day 90" }, pct: 31 },
+  { label: { ar: "اليوم 1", en: "Day 1" }, pct: 82 },
+  { label: { ar: "اليوم 7", en: "Day 7" }, pct: 61 },
+  { label: { ar: "اليوم 30", en: "Day 30" }, pct: 44 },
+  { label: { ar: "اليوم 90", en: "Day 90" }, pct: 31 },
 ];
 
 export const donut: { label: Bi; pct: number; tone: "gold" | "cyan" | "jade" | "amber" }[] = [
@@ -213,10 +213,10 @@ export const mapPoints: { x: number; y: number; label: Bi; value: string }[] = [
 ];
 
 export const activityFeed: { text: Bi; time: Bi; tone: "gold" | "cyan" | "jade" | "crimson" }[] = [
-  { text: { ar: "تم اعتماد كنيسة مار مرقس — نيوجيرسي", en: "St. Mark New Jersey approved" }, time: { ar: "قبل ٤ دقائق", en: "4 min ago" }, tone: "jade" },
-  { text: { ar: "نشر فصل جديد في مكتبة الآباء", en: "New chapter published in Fathers" }, time: { ar: "قبل ١٢ دقيقة", en: "12 min ago" }, tone: "gold" },
-  { text: { ar: "ارتفاع زمن استجابة الوسائط", en: "Media latency spike detected" }, time: { ar: "قبل ٢٦ دقيقة", en: "26 min ago" }, tone: "crimson" },
-  { text: { ar: "٤٨ عضوًا جديدًا في قناة الشباب", en: "48 new members in Youth channel" }, time: { ar: "قبل ساعة", en: "1 hour ago" }, tone: "cyan" },
+  { text: { ar: "تم اعتماد كنيسة مار مرقس — نيوجيرسي", en: "St. Mark New Jersey approved" }, time: { ar: "قبل 4 دقائق", en: "4 min ago" }, tone: "jade" },
+  { text: { ar: "نشر فصل جديد في مكتبة الآباء", en: "New chapter published in Fathers" }, time: { ar: "قبل 12 دقيقة", en: "12 min ago" }, tone: "gold" },
+  { text: { ar: "ارتفاع زمن استجابة الوسائط", en: "Media latency spike detected" }, time: { ar: "قبل 26 دقيقة", en: "26 min ago" }, tone: "crimson" },
+  { text: { ar: "48 عضوًا جديدًا في قناة الشباب", en: "48 new members in Youth channel" }, time: { ar: "قبل ساعة", en: "1 hour ago" }, tone: "cyan" },
 ];
 
 /* ── Media ───────────────────────────────────────────────── */
@@ -240,29 +240,29 @@ export const approvals: { title: Bi; from: Bi; kind: Bi }[] = [
 /* ── Alerts ──────────────────────────────────────────────── */
 
 export const alerts: { title: Bi; body: Bi; health: Health; time: Bi }[] = [
-  { title: { ar: "بطء في تحميل الوسائط", en: "Media upload slowdown" }, body: { ar: "منطقة أوروبا — تحت المتابعة", en: "Europe region — monitoring" }, health: "warn", time: { ar: "٢٦ دقيقة", en: "26m" } },
-  { title: { ar: "محاولات دخول مشبوهة", en: "Suspicious sign-in attempts" }, body: { ar: "تم حجب ١٢ محاولة تلقائيًا", en: "12 attempts blocked automatically" }, health: "down", time: { ar: "ساعة", en: "1h" } },
-  { title: { ar: "نسخة احتياطية مكتملة", en: "Backup completed" }, body: { ar: "كل الخدمات — بنجاح", en: "All services — successful" }, health: "ok", time: { ar: "٣ ساعات", en: "3h" } },
+  { title: { ar: "بطء في تحميل الوسائط", en: "Media upload slowdown" }, body: { ar: "منطقة أوروبا — تحت المتابعة", en: "Europe region — monitoring" }, health: "warn", time: { ar: "26 دقيقة", en: "26m" } },
+  { title: { ar: "محاولات دخول مشبوهة", en: "Suspicious sign-in attempts" }, body: { ar: "تم حجب 12 محاولة تلقائيًا", en: "12 attempts blocked automatically" }, health: "down", time: { ar: "ساعة", en: "1h" } },
+  { title: { ar: "نسخة احتياطية مكتملة", en: "Backup completed" }, body: { ar: "كل الخدمات — بنجاح", en: "All services — successful" }, health: "ok", time: { ar: "3 ساعات", en: "3h" } },
 ];
 
 /* ── Reports ─────────────────────────────────────────────── */
 
 export const reports: { title: Bi; note: Bi }[] = [
-  { title: { ar: "تقرير النمو الشهري", en: "Monthly growth report" }, note: { ar: "PDF · ١٤ صفحة", en: "PDF · 14 pages" } },
-  { title: { ar: "تقرير المحتوى والنشر", en: "Content & publishing report" }, note: { ar: "PDF · ٩ صفحات", en: "PDF · 9 pages" } },
-  { title: { ar: "تقرير المجتمع والبلاغات", en: "Community & moderation report" }, note: { ar: "CSV · ٢٤٠ سجل", en: "CSV · 240 rows" } },
-  { title: { ar: "تقرير الكنائس والإيبارشيات", en: "Churches & dioceses report" }, note: { ar: "PDF · ٢٢ صفحة", en: "PDF · 22 pages" } },
+  { title: { ar: "تقرير النمو الشهري", en: "Monthly growth report" }, note: { ar: "PDF · 14 صفحة", en: "PDF · 14 pages" } },
+  { title: { ar: "تقرير المحتوى والنشر", en: "Content & publishing report" }, note: { ar: "PDF · 9 صفحات", en: "PDF · 9 pages" } },
+  { title: { ar: "تقرير المجتمع والبلاغات", en: "Community & moderation report" }, note: { ar: "CSV · 240 سجل", en: "CSV · 240 rows" } },
+  { title: { ar: "تقرير الكنائس والإيبارشيات", en: "Churches & dioceses report" }, note: { ar: "PDF · 22 صفحة", en: "PDF · 22 pages" } },
 ];
 
 /* ── Admin tools ─────────────────────────────────────────── */
 
 export const adminTools: { label: Bi; note: Bi; glyph: string }[] = [
-  { label: { ar: "الأدوار والصلاحيات", en: "Roles & permissions" }, note: { ar: "٧ أدوار", en: "7 roles" }, glyph: "shield" },
-  { label: { ar: "سجل التدقيق", en: "Audit log" }, note: { ar: "٤٨٢ حدث", en: "482 events" }, glyph: "list" },
-  { label: { ar: "فريق الإدارة", en: "Admin team" }, note: { ar: "١٢ عضوًا", en: "12 members" }, glyph: "users" },
-  { label: { ar: "الدعوات", en: "Invitations" }, note: { ar: "٣ معلّقة", en: "3 pending" }, glyph: "mail" },
-  { label: { ar: "قوالب الإشعارات", en: "Notification templates" }, note: { ar: "١٨ قالبًا", en: "18 templates" }, glyph: "bell" },
-  { label: { ar: "أعلام الميزات", en: "Feature flags" }, note: { ar: "٩ مفاتيح", en: "9 switches" }, glyph: "toggle" },
+  { label: { ar: "الأدوار والصلاحيات", en: "Roles & permissions" }, note: { ar: "7 أدوار", en: "7 roles" }, glyph: "shield" },
+  { label: { ar: "سجل التدقيق", en: "Audit log" }, note: { ar: "482 حدث", en: "482 events" }, glyph: "list" },
+  { label: { ar: "فريق الإدارة", en: "Admin team" }, note: { ar: "12 عضوًا", en: "12 members" }, glyph: "users" },
+  { label: { ar: "الدعوات", en: "Invitations" }, note: { ar: "3 معلّقة", en: "3 pending" }, glyph: "mail" },
+  { label: { ar: "قوالب الإشعارات", en: "Notification templates" }, note: { ar: "18 قالبًا", en: "18 templates" }, glyph: "bell" },
+  { label: { ar: "أعلام الميزات", en: "Feature flags" }, note: { ar: "9 مفاتيح", en: "9 switches" }, glyph: "toggle" },
 ];
 
 /* ── Settings ────────────────────────────────────────────── */
@@ -272,7 +272,7 @@ export const settingsRows: { label: Bi; value: Bi; on?: boolean }[] = [
   { label: { ar: "التقويم الطقسي", en: "Liturgical calendar" }, value: { ar: "قبطي", en: "Coptic" } },
   { label: { ar: "التسجيل العام", en: "Public sign-up" }, value: { ar: "مفتوح", en: "Open" }, on: true },
   { label: { ar: "مراجعة المحتوى قبل النشر", en: "Review before publish" }, value: { ar: "مُفعّل", en: "Enabled" }, on: true },
-  { label: { ar: "حدّ حجم الوسائط", en: "Media size limit" }, value: { ar: "٢٥٦ ميغا", en: "256 MB" } },
+  { label: { ar: "حدّ حجم الوسائط", en: "Media size limit" }, value: { ar: "256 ميغا", en: "256 MB" } },
   { label: { ar: "الإشعارات الليلية", en: "Night notifications" }, value: { ar: "موقوفة", en: "Muted" }, on: false },
 ];
 
@@ -280,7 +280,7 @@ export const settingsRows: { label: Bi; value: Bi; on?: boolean }[] = [
 
 export const systemTools: { label: Bi; note: Bi; danger?: boolean }[] = [
   { label: { ar: "إفراغ الذاكرة المؤقتة", en: "Purge cache" }, note: { ar: "آمن — يُنفَّذ فورًا", en: "Safe — instant" } },
-  { label: { ar: "إعادة فهرسة البحث", en: "Rebuild search index" }, note: { ar: "يستغرق ~٨ دقائق", en: "Takes ~8 minutes" } },
+  { label: { ar: "إعادة فهرسة البحث", en: "Rebuild search index" }, note: { ar: "يستغرق ~8 دقائق", en: "Takes ~8 minutes" } },
   { label: { ar: "نسخة احتياطية فورية", en: "Immediate backup" }, note: { ar: "كل الخدمات", en: "All services" } },
   { label: { ar: "وضع الصيانة", en: "Maintenance mode" }, note: { ar: "يُخفي التطبيق عن المستخدمين", en: "Hides the app from users" }, danger: true },
   { label: { ar: "إيقاف البثّ الصوتي", en: "Stop all voice rooms" }, note: { ar: "إجراء طارئ", en: "Emergency action" }, danger: true },
@@ -622,9 +622,9 @@ export const PL = {
 };
 
 export const pilotGroups: { name: Bi; note: Bi; users: string; health: Health; on: boolean }[] = [
-  { name: { ar: "كنيسة السيدة العذراء — شبرا", en: "St. Mary — Shubra" }, note: { ar: "٢٥٠ مستخدمًا · بيانات معزولة", en: "250 users · isolated data" }, users: "250", health: "ok", on: true },
-  { name: { ar: "خدّام الشباب", en: "Youth servants" }, note: { ar: "٦٤ مستخدمًا · محتوى مولّد", en: "64 users · generated content" }, users: "64", health: "ok", on: true },
-  { name: { ar: "فريق ألفا الداخلي", en: "Alpha internal team" }, note: { ar: "١٢ مستخدمًا · كل الميزات", en: "12 users · all features" }, users: "12", health: "ok", on: true },
+  { name: { ar: "كنيسة السيدة العذراء — شبرا", en: "St. Mary — Shubra" }, note: { ar: "250 مستخدمًا · بيانات معزولة", en: "250 users · isolated data" }, users: "250", health: "ok", on: true },
+  { name: { ar: "خدّام الشباب", en: "Youth servants" }, note: { ar: "64 مستخدمًا · محتوى مولّد", en: "64 users · generated content" }, users: "64", health: "ok", on: true },
+  { name: { ar: "فريق ألفا الداخلي", en: "Alpha internal team" }, note: { ar: "12 مستخدمًا · كل الميزات", en: "12 users · all features" }, users: "12", health: "ok", on: true },
   { name: { ar: "كنيسة مار مرقس — نيوجيرسي", en: "St. Mark — New Jersey" }, note: { ar: "بانتظار الموافقة", en: "Awaiting approval" }, users: "0", health: "warn", on: false },
 ];
 

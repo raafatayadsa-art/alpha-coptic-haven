@@ -258,7 +258,7 @@ function ConnectSettings() {
             </span>
             <p className="min-w-0 flex-1 text-[11.5px] leading-relaxed text-acquiet">
               {isArabic
-                ? "الرسائل المؤقتة مفعّلة: تُحذف المحادثات تلقائيًا بعد ٢٤ ساعة."
+                ? "الرسائل المؤقتة مفعّلة: تُحذف المحادثات تلقائيًا بعد 24 ساعة."
                 : "Temporary messages are on: conversations self-delete after 24 hours."}
             </p>
           </section>

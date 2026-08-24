@@ -27,12 +27,12 @@ const recent = [
   { ar: "المحبة", en: "Love" },
   { ar: "النور", en: "Light" },
   { ar: "الرجاء", en: "Hope" },
-  { ar: "مزمور ٢٣", en: "Psalm 23" },
+  { ar: "مزمور 23", en: "Psalm 23" },
 ];
 
 const results = [
   {
-    refAr: "يوحنا ١ : ٥",
+    refAr: "يوحنا 1 : 5",
     refEn: "John 1:5",
     book: "jhn",
     ch: 1,
@@ -40,7 +40,7 @@ const results = [
     en: "“The light shines in the darkness, and the darkness has not overcome it.”",
   },
   {
-    refAr: "متى ٥ : ١٤",
+    refAr: "متى 5 : 14",
     refEn: "Matthew 5:14",
     book: "mat",
     ch: 5,
@@ -48,7 +48,7 @@ const results = [
     en: "“You are the light of the world.”",
   },
   {
-    refAr: "مزمور ١١٩ : ١٠٥",
+    refAr: "مزمور 119 : 105",
     refEn: "Psalm 119:105",
     book: "psa",
     ch: 119,

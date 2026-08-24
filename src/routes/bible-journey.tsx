@@ -61,9 +61,9 @@ function BibleJourney() {
       </section>
 
       <div className="grid grid-cols-3 gap-2.5">
-        <StatTile value={isArabic ? "١٢" : "12"} label={t("bib.stat.streak")} />
-        <StatTile value={isArabic ? "٤٦٨" : "468"} label={t("bib.chapters")} />
-        <StatTile value={isArabic ? "٢" : "2"} label={t("bib.jr.milestones")} />
+        <StatTile value={isArabic ? "12" : "12"} label={t("bib.stat.streak")} />
+        <StatTile value={isArabic ? "468" : "468"} label={t("bib.chapters")} />
+        <StatTile value={isArabic ? "2" : "2"} label={t("bib.jr.milestones")} />
       </div>
 
       <section className="vellum-card rounded-[26px] p-4">

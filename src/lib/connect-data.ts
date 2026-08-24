@@ -269,7 +269,7 @@ export const recordings: Recording[] = [
     id: "r1",
     title: { ar: "كلمة أبونا قبل القداس", en: "Father's word before liturgy" },
     author: { ar: "أبونا يوساب", en: "Fr. Yousab" },
-    when: { ar: "منذ ٢٠ دقيقة", en: "20 min ago" },
+    when: { ar: "منذ 20 دقيقة", en: "20 min ago" },
     length: "1:48",
     shield: "priest",
     wave: w(1),
@@ -278,7 +278,7 @@ export const recordings: Recording[] = [
     id: "r2",
     title: { ar: "تذكير بموعد الاجتماع", en: "Meeting time reminder" },
     author: { ar: "مينا عادل", en: "Mina Adel" },
-    when: { ar: "اليوم ٦:١٠ م", en: "Today 6:10 PM" },
+    when: { ar: "اليوم 6:10 م", en: "Today 6:10 PM" },
     length: "0:36",
     shield: "servant",
     wave: w(2.4),
@@ -315,7 +315,7 @@ export const threads: Thread[] = [
     id: "t1",
     name: { ar: "أبونا يوساب المقاري", en: "Fr. Yousab El-Makary" },
     preview: { ar: "ربنا يبارك خدمتك يا ابني 🙏", en: "God bless your service 🙏" },
-    when: { ar: "٧:٤٢ م", en: "7:42 PM" },
+    when: { ar: "7:42 م", en: "7:42 PM" },
     unread: 2,
     shield: "priest",
     presence: "listening",
@@ -325,8 +325,8 @@ export const threads: Thread[] = [
   {
     id: "t2",
     name: { ar: "خدّام الأحد", en: "Sunday servants" },
-    preview: { ar: "رسالة صوتية · ٠:٤٨", en: "Voice message · 0:48" },
-    when: { ar: "٦:١٥ م", en: "6:15 PM" },
+    preview: { ar: "رسالة صوتية · 0:48", en: "Voice message · 0:48" },
+    when: { ar: "6:15 م", en: "6:15 PM" },
     unread: 5,
     shield: "servant",
     presence: "speaking",
@@ -390,7 +390,7 @@ export const notifications: { id: string; text: Bi; when: Bi }[] = [
   },
   {
     id: "n2",
-    text: { ar: "٣ أعضاء جدد انضموا لاجتماع الشباب", en: "3 new members joined the youth meeting" },
+    text: { ar: "3 أعضاء جدد انضموا لاجتماع الشباب", en: "3 new members joined the youth meeting" },
     when: { ar: "منذ ساعة", en: "1h ago" },
   },
   {
@@ -426,8 +426,8 @@ export const audiences: { key: Audience; label: Bi; hint: Bi }[] = [
 
 export const connectionStats: { key: string; label: Bi; value: Bi; level: number }[] = [
   { key: "signal", label: { ar: "قوة الإشارة", en: "Signal" }, value: { ar: "ممتازة", en: "Excellent" }, level: 0.92 },
-  { key: "loss", label: { ar: "فقدان الحزم", en: "Packet loss" }, value: { ar: "٠.٤٪", en: "0.4%" }, level: 0.18 },
-  { key: "ping", label: { ar: "زمن الاستجابة", en: "Ping" }, value: { ar: "٢٨ ms", en: "28 ms" }, level: 0.3 },
+  { key: "loss", label: { ar: "فقدان الحزم", en: "Packet loss" }, value: { ar: "0.4٪", en: "0.4%" }, level: 0.18 },
+  { key: "ping", label: { ar: "زمن الاستجابة", en: "Ping" }, value: { ar: "28 ms", en: "28 ms" }, level: 0.3 },
 ];
 
 /* ── Settings groups ─────────────────────────────────────── */
@@ -478,7 +478,7 @@ export const settingGroups: SettingGroup[] = [
       { id: "hold", label: { ar: "تفعيل الضغط المطوّل", en: "Press and hold" }, kind: "switch", on: true },
       { id: "tone", label: { ar: "نغمة بداية البث", en: "Broadcast start tone" }, kind: "switch", on: true },
       { id: "vibrate", label: { ar: "اهتزاز عند التحدث", en: "Haptics while talking" }, kind: "switch", on: false },
-      { id: "limit", label: { ar: "أقصى مدة للبث", en: "Max broadcast length" }, kind: "value", value: { ar: "٦٠ ثانية", en: "60 seconds" } },
+      { id: "limit", label: { ar: "أقصى مدة للبث", en: "Max broadcast length" }, kind: "value", value: { ar: "60 ثانية", en: "60 seconds" } },
     ],
   },
   {
@@ -508,7 +508,7 @@ export const settingGroups: SettingGroup[] = [
     icon: "temporary",
     rows: [
       { id: "on", label: { ar: "حذف تلقائي للرسائل", en: "Auto-delete messages" }, kind: "switch", on: true },
-      { id: "after", label: { ar: "بعد", en: "After" }, kind: "value", value: { ar: "٢٤ ساعة", en: "24 hours" } },
+      { id: "after", label: { ar: "بعد", en: "After" }, kind: "value", value: { ar: "24 ساعة", en: "24 hours" } },
       { id: "voice", label: { ar: "يشمل الرسائل الصوتية", en: "Include voice messages" }, kind: "switch", on: false },
     ],
   },
@@ -536,7 +536,7 @@ export const settingGroups: SettingGroup[] = [
     title: { ar: "التخزين", en: "Storage" },
     icon: "storage",
     rows: [
-      { id: "media", label: { ar: "التسجيلات المحفوظة", en: "Saved recordings" }, kind: "link", value: { ar: "١٤٢ ميجا", en: "142 MB" } },
+      { id: "media", label: { ar: "التسجيلات المحفوظة", en: "Saved recordings" }, kind: "link", value: { ar: "142 ميجا", en: "142 MB" } },
       { id: "cache", label: { ar: "تفريغ الذاكرة المؤقتة", en: "Clear cache" }, kind: "link" },
     ],
   },
@@ -545,7 +545,7 @@ export const settingGroups: SettingGroup[] = [
     title: { ar: "عن ألفا كونكت", en: "About Alpha Connect" },
     icon: "about",
     rows: [
-      { id: "ver", label: { ar: "الإصدار", en: "Version" }, kind: "value", value: { ar: "١.٠ · ألفا", en: "1.0 · Alpha" } },
+      { id: "ver", label: { ar: "الإصدار", en: "Version" }, kind: "value", value: { ar: "1.0 · ألفا", en: "1.0 · Alpha" } },
       { id: "terms", label: { ar: "الشروط والخصوصية", en: "Terms & privacy" }, kind: "link" },
     ],
   },
@@ -595,7 +595,7 @@ export const friends: Friend[] = [
     initial: "م",
     tone: "oklch(0.792 0.128 32)",
     group: "servants",
-    lastSeen: { ar: "آخر ظهور ٧:١٠ م", en: "Last seen 7:10 PM" },
+    lastSeen: { ar: "آخر ظهور 7:10 م", en: "Last seen 7:10 PM" },
     online: false,
   },
   {
@@ -643,7 +643,7 @@ export const friends: Friend[] = [
     initial: "ن",
     tone: "oklch(0.820 0.110 20)",
     group: "family",
-    lastSeen: { ar: "آخر ظهور ٥:٠٠ م", en: "Last seen 5:00 PM" },
+    lastSeen: { ar: "آخر ظهور 5:00 م", en: "Last seen 5:00 PM" },
     online: false,
   },
 ];
@@ -673,27 +673,27 @@ export const chatMessages: ChatMessage[] = [
     id: "c1",
     mine: false,
     text: { ar: "سلام ونعمة يا مينا 🙏 وصلك ترتيب خدمة الأحد؟", en: "Peace and grace, Mina 🙏 did you get Sunday's plan?" },
-    when: { ar: "٧:٠٢ م", en: "7:02 PM" },
+    when: { ar: "7:02 م", en: "7:02 PM" },
   },
   {
     id: "c2",
     mine: true,
     text: { ar: "وصلني يا أبونا، هراجعه مع الخدّام النهارده.", en: "Got it, Father. I'll review it with the servants today." },
-    when: { ar: "٧:٠٤ م", en: "7:04 PM" },
+    when: { ar: "7:04 م", en: "7:04 PM" },
     read: true,
   },
   {
     id: "c3",
     mine: false,
     voice: { length: "0:42", wave: w(5.1) },
-    when: { ar: "٧:٠٦ م", en: "7:06 PM" },
+    when: { ar: "7:06 م", en: "7:06 PM" },
     temporary: true,
   },
   {
     id: "c4",
     mine: true,
     text: { ar: "تمام، وهبعتلك أسماء البراعم الجديدة.", en: "Sure, I'll send you the new kids' names." },
-    when: { ar: "٧:٠٩ م", en: "7:09 PM" },
+    when: { ar: "7:09 م", en: "7:09 PM" },
     temporary: true,
     read: false,
   },
@@ -703,12 +703,12 @@ export const chatMessages: ChatMessage[] = [
 
 export const disappearOptions: { key: string; label: Bi }[] = [
   { key: "off", label: { ar: "إيقاف", en: "Off" } },
-  { key: "5s", label: { ar: "٥ ثوانٍ", en: "5 seconds" } },
-  { key: "10s", label: { ar: "١٠ ثوانٍ", en: "10 seconds" } },
-  { key: "30s", label: { ar: "٣٠ ثانية", en: "30 seconds" } },
+  { key: "5s", label: { ar: "5 ثوانٍ", en: "5 seconds" } },
+  { key: "10s", label: { ar: "10 ثوانٍ", en: "10 seconds" } },
+  { key: "30s", label: { ar: "30 ثانية", en: "30 seconds" } },
   { key: "1m", label: { ar: "دقيقة", en: "1 minute" } },
   { key: "1h", label: { ar: "ساعة", en: "1 hour" } },
-  { key: "24h", label: { ar: "٢٤ ساعة", en: "24 hours" } },
+  { key: "24h", label: { ar: "24 ساعة", en: "24 hours" } },
   { key: "7d", label: { ar: "أسبوع", en: "1 week" } },
 ];
 
@@ -737,7 +737,7 @@ export const securityInfo: {
     { label: { ar: "نوع الحماية", en: "Protection" }, value: { ar: "Alpha Messages Secure", en: "Alpha Messages Secure" } },
     { label: { ar: "حالة التشفير", en: "Encryption" }, value: { ar: "مشفّر طرفًا لطرف", en: "End-to-end encrypted" } },
     { label: { ar: "طريقة التخزين", en: "Storage" }, value: { ar: "تخزين مشفّر داخل Alpha", en: "Encrypted inside Alpha" } },
-    { label: { ar: "سياسة الحذف", en: "Deletion policy" }, value: { ar: "حذف تلقائي بعد ٢٤ ساعة", en: "Auto-delete after 24 hours" } },
+    { label: { ar: "سياسة الحذف", en: "Deletion policy" }, value: { ar: "حذف تلقائي بعد 24 ساعة", en: "Auto-delete after 24 hours" } },
   ],
   privacy: [
     { ar: "لا يتم بيع بياناتك", en: "Your data is never sold" },

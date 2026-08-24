@@ -453,7 +453,7 @@ function MyPage() {
               </span>
               <span className="flex items-center gap-2">
                 <span className="grid size-6 place-items-center rounded-full bg-gold/20 text-[11px] font-bold text-gold">
-                  ٣
+                  3
                 </span>
                 <ChevronRight
                   className={cn(
@@ -602,7 +602,7 @@ function MyPage() {
                   <Shield key={slug} slug={slug} size="sm" />
                 ))}
                 <span className="grid size-9 place-items-center rounded-full bg-parchment text-[11px] font-semibold text-ink/40 ring-1 ring-ink/5">
-                  +٥
+                  +5
                 </span>
               </div>
             </div>

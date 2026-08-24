@@ -45,10 +45,10 @@ export const categoryLabel: Record<Exclude<CategoryKey, "all">, Bi> = {
 /* ── Coptic date ────────────────────────────────────────── */
 
 export const copticToday = {
-  day: { ar: "٨", en: "8" },
+  day: { ar: "8", en: "8" },
   month: { ar: "مسرى", en: "Mesra" },
-  year: { ar: "١٧٤٢ ش", en: "1742 A.M." },
-  gregorian: { ar: "١٤ أغسطس", en: "August 14" },
+  year: { ar: "1742 ش", en: "1742 A.M." },
+  gregorian: { ar: "14 أغسطس", en: "August 14" },
   season: { ar: "زمن الصيف · بعد العنصرة", en: "Summer · after Pentecost" },
 };
 
@@ -70,16 +70,16 @@ export const copticMonths: Bi[] = [
 
 /** Ten-day strip around today inside the current Coptic month. */
 export const dayStrip: { day: Bi; weekday: Bi; count: number; today?: boolean }[] = [
-  { day: { ar: "٤", en: "4" }, weekday: { ar: "أحد", en: "Sun" }, count: 6 },
-  { day: { ar: "٥", en: "5" }, weekday: { ar: "إثنين", en: "Mon" }, count: 4 },
-  { day: { ar: "٦", en: "6" }, weekday: { ar: "ثلاثاء", en: "Tue" }, count: 7 },
-  { day: { ar: "٧", en: "7" }, weekday: { ar: "أربعاء", en: "Wed" }, count: 5 },
-  { day: { ar: "٨", en: "8" }, weekday: { ar: "خميس", en: "Thu" }, count: 9, today: true },
-  { day: { ar: "٩", en: "9" }, weekday: { ar: "جمعة", en: "Fri" }, count: 3 },
-  { day: { ar: "١٠", en: "10" }, weekday: { ar: "سبت", en: "Sat" }, count: 6 },
-  { day: { ar: "١١", en: "11" }, weekday: { ar: "أحد", en: "Sun" }, count: 4 },
-  { day: { ar: "١٢", en: "12" }, weekday: { ar: "إثنين", en: "Mon" }, count: 8 },
-  { day: { ar: "١٣", en: "13" }, weekday: { ar: "ثلاثاء", en: "Tue" }, count: 5 },
+  { day: { ar: "4", en: "4" }, weekday: { ar: "أحد", en: "Sun" }, count: 6 },
+  { day: { ar: "5", en: "5" }, weekday: { ar: "إثنين", en: "Mon" }, count: 4 },
+  { day: { ar: "6", en: "6" }, weekday: { ar: "ثلاثاء", en: "Tue" }, count: 7 },
+  { day: { ar: "7", en: "7" }, weekday: { ar: "أربعاء", en: "Wed" }, count: 5 },
+  { day: { ar: "8", en: "8" }, weekday: { ar: "خميس", en: "Thu" }, count: 9, today: true },
+  { day: { ar: "9", en: "9" }, weekday: { ar: "جمعة", en: "Fri" }, count: 3 },
+  { day: { ar: "10", en: "10" }, weekday: { ar: "سبت", en: "Sat" }, count: 6 },
+  { day: { ar: "11", en: "11" }, weekday: { ar: "أحد", en: "Sun" }, count: 4 },
+  { day: { ar: "12", en: "12" }, weekday: { ar: "إثنين", en: "Mon" }, count: 8 },
+  { day: { ar: "13", en: "13" }, weekday: { ar: "ثلاثاء", en: "Tue" }, count: 5 },
 ];
 
 /* ── Saints ─────────────────────────────────────────────── */
@@ -104,7 +104,7 @@ export const saintOfDay: Saint & { life: Bi[]; virtues: Bi[]; milestones: { labe
   name: { ar: "القدّيس أليعازر وسالومي وأولادهما", en: "St. Eleazar, Salome and their sons" },
   title: { ar: "الشهداء التسعة", en: "The nine martyrs" },
   category: "martyrs",
-  copticDate: { ar: "٨ مسرى", en: "8 Mesra" },
+  copticDate: { ar: "8 مسرى", en: "8 Mesra" },
   era: { ar: "القرن الثاني ق.م.", en: "2nd century B.C." },
   place: { ar: "أنطاكية", en: "Antioch" },
   minutes: 4,
@@ -140,7 +140,7 @@ export const saintOfDay: Saint & { life: Bi[]; virtues: Bi[]; milestones: { labe
   milestones: [
     { label: { ar: "الميلاد", en: "Birth" }, value: { ar: "أنطاكية", en: "Antioch" } },
     { label: { ar: "الخدمة", en: "Service" }, value: { ar: "معلّم للشريعة", en: "Teacher of the Law" } },
-    { label: { ar: "الشهادة", en: "Martyrdom" }, value: { ar: "٨ مسرى", en: "8 Mesra" } },
+    { label: { ar: "الشهادة", en: "Martyrdom" }, value: { ar: "8 مسرى", en: "8 Mesra" } },
   ],
 };
 
@@ -150,7 +150,7 @@ export const todaySaints: Saint[] = [
     name: { ar: "الأنبا بيشوي", en: "St. Abba Bishoy" },
     title: { ar: "حبيب مخلّصنا الصالح", en: "The beloved of our Good Saviour" },
     category: "monks",
-    copticDate: { ar: "٨ مسرى", en: "8 Mesra" },
+    copticDate: { ar: "8 مسرى", en: "8 Mesra" },
     era: { ar: "القرن الرابع", en: "4th century" },
     place: { ar: "وادي النطرون", en: "Scetis" },
     minutes: 3,
@@ -166,7 +166,7 @@ export const todaySaints: Saint[] = [
     name: { ar: "القدّيسة مارينا", en: "St. Marina" },
     title: { ar: "الشهيدة الناسكة", en: "The ascetic martyr" },
     category: "virgins",
-    copticDate: { ar: "٨ مسرى", en: "8 Mesra" },
+    copticDate: { ar: "8 مسرى", en: "8 Mesra" },
     era: { ar: "القرن الثالث", en: "3rd century" },
     place: { ar: "أنطاكية", en: "Antioch" },
     minutes: 3,
@@ -182,7 +182,7 @@ export const todaySaints: Saint[] = [
     name: { ar: "البابا يوأنس", en: "Pope Yoannis" },
     title: { ar: "الأب البطريرك", en: "The patriarch" },
     category: "patriarchs",
-    copticDate: { ar: "٨ مسرى", en: "8 Mesra" },
+    copticDate: { ar: "8 مسرى", en: "8 Mesra" },
     era: { ar: "القرن الثاني عشر", en: "12th century" },
     place: { ar: "الإسكندرية", en: "Alexandria" },
     minutes: 2,
@@ -197,7 +197,7 @@ export const todaySaints: Saint[] = [
     name: { ar: "تذكار تكريس كنيسة القدّيسة دميانة", en: "Consecration of St. Demiana’s church" },
     title: { ar: "تذكار كنسي", en: "Church commemoration" },
     category: "feasts",
-    copticDate: { ar: "٨ مسرى", en: "8 Mesra" },
+    copticDate: { ar: "8 مسرى", en: "8 Mesra" },
     era: { ar: "القرن الرابع", en: "4th century" },
     place: { ar: "برية الزعفران", en: "Zaafarana" },
     minutes: 2,
@@ -212,9 +212,9 @@ export const todaySaints: Saint[] = [
 /* ── Monthly feasts & seasons ───────────────────────────── */
 
 export const monthFeasts: { day: Bi; name: Bi; kind: Bi }[] = [
-  { day: { ar: "١٦ مسرى", en: "16 Mesra" }, name: { ar: "صوم العذراء", en: "Fast of the Virgin" }, kind: { ar: "صوم", en: "Fast" } },
-  { day: { ar: "٢٢ مسرى", en: "22 Mesra" }, name: { ar: "نياحة العذراء مريم", en: "Departure of St. Mary" }, kind: { ar: "عيد سيدي", en: "Major feast" } },
-  { day: { ar: "٢٦ مسرى", en: "26 Mesra" }, name: { ar: "تذكار الشهيد أبانوب", en: "St. Abanoub the martyr" }, kind: { ar: "تذكار", en: "Commemoration" } },
+  { day: { ar: "16 مسرى", en: "16 Mesra" }, name: { ar: "صوم العذراء", en: "Fast of the Virgin" }, kind: { ar: "صوم", en: "Fast" } },
+  { day: { ar: "22 مسرى", en: "22 Mesra" }, name: { ar: "نياحة العذراء مريم", en: "Departure of St. Mary" }, kind: { ar: "عيد سيدي", en: "Major feast" } },
+  { day: { ar: "26 مسرى", en: "26 Mesra" }, name: { ar: "تذكار الشهيد أبانوب", en: "St. Abanoub the martyr" }, kind: { ar: "تذكار", en: "Commemoration" } },
 ];
 
 /* ── Discovery collections ──────────────────────────────── */
@@ -236,7 +236,7 @@ export const L = {
   saintOfDay: { ar: "قدّيس اليوم", en: "Saint of the day" },
   readLife: { ar: "اقرأ السيرة", en: "Read the life" },
   todayCommemorations: { ar: "تذكارات اليوم", en: "Today’s commemorations" },
-  todayCount: { ar: "٩ تذكارات", en: "9 commemorations" },
+  todayCount: { ar: "9 تذكارات", en: "9 commemorations" },
   days: { ar: "أيام الشهر القبطي", en: "Days of the Coptic month" },
   browseMonths: { ar: "تصفّح الشهور", en: "Browse the months" },
   monthFeasts: { ar: "أعياد وتذكارات الشهر", en: "Feasts of the month" },
@@ -270,6 +270,6 @@ export const L = {
 export const recentSearches: Bi[] = [
   { ar: "الأنبا أنطونيوس", en: "St. Antony" },
   { ar: "مارمرقس الرسول", en: "St. Mark the Apostle" },
-  { ar: "٢٢ مسرى", en: "22 Mesra" },
+  { ar: "22 مسرى", en: "22 Mesra" },
   { ar: "الشهيد مارجرجس", en: "St. George" },
 ];

@@ -38,7 +38,7 @@ const items = [
     tint: "bg-amber-200/35 border-amber-400/40",
     ar: "«لأَنَّهُ حَيْثُمَا اجْتَمَعَ اثْنَانِ أَوْ ثَلاَثَةٌ بِاسْمِي فَهُنَاكَ أَكُونُ فِي وَسْطِهِمْ»",
     en: "“For where two or three are gathered together in my name, there am I in the midst of them.”",
-    refAr: "متى ١٨ : ٢٠",
+    refAr: "متى 18 : 20",
     refEn: "Matthew 18:20",
   },
   {
@@ -47,7 +47,7 @@ const items = [
     tint: "bg-sky-200/35 border-sky-400/40",
     ar: "«الرَّبُّ نُورِي وَخَلاَصِي، مِمَّنْ أَخَافُ؟»",
     en: "“The Lord is my light and my salvation; whom shall I fear?”",
-    refAr: "مزمور ٢٧ : ١",
+    refAr: "مزمور 27 : 1",
     refEn: "Psalm 27:1",
   },
   {
@@ -56,7 +56,7 @@ const items = [
     tint: "bg-rose-200/35 border-rose-400/40",
     ar: "«المَحَبَّةُ تَتَأَنَّى وَتَرْفُقُ، المَحَبَّةُ لاَ تَحْسِدُ»",
     en: "“Love is patient, love is kind; love does not envy.”",
-    refAr: "١ كورنثوس ١٣ : ٤",
+    refAr: "1 كورنثوس 13 : 4",
     refEn: "1 Corinthians 13:4",
   },
   {
@@ -65,7 +65,7 @@ const items = [
     tint: "bg-emerald-200/35 border-emerald-400/40",
     ar: "«ثِقُوا! أَنَا قَدْ غَلَبْتُ العَالَمَ»",
     en: "“Take heart! I have overcome the world.”",
-    refAr: "يوحنا ١٦ : ٣٣",
+    refAr: "يوحنا 16 : 33",
     refEn: "John 16:33",
   },
 ];
@@ -78,9 +78,9 @@ function BibleHighlights() {
   return (
     <ToolScreen title={t("bib.hl.title")} subtitle={t("bib.hl.sub")}>
       <div className="grid grid-cols-3 gap-2.5">
-        <StatTile value={isArabic ? "٢٤" : "24"} label={t("bib.hl.count")} />
-        <StatTile value={isArabic ? "٧" : "7"} label={t("bib.hl.books")} />
-        <StatTile value={isArabic ? "٤" : "4"} label={t("bib.hl.filter")} />
+        <StatTile value={isArabic ? "24" : "24"} label={t("bib.hl.count")} />
+        <StatTile value={isArabic ? "7" : "7"} label={t("bib.hl.books")} />
+        <StatTile value={isArabic ? "4" : "4"} label={t("bib.hl.filter")} />
       </div>
 
       <div className="no-scrollbar -mx-1 flex gap-2 overflow-x-auto px-1 pb-1">

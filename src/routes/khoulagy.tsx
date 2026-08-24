@@ -81,7 +81,7 @@ function KhoulagyScreen() {
             {pick(rites[0]!.name)}
           </h2>
           <p className="mt-1 font-manrope text-[11.5px] text-khivory/55">
-            {t("kh.part")} ٣ · {pick({ ar: "صلاة الشكر", en: "Prayer of thanksgiving" })}
+            {t("kh.part")} 3 · {pick({ ar: "صلاة الشكر", en: "Prayer of thanksgiving" })}
           </p>
 
           <div className="mt-4 flex items-center gap-2.5">
@@ -92,7 +92,7 @@ function KhoulagyScreen() {
               />
             </span>
             <span className="font-manrope text-[10.5px] font-semibold text-khgold tabular-nums">
-              ٣٨٪
+              38٪
             </span>
           </div>
 

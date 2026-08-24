@@ -51,7 +51,7 @@ function SynaxariumMonths() {
               <span className="relative font-display text-[24px] leading-none text-iconleaf/80">{monogram[i]}</span>
               <p className="relative mt-2.5 font-display text-[14.5px] font-semibold text-ivory">{pick(m, lang)}</p>
               <p className="relative mt-0.5 font-manrope text-[10px] text-ivory/40">
-                {i === 12 ? (lang === "ar" ? "٥ أيام" : "5 days") : lang === "ar" ? "٣٠ يومًا" : "30 days"}
+                {i === 12 ? (lang === "ar" ? "5 أيام" : "5 days") : lang === "ar" ? "30 يومًا" : "30 days"}
               </p>
               {current ? (
                 <span className="absolute top-3 end-3 rounded-full bg-saffron/85 px-2 py-[2px] font-manrope text-[9px] font-bold text-synaxnight">

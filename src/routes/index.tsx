@@ -141,9 +141,9 @@ const hubTone: Record<"gold" | "lavender" | "parchment", string> = {
 };
 
 const groups = [
-  { key: "hm.community.g1", count: "٨٦" },
-  { key: "hm.community.g2", count: "٤٢" },
-  { key: "hm.community.g3", count: "٦٧" },
+  { key: "hm.community.g1", count: "86" },
+  { key: "hm.community.g2", count: "42" },
+  { key: "hm.community.g3", count: "67" },
 ];
 
 const events = [

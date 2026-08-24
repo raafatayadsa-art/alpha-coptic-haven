@@ -8,6 +8,13 @@ import priest2 from "@/assets/priest-2.jpg";
 import priest3 from "@/assets/priest-3.jpg";
 import postYouth from "@/assets/post-youth.jpg";
 import postCandles from "@/assets/post-candles.jpg";
+import lifeMembers from "@/assets/life/life-members.jpg";
+import lifeFamilies from "@/assets/life/life-families.jpg";
+import lifeServices from "@/assets/life/life-services.jpg";
+import lifeGroups from "@/assets/life/life-groups.jpg";
+import lifeEvents from "@/assets/life/life-events.jpg";
+import lifeHelp from "@/assets/life/life-help.jpg";
+
 
 import {
   BellIcon,
@@ -20,9 +27,8 @@ import {
   GroupsIcon,
   HeartIcon,
   HelpIcon,
-  LocationIcon,
   MembersIcon,
-  MoreIcon,
+
   PhoneIcon,
   ServicesIcon,
   ShieldIcon,
@@ -62,21 +68,14 @@ const priests = [
 ];
 
 const quickLinks = [
-  { key: "link.members", icon: <MembersIcon className="size-5" />, tone: "parchment" as const },
-  { key: "link.families", icon: <FamiliesIcon className="size-5" />, tone: "lavender" as const },
-  { key: "link.services", icon: <ServicesIcon className="size-5" />, tone: "parchment" as const },
-  { key: "link.groups", icon: <GroupsIcon className="size-5" />, tone: "lavender" as const },
-  { key: "link.events", icon: <EventsIcon className="size-5" />, tone: "gold" as const },
-  { key: "link.help", icon: <HelpIcon className="size-5" />, tone: "gold" as const },
-  { key: "link.location", icon: <LocationIcon className="size-5" />, tone: "parchment" as const },
-  { key: "link.more", icon: <MoreIcon className="size-5" />, tone: "lavender" as const },
+  { key: "link.members", caption: "link.members.caption", icon: <MembersIcon className="size-4" />, image: lifeMembers },
+  { key: "link.families", caption: "link.families.caption", icon: <FamiliesIcon className="size-4" />, image: lifeFamilies },
+  { key: "link.services", caption: "link.services.caption", icon: <ServicesIcon className="size-4" />, image: lifeServices },
+  { key: "link.groups", caption: "link.groups.caption", icon: <GroupsIcon className="size-4" />, image: lifeGroups },
+  { key: "link.events", caption: "link.events.caption", icon: <EventsIcon className="size-4" />, image: lifeEvents },
+  { key: "link.help", caption: "link.help.caption", icon: <HelpIcon className="size-4" />, image: lifeHelp },
 ];
 
-const quickTile: Record<"gold" | "lavender" | "parchment", string> = {
-  gold: "bg-gold/12 text-gold ring-1 ring-gold/20",
-  lavender: "bg-lavender/40 text-ink/70 ring-1 ring-lavender",
-  parchment: "bg-parchment text-ink/60 ring-1 ring-ink/5",
-};
 
 const churchPosts = [
   { id: "post.1", cover: postCandles, visibility: "public" as const },
@@ -147,7 +146,7 @@ function ChurchHome() {
       <main>
         {/* 2 — Premium Hero */}
         <section className="relative px-4 pt-3">
-          <div className="relative h-[420px] overflow-hidden rounded-[34px] ring-1 ring-ink/10">
+          <div className="relative h-[236px] overflow-hidden rounded-[30px] ring-1 ring-ink/10">
             <img
               src={churchCover}
               alt={t("home.cover.alt")}
@@ -165,54 +164,52 @@ function ChurchHome() {
           </div>
 
           {/* Floating identity card */}
-          <div className="glass-card animate-float-up relative -mt-28 mx-1.5 rounded-[32px] p-6">
-            <div className="flex items-start gap-3">
-              <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-parchment ring-1 ring-gold/25">
-                <CopticCross className="size-7 text-gold" />
+          <div className="glass-card animate-float-up relative -mt-16 mx-1.5 rounded-[30px] p-4">
+            <div className="flex items-center gap-3">
+              <span className="grid size-12 shrink-0 place-items-center rounded-[18px] bg-parchment ring-1 ring-gold/25">
+                <CopticCross className="size-6 text-gold" />
               </span>
-              <div className="min-w-0">
+              <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold">
+                  <span className="text-[9.5px] font-semibold uppercase tracking-[0.2em] text-gold">
                     {t("home.location")}
                   </span>
-                  <VerifiedIcon className="size-4 text-gold" />
+                  <VerifiedIcon className="size-3.5 text-gold" />
                 </div>
                 <h1
-                  className={`mt-1.5 text-balance font-display text-[27px] font-semibold leading-[1.12] tracking-tight ${
+                  className={`mt-1 truncate font-display text-[18px] font-semibold leading-tight tracking-tight ${
                     isArabic ? "" : "italic"
                   }`}
                 >
-                  {t("app.church")}
+                  {t("app.churchShort")}
                 </h1>
               </div>
             </div>
 
-            <div className="mt-5 flex items-center justify-between border-y border-ink/8 py-4">
+            <div className="mt-3.5 flex items-center justify-between border-y border-ink/8 py-3">
               <div className="flex flex-col">
-                <span className="text-[11px] text-ink/45">{t("home.stat.members")}</span>
-                <span className="font-display text-xl font-semibold">{t("home.stat.membersValue")}</span>
+                <span className="text-[10px] text-ink/45">{t("home.stat.members")}</span>
+                <span className="font-display text-[17px] font-semibold">{t("home.stat.membersValue")}</span>
               </div>
-              <div className="h-9 w-px bg-ink/8" />
+              <div className="h-8 w-px bg-ink/8" />
               <div className="flex flex-col">
-                <span className="text-[11px] text-ink/45">{t("home.stat.families")}</span>
-                <span className="font-display text-xl font-semibold">{t("home.stat.familiesValue")}</span>
+                <span className="text-[10px] text-ink/45">{t("home.stat.families")}</span>
+                <span className="font-display text-[17px] font-semibold">{t("home.stat.familiesValue")}</span>
               </div>
-              <div className="h-9 w-px bg-ink/8" />
+              <div className="h-8 w-px bg-ink/8" />
               <div className="flex flex-col text-end">
-                <span className="text-[11px] text-ink/45">{t("home.stat.nextLiturgy")}</span>
-                <span className="font-display text-xl font-semibold text-gold">
+                <span className="text-[10px] text-ink/45">{t("home.stat.nextLiturgy")}</span>
+                <span className="font-display text-[17px] font-semibold text-gold">
                   {t("home.stat.nextLiturgyValue")}
                 </span>
               </div>
             </div>
 
-            <p className="mt-4 text-[12.5px] leading-relaxed text-ink/55">{t("home.intro")}</p>
-
             <button
               type="button"
               onClick={() => setFollowing((v) => !v)}
               aria-pressed={following}
-              className={`press mt-5 flex h-12 w-full items-center justify-center gap-2 rounded-full text-[13px] font-semibold transition-colors ${
+              className={`press mt-3.5 flex h-11 w-full items-center justify-center gap-2 rounded-full text-[13px] font-semibold transition-colors ${
                 following
                   ? "border border-gold/30 bg-gold/10 text-gold"
                   : "bg-ink text-ivory shadow-soft"
@@ -223,6 +220,7 @@ function ChurchHome() {
             </button>
           </div>
         </section>
+
 
         {/* 4 — Church Priests */}
         <section className="mt-12">
@@ -303,25 +301,49 @@ function ChurchHome() {
             </button>
           </div>
 
-          <div className="glass-card mt-6 grid grid-cols-4 gap-y-6 rounded-[30px] px-3 py-6">
-            {quickLinks.map((l) => (
+          <div className="mt-6 grid grid-cols-2 gap-3.5">
+            {quickLinks.map((l, i) => (
               <button
                 key={l.key}
                 type="button"
-                className="press flex flex-col items-center gap-2 px-1 text-center"
+                className={`press group relative overflow-hidden rounded-[28px] ring-1 ring-ink/8 text-start shadow-soft ${
+                  i === 0 ? "col-span-2" : ""
+                }`}
               >
-                <span
-                  className={`grid size-12 place-items-center rounded-[20px] ${quickTile[l.tone]}`}
+                <img
+                  src={l.image}
+                  alt=""
                   aria-hidden="true"
-                >
-                  {l.icon}
-                </span>
-                <span className="text-[10.5px] font-semibold leading-tight tracking-tight text-ink/75">
-                  {t(l.key)}
+                  loading="lazy"
+                  width={800}
+                  height={600}
+                  className={`w-full object-cover transition-transform duration-[900ms] ease-[var(--ease-out-expo)] group-hover:scale-[1.05] ${
+                    i === 0 ? "h-[150px]" : "h-[118px]"
+                  }`}
+                />
+                <span className="absolute inset-0 bg-gradient-to-t from-ink/78 via-ink/25 to-transparent" />
+                {/* Coptic watermark */}
+                <CopticCross className="absolute end-3.5 top-3.5 size-5 text-ivory/45" />
+                <span className="absolute inset-x-4 bottom-3.5">
+                  <span className="flex items-center gap-2">
+                    <span className="grid size-8 place-items-center rounded-[14px] bg-ivory/18 text-ivory ring-1 ring-ivory/25 backdrop-blur-md">
+                      {l.icon}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-[12.5px] font-semibold leading-tight text-ivory">
+                        {t(l.key)}
+                      </span>
+                      <span className="mt-0.5 block text-[9.5px] font-medium uppercase tracking-[0.16em] text-gold/85">
+                        {t(l.caption)}
+                      </span>
+                    </span>
+                    <ChevronRight className="size-4 shrink-0 text-ivory/60 rtl:rotate-180" />
+                  </span>
                 </span>
               </button>
             ))}
           </div>
+
         </section>
 
         {/* 5b — Church Posts */}
