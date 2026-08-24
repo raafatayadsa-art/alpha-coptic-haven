@@ -338,7 +338,7 @@ function ChurchHome() {
               <button
                 key={l.key}
                 type="button"
-                className={`press group relative overflow-hidden rounded-[28px] ring-1 ring-ink/8 text-start shadow-soft ${
+                className={`press group relative overflow-hidden rounded-[28px] border border-white/40 bg-white/40 text-start shadow-soft transition-all duration-500 hover:shadow-lift ${
                   i === 0 ? "col-span-2" : ""
                 }`}
               >
@@ -353,20 +353,24 @@ function ChurchHome() {
                     i === 0 ? "h-[150px]" : "h-[118px]"
                   }`}
                 />
-                <span className="absolute inset-0 bg-gradient-to-t from-ink/78 via-ink/25 to-transparent" />
+                {/* Softer layered glass overlay */}
+                <span className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-ink/5" />
+                <span className="absolute inset-0 shadow-[inset_0_1px_1px_0_rgba(255,255,255,0.35)]" />
+                <span className="pointer-events-none absolute -end-4 -top-4 size-20 rounded-full bg-gradient-to-bl from-gold/15 to-transparent blur-2xl" />
                 {/* Coptic watermark */}
-                <CopticCross className="absolute end-3.5 top-3.5 size-5 text-ivory/45" />
+                <CopticCross className="absolute end-3.5 top-3.5 size-5 text-ivory/40" />
                 <span className="absolute inset-x-4 bottom-3.5">
-                  <span className="flex items-center gap-2">
-                    <span className="grid size-8 place-items-center rounded-[14px] bg-ivory/18 text-ivory ring-1 ring-ivory/25 backdrop-blur-md">
+                  <span className="flex items-center gap-2.5">
+                    <span className="relative grid size-9 place-items-center rounded-[16px] bg-white/20 text-ivory ring-1 ring-gold/30 backdrop-blur-md">
+                      <span className="absolute inset-[-5px] rounded-[18px] border border-dashed border-gold/25" aria-hidden="true" />
                       {l.icon}
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-[12.5px] font-semibold leading-tight text-ivory">
                         {t(l.key)}
                       </span>
-                      <span className="mt-0.5 block text-[9.5px] font-medium uppercase tracking-[0.16em] text-gold/85">
-                        {t(l.caption)}
+                      <span className="mt-0.5 block text-[9.5px] font-medium uppercase tracking-[0.16em] text-gold/90">
+                        {l.count !== undefined ? `${formatNumber(l.count)} ${t(l.caption)}` : t(l.caption)}
                       </span>
                     </span>
                     <ChevronRight className="size-4 shrink-0 text-ivory/60 rtl:rotate-180" />
@@ -374,6 +378,7 @@ function ChurchHome() {
                 </span>
               </button>
             ))}
+
           </div>
 
         </section>
