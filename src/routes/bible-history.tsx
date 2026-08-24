@@ -26,23 +26,23 @@ const groups = [
   {
     key: "bib.hs.today",
     rows: [
-      { ar: "يوحنا ١", en: "John 1", book: "jhn", ch: 1, minAr: "١٢", minEn: "12" },
-      { ar: "مزمور ٢٣", en: "Psalm 23", book: "psa", ch: 23, minAr: "٤", minEn: "4" },
+      { ar: "يوحنا 1", en: "John 1", book: "jhn", ch: 1, minAr: "12", minEn: "12" },
+      { ar: "مزمور 23", en: "Psalm 23", book: "psa", ch: 23, minAr: "4", minEn: "4" },
     ],
   },
   {
     key: "bib.hs.yesterday",
     rows: [
-      { ar: "متى ٥", en: "Matthew 5", book: "mat", ch: 5, minAr: "١٨", minEn: "18" },
-      { ar: "أمثال ٣", en: "Proverbs 3", book: "pro", ch: 3, minAr: "٧", minEn: "7" },
+      { ar: "متى 5", en: "Matthew 5", book: "mat", ch: 5, minAr: "18", minEn: "18" },
+      { ar: "أمثال 3", en: "Proverbs 3", book: "pro", ch: 3, minAr: "7", minEn: "7" },
     ],
   },
   {
     key: "bib.hs.earlier",
     rows: [
-      { ar: "التكوين ١", en: "Genesis 1", book: "gen", ch: 1, minAr: "١٥", minEn: "15" },
-      { ar: "رومية ٨", en: "Romans 8", book: "rom", ch: 8, minAr: "٢١", minEn: "21" },
-      { ar: "إشعياء ٥٣", en: "Isaiah 53", book: "isa", ch: 53, minAr: "٩", minEn: "9" },
+      { ar: "التكوين 1", en: "Genesis 1", book: "gen", ch: 1, minAr: "15", minEn: "15" },
+      { ar: "رومية 8", en: "Romans 8", book: "rom", ch: 8, minAr: "21", minEn: "21" },
+      { ar: "إشعياء 53", en: "Isaiah 53", book: "isa", ch: 53, minAr: "9", minEn: "9" },
     ],
   },
 ];
@@ -53,9 +53,9 @@ function BibleHistory() {
   return (
     <ToolScreen title={t("bib.hs.title")} subtitle={t("bib.hs.sub")}>
       <div className="grid grid-cols-3 gap-2.5">
-        <StatTile value={isArabic ? "٧" : "7"} label={t("bib.chapters")} />
-        <StatTile value={isArabic ? "٨٦" : "86"} label={t("bib.hs.minutes")} />
-        <StatTile value={isArabic ? "١٢" : "12"} label={t("bib.stat.streak")} />
+        <StatTile value={isArabic ? "7" : "7"} label={t("bib.chapters")} />
+        <StatTile value={isArabic ? "86" : "86"} label={t("bib.hs.minutes")} />
+        <StatTile value={isArabic ? "12" : "12"} label={t("bib.stat.streak")} />
       </div>
 
       {groups.map((g) => (

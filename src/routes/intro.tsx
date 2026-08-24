@@ -234,7 +234,7 @@ function SceneBible({ ar }: SceneProps) {
             {ar ? "«سِراجٌ لِرِجْلي كلامُك»" : "“Your word is a lamp to my feet”"}
           </blockquote>
           <figcaption className="relative mt-1.5 font-manrope text-[9.5px] tracking-[0.22em] text-[oklch(0.88_0.09_86)] uppercase">
-            {ar ? "مزمور ١١٩ : ١٠٥" : "Psalm 119:105"}
+            {ar ? "مزمور 119 : 105" : "Psalm 119:105"}
           </figcaption>
         </figure>
       </Reveal>
@@ -293,9 +293,9 @@ function SceneSpiritual({ ar }: SceneProps) {
 function SceneCommunity({ ar }: SceneProps) {
   const stats = ar
     ? [
-        { n: "٤٨٠+", l: "عضو" },
-        { n: "١٢", l: "خدمة" },
-        { n: "٦", l: "مناسبة" },
+        { n: "480+", l: "عضو" },
+        { n: "12", l: "خدمة" },
+        { n: "6", l: "مناسبة" },
       ]
     : [
         { n: "480+", l: "members" },
@@ -316,7 +316,7 @@ function SceneCommunity({ ar }: SceneProps) {
       footer={
         <div className="intro-lift mt-5 flex items-center justify-between rounded-[24px] border border-white/14 bg-white/8 px-4 py-3 backdrop-blur-md" style={{ animationDelay: "430ms" } as CSSProperties}>
           <div className="flex -space-x-2 space-x-reverse">
-            {["م", "ب", "ي", "+٩"].map((c) => (
+            {["م", "ب", "ي", "+9"].map((c) => (
               <span
                 key={c}
                 className="grid h-8 w-8 place-items-center rounded-full border-2 border-white/70 bg-[oklch(0.55_0.06_296)] font-manrope text-[10px] font-bold text-white"
@@ -343,7 +343,7 @@ function SceneCommunity({ ar }: SceneProps) {
 
 function SceneConnect({ ar }: SceneProps) {
   const bubbles = ar
-    ? ["قناة الخدام · ٤ متصلين", "رسالة مشفَّرة · تُحذف تلقائيًا", "اضغط للتحدث"]
+    ? ["قناة الخدام · 4 متصلين", "رسالة مشفَّرة · تُحذف تلقائيًا", "اضغط للتحدث"]
     : ["Servants channel · 4 live", "Encrypted · auto-delete", "Push to talk"];
   return (
     <Stage

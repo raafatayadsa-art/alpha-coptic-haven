@@ -33,8 +33,8 @@ export const Route = createFileRoute("/katameros-saved")({
 const savedIds = ["lit-gospel", "mat-gospel", "syn-day", "lit-pauline"];
 
 const savedDays = [
-  { id: "s1", name: { ar: "٢٩ كيهك — عيد الميلاد", en: "29 Kiahk — Nativity" }, note: { ar: "قراءات العيد", en: "Feast readings" } },
-  { id: "s2", name: { ar: "١١ طوبة — عيد الغطاس", en: "11 Touba — Epiphany" }, note: { ar: "عشية وباكر", en: "Vespers & matins" } },
+  { id: "s1", name: { ar: "29 كيهك — عيد الميلاد", en: "29 Kiahk — Nativity" }, note: { ar: "قراءات العيد", en: "Feast readings" } },
+  { id: "s2", name: { ar: "11 طوبة — عيد الغطاس", en: "11 Touba — Epiphany" }, note: { ar: "عشية وباكر", en: "Vespers & matins" } },
 ];
 
 function KatamerosSaved() {

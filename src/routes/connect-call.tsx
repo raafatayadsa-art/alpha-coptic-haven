@@ -85,7 +85,7 @@ function ConnectCall() {
 
           <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-signal/30 bg-signal/10 px-4 py-2 font-manrope text-[11.5px] font-bold text-signal">
             <VoiceBars bars={4} />
-            {pick(CL.inCall, lang)} · ٠٢:١٤
+            {pick(CL.inCall, lang)} · 02:14
           </p>
 
           <p className="mt-3 font-manrope text-[10.5px] tracking-[0.16em] text-acquiet uppercase">

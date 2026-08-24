@@ -27,7 +27,7 @@ export const Route = createFileRoute("/katameros-search")({
 });
 
 const recent = [
-  { ar: "٢٩ كيهك", en: "29 Kiahk" },
+  { ar: "29 كيهك", en: "29 Kiahk" },
   { ar: "إنجيل باكر", en: "Matins gospel" },
   { ar: "أحد الشعانين", en: "Palm Sunday" },
 ];

@@ -121,7 +121,7 @@ export function ParentMode({
             </div>
 
             <p className="mt-3 text-center font-manrope text-[10px] text-kdink/35">
-              {isArabic ? "نموذج تجريبي: الرقم ١٢٣٤" : "Prototype PIN: 1234"}
+              {isArabic ? "نموذج تجريبي: الرقم 1234" : "Prototype PIN: 1234"}
             </p>
           </section>
         ) : (

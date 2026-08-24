@@ -36,9 +36,9 @@ function BibleStats() {
   return (
     <ToolScreen title={t("bib.st.title")} subtitle={t("bib.st.sub")}>
       <div className="grid grid-cols-3 gap-2.5">
-        <StatTile value={isArabic ? "١٢" : "12"} label={t("bib.stat.streak")} />
-        <StatTile value={isArabic ? "٤٦٨" : "468"} label={t("bib.stat.chapters")} />
-        <StatTile value={isArabic ? "١٤٢٠" : "1,420"} label={t("bib.stat.minutes")} />
+        <StatTile value={isArabic ? "12" : "12"} label={t("bib.stat.streak")} />
+        <StatTile value={isArabic ? "468" : "468"} label={t("bib.stat.chapters")} />
+        <StatTile value={isArabic ? "1420" : "1,420"} label={t("bib.stat.minutes")} />
       </div>
 
       <section className="ink-card relative isolate overflow-hidden rounded-[28px] p-5 text-vellum">

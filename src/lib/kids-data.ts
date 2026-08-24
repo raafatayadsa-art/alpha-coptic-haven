@@ -39,9 +39,9 @@ export const L = {
     big: { ar: "أكبر سنًا", en: "Older" },
   },
   ageYears: {
-    buds: { ar: "٣ – ٥ سنين", en: "3 – 5 yrs" },
-    kids: { ar: "٦ – ٩ سنين", en: "6 – 9 yrs" },
-    big: { ar: "١٠ – ١٣ سنة", en: "10 – 13 yrs" },
+    buds: { ar: "3 – 5 سنين", en: "3 – 5 yrs" },
+    kids: { ar: "6 – 9 سنين", en: "6 – 9 yrs" },
+    big: { ar: "10 – 13 سنة", en: "10 – 13 yrs" },
   },
   storyOfDay: { ar: "قصة اليوم", en: "Story of the Day" },
   listen: { ar: "اسمعها", en: "Listen" },
@@ -64,7 +64,7 @@ export const L = {
   hymnsTitle: { ar: "ترانيم وأناشيد", en: "Songs & Hymns" },
   challengeTitle: { ar: "تحدي الأسبوع", en: "This Week's Challenge" },
   challengeLine: {
-    ar: "٣ مهام صغيرة تخلّص فيها نجمة ذهبية.",
+    ar: "3 مهام صغيرة تخلّص فيها نجمة ذهبية.",
     en: "Three small missions, one golden star.",
   },
   progress: { ar: "نجومك", en: "Your stars" },
@@ -96,7 +96,7 @@ export const storyOfDay = {
     ar: "خروف صغير تاه… فسابَ الراعي المية والتسعة وتسعين وجري يدوّر عليه.",
     en: "One little lamb was lost… so the shepherd left the ninety-nine and went to find it.",
   },
-  minutes: { ar: "٤", en: "4" },
+  minutes: { ar: "4", en: "4" },
 };
 
 /* ── Animated films ─────────────────────────────── */
@@ -116,7 +116,7 @@ export const films: Film[] = [
     image: filmNoah,
     title: { ar: "سفينة نوح", en: "Noah's Ark" },
     line: { ar: "حيوانات وقوس قزح ووعد كبير.", en: "Animals, a rainbow, a big promise." },
-    minutes: { ar: "٧", en: "7" },
+    minutes: { ar: "7", en: "7" },
     hue: "var(--kd-sky)",
     flag: "new",
   },
@@ -125,7 +125,7 @@ export const films: Film[] = [
     image: filmDavid,
     title: { ar: "داود والعملاق", en: "David & the Giant" },
     line: { ar: "ولد صغير وقلب شجاع.", en: "A small boy with a brave heart." },
-    minutes: { ar: "٦", en: "6" },
+    minutes: { ar: "6", en: "6" },
     hue: "var(--kd-honey)",
   },
   {
@@ -133,7 +133,7 @@ export const films: Film[] = [
     image: filmJonah,
     title: { ar: "يونان والحوت", en: "Jonah & the Whale" },
     line: { ar: "رحلة في البحر وفرصة تانية.", en: "A sea journey and a second chance." },
-    minutes: { ar: "٨", en: "8" },
+    minutes: { ar: "8", en: "8" },
     hue: "var(--kd-grape)",
   },
 ];
@@ -144,7 +144,7 @@ export const verseOfDay = {
     ar: "«اَلرَّبُّ رَاعِيَّ فَلَا يُعْوِزُنِي شَيْءٌ»",
     en: "“The Lord is my shepherd; I shall not want.”",
   },
-  ref: { ar: "مزمور ٢٣ : ١", en: "Psalm 23:1" },
+  ref: { ar: "مزمور 23 : 1", en: "Psalm 23:1" },
 };
 
 /* ── Saints for kids ────────────────────────────── */
@@ -208,21 +208,21 @@ export const hymns = [
     id: "h1",
     title: { ar: "يسوع بيحبني", en: "Jesus Loves Me" },
     line: { ar: "ترنيمة للبراعم", en: "For the little ones" },
-    minutes: { ar: "٢:٤٠", en: "2:40" },
+    minutes: { ar: "2:40", en: "2:40" },
     hue: "var(--kd-honey)",
   },
   {
     id: "h2",
     title: { ar: "أنا فرحان", en: "I Am Happy" },
     line: { ar: "ترنيمة حركات", en: "Action song" },
-    minutes: { ar: "٣:١٠", en: "3:10" },
+    minutes: { ar: "3:10", en: "3:10" },
     hue: "var(--kd-mint)",
   },
   {
     id: "h3",
     title: { ar: "نور المسيح", en: "Light of Christ" },
     line: { ar: "كورال الأطفال", en: "Kids' choir" },
-    minutes: { ar: "٤:٠٥", en: "4:05" },
+    minutes: { ar: "4:05", en: "4:05" },
     hue: "var(--kd-sky)",
   },
 ];
@@ -310,7 +310,7 @@ export const filmBeats: FilmBeat[] = [
   {
     filmId: "noah",
     verse: { ar: "«أَجْعَلُ قَوْسِي فِي السَّحَابِ»", en: "“I set my rainbow in the cloud.”" },
-    ref: { ar: "تكوين ٩ : ١٣", en: "Genesis 9:13" },
+    ref: { ar: "تكوين 9 : 13", en: "Genesis 9:13" },
     lesson: { ar: "الله بيحفظ اللي بيسمعوا كلامه.", en: "God keeps those who listen to Him." },
     question: { ar: "إيه علامة عهد الله مع نوح؟", en: "What was the sign of God's promise?" },
     options: [
@@ -324,7 +324,7 @@ export const filmBeats: FilmBeat[] = [
   {
     filmId: "david",
     verse: { ar: "«أَنَا آتِي إِلَيْكَ بِاسْمِ رَبِّ الْجُنُودِ»", en: "“I come to you in the name of the Lord.”" },
-    ref: { ar: "١ صموئيل ١٧ : ٤٥", en: "1 Samuel 17:45" },
+    ref: { ar: "1 صموئيل 17 : 45", en: "1 Samuel 17:45" },
     lesson: { ar: "الشجاعة بتيجي من الثقة في الله.", en: "Courage comes from trusting God." },
     question: { ar: "داود واجه العملاق بإيه؟", en: "What did David face the giant with?" },
     options: [
@@ -338,7 +338,7 @@ export const filmBeats: FilmBeat[] = [
   {
     filmId: "jonah",
     verse: { ar: "«صَرَخْتُ فَسَمِعْتَ صَوْتِي»", en: "“I cried out, and You heard my voice.”" },
-    ref: { ar: "يونان ٢ : ٢", en: "Jonah 2:2" },
+    ref: { ar: "يونان 2 : 2", en: "Jonah 2:2" },
     lesson: { ar: "ربنا بيسمعنا في أي مكان.", en: "God hears us anywhere." },
     question: { ar: "يونان صلّى وهو فين؟", en: "Where did Jonah pray?" },
     options: [

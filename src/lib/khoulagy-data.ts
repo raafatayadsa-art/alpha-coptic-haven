@@ -236,7 +236,7 @@ export const parts: KhPart[] = [
     id: "communion",
     group: "tasbeha",
     title: { ar: "التوزيع والمزامير", en: "Communion & psalms" },
-    hint: { ar: "مزمور ١٥٠ وألحان التوزيع", en: "Psalm 150 & communion hymns" },
+    hint: { ar: "مزمور 150 وألحان التوزيع", en: "Psalm 150 & communion hymns" },
     minutes: 11,
     lines: [
       {
@@ -284,8 +284,8 @@ export type Collection = {
 };
 
 export const collections: Collection[] = [
-  { id: "tasbeha", group: "tasbeha", title: { ar: "التسبحة", en: "Midnight Praise" }, count: { ar: "٤ ألحان", en: "4 hymns" } },
-  { id: "awashy", group: "awashy", title: { ar: "الأواشي", en: "Litanies" }, count: { ar: "٧ ألحان", en: "7 hymns" } },
-  { id: "doxology", group: "doxology", title: { ar: "الذكصولوجيات", en: "Doxologies" }, count: { ar: "٥ ألحان", en: "5 hymns" } },
+  { id: "tasbeha", group: "tasbeha", title: { ar: "التسبحة", en: "Midnight Praise" }, count: { ar: "4 ألحان", en: "4 hymns" } },
+  { id: "awashy", group: "awashy", title: { ar: "الأواشي", en: "Litanies" }, count: { ar: "7 ألحان", en: "7 hymns" } },
+  { id: "doxology", group: "doxology", title: { ar: "الذكصولوجيات", en: "Doxologies" }, count: { ar: "5 ألحان", en: "5 hymns" } },
   { id: "khetam", group: "khetam", title: { ar: "الختام", en: "Conclusion" }, count: { ar: "لحن واحد", en: "1 hymn" } },
 ];

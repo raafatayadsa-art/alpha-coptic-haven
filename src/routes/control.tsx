@@ -485,7 +485,7 @@ function ChurchesModule({ p }: { p: P }) {
     <Panel crest className="overflow-hidden">
       <PanelHead
         title={p({ ar: "سجل الكنائس", en: "Church registry" })}
-        caption={p({ ar: "١٢٨٤ كنيسة · ٤٢ إيبارشية", en: "1,284 churches · 42 dioceses" })}
+        caption={p({ ar: "1284 كنيسة · 42 إيبارشية", en: "1,284 churches · 42 dioceses" })}
         action={<GhostButton>{p(L.manage)}</GhostButton>}
       />
       {churchRows.map((c) => (
@@ -591,7 +591,7 @@ function MediaModule({ p }: { p: P }) {
       <Panel className="mt-2.5 overflow-hidden">
         <PanelHead
           title={p({ ar: "مكتبة الوسائط", en: "Media library" })}
-          caption={p({ ar: "١٤٥٠ غيغا مستخدمة من ٢ تيرا", en: "1,450 GB of 2 TB used" })}
+          caption={p({ ar: "1450 غيغا مستخدمة من 2 تيرا", en: "1,450 GB of 2 TB used" })}
           action={<GhostButton>{p(L.manage)}</GhostButton>}
         />
         <div className="grid grid-cols-3 gap-2 px-4 pb-4">

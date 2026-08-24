@@ -135,9 +135,9 @@ function FathersHome() {
 
               <div className="mt-3 grid grid-cols-3 overflow-hidden rounded-[18px] border border-facopper/20 bg-fanight/45 backdrop-blur-md">
                 {[
-                  { n: "٤٨", en: "48", l: L.fathers },
-                  { n: "١٢٤٠", en: "1,240", l: L.sayings },
-                  { n: "٨٦", en: "86", l: L.books },
+                  { n: "48", en: "48", l: L.fathers },
+                  { n: "1240", en: "1,240", l: L.sayings },
+                  { n: "86", en: "86", l: L.books },
                 ].map((s, i) => (
                   <div
                     key={s.en}

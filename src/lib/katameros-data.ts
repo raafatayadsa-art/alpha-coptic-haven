@@ -44,7 +44,7 @@ export const readings: Reading[] = [
     id: "vsp-psalm",
     group: "vespers",
     kind: { ar: "مزمور عشية", en: "Vespers psalm" },
-    ref: { ar: "مزمور ٩٦ : ١١ ، ١٢", en: "Psalm 96 : 11, 12" },
+    ref: { ar: "مزمور 96 : 11 ، 12", en: "Psalm 96 : 11, 12" },
     excerpt: {
       ar: "نُورٌ قَدْ أَشْرَقَ لِلصِّدِّيقِ، وَفَرَحٌ لِلْمُسْتَقِيمِي الْقَلْبِ.",
       en: "Light is sown for the righteous, and gladness for the upright in heart.",
@@ -55,7 +55,7 @@ export const readings: Reading[] = [
     id: "vsp-gospel",
     group: "vespers",
     kind: { ar: "إنجيل عشية", en: "Vespers gospel" },
-    ref: { ar: "لوقا ١٢ : ٣٢ - ٣٤", en: "Luke 12 : 32 - 34" },
+    ref: { ar: "لوقا 12 : 32 - 34", en: "Luke 12 : 32 - 34" },
     excerpt: {
       ar: "لَا تَخَفْ أَيُّهَا الْقَطِيعُ الصَّغِيرُ، لِأَنَّ أَبَاكُمْ قَدْ سُرَّ أَنْ يُعْطِيَكُمُ الْمَلَكُوتَ.",
       en: "Do not fear, little flock, for it is your Father’s good pleasure to give you the kingdom.",
@@ -66,7 +66,7 @@ export const readings: Reading[] = [
     id: "mat-psalm",
     group: "matins",
     kind: { ar: "مزمور باكر", en: "Matins psalm" },
-    ref: { ar: "مزمور ٦٣ : ١ - ٣", en: "Psalm 63 : 1 - 3" },
+    ref: { ar: "مزمور 63 : 1 - 3", en: "Psalm 63 : 1 - 3" },
     excerpt: {
       ar: "يَا اللهُ إِلَهِي، إِلَيْكَ أَبْتَكِرُ، عَطِشَتْ إِلَيْكَ نَفْسِي.",
       en: "O God, You are my God; early will I seek You; my soul thirsts for You.",
@@ -77,7 +77,7 @@ export const readings: Reading[] = [
     id: "mat-gospel",
     group: "matins",
     kind: { ar: "إنجيل باكر", en: "Matins gospel" },
-    ref: { ar: "متى ٥ : ١٤ - ١٦", en: "Matthew 5 : 14 - 16" },
+    ref: { ar: "متى 5 : 14 - 16", en: "Matthew 5 : 14 - 16" },
     excerpt: {
       ar: "أَنْتُمْ نُورُ الْعَالَمِ. لَا يُمْكِنُ أَنْ تُخْفَى مَدِينَةٌ مَوْضُوعَةٌ عَلَى جَبَلٍ.",
       en: "You are the light of the world. A city set on a hill cannot be hidden.",
@@ -88,7 +88,7 @@ export const readings: Reading[] = [
     id: "lit-pauline",
     group: "liturgy",
     kind: { ar: "البولس", en: "Pauline epistle" },
-    ref: { ar: "عبرانيين ١١ : ٣٢ - ٤٠", en: "Hebrews 11 : 32 - 40" },
+    ref: { ar: "عبرانيين 11 : 32 - 40", en: "Hebrews 11 : 32 - 40" },
     excerpt: {
       ar: "الَّذِينَ بِالْإِيمَانِ قَهَرُوا مَمَالِكَ، صَنَعُوا بِرًّا، نَالُوا مَوَاعِيدَ.",
       en: "Who through faith subdued kingdoms, worked righteousness, obtained promises.",
@@ -99,7 +99,7 @@ export const readings: Reading[] = [
     id: "lit-catholic",
     group: "liturgy",
     kind: { ar: "الكاثوليكون", en: "Catholic epistle" },
-    ref: { ar: "١ بطرس ٤ : ١٢ - ١٩", en: "1 Peter 4 : 12 - 19" },
+    ref: { ar: "1 بطرس 4 : 12 - 19", en: "1 Peter 4 : 12 - 19" },
     excerpt: {
       ar: "بَلْ كَمَا شَارَكْتُمْ آلَامَ الْمَسِيحِ، افْرَحُوا.",
       en: "But rejoice to the extent that you partake of Christ’s sufferings.",
@@ -110,7 +110,7 @@ export const readings: Reading[] = [
     id: "lit-praxis",
     group: "liturgy",
     kind: { ar: "الإبركسيس", en: "Praxis" },
-    ref: { ar: "أعمال ٧ : ٥٤ - ٦٠", en: "Acts 7 : 54 - 60" },
+    ref: { ar: "أعمال 7 : 54 - 60", en: "Acts 7 : 54 - 60" },
     excerpt: {
       ar: "هَا أَنَا أَنْظُرُ السَّمَاوَاتِ مَفْتُوحَةً، وَابْنَ الْإِنْسَانِ قَائِمًا.",
       en: "Look! I see the heavens opened and the Son of Man standing.",
@@ -121,7 +121,7 @@ export const readings: Reading[] = [
     id: "lit-psalm",
     group: "liturgy",
     kind: { ar: "مزمور القداس", en: "Liturgy psalm" },
-    ref: { ar: "مزمور ١١٦ : ١٥", en: "Psalm 116 : 15" },
+    ref: { ar: "مزمور 116 : 15", en: "Psalm 116 : 15" },
     excerpt: {
       ar: "كَرِيمٌ أَمَامَ الرَّبِّ مَوْتُ قِدِّيسِيهِ.",
       en: "Precious in the sight of the Lord is the death of His saints.",
@@ -132,7 +132,7 @@ export const readings: Reading[] = [
     id: "lit-gospel",
     group: "liturgy",
     kind: { ar: "إنجيل القداس", en: "Liturgy gospel" },
-    ref: { ar: "متى ١٠ : ١٦ - ٢٢", en: "Matthew 10 : 16 - 22" },
+    ref: { ar: "متى 10 : 16 - 22", en: "Matthew 10 : 16 - 22" },
     excerpt: {
       ar: "وَمَنْ يَصْبِرْ إِلَى الْمُنْتَهَى فَهَذَا يَخْلُصُ.",
       en: "But he who endures to the end will be saved.",
@@ -143,7 +143,7 @@ export const readings: Reading[] = [
     id: "syn-day",
     group: "synaxarium",
     kind: { ar: "سنكسار اليوم", en: "Today’s Synaxarium" },
-    ref: { ar: "٢٢ أبيب", en: "22 Abib" },
+    ref: { ar: "22 أبيب", en: "22 Abib" },
     excerpt: {
       ar: "في هذا اليوم تُذكار نياحة القديس، وقد جاهد جهادًا حسنًا وأكمل سعيه.",
       en: "On this day is the departure of the saint, who fought the good fight and finished his course.",
@@ -172,7 +172,7 @@ export const copticMonths: { id: string; name: Bi; season?: Bi }[] = [
 
 export const seasons: { id: string; name: Bi; span: Bi; accent: string }[] = [
   { id: "kiahk", name: { ar: "شهر كيهك", en: "Month of Kiahk" }, span: { ar: "تسابيح وصوم الميلاد", en: "Praises & Nativity fast" }, accent: "oklch(0.560 0.120 300)" },
-  { id: "lent", name: { ar: "الصوم الكبير", en: "Great Lent" }, span: { ar: "٥٥ يومًا · آحاد الصوم", en: "55 days · Lenten Sundays" }, accent: "oklch(0.520 0.100 265)" },
+  { id: "lent", name: { ar: "الصوم الكبير", en: "Great Lent" }, span: { ar: "55 يومًا · آحاد الصوم", en: "55 days · Lenten Sundays" }, accent: "oklch(0.520 0.100 265)" },
   { id: "holyweek", name: { ar: "أسبوع الآلام", en: "Holy Week" }, span: { ar: "البصخة المقدسة", en: "The Holy Pascha" }, accent: "oklch(0.500 0.150 22)" },
   { id: "pentecost", name: { ar: "الخمسين المقدسة", en: "Holy Fifty" }, span: { ar: "من القيامة إلى العنصرة", en: "Resurrection to Pentecost" }, accent: "oklch(0.680 0.110 140)" },
   { id: "apostles", name: { ar: "صوم الرسل", en: "Apostles’ Fast" }, span: { ar: "يختم بعيد الرسل", en: "Ends with the Apostles’ feast" }, accent: "oklch(0.660 0.108 200)" },
@@ -180,23 +180,23 @@ export const seasons: { id: string; name: Bi; span: Bi; accent: string }[] = [
 ];
 
 export const majorFeasts: { id: string; name: Bi; date: Bi }[] = [
-  { id: "nativity", name: { ar: "عيد الميلاد المجيد", en: "Nativity" }, date: { ar: "٢٩ كيهك", en: "29 Kiahk" } },
-  { id: "epiphany", name: { ar: "عيد الغطاس", en: "Epiphany" }, date: { ar: "١١ طوبة", en: "11 Touba" } },
-  { id: "annunciation", name: { ar: "عيد البشارة", en: "Annunciation" }, date: { ar: "٢٩ برمهات", en: "29 Baramhat" } },
+  { id: "nativity", name: { ar: "عيد الميلاد المجيد", en: "Nativity" }, date: { ar: "29 كيهك", en: "29 Kiahk" } },
+  { id: "epiphany", name: { ar: "عيد الغطاس", en: "Epiphany" }, date: { ar: "11 طوبة", en: "11 Touba" } },
+  { id: "annunciation", name: { ar: "عيد البشارة", en: "Annunciation" }, date: { ar: "29 برمهات", en: "29 Baramhat" } },
   { id: "resurrection", name: { ar: "عيد القيامة", en: "Resurrection" }, date: { ar: "عيد متغيّر", en: "Movable feast" } },
-  { id: "ascension", name: { ar: "عيد الصعود", en: "Ascension" }, date: { ar: "بعد ٤٠ يومًا", en: "After 40 days" } },
-  { id: "pentecost", name: { ar: "عيد العنصرة", en: "Pentecost" }, date: { ar: "بعد ٥٠ يومًا", en: "After 50 days" } },
+  { id: "ascension", name: { ar: "عيد الصعود", en: "Ascension" }, date: { ar: "بعد 40 يومًا", en: "After 40 days" } },
+  { id: "pentecost", name: { ar: "عيد العنصرة", en: "Pentecost" }, date: { ar: "بعد 50 يومًا", en: "After 50 days" } },
 ];
 
 /** Seven-day strip around the current day (presentation only). */
 export const weekStrip: { id: string; dow: Bi; copt: Bi; greg: string; today?: boolean; feast?: boolean }[] = [
-  { id: "d1", dow: { ar: "أحد", en: "Sun" }, copt: { ar: "١٩ أبيب", en: "19 Abib" }, greg: "٢٦" },
-  { id: "d2", dow: { ar: "إثنين", en: "Mon" }, copt: { ar: "٢٠ أبيب", en: "20 Abib" }, greg: "٢٧" },
-  { id: "d3", dow: { ar: "ثلاثاء", en: "Tue" }, copt: { ar: "٢١ أبيب", en: "21 Abib" }, greg: "٢٨" },
-  { id: "d4", dow: { ar: "أربعاء", en: "Wed" }, copt: { ar: "٢٢ أبيب", en: "22 Abib" }, greg: "٢٩", today: true },
-  { id: "d5", dow: { ar: "خميس", en: "Thu" }, copt: { ar: "٢٣ أبيب", en: "23 Abib" }, greg: "٣٠", feast: true },
-  { id: "d6", dow: { ar: "جمعة", en: "Fri" }, copt: { ar: "٢٤ أبيب", en: "24 Abib" }, greg: "٣١" },
-  { id: "d7", dow: { ar: "سبت", en: "Sat" }, copt: { ar: "٢٥ أبيب", en: "25 Abib" }, greg: "١" },
+  { id: "d1", dow: { ar: "أحد", en: "Sun" }, copt: { ar: "19 أبيب", en: "19 Abib" }, greg: "26" },
+  { id: "d2", dow: { ar: "إثنين", en: "Mon" }, copt: { ar: "20 أبيب", en: "20 Abib" }, greg: "27" },
+  { id: "d3", dow: { ar: "ثلاثاء", en: "Tue" }, copt: { ar: "21 أبيب", en: "21 Abib" }, greg: "28" },
+  { id: "d4", dow: { ar: "أربعاء", en: "Wed" }, copt: { ar: "22 أبيب", en: "22 Abib" }, greg: "29", today: true },
+  { id: "d5", dow: { ar: "خميس", en: "Thu" }, copt: { ar: "23 أبيب", en: "23 Abib" }, greg: "30", feast: true },
+  { id: "d6", dow: { ar: "جمعة", en: "Fri" }, copt: { ar: "24 أبيب", en: "24 Abib" }, greg: "31" },
+  { id: "d7", dow: { ar: "سبت", en: "Sat" }, copt: { ar: "25 أبيب", en: "25 Abib" }, greg: "1" },
 ];
 
 export const orderedGroups: ReadingGroupKey[] = ["vespers", "matins", "liturgy", "synaxarium"];

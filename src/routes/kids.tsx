@@ -118,7 +118,7 @@ function KidsHome() {
               </button>
               <span className="inline-flex items-center gap-1 rounded-full border border-kdhoney/40 bg-kdhoney/25 px-2.5 py-1 font-manrope text-[11px] font-bold text-kdink/75">
                 <KdStar className="size-3.5 text-kdhoney" />
-                {isArabic ? "١٢" : "12"}
+                {isArabic ? "12" : "12"}
               </span>
             </div>
           </div>
@@ -162,9 +162,9 @@ function KidsHome() {
                   {pick(L.heroCta, lang)}
                 </button>
                 <span className="inline-flex items-center gap-3 rounded-full bg-kdink/35 px-3 py-2 font-manrope text-[10px] font-semibold text-kdpaper/85 backdrop-blur-md">
-                  <span>٦٠ {pick(L.storiesCount, lang)}</span>
+                  <span>60 {pick(L.storiesCount, lang)}</span>
                   <span className="size-1 rounded-full bg-kdpaper/40" />
-                  <span>٢٤ {pick(L.filmsCount, lang)}</span>
+                  <span>24 {pick(L.filmsCount, lang)}</span>
                 </span>
               </div>
             </div>
