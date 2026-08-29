@@ -218,7 +218,7 @@ function IntroExperience() {
           <div className="h-px w-full overflow-hidden bg-white/12">
             <div
               ref={railRef}
-              className="h-full w-full origin-[right_center] bg-gradient-to-l from-[oklch(0.86_0.12_86)] to-[oklch(0.86_0.12_86)/2] rtl:origin-[right_center] ltr:origin-[left_center]"
+              className="h-full w-full origin-[right_center] bg-gradient-to-l from-[oklch(0.86_0.12_86)] to-[oklch(0.86_0.12_86)/20] rtl:origin-[right_center] ltr:origin-[left_center]"
               style={{ transform: "scaleX(0)" }}
             />
           </div>
@@ -529,7 +529,7 @@ function IntroExperience() {
           />
           <div
             aria-hidden="true"
-            className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[oklch(0.86_0.12_86)/3] blur-3xl"
+            className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[oklch(0.86_0.12_86)/30] blur-3xl"
             style={{ opacity: "calc(0.1 + var(--p) * 0.7)" }}
           />
 
@@ -559,7 +559,7 @@ function IntroExperience() {
 
               {/* Alpha core */}
               <div
-                className="relative grid h-28 w-28 place-items-center rounded-full border border-[oklch(0.86_0.12_86)/5] bg-white/8 backdrop-blur-xl"
+                className="relative grid h-28 w-28 place-items-center rounded-full border border-[oklch(0.86_0.12_86)/50] bg-white/8 backdrop-blur-xl"
                 style={{
                   transform: "scale(calc(0.72 + var(--p) * 0.34))",
                   boxShadow: "0 30px 80px -30px oklch(0.86 0.12 86 / 0.7)",
@@ -600,7 +600,7 @@ function IntroExperience() {
               <button
                 type="button"
                 onClick={() => void navigate({ to: "/signup" })}
-                className="press mt-8 rounded-2xl border border-[oklch(0.86_0.12_86)/6] bg-[oklch(0.86_0.12_86)] px-9 py-3.5 font-arabic text-[14.5px] font-semibold text-[oklch(0.2_0.03_285)] shadow-[0_22px_50px_-22px_oklch(0.86_0.12_86/0.8)]"
+                className="press mt-8 rounded-2xl border border-[oklch(0.86_0.12_86)/60] bg-[oklch(0.86_0.12_86)] px-9 py-3.5 font-arabic text-[14.5px] font-semibold text-[oklch(0.2_0.03_285)] shadow-[0_22px_50px_-22px_oklch(0.86_0.12_86/0.8)]"
               >
                 {COPY.start[ar ? "ar" : "en"]}
               </button>
