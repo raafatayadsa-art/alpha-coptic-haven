@@ -1,5 +1,5 @@
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useRef, useState, type CSSProperties, type PointerEvent as RPointerEvent, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
 import intro1 from "@/assets/intro/intro-1-home.jpg";
 import intro2 from "@/assets/intro/intro-2-bible.jpg";
@@ -7,55 +7,683 @@ import intro3 from "@/assets/intro/intro-3-spiritual.jpg";
 import intro4 from "@/assets/intro/intro-4-community.jpg";
 import intro5 from "@/assets/intro/intro-5-connect.jpg";
 import intro6 from "@/assets/intro/intro-6-journey.jpg";
-import { Screen } from "@/components/layout/Screen";
+import { Shield } from "@/components/church/Shield";
 import { useLang } from "@/lib/i18n";
+import { disposeAmbient, fadeAmbient, startAmbient } from "@/lib/ambient-audio";
 
 /**
- * Alpha — Intro / Onboarding (visual design prototype only).
+ * Alpha — Intro as an interactive cinematic scroll experience.
  *
- * One cinematic language across all six scenes:
- *  - full-bleed edge-to-edge photograph with a slow ken-burns drift
- *  - gilded veil bloom + deep scrim so text always reads
- *  - blurred staggered entrance for every text block and accent module
- *  - gilded segment progress rail at the very bottom
+ * Nothing animates on a timer: every scene is a sticky full-screen stage whose
+ * local progress `--p` (0 → 1) is written straight from the scroll position on
+ * each animation frame. Scroll down advances the composition, stopping freezes
+ * it, scrolling up plays it backwards. All motion is expressed as `calc()` on
+ * that single variable, so it stays GPU-cheap on phones.
+ *
+ * Derived per-scene variables:
+ *   --p  raw local progress            0 → 1
+ *   --a  eased entrance                0 → 1 over the first 45 %
+ *   --c  bell (peaks mid-scene)        0 → 1 → 0
+ *   --d  eased finish                  0 → 1 over the last 35 %
  */
-
-const T = {
-  skip: { ar: "تخطّي", en: "Skip" },
-  next: { ar: "التالي", en: "Next" },
-  start: { ar: "ابدأ رحلتك", en: "Begin your journey" },
-  back: { ar: "السابق", en: "Back" },
-} as const;
 
 export const Route = createFileRoute("/intro")({
   head: () => ({
     meta: [
-      { title: "ألفا — البيت الرقمي المسيحي | مقدمة التطبيق" },
+      { title: "ألفا — رحلة تعريفية | البيت القبطي الأرثوذكسي الرقمي" },
       {
         name: "description",
         content:
-          "تعرّف على ألفا: الكتاب المقدس، الأجبية والقطمارس والسنكسار، مجتمع كنيستك، والتواصل الصوتي — في بيت رقمي واحد.",
+          "رحلة سينمائية بالتمرير تعرّفك على ألفا: كلمة الله، الأجبية والقطمارس والسنكسار والخولاجي، كنيستك ومجتمعك، وألفا كونكت.",
       },
-      { property: "og:title", content: "ألفا — البيت الرقمي المسيحي" },
+      { property: "og:title", content: "ألفا — رحلة تعريفية" },
       {
         property: "og:description",
-        content: "ستة مشاهد تقدّم لك ألفا: كلمة الله، الحياة الروحية، الكنيسة والمجتمع، وألفا كونكت.",
+        content: "تجربة تمرير سينمائية تجمع عوالم ألفا: الكتاب المقدس، الصلاة، الكنيسة، والتواصل.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: IntroScreen,
+  component: IntroExperience,
 });
 
-/* ── shared cinematic scene shell ───────────────────────────── */
+/* ── copy ───────────────────────────────────────────────────── */
 
-type SceneProps = {
-  ar: boolean;
-  index: number;
-};
+const COPY = {
+  skip: { ar: "تخطّي", en: "Skip" },
+  start: { ar: "ابدأ رحلتك", en: "Begin your journey" },
+  scroll: { ar: "مرّر بإصبعك", en: "Scroll to begin" },
+  sound: { ar: "الصوت", en: "Sound" },
+} as const;
 
-function Reveal({
+const SPIRITUAL = [
+  { slug: "agpeya", ar: "الأجبية", en: "Agpeya", x: -96, y: -120, r: -10 },
+  { slug: "katameros", ar: "القطمارس", en: "Katameros", x: 92, y: -70, r: 9 },
+  { slug: "synaxarium", ar: "السنكسار", en: "Synaxarium", x: -78, y: 96, r: -7 },
+  { slug: "khoulagy", ar: "الخولاجي", en: "Khoulagy", x: 98, y: 132, r: 11 },
+] as const;
+
+const WORLDS = [
+  { slug: "bible", a: -90 },
+  { slug: "agpeya", a: -54 },
+  { slug: "katameros", a: -18 },
+  { slug: "synaxarium", a: 18 },
+  { slug: "khoulagy", a: 54 },
+  { slug: "church", a: 90 },
+  { slug: "library", a: 126 },
+  { slug: "books", a: 162 },
+  { slug: "kids", a: 198 },
+  { slug: "audio", a: 234 },
+  { slug: "community", a: 270 },
+  { slug: "messages-audio", a: 306 },
+] as const;
+
+/* ── scroll engine ──────────────────────────────────────────── */
+
+const clamp = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
+const ease = (v: number) => 1 - Math.pow(1 - v, 3);
+
+function IntroExperience() {
+  const { lang } = useLang();
+  const ar = lang === "ar";
+  const navigate = useNavigate();
+
+  const rootRef = useRef<HTMLDivElement>(null);
+  const railRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  const [sound, setSound] = useState(false);
+  const armed = useRef(false);
+
+  /* scroll → CSS variables (single rAF, no React re-render per frame) */
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const stages = Array.from(root.querySelectorAll<HTMLElement>("[data-stage]"));
+    let raf = 0;
+    let current = -1;
+
+    const paint = () => {
+      raf = 0;
+      const vh = window.innerHeight;
+      let best = 0;
+      let bestArea = 0;
+
+      stages.forEach((stage, i) => {
+        const section = stage.parentElement!;
+        const rect = section.getBoundingClientRect();
+        const span = Math.max(1, rect.height - vh);
+        const p = clamp(-rect.top / span);
+
+        const visible = rect.bottom > 0 && rect.top < vh;
+        stage.style.visibility = visible ? "visible" : "hidden";
+        if (!visible) return;
+
+        stage.style.setProperty("--p", p.toFixed(4));
+        stage.style.setProperty("--a", ease(clamp(p / 0.45)).toFixed(4));
+        stage.style.setProperty("--d", ease(clamp((p - 0.62) / 0.34)).toFixed(4));
+        stage.style.setProperty("--c", (1 - Math.abs(p - 0.5) * 2).toFixed(4));
+
+        const area = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
+        if (area > bestArea) {
+          bestArea = area;
+          best = i;
+        }
+      });
+
+      const total = document.documentElement.scrollHeight - vh;
+      if (railRef.current) {
+        railRef.current.style.transform = `scaleX(${clamp(window.scrollY / Math.max(1, total)).toFixed(4)})`;
+      }
+      if (best !== current) {
+        current = best;
+        setActive(best);
+      }
+    };
+
+    const onScroll = () => {
+      if (!raf) raf = window.requestAnimationFrame(paint);
+      if (!armed.current) {
+        armed.current = true;
+        startAmbient();
+        setSound(true);
+      }
+    };
+
+    paint();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  useEffect(() => () => disposeAmbient(), []);
+
+  const toggleSound = useCallback(() => {
+    setSound((on) => {
+      if (on) {
+        fadeAmbient(0);
+      } else {
+        armed.current = true;
+        startAmbient();
+      }
+      return !on;
+    });
+  }, []);
+
+  return (
+    <div
+      ref={rootRef}
+      dir={ar ? "rtl" : "ltr"}
+      className="relative w-full bg-[oklch(0.155_0.02_285)] text-[oklch(0.97_0.01_85)]"
+    >
+      {/* ── fixed chrome ───────────────────────────────────── */}
+      <div className="safe-top pointer-events-none fixed inset-x-0 top-0 z-50">
+        <div className="mx-auto flex w-full max-w-[430px] items-center justify-between px-5 pt-3">
+          <Link
+            to="/signup"
+            className="press pointer-events-auto rounded-full border border-white/20 bg-black/25 px-4 py-2 font-manrope text-[11.5px] font-semibold tracking-wide text-white/85 backdrop-blur-xl"
+          >
+            {COPY.skip[ar ? "ar" : "en"]}
+          </Link>
+
+          <button
+            type="button"
+            onClick={toggleSound}
+            aria-label={COPY.sound[ar ? "ar" : "en"]}
+            aria-pressed={sound}
+            className="press pointer-events-auto grid h-9 w-9 place-items-center rounded-full border border-white/20 bg-black/25 text-white/85 backdrop-blur-xl"
+          >
+            <SoundIcon on={sound} />
+          </button>
+        </div>
+      </div>
+
+      {/* progress */}
+      <div className="safe-bottom pointer-events-none fixed inset-x-0 bottom-0 z-50">
+        <div className="mx-auto w-full max-w-[430px] px-6 pb-3">
+          <div className="mb-2 flex items-center justify-center gap-1.5">
+            {[0, 1, 2, 3, 4, 5].map((i) => (
+              <span
+                key={i}
+                className={`h-1 rounded-full transition-all duration-500 ${
+                  i === active ? "w-6 bg-[oklch(0.82_0.11_84)]" : "w-1.5 bg-white/25"
+                }`}
+              />
+            ))}
+          </div>
+          <div className="h-px w-full overflow-hidden bg-white/12">
+            <div
+              ref={railRef}
+              className="h-full w-full origin-[right_center] bg-gradient-to-l from-[oklch(0.86_0.12_86)] to-[oklch(0.86_0.12_86)/0.2] rtl:origin-[right_center] ltr:origin-[left_center]"
+              style={{ transform: "scaleX(0)" }}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* ── scene 1 — Alpha identity ───────────────────────── */}
+      <Section>
+        <Stage>
+          <Plate src={intro1} alt="نور الفجر داخل كنيسة قبطية" />
+          <Veil />
+          {/* light shaft bloom */}
+          <div
+            aria-hidden="true"
+            className="absolute left-1/2 top-0 h-[70%] w-[62%] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,oklch(0.93_0.1_88/0.5),transparent_70%)] blur-2xl"
+            style={{
+              opacity: "calc(0.35 + var(--a) * 0.65)",
+              transform: "translateX(-50%) scaleY(calc(0.7 + var(--p) * 0.7))",
+            }}
+          />
+          <Center>
+            <div
+              className="relative grid place-items-center"
+              style={{
+                transform: "scale(calc(1.5 - var(--a) * 0.62)) translateY(calc(var(--p) * -26px))",
+                filter: "blur(calc((1 - var(--a)) * 8px))",
+              }}
+            >
+              <span
+                aria-hidden="true"
+                className="absolute h-32 w-32 rounded-full bg-[oklch(0.86_0.12_86)/0.35] blur-2xl"
+                style={{ opacity: "calc(0.2 + var(--a) * 0.8)" }}
+              />
+              <span className="relative font-display text-[104px] leading-none text-[oklch(0.94_0.06_88)] drop-shadow-[0_18px_46px_rgba(0,0,0,0.55)]">
+                ⲁ
+              </span>
+            </div>
+
+            <Line delay={0.28} className="mt-8">
+              <h1 className="text-center font-arabic text-[27px] font-semibold leading-snug text-white">
+                {ar ? "ألفا" : "Alpha"}
+              </h1>
+            </Line>
+            <Line delay={0.42}>
+              <p className="mt-2 max-w-[19rem] text-center font-arabic text-[13.5px] leading-relaxed text-white/75">
+                {ar ? "بيتك المسيحي الرقمي… من أول الطريق" : "Your Christian digital home"}
+              </p>
+            </Line>
+          </Center>
+
+          <div
+            className="absolute inset-x-0 bottom-[16%] flex flex-col items-center gap-2"
+            style={{ opacity: "calc(1 - var(--p) * 3)" }}
+          >
+            <span className="font-manrope text-[9.5px] font-semibold tracking-[0.28em] uppercase text-white/55">
+              {COPY.scroll[ar ? "ar" : "en"]}
+            </span>
+            <span aria-hidden="true" className="h-8 w-px bg-gradient-to-b from-white/50 to-transparent" />
+          </div>
+        </Stage>
+      </Section>
+
+      {/* ── scene 2 — the Word ─────────────────────────────── */}
+      <Section>
+        <Stage>
+          <Plate src={intro2} alt="الكتاب المقدس مفتوح على مكتب خشبي" depth={1.2} />
+          <Veil tone="oklch(0.14_0.02_280)" />
+          <Center>
+            <div
+              style={{
+                transform: "translateY(calc((1 - var(--a)) * 46px)) scale(calc(0.86 + var(--a) * 0.14))",
+                opacity: "var(--a)",
+              }}
+            >
+              <Shield slug="bible" size="lg" halo />
+            </div>
+
+            <Line delay={0.3} className="mt-7">
+              <h2 className="text-center font-arabic text-[24px] font-semibold leading-snug text-white">
+                {ar ? "كلمة الله معك كل يوم" : "The Word, every day"}
+              </h2>
+            </Line>
+
+            {/* verse ribbon revealed by the scroll itself */}
+            <div
+              className="mt-6 w-[19rem] overflow-hidden rounded-[24px] border border-white/14 bg-white/8 px-5 py-4 backdrop-blur-xl"
+              style={{
+                opacity: "calc(var(--p) * 1.9 - 0.35)",
+                transform: "translateY(calc((1 - var(--p)) * 34px))",
+              }}
+            >
+              <p className="text-center font-arabic text-[14px] leading-loose text-[oklch(0.95_0.04_86)]">
+                {ar ? "«سِرَاجٌ لِرِجْلِي كَلامُكَ، وَنُورٌ لِسَبِيلِي»" : "“Your word is a lamp to my feet”"}
+              </p>
+              <span
+                aria-hidden="true"
+                className="mx-auto mt-3 block h-px bg-[oklch(0.86_0.12_86)]"
+                style={{ width: "calc(var(--p) * 100%)" }}
+              />
+            </div>
+            <Line delay={0.62}>
+              <p className="mt-4 text-center font-arabic text-[12.5px] text-white/65">
+                {ar ? "قراءة، تظليل، وملاحظات… ورحلة تكمّلها كل مساء" : "Read, highlight, and keep your journey"}
+              </p>
+            </Line>
+          </Center>
+        </Stage>
+      </Section>
+
+      {/* ── scene 3 — prayer & spiritual life ──────────────── */}
+      <Section>
+        <Stage>
+          <Plate src={intro3} alt="شموع وصلاة في هدوء الكنيسة" depth={0.9} />
+          <Veil tone="oklch(0.13_0.03_265)" strength={0.72} />
+          <Center>
+            <Line delay={0.1}>
+              <h2 className="text-center font-arabic text-[23px] font-semibold leading-snug text-white">
+                {ar ? "صلاتك لها بيت" : "A home for your prayer"}
+              </h2>
+            </Line>
+
+            <div className="relative mt-10 grid h-[280px] w-[280px] place-items-center">
+              <span
+                aria-hidden="true"
+                className="absolute h-40 w-40 rounded-full border border-[oklch(0.86_0.12_86)/0.35]"
+                style={{
+                  transform: "scale(calc(0.5 + var(--p) * 0.9)) rotate(calc(var(--p) * 40deg))",
+                  opacity: "calc(0.25 + var(--c) * 0.5)",
+                }}
+              />
+              <span
+                className="absolute font-display text-[46px] text-[oklch(0.9_0.08_88)]"
+                style={{ opacity: "calc(0.4 + var(--c) * 0.6)", transform: "scale(calc(0.9 + var(--p) * 0.2))" }}
+                aria-hidden="true"
+              >
+                ✚
+              </span>
+
+              {SPIRITUAL.map((s, i) => (
+                <div
+                  key={s.slug}
+                  className="absolute flex flex-col items-center gap-1.5"
+                  style={
+                    {
+                      "--tx": `${s.x}px`,
+                      "--ty": `${s.y}px`,
+                      transform:
+                        "translate(calc(var(--tx) * (0.35 + var(--p) * 0.65)), calc(var(--ty) * (0.35 + var(--p) * 0.65)))" +
+                        ` scale(calc(0.6 + var(--p) * 0.4)) rotate(calc((1 - var(--p)) * ${s.r}deg))`,
+                      opacity: `calc(var(--p) * 2.4 - ${i * 0.22})`,
+                      filter: "blur(calc((1 - var(--p)) * 5px))",
+                    } as CSSProperties
+                  }
+                >
+                  <Shield slug={s.slug} size="md" />
+                  <span className="font-arabic text-[10.5px] font-semibold text-white/80">
+                    {ar ? s.ar : s.en}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <p
+              className="mt-8 max-w-[18rem] text-center font-arabic text-[12.5px] leading-relaxed text-white/70"
+              style={{ opacity: "var(--d)", transform: "translateY(calc((1 - var(--d)) * 18px))" }}
+            >
+              {ar
+                ? "الأجبية والقطمارس والسنكسار والخولاجي… يومك الروحي مرتّب"
+                : "Agpeya, Katameros, Synaxarium and Khoulagy"}
+            </p>
+          </Center>
+        </Stage>
+      </Section>
+
+      {/* ── scene 4 — church & community ───────────────────── */}
+      <Section>
+        <Stage>
+          <Plate src={intro4} alt="مجتمع كنيسة قبطية أرثوذكسية في مصر" depth={1.35} />
+          <Veil tone="oklch(0.14_0.02_290)" strength={0.66} />
+
+          {/* Coptic arch that opens with the scroll */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-0 top-[14%] mx-auto h-[58%] w-[74%] rounded-t-full border border-[oklch(0.86_0.12_86)/0.35]"
+            style={{
+              transform: "scale(calc(0.82 + var(--p) * 0.26))",
+              opacity: "calc(0.15 + var(--a) * 0.5)",
+            }}
+          />
+
+          <Center>
+            <div
+              className="flex items-end gap-3"
+              style={{
+                transform: "translateY(calc((1 - var(--a)) * 40px))",
+                opacity: "var(--a)",
+              }}
+            >
+              <Shield slug="priest" size="md" />
+              <Shield slug="church" size="lg" halo />
+              <Shield slug="community" size="md" />
+            </div>
+
+            <Line delay={0.3} className="mt-7">
+              <h2 className="text-center font-arabic text-[23px] font-semibold leading-snug text-white">
+                {ar ? "كنيستك معاك في جيبك" : "Your church, with you"}
+              </h2>
+            </Line>
+
+            <div
+              className="mt-5 flex flex-wrap items-center justify-center gap-2"
+              style={{ opacity: "calc(var(--p) * 2 - 0.5)" }}
+            >
+              {(ar
+                ? ["القداسات", "الاجتماعات", "الخدمات", "المناسبات"]
+                : ["Liturgies", "Meetings", "Services", "Events"]
+              ).map((t, i) => (
+                <span
+                  key={t}
+                  className="rounded-full border border-white/16 bg-white/8 px-3.5 py-1.5 font-arabic text-[11.5px] text-white/85 backdrop-blur-md"
+                  style={{ transform: `translateY(calc((1 - var(--p)) * ${16 + i * 8}px))` }}
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+
+            <p
+              className="mt-6 max-w-[18rem] text-center font-arabic text-[12.5px] leading-relaxed text-white/70"
+              style={{ opacity: "var(--d)" }}
+            >
+              {ar ? "أسرار كنيستك، أخبارها، وخدماتها… في مكان واحد" : "One calm place for your parish life"}
+            </p>
+          </Center>
+        </Stage>
+      </Section>
+
+      {/* ── scene 5 — Alpha Connect ────────────────────────── */}
+      <Section>
+        <Stage>
+          <Plate src={intro5} alt="تواصل ومحادثات داخل مجتمع ألفا" depth={1.1} />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-[radial-gradient(circle_at_50%_58%,oklch(0.32_0.09_195/0.55),oklch(0.11_0.03_230/0.94))]"
+          />
+          <Center>
+            <div className="relative grid h-[220px] w-[220px] place-items-center">
+              {[0, 1, 2].map((i) => (
+                <span
+                  key={i}
+                  aria-hidden="true"
+                  className="absolute rounded-full border border-[oklch(0.86_0.13_190)/0.45]"
+                  style={{
+                    width: `${96 + i * 46}px`,
+                    height: `${96 + i * 46}px`,
+                    transform: `scale(calc(0.55 + var(--p) * ${0.6 + i * 0.22}))`,
+                    opacity: `calc((0.55 - ${i * 0.14}) * (0.3 + var(--c) * 0.7))`,
+                  }}
+                />
+              ))}
+              <div
+                style={{
+                  transform: "scale(calc(0.7 + var(--a) * 0.34))",
+                  filter: "blur(calc((1 - var(--a)) * 6px))",
+                }}
+              >
+                <Shield slug="messages-audio" size="lg" halo />
+              </div>
+            </div>
+
+            {/* live voice waveform driven by scroll */}
+            <div className="mt-6 flex h-10 items-end gap-1.5" aria-hidden="true">
+              {[6, 14, 22, 30, 18, 26, 10, 20, 32, 12].map((h, i) => (
+                <span
+                  key={i}
+                  className="w-1 rounded-full bg-[oklch(0.88_0.13_190)]"
+                  style={{
+                    height: `${h}px`,
+                    transform: `scaleY(calc(0.2 + var(--p) * ${0.9 + (i % 3) * 0.5}))`,
+                    opacity: "calc(0.35 + var(--p) * 0.65)",
+                  }}
+                />
+              ))}
+            </div>
+
+            <Line delay={0.34} className="mt-6">
+              <h2 className="text-center font-arabic text-[23px] font-semibold leading-snug text-white">
+                {ar ? "صوت واحد… ومجتمع قريب" : "One voice, one community"}
+              </h2>
+            </Line>
+            <p
+              className="mt-3 max-w-[18rem] text-center font-arabic text-[12.5px] leading-relaxed text-white/72"
+              style={{ opacity: "var(--d)" }}
+            >
+              {ar ? "قنوات، رسائل، وغرف صوتية للخدمة والاجتماع" : "Channels, messages and voice rooms"}
+            </p>
+          </Center>
+        </Stage>
+      </Section>
+
+      {/* ── scene 6 — the whole world of Alpha ─────────────── */}
+      <Section tall>
+        <Stage>
+          <Plate src={intro6} alt="أفق الفجر ورحلة ألفا" depth={0.7} dim />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,oklch(0.28_0.05_290/0.5),oklch(0.09_0.02_285/0.96))]"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[oklch(0.86_0.12_86)/0.3] blur-3xl"
+            style={{ opacity: "calc(0.1 + var(--p) * 0.7)" }}
+          />
+
+          <Center className="pointer-events-auto">
+            <div className="relative grid h-[330px] w-[330px] place-items-center">
+              {WORLDS.map((w, i) => {
+                const rad = (w.a * Math.PI) / 180;
+                const ux = Math.cos(rad);
+                const uy = Math.sin(rad);
+                return (
+                  <span
+                    key={`${w.slug}-${i}`}
+                    className="absolute"
+                    style={{
+                      transform:
+                        `translate(calc(${ux.toFixed(3)} * (250px - var(--p) * 168px)),` +
+                        ` calc(${uy.toFixed(3)} * (250px - var(--p) * 168px)))` +
+                        " scale(calc(0.5 + var(--p) * 0.42))",
+                      opacity: `calc(var(--p) * 2.6 - ${0.15 + i * 0.05})`,
+                      filter: "blur(calc((1 - var(--p)) * 4px))",
+                    }}
+                  >
+                    <Shield slug={w.slug} size="sm" />
+                  </span>
+                );
+              })}
+
+              {/* Alpha core */}
+              <div
+                className="relative grid h-28 w-28 place-items-center rounded-full border border-[oklch(0.86_0.12_86)/0.5] bg-white/8 backdrop-blur-xl"
+                style={{
+                  transform: "scale(calc(0.72 + var(--p) * 0.34))",
+                  boxShadow: "0 30px 80px -30px oklch(0.86 0.12 86 / 0.7)",
+                }}
+              >
+                <span className="font-display text-[46px] leading-none text-[oklch(0.95_0.06_88)]">ⲁ</span>
+              </div>
+            </div>
+
+            <div
+              className="mt-8 flex flex-col items-center"
+              style={{ opacity: "var(--d)", transform: "translateY(calc((1 - var(--d)) * 26px))" }}
+            >
+              <h2 className="text-center font-arabic text-[24px] font-semibold leading-snug text-white">
+                {ar ? "عالم ألفا كامل… في يدك" : "The whole world of Alpha"}
+              </h2>
+              <p className="mt-2 max-w-[19rem] text-center font-arabic text-[12.5px] leading-relaxed text-white/70">
+                {ar
+                  ? "المكتبة المسيحية، قسم الآباء، ألفا كيدز، والصوتيات والترانيم"
+                  : "Library, the Fathers, Alpha Kids, audio and hymns"}
+              </p>
+
+              <p
+                className="mt-7 flex items-center gap-2 font-manrope text-[8.5px] font-semibold tracking-[0.22em] uppercase text-white/60"
+                dir="ltr"
+              >
+                <span aria-hidden="true" className="font-display text-[14px] tracking-normal">
+                  Ⲁ
+                </span>
+                <span aria-hidden="true" className="h-px w-8 bg-white/30" />
+                <span>The Coptic Orthodox Digital Home</span>
+                <span aria-hidden="true" className="h-px w-8 bg-white/30" />
+                <span aria-hidden="true" className="font-display text-[14px] tracking-normal">
+                  Ⲱ
+                </span>
+              </p>
+
+              <button
+                type="button"
+                onClick={() => void navigate({ to: "/signup" })}
+                className="press mt-8 rounded-2xl border border-[oklch(0.86_0.12_86)/0.6] bg-[oklch(0.86_0.12_86)] px-9 py-3.5 font-arabic text-[14.5px] font-semibold text-[oklch(0.2_0.03_285)] shadow-[0_22px_50px_-22px_oklch(0.86_0.12_86/0.8)]"
+              >
+                {COPY.start[ar ? "ar" : "en"]}
+              </button>
+            </div>
+          </Center>
+        </Stage>
+      </Section>
+
+      {/* breathing room so the last scene can finish its arc */}
+      <div className="h-[10vh]" />
+    </div>
+  );
+}
+
+/* ── stage primitives ───────────────────────────────────────── */
+
+function Section({ children, tall = false }: { children: ReactNode; tall?: boolean }) {
+  return <section className={tall ? "relative h-[320vh]" : "relative h-[260vh]"}>{children}</section>;
+}
+
+function Stage({ children }: { children: ReactNode }) {
+  return (
+    <div
+      data-stage
+      className="sticky top-0 h-[100svh] w-full overflow-hidden [will-change:transform]"
+      style={{ ["--p" as string]: 0, ["--a" as string]: 0, ["--c" as string]: 0, ["--d" as string]: 0 }}
+    >
+      {children}
+    </div>
+  );
+}
+
+/** Full-bleed photographic plate with scroll-linked parallax, zoom and blur. */
+function Plate({
+  src,
+  alt,
+  depth = 1,
+  dim = false,
+}: {
+  src: string;
+  alt: string;
+  depth?: number;
+  dim?: boolean;
+}) {
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={`absolute inset-0 h-full w-full object-cover ${dim ? "opacity-55" : "opacity-80"}`}
+      style={{
+        transform:
+          `scale(calc(1.16 + var(--p) * ${(0.16 * depth).toFixed(3)}))` +
+          ` translate3d(0, calc(var(--p) * ${(-46 * depth).toFixed(1)}px), 0)`,
+        filter: "blur(calc(var(--p) * 3px)) saturate(1.05)",
+        willChange: "transform",
+      }}
+    />
+  );
+}
+
+function Veil({ tone = "oklch(0.13_0.02_285)", strength = 0.8 }: { tone?: string; strength?: number }) {
+  return (
+    <div
+      aria-hidden="true"
+      className="absolute inset-0"
+      style={{
+        background: `linear-gradient(to bottom, ${tone.replaceAll("_", " ")} 0%, transparent 32%, ${tone.replaceAll("_", " ")} 88%)`,
+        opacity: strength,
+      }}
+    />
+  );
+}
+
+function Center({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return (
+    <div className="safe-top safe-bottom pointer-events-none absolute inset-0 flex items-center justify-center px-7">
+      <div className={`flex w-full max-w-[430px] flex-col items-center ${className}`}>{children}</div>
+    </div>
+  );
+}
+
+/** Text block whose reveal is tied to the scroll, not to a timer. */
+function Line({
   children,
   delay = 0,
   className = "",
@@ -65,509 +693,31 @@ function Reveal({
   className?: string;
 }) {
   return (
-    <div className={`intro-lift ${className}`} style={{ animationDelay: `${delay}ms` } as CSSProperties}>
+    <div
+      className={className}
+      style={{
+        opacity: `calc((var(--p) - ${delay}) * 4.5)`,
+        transform: `translateY(calc((1 - var(--a)) * 26px))`,
+        filter: "blur(calc((1 - var(--a)) * 4px))",
+      }}
+    >
       {children}
     </div>
   );
 }
 
-function Kicker({ children }: { children: string }) {
+function SoundIcon({ on }: { on: boolean }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.85_0.09_86/0.5)] bg-[oklch(0.98_0.02_86/0.12)] px-3.5 py-1.5 font-manrope text-[9.5px] font-semibold tracking-[0.26em] text-[oklch(0.93_0.06_86)] uppercase backdrop-blur-md">
-      <span aria-hidden="true" className="font-display text-[12px] tracking-normal">
-        ⲁ
-      </span>
-      {children}
-    </span>
-  );
-}
-
-/**
- * Full-bleed cinematic stage shared by every scene:
- * image → ken-burns, gilded bloom, deep bottom scrim, then content.
- */
-function Stage({
-  image,
-  alt,
-  eager,
-  kicker,
-  title,
-  body,
-  children,
-  footer,
-}: {
-  image: string;
-  alt: string;
-  eager?: boolean;
-  kicker: string;
-  title: string;
-  body: string;
-  children?: ReactNode;
-  footer?: ReactNode;
-}) {
-  return (
-    <div className="absolute inset-0 overflow-hidden bg-[oklch(0.16_0.02_290)]">
-      <img
-        src={image}
-        alt={alt}
-        width={1024}
-        height={1280}
-        loading={eager ? "eager" : "lazy"}
-        className="intro-kenburns absolute inset-0 h-full w-full object-cover"
-      />
-
-      {/* cinematic scrims — top breath, deep bottom bed for the copy */}
-      <div className="intro-veil absolute inset-0 bg-gradient-to-b from-[oklch(0.16_0.02_290/0.55)] via-[oklch(0.16_0.02_290/0.1)] to-[oklch(0.13_0.02_290/0.92)]" />
-      <div className="intro-veil absolute inset-x-0 bottom-0 h-[62%] bg-gradient-to-t from-[oklch(0.12_0.02_290/0.96)] via-[oklch(0.13_0.02_290/0.7)] to-transparent" />
-      {/* gilded bloom */}
-      <span
-        aria-hidden="true"
-        className="intro-glow-pulse pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[oklch(0.82_0.11_86/0.28)] blur-3xl"
-      />
-
-      {/* content — sits on the deep bed, never cramped */}
-      <div className="absolute inset-x-0 bottom-0 flex flex-col px-6 pb-[124px]">
-        {children ? <div className="mb-5">{children}</div> : null}
-
-        <Reveal delay={60}>{<Kicker>{kicker}</Kicker>}</Reveal>
-
-        <Reveal delay={170}>
-          <h2 className="mt-4 max-w-[330px] font-display text-[31px] leading-[1.22] font-semibold tracking-tight text-white">
-            {title}
-          </h2>
-        </Reveal>
-
-        <Reveal delay={280}>
-          <p className="mt-3 max-w-[330px] font-manrope text-[13px] leading-[1.9] text-white/70">{body}</p>
-        </Reveal>
-
-        {footer ? <Reveal delay={390}>{footer}</Reveal> : null}
-
-        <Reveal delay={480}>
-          <span aria-hidden="true" className="mt-5 block h-px w-20 bg-[oklch(0.85_0.09_86/0.55)]" />
-        </Reveal>
-      </div>
-    </div>
-  );
-}
-
-/* small glass modules, each with its own staggered entrance */
-
-function GlassChips({ items, delay = 0 }: { items: string[]; delay?: number }) {
-  return (
-    <ul className="grid grid-cols-2 gap-2">
-      {items.map((n, i) => (
-        <li
-          key={n}
-          className="intro-lift flex items-center gap-2 rounded-2xl border border-white/15 bg-white/8 px-3 py-2 font-manrope text-[11px] font-semibold text-white/88 backdrop-blur-md"
-          style={{ animationDelay: `${delay + i * 90}ms` } as CSSProperties}
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-[oklch(0.85_0.1_86)]" />
-          {n}
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-/* ── scene 1 · cathedral light ──────────────────────────────── */
-
-function SceneLight({ ar }: SceneProps) {
-  return (
-    <Stage
-      eager
-      image={intro1}
-      alt="نور الفجر يعبر نافذة الكنيسة وحمامة بيضاء"
-      kicker={ar ? "ألفا · ⲁ ⲱ" : "ALPHA · ⲁ ⲱ"}
-      title={ar ? "ألفا — البيت الرقمي المسيحي" : "Alpha — your Christian digital home"}
-      body={
-        ar
-          ? "كل ما يخصّ حياتك المسيحية في مكان واحد هادئ وجميل: كلمة الله، صلواتك، كنيستك، ومجتمعك."
-          : "Everything in your Christian life gathered in one calm, beautiful place: the Word, your prayers, your church, your people."
-      }
-    >
-      <Reveal>
-        <div className="relative mx-auto grid h-24 w-24 place-items-center rounded-full border border-[oklch(0.85_0.09_86/0.55)] bg-[oklch(0.16_0.02_290/0.45)] shadow-[0_22px_60px_-20px_oklch(0.82_0.11_86/0.55)] backdrop-blur-xl">
-          <span className="absolute inset-2 rounded-full border border-[oklch(0.9_0.08_86/0.45)]" />
-          <span className="font-display text-[36px] leading-none text-[oklch(0.92_0.09_86)]">ⲁ</span>
-        </div>
-      </Reveal>
-    </Stage>
-  );
-}
-
-/* ── scene 2 · the Word ─────────────────────────────────────── */
-
-function SceneBible({ ar }: SceneProps) {
-  return (
-    <Stage
-      image={intro2}
-      alt="مخطوط مزخرَف بماء الذهب على رقّ"
-      kicker={ar ? "كلمة الله" : "The Word"}
-      title={ar ? "الكتاب المقدس بين يديك" : "Scripture in your hands"}
-      body={
-        ar
-          ? "اقرأ، تأمّل، ظلّل، وابحث في كل الأسفار — واحفظ الآيات التي لمست قلبك لتعود إليها."
-          : "Read, reflect, highlight and search every book — and keep the verses that moved you."
-      }
-      footer={
-        <div className="mt-5">
-          <GlassChips
-            delay={430}
-            items={
-              ar
-                ? ["قراءة يومية", "تأمّل وتظليل", "بحث ذكي", "حفظ الآيات"]
-                : ["Daily reading", "Highlight & reflect", "Smart search", "Save verses"]
-            }
-          />
-        </div>
-      }
-    >
-      <Reveal>
-        <figure className="relative overflow-hidden rounded-[24px] border border-[oklch(0.85_0.09_86/0.35)] bg-white/6 px-5 py-4 backdrop-blur-md">
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-linear-to-r from-transparent via-white/35 to-transparent blur-md"
-            style={{ animation: "intro-sweep 3.2s cubic-bezier(0.19,1,0.22,1) 0.6s both" } as CSSProperties}
-          />
-          <blockquote className="relative font-display text-[16px] leading-relaxed text-white/95">
-            {ar ? "«سِراجٌ لِرِجْلي كلامُك»" : "“Your word is a lamp to my feet”"}
-          </blockquote>
-          <figcaption className="relative mt-1.5 font-manrope text-[9.5px] tracking-[0.22em] text-[oklch(0.88_0.09_86)] uppercase">
-            {ar ? "مزمور 119 : 105" : "Psalm 119:105"}
-          </figcaption>
-        </figure>
-      </Reveal>
-    </Stage>
-  );
-}
-
-/* ── scene 3 · spiritual rhythm ─────────────────────────────── */
-
-function SceneSpiritual({ ar }: SceneProps) {
-  const arches = ar
-    ? [
-        { g: "ⲁ", t: "الأجبية", s: "سبع صلوات" },
-        { g: "❖", t: "القطمارس", s: "قراءات اليوم" },
-        { g: "✦", t: "السنكسار", s: "سيرة القديسين" },
-        { g: "☩", t: "الخولاجي", s: "القداس الإلهي" },
-      ]
-    : [
-        { g: "ⲁ", t: "Agpeya", s: "Seven hours" },
-        { g: "❖", t: "Katameros", s: "Daily readings" },
-        { g: "✦", t: "Synaxarium", s: "Lives of saints" },
-        { g: "☩", t: "Khoulagy", s: "Divine liturgy" },
-      ];
-  return (
-    <Stage
-      image={intro3}
-      alt="شموع مضاءة أمام حجاب الأيقونات الذهبي"
-      kicker={ar ? "الحياة الروحية" : "Spiritual life"}
-      title={ar ? "صلواتك وطقسك في نظام واحد" : "Your prayers, one rhythm"}
-      body={
-        ar
-          ? "الأجبية والقطمارس والسنكسار والخولاجي — بترتيب الكنيسة، بقراءة مريحة، وبتمرير تلقائي هادئ."
-          : "Agpeya, Katameros, Synaxarium and Khoulagy — in the Church's order, with calm guided reading."
-      }
-      footer={
-        <div className="mt-5 grid grid-cols-4 gap-2.5">
-          {arches.map((a, i) => (
-            <div
-              key={a.t}
-              className="intro-lift rounded-t-[34px] rounded-b-2xl border border-[oklch(0.85_0.09_86/0.32)] bg-white/8 px-1.5 pt-4 pb-3 text-center backdrop-blur-md"
-              style={{ animationDelay: `${420 + i * 90}ms` } as CSSProperties}
-            >
-              <span className="font-display text-[19px] text-[oklch(0.89_0.09_86)]">{a.g}</span>
-              <p className="mt-2 font-manrope text-[10px] leading-tight font-semibold text-white">{a.t}</p>
-              <p className="mt-0.5 font-manrope text-[8px] leading-tight text-white/55">{a.s}</p>
-            </div>
-          ))}
-        </div>
-      }
-    />
-  );
-}
-
-/* ── scene 4 · church & community ───────────────────────────── */
-
-function SceneCommunity({ ar }: SceneProps) {
-  const stats = ar
-    ? [
-        { n: "480+", l: "عضو" },
-        { n: "12", l: "خدمة" },
-        { n: "6", l: "مناسبة" },
-      ]
-    : [
-        { n: "480+", l: "members" },
-        { n: "12", l: "services" },
-        { n: "6", l: "events" },
-      ];
-  return (
-    <Stage
-      image={intro4}
-      alt="أسرة وأعضاء الكنيسة في فِناء الكنيسة وقت الغروب"
-      kicker={ar ? "الكنيسة والمجتمع" : "Church & community"}
-      title={ar ? "كنيستك معاك في جيبك" : "Your church, always with you"}
-      body={
-        ar
-          ? "أخبار الكنيسة، مواعيد القداسات، الخدمات والمناسبات، وتفاعل حقيقي مع أسرتك الكنسية."
-          : "Church news, liturgy times, services and events — with real, warm interaction."
-      }
-      footer={
-        <div className="intro-lift mt-5 flex items-center justify-between rounded-[24px] border border-white/14 bg-white/8 px-4 py-3 backdrop-blur-md" style={{ animationDelay: "430ms" } as CSSProperties}>
-          <div className="flex -space-x-2 space-x-reverse">
-            {["م", "ب", "ي", "+9"].map((c) => (
-              <span
-                key={c}
-                className="grid h-8 w-8 place-items-center rounded-full border-2 border-white/70 bg-[oklch(0.55_0.06_296)] font-manrope text-[10px] font-bold text-white"
-              >
-                {c}
-              </span>
-            ))}
-          </div>
-          <div className="flex gap-3.5">
-            {stats.map((s) => (
-              <div key={s.l} className="text-center">
-                <p className="font-display text-[16px] font-semibold text-[oklch(0.9_0.09_86)]">{s.n}</p>
-                <p className="font-manrope text-[8.5px] tracking-wide text-white/60">{s.l}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      }
-    />
-  );
-}
-
-/* ── scene 5 · Alpha Connect ────────────────────────────────── */
-
-function SceneConnect({ ar }: SceneProps) {
-  const bubbles = ar
-    ? ["قناة الخدام · 4 متصلين", "رسالة مشفَّرة · تُحذف تلقائيًا", "اضغط للتحدث"]
-    : ["Servants channel · 4 live", "Encrypted · auto-delete", "Push to talk"];
-  return (
-    <Stage
-      image={intro5}
-      alt="أمواج صوتية ذهبية وفيروزية على خلفية ليلية"
-      kicker={ar ? "ألفا كونكت" : "Alpha Connect"}
-      title={ar ? "تواصل صوتي ورسائل بأمان" : "Voice and messages, kept safe"}
-      body={
-        ar
-          ? "قنوات صوتية، اضغط للتحدث، مجموعات ورسائل مشفَّرة بالحذف التلقائي — بدون فيديو، وبخصوصية كاملة."
-          : "Voice channels, push-to-talk, groups and encrypted messages with auto-delete — voice only, fully private."
-      }
-    >
-      <div className="space-y-4">
-        <Reveal>
-          <div className="relative grid place-items-center">
-            <span className="absolute h-36 w-36 animate-[engage-halo_2.8s_ease-out_infinite] rounded-full border border-[oklch(0.82_0.13_180/0.35)]" />
-            <span className="absolute h-26 w-26 rounded-full border border-[oklch(0.82_0.13_180/0.5)]" />
-            <div className="relative grid h-20 w-20 place-items-center rounded-full border border-[oklch(0.85_0.09_86/0.6)] bg-[oklch(0.82_0.13_180/0.16)] shadow-[0_0_60px_-8px_oklch(0.82_0.13_180/0.6)] backdrop-blur-md">
-              <span className="font-display text-[13px] font-semibold tracking-wide text-white">
-                {ar ? "اضغط" : "TALK"}
-              </span>
-            </div>
-          </div>
-        </Reveal>
-
-        <div className="space-y-2">
-          {bubbles.map((b, i) => (
-            <div
-              key={b}
-              className={`intro-lift w-fit rounded-2xl border border-white/16 bg-white/10 px-4 py-2 font-manrope text-[11px] text-white/90 backdrop-blur-md ${
-                i === 1 ? "ms-auto" : i === 2 ? "mx-auto" : ""
-              }`}
-              style={{ animationDelay: `${140 + i * 100}ms` } as CSSProperties}
-            >
-              {b}
-            </div>
-          ))}
-        </div>
-      </div>
-    </Stage>
-  );
-}
-
-/* ── scene 6 · the journey ──────────────────────────────────── */
-
-function SceneJourney({ ar, onStart }: SceneProps & { onStart: () => void }) {
-  const steps = ar
-    ? ["صلاة الصباح", "قراءة اليوم", "قديس اليوم", "خدمة ومحبة"]
-    : ["Morning prayer", "Today's reading", "Saint of the day", "Serve in love"];
-  return (
-    <Stage
-      image={intro6}
-      alt="طريق يصعد إلى كنيسة صغيرة عند شروق الشمس"
-      kicker={ar ? "رحلتك مع ألفا" : "Your journey"}
-      title={ar ? "رفيقك في كل يوم" : "A companion for every day"}
-      body={
-        ar
-          ? "خطوة صغيرة كل يوم — صلاة، آية، وقديس يشجّعك. ألفا يسير معك في رحلتك المسيحية."
-          : "One small step each day — a prayer, a verse, a saint. Alpha walks with you."
-      }
-      footer={
-        <button
-          type="button"
-          onClick={onStart}
-          className="press intro-lift relative mt-5 w-full overflow-hidden rounded-2xl border border-[oklch(0.85_0.09_86/0.6)] bg-linear-to-b from-[oklch(0.88_0.1_86/0.35)] to-[oklch(0.78_0.1_84/0.2)] py-3.5 font-manrope text-[13.5px] font-semibold text-white shadow-[0_0_34px_-6px_oklch(0.84_0.12_86/0.8)] backdrop-blur-md"
-          style={{ animationDelay: "430ms" } as CSSProperties}
-        >
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-linear-to-r from-transparent via-white/45 to-transparent"
-            style={{ animation: "intro-sweep 3s ease-in-out infinite" } as CSSProperties}
-          />
-          <span className="relative">{ar ? T.start.ar : T.start.en}</span>
-        </button>
-      }
-    >
-      <ol className="ms-2 space-y-3 border-s border-dashed border-[oklch(0.85_0.09_86/0.5)] ps-5">
-        {steps.map((s, i) => (
-          <li
-            key={s}
-            className="intro-lift relative font-manrope text-[11.5px] font-semibold text-white/88"
-            style={{ animationDelay: `${100 + i * 100}ms` } as CSSProperties}
-          >
-            <span className="absolute -start-[26px] top-1 grid h-3 w-3 place-items-center rounded-full border border-[oklch(0.88_0.09_86)] bg-[oklch(0.16_0.02_290)]">
-              <span className="h-1 w-1 rounded-full bg-[oklch(0.9_0.09_86)]" />
-            </span>
-            {s}
-          </li>
-        ))}
-      </ol>
-    </Stage>
-  );
-}
-
-/* ── shell · swipe + gilded segment progress ────────────────── */
-
-function IntroScreen() {
-  const { lang } = useLang();
-  const ar = lang === "ar";
-  const navigate = useNavigate();
-  const [i, setI] = useState(0);
-  const start = useRef<number | null>(null);
-  const total = 6;
-
-  const goTo = (n: number) => {
-    const next = Math.max(0, Math.min(total - 1, n));
-    if (next !== i) setI(next);
-  };
-  const finish = () => navigate({ to: "/signup" });
-
-  /* RTL: swiping right (positive dx) moves forward. */
-  const onDown = (e: RPointerEvent) => {
-    start.current = e.clientX;
-  };
-  const onUp = (e: RPointerEvent) => {
-    if (start.current === null) return;
-    const dx = e.clientX - start.current;
-    start.current = null;
-    if (Math.abs(dx) < 48) return;
-    const forward = ar ? dx > 0 : dx < 0;
-    if (forward) {
-      if (i === total - 1) finish();
-      else goTo(i + 1);
-    } else goTo(i - 1);
-  };
-
-  const scenes = [
-    <SceneLight key="s1" ar={ar} index={0} />,
-    <SceneBible key="s2" ar={ar} index={1} />,
-    <SceneSpiritual key="s3" ar={ar} index={2} />,
-    <SceneCommunity key="s4" ar={ar} index={3} />,
-    <SceneConnect key="s5" ar={ar} index={4} />,
-    <SceneJourney key="s6" ar={ar} index={5} onStart={finish} />,
-  ];
-
-  return (
-    <Screen withBottomNav={false} className="bg-[oklch(0.13_0.02_290)]">
-      {/* full-height, edge-to-edge cinematic stage */}
-      <div
-        className="relative mx-auto h-screen min-h-screen w-full max-w-[430px] touch-pan-y overflow-hidden select-none"
-        onPointerDown={onDown}
-        onPointerUp={onUp}
-      >
-        <div key={i} className="absolute inset-0">
-          {scenes[i]}
-        </div>
-
-        {/* top chrome — Alpha mark + skip */}
-        <div className="safe-top absolute inset-x-0 top-0 z-20 flex items-center justify-between px-5 pt-3">
-          <span className="font-display text-[15px] leading-none text-[oklch(0.92_0.09_86)]" aria-hidden="true">
-            ⲁ
-          </span>
-          <Link to="/signup" className="font-manrope text-[11px] font-semibold tracking-wide text-white/70">
-            {ar ? T.skip.ar : T.skip.en}
-          </Link>
-        </div>
-
-        {/* bottom chrome — controls + gilded segment rail */}
-        <div className="safe-bottom absolute inset-x-0 bottom-0 z-20 px-5 pb-3">
-          {i < total - 1 && (
-            <div className="mb-3 flex items-center gap-3">
-              <button
-                type="button"
-                onClick={() => goTo(i + 1)}
-                className="press relative flex items-center gap-2 overflow-hidden rounded-full border border-[oklch(0.85_0.09_86/0.7)] bg-linear-to-b from-[oklch(0.88_0.1_86/0.35)] to-[oklch(0.78_0.1_84/0.2)] px-6 py-2.5 font-manrope text-[12.5px] font-semibold text-white shadow-[0_0_30px_-6px_oklch(0.84_0.12_86/0.85)] backdrop-blur-md"
-              >
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-linear-to-r from-transparent via-white/50 to-transparent"
-                  style={{ animation: "intro-sweep 3s ease-in-out infinite" } as CSSProperties}
-                />
-                <span className="relative">{ar ? T.next.ar : T.next.en}</span>
-                <span aria-hidden="true" className="relative text-[14px] leading-none">
-                  {ar ? "‹" : "›"}
-                </span>
-              </button>
-              <button
-                type="button"
-                onClick={() => goTo(i - 1)}
-                disabled={i === 0}
-                className="ms-auto font-manrope text-[12px] font-semibold text-white/65 transition-opacity disabled:opacity-0"
-              >
-                {ar ? T.back.ar : T.back.en}
-              </button>
-            </div>
-          )}
-
-          {/* segment rail: each scene owns a gilded capsule that fills */}
-          <div className="flex items-center gap-1.5">
-            {Array.from({ length: total }).map((_, n) => (
-              <button
-                key={n}
-                type="button"
-                aria-label={`${ar ? "مشهد" : "Scene"} ${n + 1}`}
-                aria-current={n === i}
-                onClick={() => goTo(n)}
-                className={`relative h-[3px] overflow-hidden rounded-full bg-white/16 transition-all duration-500 ${
-                  n === i ? "flex-[2.2]" : "flex-1"
-                }`}
-              >
-                {n <= i ? (
-                  <span
-                    className={`absolute inset-0 rounded-full bg-linear-to-r from-[oklch(0.8_0.1_84)] via-[oklch(0.94_0.1_88)] to-[oklch(0.8_0.1_84)] ${
-                      n === i ? "intro-seg-fill" : ""
-                    } ${n === i ? "shadow-[0_0_14px_1px_oklch(0.88_0.12_86/0.9)]" : "opacity-70"}`}
-                    style={{ transformOrigin: ar ? "right center" : "left center" } as CSSProperties}
-                  />
-                ) : null}
-              </button>
-            ))}
-          </div>
-
-          <p className="mt-2 text-center font-manrope text-[8px] font-semibold tracking-[0.24em] text-white/35 uppercase">
-            <span aria-hidden="true" className="font-display">
-              ⲁ
-            </span>{" "}
-            {ar ? "— البيت القبطي الأرثوذكسي الرقمي —" : "— The Coptic Orthodox Digital Home —"}{" "}
-            <span aria-hidden="true" className="font-display">
-              ⲱ
-            </span>
-          </p>
-        </div>
-      </div>
-    </Screen>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round">
+      <path d="M4 9.5h3L11 6v12l-4-3.5H4z" />
+      {on ? (
+        <>
+          <path d="M15 9.2a4 4 0 0 1 0 5.6" />
+          <path d="M17.6 6.6a7.6 7.6 0 0 1 0 10.8" />
+        </>
+      ) : (
+        <path d="M15.5 9.5l5 5m0-5l-5 5" />
+      )}
+    </svg>
   );
 }
