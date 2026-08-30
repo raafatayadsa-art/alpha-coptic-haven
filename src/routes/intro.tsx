@@ -1,12 +1,12 @@
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
-import intro1 from "@/assets/intro/intro-1-home.jpg";
-import intro2 from "@/assets/intro/intro-2-bible.jpg";
-import intro3 from "@/assets/intro/intro-3-spiritual.jpg";
-import intro4 from "@/assets/intro/intro-4-community.jpg";
-import intro5 from "@/assets/intro/intro-5-connect.jpg";
-import intro6 from "@/assets/intro/intro-6-journey.jpg";
+import intro1 from "@/assets/intro/copt-1-identity.jpg";
+import intro2 from "@/assets/intro/copt-2-word.jpg";
+import intro3 from "@/assets/intro/copt-3-prayer.jpg";
+import intro4 from "@/assets/intro/copt-4-church.jpg";
+import intro5 from "@/assets/intro/copt-5-connect.jpg";
+import intro6 from "@/assets/intro/copt-6-world.jpg";
 import { Shield } from "@/components/church/Shield";
 import { useLang } from "@/lib/i18n";
 import { disposeAmbient, fadeAmbient, startAmbient } from "@/lib/ambient-audio";
@@ -95,17 +95,25 @@ function IntroExperience() {
   const [sound, setSound] = useState(false);
   const armed = useRef(false);
 
-  /* scroll → CSS variables (single rAF, no React re-render per frame) */
+  /* scroll → CSS variables, smoothed (single rAF, no React re-render per frame)
+   *
+   * The raw scroll position is the target; a critically damped lerp follows it,
+   * so every move is silky and very slow to settle — scroll down advances,
+   * stopping freezes, scrolling up reverses along the same curve. */
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
     const stages = Array.from(root.querySelectorAll<HTMLElement>("[data-stage]"));
     let raf = 0;
     let current = -1;
+    let smooth = window.scrollY;
 
     const paint = () => {
-      raf = 0;
       const vh = window.innerHeight;
+      const target = window.scrollY;
+      smooth += (target - smooth) * 0.085;
+      if (Math.abs(target - smooth) < 0.25) smooth = target;
+      const shift = smooth - target; // px offset of the eased playhead
       let best = 0;
       let bestArea = 0;
 
@@ -113,15 +121,15 @@ function IntroExperience() {
         const section = stage.parentElement!;
         const rect = section.getBoundingClientRect();
         const span = Math.max(1, rect.height - vh);
-        const p = clamp(-rect.top / span);
+        const p = clamp((-rect.top + shift) / span);
 
-        const visible = rect.bottom > 0 && rect.top < vh;
+        const visible = rect.bottom > -vh * 0.2 && rect.top < vh * 1.2;
         stage.style.visibility = visible ? "visible" : "hidden";
         if (!visible) return;
 
         stage.style.setProperty("--p", p.toFixed(4));
-        stage.style.setProperty("--a", ease(clamp(p / 0.45)).toFixed(4));
-        stage.style.setProperty("--d", ease(clamp((p - 0.62) / 0.34)).toFixed(4));
+        stage.style.setProperty("--a", ease(clamp(p / 0.5)).toFixed(4));
+        stage.style.setProperty("--d", ease(clamp((p - 0.58) / 0.38)).toFixed(4));
         stage.style.setProperty("--c", (1 - Math.abs(p - 0.5) * 2).toFixed(4));
 
         const area = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
@@ -132,13 +140,16 @@ function IntroExperience() {
       });
 
       const total = document.documentElement.scrollHeight - vh;
+      const vp = clamp(smooth / Math.max(1, total));
       if (railRef.current) {
-        railRef.current.style.transform = `scaleX(${clamp(window.scrollY / Math.max(1, total)).toFixed(4)})`;
+        railRef.current.style.setProperty("--vp", vp.toFixed(4));
       }
       if (best !== current) {
         current = best;
         setActive(best);
       }
+
+      raf = smooth === target ? 0 : window.requestAnimationFrame(paint);
     };
 
     const onScroll = () => {
@@ -202,32 +213,50 @@ function IntroExperience() {
         </div>
       </div>
 
-      {/* progress */}
-      <div className="safe-bottom pointer-events-none fixed inset-x-0 bottom-0 z-50">
-        <div className="mx-auto w-full max-w-[430px] px-6 pb-3">
-          <div className="mb-2 flex items-center justify-center gap-1.5">
-            {[0, 1, 2, 3, 4, 5].map((i) => (
+      {/* vertical progress indicator — gold stages that light up with the scroll */}
+      <div
+        ref={railRef}
+        aria-hidden="true"
+        className="pointer-events-none fixed top-1/2 z-50 -translate-y-1/2 ltr:right-3 rtl:left-3"
+        style={{ ["--vp" as string]: 0 }}
+      >
+        <div className="relative flex flex-col items-center gap-3">
+          <span className="sr-only" aria-live="polite">{`${active + 1} / 6`}</span>
+          {/* track */}
+          <span className="absolute inset-y-1 left-1/2 w-px -translate-x-1/2 bg-white/12" />
+          {/* filled portion */}
+          <span
+            className="absolute inset-y-1 left-1/2 w-px origin-top -translate-x-1/2 bg-gradient-to-b from-[oklch(0.88_0.12_86)] via-[oklch(0.86_0.12_86)] to-[oklch(0.86_0.12_86)]/30"
+            style={{ transform: "translateX(-50%) scaleY(var(--vp))" }}
+          />
+          {[0, 1, 2, 3, 4, 5].map((i) => (
+            <span key={i} className="relative grid h-3 w-3 place-items-center">
               <span
-                key={i}
-                className={`h-1 rounded-full transition-all duration-500 ${
-                  i === active ? "w-6 bg-[oklch(0.82_0.11_84)]" : "w-1.5 bg-white/25"
-                }`}
+                className="absolute h-3 w-3 rounded-full bg-[oklch(0.86_0.12_86)]/25 blur-[3px]"
+                style={{ opacity: `calc((var(--vp) * 6 - ${i}) * 1.4)` }}
               />
-            ))}
-          </div>
-          <div className="h-px w-full overflow-hidden bg-white/12">
-            <div
-              ref={railRef}
-              className="h-full w-full origin-[right_center] bg-gradient-to-l from-[oklch(0.86_0.12_86)] to-[oklch(0.86_0.12_86)/20] rtl:origin-[right_center] ltr:origin-[left_center]"
-              style={{ transform: "scaleX(0)" }}
-            />
-          </div>
+              <span
+                className="absolute h-[5px] w-[5px] rounded-full bg-white/25"
+                style={{ opacity: `calc(1 - (var(--vp) * 6 - ${i}) * 2)` }}
+              />
+              <span
+                className="absolute rounded-full bg-[oklch(0.9_0.11_87)] shadow-[0_0_10px_oklch(0.86_0.12_86/0.7)]"
+                style={{
+                  opacity: `calc((var(--vp) * 6 - ${i}) * 2)`,
+                  height: "6px",
+                  width: "6px",
+                  transform: `scale(calc(0.6 + min(1, max(0, var(--vp) * 6 - ${i})) * 0.6))`,
+                }}
+              />
+            </span>
+          ))}
         </div>
       </div>
 
+
       {/* ── scene 1 — Alpha identity ───────────────────────── */}
       <Section>
-        <Stage>
+        <Stage glyphs="ⲁⲱ">
           <Plate src={intro1} alt="نور الفجر داخل كنيسة قبطية" />
           <Veil />
           {/* light shaft bloom */}
@@ -283,7 +312,7 @@ function IntroExperience() {
 
       {/* ── scene 2 — the Word ─────────────────────────────── */}
       <Section>
-        <Stage>
+        <Stage glyphs="ⲭⲣ">
           <Plate src={intro2} alt="الكتاب المقدس مفتوح على مكتب خشبي" depth={1.2} />
           <Veil tone="oklch(0.14_0.02_280)" strength={0.9} />
           <Center>
@@ -330,7 +359,7 @@ function IntroExperience() {
 
       {/* ── scene 3 — prayer & spiritual life ──────────────── */}
       <Section>
-        <Stage>
+        <Stage glyphs="ⲑⲥ">
           <Plate src={intro3} alt="شموع وصلاة في هدوء الكنيسة" depth={0.9} />
           <Veil tone="oklch(0.13_0.03_265)" strength={0.72} />
           <Center>
@@ -395,7 +424,7 @@ function IntroExperience() {
 
       {/* ── scene 4 — church & community ───────────────────── */}
       <Section>
-        <Stage>
+        <Stage glyphs="ⲡⲛ">
           <Plate src={intro4} alt="مجتمع كنيسة قبطية أرثوذكسية في مصر" depth={1.35} />
           <Veil tone="oklch(0.14_0.02_290)" strength={0.86} />
 
@@ -458,7 +487,7 @@ function IntroExperience() {
 
       {/* ── scene 5 — Alpha Connect ────────────────────────── */}
       <Section>
-        <Stage>
+        <Stage glyphs="ⲱⲁ">
           <Plate src={intro5} alt="تواصل ومحادثات داخل مجتمع ألفا" depth={1.1} />
           <div
             aria-hidden="true"
@@ -521,11 +550,11 @@ function IntroExperience() {
 
       {/* ── scene 6 — the whole world of Alpha ─────────────── */}
       <Section tall>
-        <Stage>
-          <Plate src={intro6} alt="أفق الفجر ورحلة ألفا" depth={0.7} dim />
+        <Stage glyphs="ⲭⲱ">
+          <Plate src={intro6} alt="قبة كنيسة قبطية مزخرفة بالذهب" depth={0.7} />
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,oklch(0.28_0.05_290/0.5),oklch(0.09_0.02_285/0.96))]"
+            className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,oklch(0.3_0.05_290/0.28),oklch(0.09_0.02_285/0.88))]"
           />
           <div
             aria-hidden="true"
@@ -582,20 +611,51 @@ function IntroExperience() {
                   : "Library, the Fathers, Alpha Kids, audio and hymns"}
               </p>
 
-              <p
-                className="mt-7 flex items-center gap-2 font-manrope text-[8.5px] font-semibold tracking-[0.22em] uppercase text-white/60"
-                dir="ltr"
+              {/* the slogan is lit, not faded in: warm gold bloom + gilded rules */}
+              <div
+                className="relative mt-8 flex flex-col items-center"
+                style={{ opacity: "calc((var(--p) - 0.66) * 3.2)" }}
               >
-                <span aria-hidden="true" className="font-display text-[14px] tracking-normal">
-                  Ⲁ
-                </span>
-                <span aria-hidden="true" className="h-px w-8 bg-white/30" />
-                <span>The Coptic Orthodox Digital Home</span>
-                <span aria-hidden="true" className="h-px w-8 bg-white/30" />
-                <span aria-hidden="true" className="font-display text-[14px] tracking-normal">
-                  Ⲱ
-                </span>
-              </p>
+                <span
+                  aria-hidden="true"
+                  className="absolute -inset-x-10 top-1/2 h-14 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,oklch(0.88_0.12_86/0.35),transparent_72%)] blur-xl"
+                  style={{ opacity: "calc((var(--p) - 0.7) * 3.6)" }}
+                />
+                <p
+                  className="relative flex w-max flex-nowrap items-center gap-2 whitespace-nowrap font-manrope text-[7.5px] font-semibold tracking-[0.18em] uppercase"
+                  dir="ltr"
+                  style={{
+                    color: "oklch(0.94 0.07 88)",
+                    textShadow:
+                      "0 0 14px oklch(0.88 0.12 86 / 0.45), 0 0 44px oklch(0.86 0.12 86 / 0.28), 0 1px 0 oklch(0.35 0.05 60 / 0.6)",
+                  }}
+                >
+                  <span aria-hidden="true" className="font-display text-[16px] leading-none tracking-normal">
+                    Ⲁ
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="h-px bg-gradient-to-r from-transparent to-[oklch(0.9_0.11_87)]"
+                    style={{ width: "calc(10px + (var(--p) - 0.66) * 46px)" }}
+                  />
+                  <span className="shrink-0">The Coptic Orthodox Digital Home</span>
+                  <span
+                    aria-hidden="true"
+                    className="h-px bg-gradient-to-l from-transparent to-[oklch(0.9_0.11_87)]"
+                    style={{ width: "calc(10px + (var(--p) - 0.66) * 46px)" }}
+                  />
+                  <span aria-hidden="true" className="font-display text-[16px] leading-none tracking-normal">
+                    Ⲱ
+                  </span>
+                </p>
+                {/* soft light reflection under the line */}
+                <span
+                  aria-hidden="true"
+                  className="mt-1.5 block h-3 w-40 scale-y-[-1] bg-[linear-gradient(to_bottom,oklch(0.9_0.11_87/0.2),transparent)] blur-[2px]"
+                  style={{ opacity: "calc((var(--p) - 0.76) * 3)" }}
+                />
+              </div>
+
 
               <button
                 type="button"
@@ -616,20 +676,44 @@ function IntroExperience() {
 /* ── stage primitives ───────────────────────────────────────── */
 
 function Section({ children, tall = false }: { children: ReactNode; tall?: boolean }) {
-  return <section className={tall ? "relative h-[320vh]" : "relative h-[260vh]"}>{children}</section>;
+  return <section className={tall ? "relative h-[420vh]" : "relative h-[320vh]"}>{children}</section>;
 }
 
-function Stage({ children }: { children: ReactNode }) {
+function Stage({ children, glyphs = "ⲭⲣ" }: { children: ReactNode; glyphs?: string }) {
+  const [g1, g2] = [glyphs[0] ?? "ⲭ", glyphs[1] ?? "ⲣ"];
   return (
     <div
       data-stage
       className="sticky top-0 h-screen w-full overflow-hidden [will-change:transform]"
       style={{ ["--p" as string]: 0, ["--a" as string]: 0, ["--c" as string]: 0, ["--d" as string]: 0 }}
     >
+      {/* faint Coptic letterforms drifting as light, never as readable copy */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-4 left-[-6%] font-display text-[210px] leading-none text-[oklch(0.9_0.08_88)]/[0.05] select-none"
+        style={{
+          transform: "translateY(calc(var(--p) * 90px)) rotate(calc(var(--p) * -4deg))",
+          opacity: "calc(0.35 + var(--c) * 0.65)",
+        }}
+      >
+        {g1}
+      </span>
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-[-8%] right-[-4%] font-display text-[180px] leading-none text-[oklch(0.9_0.08_88)]/[0.04] select-none"
+        style={{
+          transform: "translateY(calc(var(--p) * -70px)) rotate(calc(var(--p) * 5deg))",
+          opacity: "calc(0.3 + var(--c) * 0.6)",
+        }}
+      >
+        {g2}
+      </span>
       {children}
     </div>
+
   );
 }
+
 
 /** Full-bleed photographic plate with scroll-linked parallax, zoom and blur. */
 function Plate({
@@ -694,7 +778,7 @@ function Line({
     <div
       className={className}
       style={{
-        opacity: `calc((var(--p) - ${delay}) * 4.5)`,
+        opacity: `calc((var(--p) - ${delay}) * 2.6)`,
         transform: `translateY(calc((1 - var(--a)) * 26px))`,
         filter: "blur(calc((1 - var(--a)) * 4px))",
       }}
