@@ -376,14 +376,17 @@ function IntroExperience() {
           <Plate src={intro2} alt="الكتاب المقدس مفتوح على مكتب خشبي" depth={1.2} />
           <Veil tone="oklch(0.14_0.02_280)" strength={0.9} />
           <Center>
+            {/* light falling on the open page — the image tells the section */}
             <div
+              aria-hidden="true"
+              className="absolute inset-x-0 top-[8%] mx-auto h-[46%] w-[70%] bg-[radial-gradient(ellipse_at_top,oklch(0.94_0.09_88/0.45),transparent_72%)] blur-2xl"
               style={{
-                transform: "translateY(calc((1 - var(--a)) * 46px)) scale(calc(0.86 + var(--a) * 0.14))",
-                opacity: "var(--a)",
+                opacity: "calc(0.25 + var(--a) * 0.6)",
+                transform: "scaleY(calc(0.7 + var(--p) * 0.6))",
               }}
-            >
-              <Shield slug="bible" size="lg" halo />
-            </div>
+            />
+            <EdgeMark slug="bible" />
+
 
             <Line delay={0.3} className="mt-7">
               <h2 className="text-center font-arabic text-[24px] font-semibold leading-snug text-white">
@@ -449,25 +452,25 @@ function IntroExperience() {
               {SPIRITUAL.map((s, i) => (
                 <div
                   key={s.slug}
-                  className="absolute flex flex-col items-center gap-1.5"
+                  className="absolute"
                   style={
                     {
                       "--tx": `${s.x}px`,
                       "--ty": `${s.y}px`,
                       transform:
                         "translate(calc(var(--tx) * (0.35 + var(--p) * 0.65)), calc(var(--ty) * (0.35 + var(--p) * 0.65)))" +
-                        ` scale(calc(0.6 + var(--p) * 0.4)) rotate(calc((1 - var(--p)) * ${s.r}deg))`,
+                        ` scale(calc(0.72 + var(--p) * 0.28)) rotate(calc((1 - var(--p)) * ${s.r}deg))`,
                       opacity: `calc(var(--p) * 2.4 - ${i * 0.22})`,
                       filter: "blur(calc((1 - var(--p)) * 5px))",
                     } as CSSProperties
                   }
                 >
-                  <Shield slug={s.slug} size="md" />
-                  <span className="font-arabic text-[10.5px] font-semibold text-white/80">
+                  <span className="block rounded-full border border-[oklch(0.86_0.12_86)/35] bg-white/8 px-3 py-1.5 font-arabic text-[10.5px] font-semibold text-[oklch(0.95_0.05_88)] shadow-[0_10px_30px_-14px_oklch(0.86_0.12_86/0.6)] backdrop-blur-md">
                     {ar ? s.ar : s.en}
                   </span>
                 </div>
               ))}
+
             </div>
 
             <p
@@ -499,17 +502,8 @@ function IntroExperience() {
           />
 
           <Center>
-            <div
-              className="flex items-end gap-3"
-              style={{
-                transform: "translateY(calc((1 - var(--a)) * 40px))",
-                opacity: "var(--a)",
-              }}
-            >
-              <Shield slug="priest" size="md" />
-              <Shield slug="church" size="lg" halo />
-              <Shield slug="community" size="md" />
-            </div>
+            <EdgeMark slug="church" />
+
 
             <Line delay={0.3} className="mt-7">
               <h2 className="text-center font-arabic text-[23px] font-semibold leading-snug text-white">
@@ -569,13 +563,18 @@ function IntroExperience() {
                 />
               ))}
               <div
+                className="grid h-20 w-20 place-items-center rounded-full border border-[oklch(0.86_0.13_190)/45] bg-white/8 backdrop-blur-xl"
                 style={{
                   transform: "scale(calc(0.7 + var(--a) * 0.34))",
                   filter: "blur(calc((1 - var(--a)) * 6px))",
+                  boxShadow: "0 24px 60px -26px oklch(0.86 0.13 190 / 0.8)",
                 }}
               >
-                <Shield slug="messages-audio" size="lg" halo />
+                <span aria-hidden="true" className="font-display text-[30px] leading-none text-[oklch(0.95_0.06_190)]">
+                  ⲁ
+                </span>
               </div>
+
             </div>
 
             {/* live voice waveform driven by scroll */}
