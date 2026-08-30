@@ -307,35 +307,40 @@ function IntroExperience() {
           />
 
 
-          {/* Alpha identity arrives only after the walk has begun, in a safe band */}
+          {/* Alpha identity arrives almost immediately, in a safe band */}
           <div className="safe-bottom pointer-events-none absolute inset-x-0 bottom-[9%] flex flex-col items-center px-8">
             <div
               className="relative grid place-items-center"
               style={{
-                opacity: "calc((var(--p) - 0.2) * 3)",
-                transform: "translateY(calc((1 - var(--a)) * 18px)) scale(calc(0.8 + var(--a) * 0.2))",
+                opacity: "calc(0.25 + var(--p) * 9)",
+                transform: "translateY(calc((1 - var(--a)) * 18px)) scale(calc(0.86 + var(--a) * 0.14))",
               }}
             >
               <span
                 aria-hidden="true"
-                className="absolute h-20 w-20 rounded-full bg-[oklch(0.9_0.13_84)/40] blur-2xl"
-                style={{ opacity: "calc((var(--p) - 0.22) * 3)" }}
+                className="absolute h-24 w-24 rounded-full bg-[oklch(0.9_0.13_84)/40] blur-2xl"
+                style={{ opacity: "calc(0.2 + var(--p) * 8)" }}
               />
-              <span className="relative font-display text-[52px] leading-none text-[oklch(0.96_0.06_88)] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+              <span className="relative font-display text-[64px] leading-none text-[oklch(0.96_0.06_88)] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
                 ⲁ
               </span>
             </div>
 
             <div
               style={{
-                opacity: "calc((var(--p) - 0.4) * 3)",
-                transform: "translateY(calc((1 - var(--d)) * 22px))",
-                filter: "blur(calc((1 - var(--d)) * 5px))",
+                opacity: "calc(0.1 + var(--p) * 8)",
+                transform: "translateY(calc((1 - var(--a)) * 16px))",
+                filter: "blur(calc((1 - var(--a)) * 3px))",
               }}
             >
-              <h1 className="mt-4 text-center font-arabic text-[25px] font-semibold leading-snug text-white">
+              <h1 className="mt-4 text-center font-arabic text-[31px] font-semibold leading-snug text-white">
                 {ar ? "ألفا" : "Alpha"}
               </h1>
+              <p className="mt-2 max-w-[20rem] text-center font-arabic text-[15px] leading-relaxed text-white/80">
+                {ar ? "اقترب… البيت مفتوح" : "Come closer — the home is open"}
+              </p>
+            </div>
+
               <p className="mt-2 max-w-[19rem] text-center font-arabic text-[13px] leading-relaxed text-white/75">
                 {ar ? "اقترب… البيت مفتوح" : "Come closer — the home is open"}
               </p>
