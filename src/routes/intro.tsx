@@ -634,16 +634,27 @@ function IntroExperience() {
                 );
               })}
 
-              {/* Alpha core */}
+              {/* Alpha core — the logo mark, lit like a gilded medallion */}
               <div
-                className="relative grid h-28 w-28 place-items-center rounded-full border border-[oklch(0.86_0.12_86)/50] bg-white/8 backdrop-blur-xl"
+                className="relative grid h-32 w-32 place-items-center overflow-hidden rounded-full border border-[oklch(0.86_0.12_86)/55] bg-[oklch(0.97_0.02_86)]"
                 style={{
                   transform: "scale(calc(0.72 + var(--p) * 0.34))",
-                  boxShadow: "0 30px 80px -30px oklch(0.86 0.12 86 / 0.7)",
+                  boxShadow:
+                    "0 30px 80px -30px oklch(0.86 0.12 86 / 0.75), inset 0 0 0 1px oklch(1 0 0 / 0.6)",
                 }}
               >
-                <span className="font-display text-[46px] leading-none text-[oklch(0.95_0.06_88)]">ⲁ</span>
+                <img
+                  src={alphaLogo.url}
+                  alt="شعار ألفا"
+                  className="h-[190%] w-[190%] object-contain"
+                  style={{ transform: "translateY(-16%)" }}
+                />
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_28%,oklch(1_0_0/0.35),transparent_62%)]"
+                />
               </div>
+
             </div>
 
             <div
