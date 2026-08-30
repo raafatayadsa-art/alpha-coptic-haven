@@ -213,28 +213,45 @@ function IntroExperience() {
         </div>
       </div>
 
-      {/* progress */}
-      <div className="safe-bottom pointer-events-none fixed inset-x-0 bottom-0 z-50">
-        <div className="mx-auto w-full max-w-[430px] px-6 pb-3">
-          <div className="mb-2 flex items-center justify-center gap-1.5">
-            {[0, 1, 2, 3, 4, 5].map((i) => (
+      {/* vertical progress indicator — gold stages that light up with the scroll */}
+      <div
+        ref={railRef}
+        aria-hidden="true"
+        className="pointer-events-none fixed top-1/2 z-50 -translate-y-1/2 ltr:right-3 rtl:left-3"
+        style={{ ["--vp" as string]: 0 }}
+      >
+        <div className="relative flex flex-col items-center gap-3">
+          {/* track */}
+          <span className="absolute inset-y-1 left-1/2 w-px -translate-x-1/2 bg-white/12" />
+          {/* filled portion */}
+          <span
+            className="absolute inset-y-1 left-1/2 w-px origin-top -translate-x-1/2 bg-gradient-to-b from-[oklch(0.88_0.12_86)] via-[oklch(0.86_0.12_86)] to-[oklch(0.86_0.12_86)]/30"
+            style={{ transform: "translateX(-50%) scaleY(var(--vp))" }}
+          />
+          {[0, 1, 2, 3, 4, 5].map((i) => (
+            <span key={i} className="relative grid h-3 w-3 place-items-center">
               <span
-                key={i}
-                className={`h-1 rounded-full transition-all duration-500 ${
-                  i === active ? "w-6 bg-[oklch(0.82_0.11_84)]" : "w-1.5 bg-white/25"
-                }`}
+                className="absolute h-3 w-3 rounded-full bg-[oklch(0.86_0.12_86)]/25 blur-[3px]"
+                style={{ opacity: `calc((var(--vp) * 6 - ${i}) * 1.4)` }}
               />
-            ))}
-          </div>
-          <div className="h-px w-full overflow-hidden bg-white/12">
-            <div
-              ref={railRef}
-              className="h-full w-full origin-[right_center] bg-gradient-to-l from-[oklch(0.86_0.12_86)] to-[oklch(0.86_0.12_86)/20] rtl:origin-[right_center] ltr:origin-[left_center]"
-              style={{ transform: "scaleX(0)" }}
-            />
-          </div>
+              <span
+                className="absolute h-[5px] w-[5px] rounded-full bg-white/25"
+                style={{ opacity: `calc(1 - (var(--vp) * 6 - ${i}) * 2)` }}
+              />
+              <span
+                className="absolute rounded-full bg-[oklch(0.9_0.11_87)] shadow-[0_0_10px_oklch(0.86_0.12_86/0.7)]"
+                style={{
+                  opacity: `calc((var(--vp) * 6 - ${i}) * 2)`,
+                  height: "6px",
+                  width: "6px",
+                  transform: `scale(calc(0.6 + min(1, max(0, var(--vp) * 6 - ${i})) * 0.6))`,
+                }}
+              />
+            </span>
+          ))}
         </div>
       </div>
+
 
       {/* ── scene 1 — Alpha identity ───────────────────────── */}
       <Section>
