@@ -1,9 +1,7 @@
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
-import dove from "@/assets/intro/dove.png";
 import churchGate from "@/assets/intro/church-gate.png.asset.json";
-import alphaLogo from "@/assets/alpha-logo.png.asset.json";
 import intro2 from "@/assets/intro/copt-2-word.jpg";
 import intro3 from "@/assets/intro/copt-3-prayer.jpg";
 import intro4 from "@/assets/intro/copt-4-church.jpg";
