@@ -95,17 +95,25 @@ function IntroExperience() {
   const [sound, setSound] = useState(false);
   const armed = useRef(false);
 
-  /* scroll → CSS variables (single rAF, no React re-render per frame) */
+  /* scroll → CSS variables, smoothed (single rAF, no React re-render per frame)
+   *
+   * The raw scroll position is the target; a critically damped lerp follows it,
+   * so every move is silky and very slow to settle — scroll down advances,
+   * stopping freezes, scrolling up reverses along the same curve. */
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
     const stages = Array.from(root.querySelectorAll<HTMLElement>("[data-stage]"));
     let raf = 0;
     let current = -1;
+    let smooth = window.scrollY;
 
     const paint = () => {
-      raf = 0;
       const vh = window.innerHeight;
+      const target = window.scrollY;
+      smooth += (target - smooth) * 0.085;
+      if (Math.abs(target - smooth) < 0.25) smooth = target;
+      const shift = smooth - target; // px offset of the eased playhead
       let best = 0;
       let bestArea = 0;
 
@@ -113,15 +121,15 @@ function IntroExperience() {
         const section = stage.parentElement!;
         const rect = section.getBoundingClientRect();
         const span = Math.max(1, rect.height - vh);
-        const p = clamp(-rect.top / span);
+        const p = clamp((-rect.top + shift) / span);
 
-        const visible = rect.bottom > 0 && rect.top < vh;
+        const visible = rect.bottom > -vh * 0.2 && rect.top < vh * 1.2;
         stage.style.visibility = visible ? "visible" : "hidden";
         if (!visible) return;
 
         stage.style.setProperty("--p", p.toFixed(4));
-        stage.style.setProperty("--a", ease(clamp(p / 0.45)).toFixed(4));
-        stage.style.setProperty("--d", ease(clamp((p - 0.62) / 0.34)).toFixed(4));
+        stage.style.setProperty("--a", ease(clamp(p / 0.5)).toFixed(4));
+        stage.style.setProperty("--d", ease(clamp((p - 0.58) / 0.38)).toFixed(4));
         stage.style.setProperty("--c", (1 - Math.abs(p - 0.5) * 2).toFixed(4));
 
         const area = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
@@ -132,13 +140,16 @@ function IntroExperience() {
       });
 
       const total = document.documentElement.scrollHeight - vh;
+      const vp = clamp(smooth / Math.max(1, total));
       if (railRef.current) {
-        railRef.current.style.transform = `scaleX(${clamp(window.scrollY / Math.max(1, total)).toFixed(4)})`;
+        railRef.current.style.setProperty("--vp", vp.toFixed(4));
       }
       if (best !== current) {
         current = best;
         setActive(best);
       }
+
+      raf = smooth === target ? 0 : window.requestAnimationFrame(paint);
     };
 
     const onScroll = () => {
