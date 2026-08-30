@@ -1,9 +1,7 @@
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
-import dove from "@/assets/intro/dove.png";
 import churchGate from "@/assets/intro/church-gate.png.asset.json";
-import alphaLogo from "@/assets/alpha-logo.png.asset.json";
 import intro2 from "@/assets/intro/copt-2-word.jpg";
 import intro3 from "@/assets/intro/copt-3-prayer.jpg";
 import intro4 from "@/assets/intro/copt-4-church.jpg";
@@ -67,19 +65,25 @@ const SPIRITUAL = [
   { slug: "khoulagy", ar: "الخولاجي", en: "Khoulagy", x: 98, y: 132, r: 11 },
 ] as const;
 
+/**
+ * The twelve worlds of Alpha, laid on two concentric rings so no two labels can
+ * ever collide: six on the inner ring at 60° steps, six on the outer ring offset
+ * by half a step (30°). Every label is written once, in full.
+ */
 const WORLDS = [
-  { slug: "bible", ar: "الكتاب", en: "Bible", a: -90 },
-  { slug: "agpeya", ar: "الأجبية", en: "Agpeya", a: -54 },
-  { slug: "katameros", ar: "القطمارس", en: "Katameros", a: -18 },
-  { slug: "synaxarium", ar: "السنكسار", en: "Synaxarium", a: 18 },
-  { slug: "khoulagy", ar: "الخولاجي", en: "Khoulagy", a: 54 },
-  { slug: "church", ar: "كنيستي", en: "Church", a: 90 },
-  { slug: "library", ar: "المكتبة", en: "Library", a: 126 },
-  { slug: "books", ar: "الآباء", en: "Fathers", a: 162 },
-  { slug: "kids", ar: "كيدز", en: "Kids", a: 198 },
-  { slug: "audio", ar: "الترانيم", en: "Hymns", a: 234 },
-  { slug: "community", ar: "مجتمعي", en: "Community", a: 270 },
-  { slug: "messages-audio", ar: "كونكت", en: "Connect", a: 306 },
+  { slug: "bible", ar: "الكتاب المقدس", en: "Bible", a: -90, ring: 0 },
+  { slug: "katameros", ar: "القطمارس", en: "Katameros", a: -30, ring: 0 },
+  { slug: "khoulagy", ar: "الخولاجي", en: "Khoulagy", a: 30, ring: 0 },
+  { slug: "church", ar: "كنيستي", en: "My Church", a: 90, ring: 0 },
+  { slug: "books", ar: "قسم الآباء", en: "The Fathers", a: 150, ring: 0 },
+  { slug: "community", ar: "مجتمعي", en: "Community", a: 210, ring: 0 },
+
+  { slug: "agpeya", ar: "الأجبية", en: "Agpeya", a: -60, ring: 1 },
+  { slug: "synaxarium", ar: "السنكسار", en: "Synaxarium", a: 0, ring: 1 },
+  { slug: "library", ar: "المكتبة", en: "Library", a: 60, ring: 1 },
+  { slug: "kids", ar: "ألفا كيدز", en: "Alpha Kids", a: 120, ring: 1 },
+  { slug: "audio", ar: "الترانيم", en: "Hymns", a: 180, ring: 1 },
+  { slug: "messages-audio", ar: "ألفا كونكت", en: "Alpha Connect", a: 240, ring: 1 },
 ] as const;
 
 
@@ -287,11 +291,6 @@ function IntroExperience() {
           <SkyGlyph char="Ⲥ" x="88%" y="38%" size={26} drift={-10} depth={0.1} fade={0.34} />
           <SkyGlyph char="Ⲱ" x="60%" y="24%" size={72} drift={-44} depth={0.4} fade={0.8} />
 
-          {/* doves — three depths, gliding across as the scroll advances */}
-          <Dove x={-10} y={26} size={54} speed={128} rise={-40} start={0.02} opacity={0.95} blur={0} />
-          <Dove x={22} y={16} size={34} speed={96} rise={-26} start={0.08} opacity={0.7} blur={0.6} />
-          <Dove x={58} y={32} size={22} speed={70} rise={-18} start={0.16} opacity={0.5} blur={1.2} />
-          <Dove x={4} y={44} size={16} speed={54} rise={-12} start={0.24} opacity={0.38} blur={1.6} />
 
           {/* the sunburst behind the dome, breathing as we approach */}
           <div
@@ -308,36 +307,36 @@ function IntroExperience() {
           />
 
 
-          {/* Alpha identity arrives only after the walk has begun, in a safe band */}
+          {/* Alpha identity arrives almost immediately, in a safe band */}
           <div className="safe-bottom pointer-events-none absolute inset-x-0 bottom-[9%] flex flex-col items-center px-8">
             <div
               className="relative grid place-items-center"
               style={{
-                opacity: "calc((var(--p) - 0.2) * 3)",
-                transform: "translateY(calc((1 - var(--a)) * 18px)) scale(calc(0.8 + var(--a) * 0.2))",
+                opacity: "calc(0.25 + var(--p) * 9)",
+                transform: "translateY(calc((1 - var(--a)) * 18px)) scale(calc(0.86 + var(--a) * 0.14))",
               }}
             >
               <span
                 aria-hidden="true"
-                className="absolute h-20 w-20 rounded-full bg-[oklch(0.9_0.13_84)/40] blur-2xl"
-                style={{ opacity: "calc((var(--p) - 0.22) * 3)" }}
+                className="absolute h-24 w-24 rounded-full bg-[oklch(0.9_0.13_84)/40] blur-2xl"
+                style={{ opacity: "calc(0.2 + var(--p) * 8)" }}
               />
-              <span className="relative font-display text-[52px] leading-none text-[oklch(0.96_0.06_88)] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+              <span className="relative font-display text-[64px] leading-none text-[oklch(0.96_0.06_88)] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
                 ⲁ
               </span>
             </div>
 
             <div
               style={{
-                opacity: "calc((var(--p) - 0.4) * 3)",
-                transform: "translateY(calc((1 - var(--d)) * 22px))",
-                filter: "blur(calc((1 - var(--d)) * 5px))",
+                opacity: "calc(0.1 + var(--p) * 8)",
+                transform: "translateY(calc((1 - var(--a)) * 16px))",
+                filter: "blur(calc((1 - var(--a)) * 3px))",
               }}
             >
-              <h1 className="mt-4 text-center font-arabic text-[25px] font-semibold leading-snug text-white">
+              <h1 className="mt-4 text-center font-arabic text-[31px] font-semibold leading-snug text-white">
                 {ar ? "ألفا" : "Alpha"}
               </h1>
-              <p className="mt-2 max-w-[19rem] text-center font-arabic text-[13px] leading-relaxed text-white/75">
+              <p className="mt-2 max-w-[20rem] text-center font-arabic text-[15px] leading-relaxed text-white/80">
                 {ar ? "اقترب… البيت مفتوح" : "Come closer — the home is open"}
               </p>
             </div>
@@ -608,54 +607,70 @@ function IntroExperience() {
           />
 
           <Center className="pointer-events-auto">
-            <div className="relative grid h-[330px] w-[330px] place-items-center">
-              {WORLDS.map((w, i) => {
+            <div className="relative grid h-[352px] w-[352px] place-items-center">
+              {WORLDS.map((w) => {
                 const rad = (w.a * Math.PI) / 180;
-                const ux = Math.cos(rad);
-                const uy = Math.sin(rad);
+                // elliptical rings: tighter horizontally so long Arabic labels
+                // never reach the phone edge, taller vertically for breathing room
+                const rx = w.ring === 0 ? 74 : 118;
+                const ry = w.ring === 0 ? 96 : 152;
+                const dx = Math.cos(rad) * rx;
+                const dy = Math.sin(rad) * ry;
+                const dist = Math.hypot(dx, dy);
+                const angle = (Math.atan2(dy, dx) * 180) / Math.PI;
+                const step = w.ring === 0 ? 0.1 : 0.22;
                 return (
-                  <span
-                    key={`${w.slug}-${i}`}
-                    className="absolute"
-                    style={{
-                      transform:
-                        `translate(calc(${ux.toFixed(3)} * (250px - var(--p) * 88px)),` +
-                        ` calc(${uy.toFixed(3)} * (250px - var(--p) * 88px)))` +
-                        " scale(calc(0.5 + var(--p) * 0.42))",
-                      opacity: `calc(var(--p) * 2.6 - ${0.15 + i * 0.05})`,
-                      filter: "blur(calc((1 - var(--p)) * 4px))",
-                    }}
-                  >
-                    <span className="block rounded-full border border-[oklch(0.86_0.12_86)/30] bg-white/8 px-2.5 py-1 font-arabic text-[9.5px] font-semibold whitespace-nowrap text-[oklch(0.95_0.05_88)] shadow-[0_8px_24px_-12px_oklch(0.86_0.12_86/0.7)] backdrop-blur-md">
-                      {ar ? w.ar : w.en}
+                  <span key={w.slug} className="absolute grid place-items-center">
+                    {/* a thread of light drawn from Alpha out to this world */}
+                    <span
+                      aria-hidden="true"
+                      className="absolute left-1/2 top-1/2 h-px origin-left bg-[linear-gradient(to_right,oklch(0.88_0.12_86/0.55),transparent)]"
+                      style={{
+                        width: `${Math.round(dist - 30)}px`,
+                        transform: `rotate(${angle.toFixed(2)}deg) scaleX(calc(min(1, max(0, (var(--p) - ${step}) * 2.2))))`,
+                        opacity: `calc(min(1, max(0, (var(--p) - ${step}) * 2.6)) * 0.5)`,
+                      }}
+                    />
+                    <span
+                      className="absolute"
+                      style={{
+                        transform:
+                          `translate(calc(${dx.toFixed(1)}px * (1.16 - var(--p) * 0.16)),` +
+                          ` calc(${dy.toFixed(1)}px * (1.16 - var(--p) * 0.16)))`,
+                        opacity: `calc(min(1, max(0, (var(--p) - ${step}) * 2.4)))`,
+                        filter: `blur(calc(max(0, ${step + 0.3} - var(--p)) * 12px))`,
+                      }}
+                    >
+                      <span className="block rounded-full border border-[oklch(0.86_0.12_86)/35] bg-white/10 px-3.5 py-1.5 font-arabic text-[12.5px] font-semibold whitespace-nowrap text-[oklch(0.96_0.05_88)] shadow-[0_10px_28px_-14px_oklch(0.86_0.12_86/0.8)] backdrop-blur-md">
+                        {ar ? w.ar : w.en}
+                      </span>
                     </span>
-
                   </span>
                 );
               })}
 
-              {/* Alpha core — the logo mark, lit like a gilded medallion */}
+              {/* Alpha core — the Coptic letter itself, lit from within */}
               <div
-                className="relative grid h-36 w-36 place-items-center overflow-hidden rounded-full border border-[oklch(0.86_0.12_86)/55] bg-[oklch(0.975_0.015_86)]"
-                style={{
-                  transform: "scale(calc(0.72 + var(--p) * 0.34))",
-                  boxShadow:
-                    "0 30px 80px -30px oklch(0.86 0.12 86 / 0.75), inset 0 0 0 1px oklch(1 0 0 / 0.6)",
-                }}
+                className="relative grid place-items-center"
+                style={{ transform: "scale(calc(0.8 + var(--p) * 0.28))" }}
               >
-                <img
-                  src={alphaLogo.url}
-                  alt="شعار ألفا"
-                  className="h-[76%] w-[76%] object-contain"
-                />
                 <span
                   aria-hidden="true"
-                  className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_24%,oklch(1_0_0/0.28),transparent_66%)]"
+                  className="absolute h-28 w-28 rounded-full bg-[oklch(0.9_0.13_85)/45] blur-2xl"
+                  style={{ opacity: "calc(0.35 + var(--p) * 0.6)" }}
                 />
+                <span
+                  className="relative font-display text-[92px] leading-none text-[oklch(0.96_0.07_88)]"
+                  style={{
+                    textShadow:
+                      "0 0 22px oklch(0.88 0.12 86 / 0.55), 0 0 70px oklch(0.86 0.12 86 / 0.35), 0 14px 34px rgba(0,0,0,0.45)",
+                  }}
+                >
+                  Ⲁ
+                </span>
               </div>
-
-
             </div>
+
 
             <div
               className="mt-8 flex flex-col items-center"
@@ -772,47 +787,6 @@ function SkyGlyph({
   );
 }
 
-/** A dove gliding across the sky, entirely driven by the scroll playhead. */
-function Dove({
-  x,
-  y,
-  size,
-  speed,
-  rise,
-  start,
-  opacity,
-  blur,
-}: {
-  x: number;
-  y: number;
-  size: number;
-  speed: number;
-  rise: number;
-  start: number;
-  opacity: number;
-  blur: number;
-}) {
-  return (
-    <img
-      src={dove}
-      alt=""
-      aria-hidden="true"
-      width={816}
-      height={816}
-      loading="lazy"
-      className="pointer-events-none absolute select-none"
-      style={{
-        left: `${x}%`,
-        top: `${y}%`,
-        width: `${size}px`,
-        opacity: `calc(${opacity} * min(1, max(0, (var(--p) - ${start}) * 6)))`,
-        transform: `translate3d(calc(max(0, var(--p) - ${start}) * ${speed}px), calc(max(0, var(--p) - ${start}) * ${rise}px), 0) rotate(calc(max(0, var(--p) - ${start}) * -5deg))`,
-        filter: `blur(${blur}px) drop-shadow(0 0 12px oklch(0.92 0.09 88 / 0.45))`,
-        willChange: "transform",
-      }}
-    />
-  );
-}
 
 /** A single small shield resting at the edge of the frame, never over the art. */
 function EdgeMark({ slug }: { slug: Parameters<typeof Shield>[0]["slug"] }) {
