@@ -622,7 +622,7 @@ function IntroExperience() {
                   style={{ opacity: "calc((var(--p) - 0.7) * 3.6)" }}
                 />
                 <p
-                  className="relative flex flex-nowrap items-center gap-2 whitespace-nowrap font-manrope text-[7.5px] font-semibold tracking-[0.2em] uppercase"
+                  className="relative flex w-max flex-nowrap items-center gap-2 whitespace-nowrap font-manrope text-[7.5px] font-semibold tracking-[0.18em] uppercase"
                   dir="ltr"
                   style={{
                     color: "oklch(0.94 0.07 88)",
@@ -638,7 +638,7 @@ function IntroExperience() {
                     className="h-px bg-gradient-to-r from-transparent to-[oklch(0.9_0.11_87)]"
                     style={{ width: "calc(10px + (var(--p) - 0.66) * 46px)" }}
                   />
-                  <span>The Coptic Orthodox Digital Home</span>
+                  <span className="shrink-0">The Coptic Orthodox Digital Home</span>
                   <span
                     aria-hidden="true"
                     className="h-px bg-gradient-to-l from-transparent to-[oklch(0.9_0.11_87)]"
