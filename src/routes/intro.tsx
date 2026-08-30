@@ -254,61 +254,118 @@ function IntroExperience() {
       </div>
 
 
-      {/* ── scene 1 — Alpha identity ───────────────────────── */}
-      <Section>
+      {/* ── scene 1 — the walk toward the church ───────────── */}
+      <Section tall>
         <Stage glyphs="ⲁⲱ">
-          <Plate src={intro1} alt="نور الفجر داخل كنيسة قبطية" />
-          <Veil />
-          {/* light shaft bloom */}
-          <div
-            aria-hidden="true"
-            className="absolute left-1/2 top-0 h-[70%] w-[62%] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,oklch(0.93_0.1_88/0.5),transparent_70%)] blur-2xl"
+          {/* far sky layer — moves slowest */}
+          <img
+            src={heroSky}
+            alt="فجر دافئ فوق أرض مصر"
+            width={1536}
+            height={1024}
+            className="absolute inset-0 h-full w-full object-cover"
             style={{
-              opacity: "calc(0.35 + var(--a) * 0.65)",
-              transform: "translateX(-50%) scaleY(calc(0.7 + var(--p) * 0.7))",
+              transform:
+                "scale(calc(1.08 + var(--p) * 0.1)) translate3d(0, calc(var(--p) * -18px), 0)",
+              willChange: "transform",
             }}
           />
-          <Center>
+          {/* haze band */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-0 bottom-0 h-[52%] bg-[linear-gradient(to_top,oklch(0.28_0.06_60/0.85),transparent)]"
+            style={{ opacity: "calc(0.9 - var(--p) * 0.35)" }}
+          />
+
+          {/* Coptic letterforms living inside the sky, at three depths */}
+          <SkyGlyph char="Ⲭ" x="14%" y="18%" size={54} drift={-28} depth={0.25} fade={0.62} />
+          <SkyGlyph char="Ⲣ" x="78%" y="12%" size={40} drift={-18} depth={0.18} fade={0.5} />
+          <SkyGlyph char="Ⲡ" x="30%" y="34%" size={30} drift={-12} depth={0.12} fade={0.4} />
+          <SkyGlyph char="Ⲥ" x="88%" y="38%" size={26} drift={-10} depth={0.1} fade={0.34} />
+          <SkyGlyph char="Ⲱ" x="60%" y="24%" size={72} drift={-44} depth={0.4} fade={0.8} />
+
+          {/* doves — three depths, gliding across as the scroll advances */}
+          <Dove x={-10} y={26} size={54} speed={128} rise={-40} start={0.02} opacity={0.95} blur={0} />
+          <Dove x={22} y={16} size={34} speed={96} rise={-26} start={0.08} opacity={0.7} blur={0.6} />
+          <Dove x={58} y={32} size={22} speed={70} rise={-18} start={0.16} opacity={0.5} blur={1.2} />
+          <Dove x={4} y={44} size={16} speed={54} rise={-12} start={0.24} opacity={0.38} blur={1.6} />
+
+          {/* the church itself — the closest layer, walked toward */}
+          <img
+            src={heroChurch}
+            alt="كنيسة قبطية أرثوذكسية في الأفق عند الفجر"
+            width={1280}
+            height={1024}
+            className="absolute left-1/2 bottom-[24%] w-[86%] max-w-[520px] -translate-x-1/2 object-contain"
+            style={{
+              transform:
+                "translateX(-50%) scale(calc(0.32 + var(--p) * 1.05)) translate3d(0, calc(var(--p) * 96px), 0)",
+              filter: "saturate(1.02) brightness(calc(0.86 + var(--p) * 0.22))",
+              opacity: "calc(0.55 + var(--p) * 0.45)",
+              willChange: "transform",
+            }}
+          />
+          {/* warm bloom growing behind the church as we approach */}
+          <div
+            aria-hidden="true"
+            className="absolute left-1/2 bottom-[30%] h-56 w-56 -translate-x-1/2 rounded-full bg-[oklch(0.9_0.13_82)/45] blur-3xl"
+            style={{
+              opacity: "calc(0.25 + var(--p) * 0.6)",
+              transform: "translateX(-50%) scale(calc(0.6 + var(--p) * 1.1))",
+            }}
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-[linear-gradient(to_bottom,oklch(0.16_0.03_285/0.55),transparent_38%,oklch(0.14_0.02_285/0.82))]"
+          />
+
+          {/* Alpha identity arrives only after the walk has begun, in a safe band */}
+          <div className="safe-bottom pointer-events-none absolute inset-x-0 bottom-[9%] flex flex-col items-center px-8">
             <div
               className="relative grid place-items-center"
               style={{
-                transform: "scale(calc(1.5 - var(--a) * 0.62)) translateY(calc(var(--p) * -26px))",
-                filter: "blur(calc((1 - var(--a)) * 8px))",
+                opacity: "calc((var(--p) - 0.2) * 3)",
+                transform: "translateY(calc((1 - var(--a)) * 18px)) scale(calc(0.8 + var(--a) * 0.2))",
               }}
             >
               <span
                 aria-hidden="true"
-                className="absolute h-32 w-32 rounded-full bg-[oklch(0.86_0.12_86)/35] blur-2xl"
-                style={{ opacity: "calc(0.2 + var(--a) * 0.8)" }}
+                className="absolute h-20 w-20 rounded-full bg-[oklch(0.9_0.13_84)/40] blur-2xl"
+                style={{ opacity: "calc((var(--p) - 0.22) * 3)" }}
               />
-              <span className="relative font-display text-[104px] leading-none text-[oklch(0.94_0.06_88)] drop-shadow-[0_18px_46px_rgba(0,0,0,0.55)]">
+              <span className="relative font-display text-[52px] leading-none text-[oklch(0.96_0.06_88)] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
                 ⲁ
               </span>
             </div>
 
-            <Line delay={0.28} className="mt-8">
-              <h1 className="text-center font-arabic text-[27px] font-semibold leading-snug text-white">
+            <div
+              style={{
+                opacity: "calc((var(--p) - 0.4) * 3)",
+                transform: "translateY(calc((1 - var(--d)) * 22px))",
+                filter: "blur(calc((1 - var(--d)) * 5px))",
+              }}
+            >
+              <h1 className="mt-4 text-center font-arabic text-[25px] font-semibold leading-snug text-white">
                 {ar ? "ألفا" : "Alpha"}
               </h1>
-            </Line>
-            <Line delay={0.42}>
-              <p className="mt-2 max-w-[19rem] text-center font-arabic text-[13.5px] leading-relaxed text-white/75">
-                {ar ? "بيتك المسيحي الرقمي… من أول الطريق" : "Your Christian digital home"}
+              <p className="mt-2 max-w-[19rem] text-center font-arabic text-[13px] leading-relaxed text-white/75">
+                {ar ? "اقترب… البيت مفتوح" : "Come closer — the home is open"}
               </p>
-            </Line>
-          </Center>
+            </div>
+          </div>
 
           <div
-            className="absolute inset-x-0 bottom-[16%] flex flex-col items-center gap-2"
-            style={{ opacity: "calc(1 - var(--p) * 3)" }}
+            className="absolute inset-x-0 bottom-[3%] flex flex-col items-center gap-2"
+            style={{ opacity: "calc(1 - var(--p) * 5)" }}
           >
-            <span className="font-manrope text-[9.5px] font-semibold tracking-[0.28em] uppercase text-white/55">
+            <span className="font-manrope text-[9.5px] font-semibold tracking-[0.28em] uppercase text-white/60">
               {COPY.scroll[ar ? "ar" : "en"]}
             </span>
             <span aria-hidden="true" className="h-8 w-px bg-gradient-to-b from-white/50 to-transparent" />
           </div>
         </Stage>
       </Section>
+
 
       {/* ── scene 2 — the Word ─────────────────────────────── */}
       <Section>
