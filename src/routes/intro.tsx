@@ -65,19 +65,25 @@ const SPIRITUAL = [
   { slug: "khoulagy", ar: "الخولاجي", en: "Khoulagy", x: 98, y: 132, r: 11 },
 ] as const;
 
+/**
+ * The twelve worlds of Alpha, laid on two concentric rings so no two labels can
+ * ever collide: six on the inner ring at 60° steps, six on the outer ring offset
+ * by half a step (30°). Every label is written once, in full.
+ */
 const WORLDS = [
-  { slug: "bible", ar: "الكتاب", en: "Bible", a: -90 },
-  { slug: "agpeya", ar: "الأجبية", en: "Agpeya", a: -54 },
-  { slug: "katameros", ar: "القطمارس", en: "Katameros", a: -18 },
-  { slug: "synaxarium", ar: "السنكسار", en: "Synaxarium", a: 18 },
-  { slug: "khoulagy", ar: "الخولاجي", en: "Khoulagy", a: 54 },
-  { slug: "church", ar: "كنيستي", en: "Church", a: 90 },
-  { slug: "library", ar: "المكتبة", en: "Library", a: 126 },
-  { slug: "books", ar: "الآباء", en: "Fathers", a: 162 },
-  { slug: "kids", ar: "كيدز", en: "Kids", a: 198 },
-  { slug: "audio", ar: "الترانيم", en: "Hymns", a: 234 },
-  { slug: "community", ar: "مجتمعي", en: "Community", a: 270 },
-  { slug: "messages-audio", ar: "كونكت", en: "Connect", a: 306 },
+  { slug: "bible", ar: "الكتاب المقدس", en: "Bible", a: -90, ring: 0 },
+  { slug: "katameros", ar: "القطمارس", en: "Katameros", a: -30, ring: 0 },
+  { slug: "khoulagy", ar: "الخولاجي", en: "Khoulagy", a: 30, ring: 0 },
+  { slug: "church", ar: "كنيستي", en: "My Church", a: 90, ring: 0 },
+  { slug: "books", ar: "قسم الآباء", en: "The Fathers", a: 150, ring: 0 },
+  { slug: "community", ar: "مجتمعي", en: "Community", a: 210, ring: 0 },
+
+  { slug: "agpeya", ar: "الأجبية", en: "Agpeya", a: -60, ring: 1 },
+  { slug: "synaxarium", ar: "السنكسار", en: "Synaxarium", a: 0, ring: 1 },
+  { slug: "library", ar: "المكتبة", en: "Library", a: 60, ring: 1 },
+  { slug: "kids", ar: "ألفا كيدز", en: "Alpha Kids", a: 120, ring: 1 },
+  { slug: "audio", ar: "الترانيم", en: "Hymns", a: 180, ring: 1 },
+  { slug: "messages-audio", ar: "ألفا كونكت", en: "Alpha Connect", a: 240, ring: 1 },
 ] as const;
 
 
