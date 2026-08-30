@@ -221,6 +221,7 @@ function IntroExperience() {
         style={{ ["--vp" as string]: 0 }}
       >
         <div className="relative flex flex-col items-center gap-3">
+          <span className="sr-only" aria-live="polite">{`${active + 1} / 6`}</span>
           {/* track */}
           <span className="absolute inset-y-1 left-1/2 w-px -translate-x-1/2 bg-white/12" />
           {/* filled portion */}
@@ -675,7 +676,7 @@ function IntroExperience() {
 /* ── stage primitives ───────────────────────────────────────── */
 
 function Section({ children, tall = false }: { children: ReactNode; tall?: boolean }) {
-  return <section className={tall ? "relative h-[320vh]" : "relative h-[260vh]"}>{children}</section>;
+  return <section className={tall ? "relative h-[420vh]" : "relative h-[320vh]"}>{children}</section>;
 }
 
 function Stage({ children, glyphs = "ⲭⲣ" }: { children: ReactNode; glyphs?: string }) {
@@ -777,7 +778,7 @@ function Line({
     <div
       className={className}
       style={{
-        opacity: `calc((var(--p) - ${delay}) * 4.5)`,
+        opacity: `calc((var(--p) - ${delay}) * 2.6)`,
         transform: `translateY(calc((1 - var(--a)) * 26px))`,
         filter: "blur(calc((1 - var(--a)) * 4px))",
       }}
