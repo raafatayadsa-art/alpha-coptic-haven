@@ -295,20 +295,26 @@ function IntroExperience() {
           <Dove x={4} y={44} size={16} speed={54} rise={-12} start={0.24} opacity={0.38} blur={1.6} />
 
           {/* the church itself — the closest layer, walked toward */}
-          <img
-            src={heroChurch}
-            alt="كنيسة قبطية أرثوذكسية في الأفق عند الفجر"
-            width={1280}
-            height={1024}
-            className="absolute left-1/2 bottom-[24%] w-[86%] max-w-[520px] -translate-x-1/2 object-contain"
+          <div
+            className="absolute inset-x-0 bottom-[26%] flex justify-center"
             style={{
-              transform:
-                "translateX(-50%) scale(calc(0.32 + var(--p) * 1.05)) translate3d(0, calc(var(--p) * 96px), 0)",
-              filter: "saturate(1.02) brightness(calc(0.86 + var(--p) * 0.22))",
-              opacity: "calc(0.55 + var(--p) * 0.45)",
+              transform: "scale(calc(0.4 + var(--p) * 1.15)) translate3d(0, calc(var(--p) * 90px), 0)",
               willChange: "transform",
             }}
-          />
+          >
+            <img
+              src={heroChurch}
+              alt="كنيسة قبطية أرثوذكسية في الأفق عند الفجر"
+              width={1280}
+              height={1024}
+              className="w-[88%] max-w-[540px] object-contain"
+              style={{
+                filter: "saturate(1.02) brightness(calc(0.88 + var(--p) * 0.2))",
+                opacity: "calc(0.6 + var(--p) * 0.4)",
+              }}
+            />
+          </div>
+
           {/* warm bloom growing behind the church as we approach */}
           <div
             aria-hidden="true"
