@@ -261,24 +261,23 @@ function IntroExperience() {
       {/* ── scene 1 — the walk toward the church ───────────── */}
       <Section tall>
         <Stage glyphs="ⲁⲱ">
-          {/* far sky layer — moves slowest */}
+          {/* the lit church at the top of the stairs — a slow camera push in */}
           <img
-            src={heroSky}
-            alt="فجر دافئ فوق أرض مصر"
-            width={1536}
-            height={1024}
+            src={churchGate.url}
+            alt="كنيسة قبطية أرثوذكسية مضاءة عند الغروب في نهاية درج حجري"
             className="absolute inset-0 h-full w-full object-cover"
             style={{
               transform:
-                "scale(calc(1.08 + var(--p) * 0.1)) translate3d(0, calc(var(--p) * -18px), 0)",
+                "scale(calc(1.14 + var(--p) * 0.22)) translate3d(0, calc(var(--p) * -34px), 0)",
+              filter: "saturate(1.03) brightness(calc(0.9 + var(--p) * 0.16))",
               willChange: "transform",
             }}
           />
-          {/* haze band */}
+          {/* candle-warm haze rising from the pavement */}
           <div
             aria-hidden="true"
-            className="absolute inset-x-0 bottom-0 h-[52%] bg-[linear-gradient(to_top,oklch(0.28_0.06_60/0.85),transparent)]"
-            style={{ opacity: "calc(0.9 - var(--p) * 0.35)" }}
+            className="absolute inset-x-0 bottom-0 h-[56%] bg-[linear-gradient(to_top,oklch(0.2_0.05_58/0.92),transparent)]"
+            style={{ opacity: "calc(0.95 - var(--p) * 0.25)" }}
           />
 
           {/* Coptic letterforms living inside the sky, at three depths */}
@@ -294,40 +293,20 @@ function IntroExperience() {
           <Dove x={58} y={32} size={22} speed={70} rise={-18} start={0.16} opacity={0.5} blur={1.2} />
           <Dove x={4} y={44} size={16} speed={54} rise={-12} start={0.24} opacity={0.38} blur={1.6} />
 
-          {/* the church itself — the closest layer, walked toward */}
+          {/* the sunburst behind the dome, breathing as we approach */}
           <div
-            className="absolute inset-x-0 bottom-[26%] flex justify-center"
+            aria-hidden="true"
+            className="absolute left-1/2 top-[16%] h-64 w-64 -translate-x-1/2 rounded-full bg-[oklch(0.93_0.13_82)/40] blur-3xl"
             style={{
-              transform: "scale(calc(0.4 + var(--p) * 1.15)) translate3d(0, calc(var(--p) * 90px), 0)",
-              willChange: "transform",
+              opacity: "calc(0.2 + var(--p) * 0.55)",
+              transform: "translateX(-50%) scale(calc(0.7 + var(--p) * 0.7))",
             }}
-          >
-            <img
-              src={heroChurch}
-              alt="كنيسة قبطية أرثوذكسية في الأفق عند الفجر"
-              width={1280}
-              height={1024}
-              className="w-[88%] max-w-[540px] object-contain"
-              style={{
-                filter: "saturate(1.02) brightness(calc(0.88 + var(--p) * 0.2))",
-                opacity: "calc(0.6 + var(--p) * 0.4)",
-              }}
-            />
-          </div>
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-[linear-gradient(to_bottom,oklch(0.14_0.03_60/0.5),transparent_40%,oklch(0.12_0.02_285/0.88))]"
+          />
 
-          {/* warm bloom growing behind the church as we approach */}
-          <div
-            aria-hidden="true"
-            className="absolute left-1/2 bottom-[30%] h-56 w-56 -translate-x-1/2 rounded-full bg-[oklch(0.9_0.13_82)/45] blur-3xl"
-            style={{
-              opacity: "calc(0.25 + var(--p) * 0.6)",
-              transform: "translateX(-50%) scale(calc(0.6 + var(--p) * 1.1))",
-            }}
-          />
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-[linear-gradient(to_bottom,oklch(0.16_0.03_285/0.55),transparent_38%,oklch(0.14_0.02_285/0.82))]"
-          />
 
           {/* Alpha identity arrives only after the walk has begun, in a safe band */}
           <div className="safe-bottom pointer-events-none absolute inset-x-0 bottom-[9%] flex flex-col items-center px-8">
