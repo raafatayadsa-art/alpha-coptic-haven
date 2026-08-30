@@ -1,12 +1,15 @@
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
-import intro1 from "@/assets/intro/copt-1-identity.jpg";
+import dove from "@/assets/intro/dove.png";
+import heroChurch from "@/assets/intro/hero-church.png";
+import heroSky from "@/assets/intro/hero-sky.jpg";
 import intro2 from "@/assets/intro/copt-2-word.jpg";
 import intro3 from "@/assets/intro/copt-3-prayer.jpg";
 import intro4 from "@/assets/intro/copt-4-church.jpg";
 import intro5 from "@/assets/intro/copt-5-connect.jpg";
 import intro6 from "@/assets/intro/copt-6-world.jpg";
+
 import { Shield } from "@/components/church/Shield";
 import { useLang } from "@/lib/i18n";
 import { disposeAmbient, fadeAmbient, startAmbient } from "@/lib/ambient-audio";
