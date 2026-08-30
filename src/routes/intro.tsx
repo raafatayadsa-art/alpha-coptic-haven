@@ -787,47 +787,6 @@ function SkyGlyph({
   );
 }
 
-/** A dove gliding across the sky, entirely driven by the scroll playhead. */
-function Dove({
-  x,
-  y,
-  size,
-  speed,
-  rise,
-  start,
-  opacity,
-  blur,
-}: {
-  x: number;
-  y: number;
-  size: number;
-  speed: number;
-  rise: number;
-  start: number;
-  opacity: number;
-  blur: number;
-}) {
-  return (
-    <img
-      src={dove}
-      alt=""
-      aria-hidden="true"
-      width={816}
-      height={816}
-      loading="lazy"
-      className="pointer-events-none absolute select-none"
-      style={{
-        left: `${x}%`,
-        top: `${y}%`,
-        width: `${size}px`,
-        opacity: `calc(${opacity} * min(1, max(0, (var(--p) - ${start}) * 6)))`,
-        transform: `translate3d(calc(max(0, var(--p) - ${start}) * ${speed}px), calc(max(0, var(--p) - ${start}) * ${rise}px), 0) rotate(calc(max(0, var(--p) - ${start}) * -5deg))`,
-        filter: `blur(${blur}px) drop-shadow(0 0 12px oklch(0.92 0.09 88 / 0.45))`,
-        willChange: "transform",
-      }}
-    />
-  );
-}
 
 /** A single small shield resting at the edge of the frame, never over the art. */
 function EdgeMark({ slug }: { slug: Parameters<typeof Shield>[0]["slug"] }) {
