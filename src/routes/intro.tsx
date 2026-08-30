@@ -636,7 +636,7 @@ function IntroExperience() {
 
               {/* Alpha core — the logo mark, lit like a gilded medallion */}
               <div
-                className="relative grid h-32 w-32 place-items-center overflow-hidden rounded-full border border-[oklch(0.86_0.12_86)/55] bg-[oklch(0.97_0.02_86)]"
+                className="relative grid h-36 w-36 place-items-center overflow-hidden rounded-full border border-[oklch(0.86_0.12_86)/55] bg-[oklch(0.975_0.015_86)]"
                 style={{
                   transform: "scale(calc(0.72 + var(--p) * 0.34))",
                   boxShadow:
@@ -646,14 +646,14 @@ function IntroExperience() {
                 <img
                   src={alphaLogo.url}
                   alt="شعار ألفا"
-                  className="h-[190%] w-[190%] object-contain"
-                  style={{ transform: "translateY(-16%)" }}
+                  className="h-[92%] w-[92%] object-contain"
                 />
                 <span
                   aria-hidden="true"
-                  className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_28%,oklch(1_0_0/0.35),transparent_62%)]"
+                  className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_24%,oklch(1_0_0/0.28),transparent_66%)]"
                 />
               </div>
+
 
             </div>
 
