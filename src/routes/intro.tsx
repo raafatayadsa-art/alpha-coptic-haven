@@ -285,7 +285,7 @@ function IntroExperience() {
       <Section>
         <Stage>
           <Plate src={intro2} alt="الكتاب المقدس مفتوح على مكتب خشبي" depth={1.2} />
-          <Veil tone="oklch(0.14_0.02_280)" />
+          <Veil tone="oklch(0.14_0.02_280)" strength={0.9} />
           <Center>
             <div
               style={{
@@ -397,7 +397,7 @@ function IntroExperience() {
       <Section>
         <Stage>
           <Plate src={intro4} alt="مجتمع كنيسة قبطية أرثوذكسية في مصر" depth={1.35} />
-          <Veil tone="oklch(0.14_0.02_290)" strength={0.66} />
+          <Veil tone="oklch(0.14_0.02_290)" strength={0.86} />
 
           {/* Coptic arch that opens with the scroll */}
           <div
@@ -609,8 +609,6 @@ function IntroExperience() {
         </Stage>
       </Section>
 
-      {/* breathing room so the last scene can finish its arc */}
-      <div className="h-[10vh]" />
     </div>
   );
 }
@@ -625,7 +623,7 @@ function Stage({ children }: { children: ReactNode }) {
   return (
     <div
       data-stage
-      className="sticky top-0 h-[100svh] w-full overflow-hidden [will-change:transform]"
+      className="sticky top-0 h-screen w-full overflow-hidden [will-change:transform]"
       style={{ ["--p" as string]: 0, ["--a" as string]: 0, ["--c" as string]: 0, ["--d" as string]: 0 }}
     >
       {children}
