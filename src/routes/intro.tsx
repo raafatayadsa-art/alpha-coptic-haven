@@ -291,11 +291,6 @@ function IntroExperience() {
           <SkyGlyph char="Ⲥ" x="88%" y="38%" size={26} drift={-10} depth={0.1} fade={0.34} />
           <SkyGlyph char="Ⲱ" x="60%" y="24%" size={72} drift={-44} depth={0.4} fade={0.8} />
 
-          {/* doves — three depths, gliding across as the scroll advances */}
-          <Dove x={-10} y={26} size={54} speed={128} rise={-40} start={0.02} opacity={0.95} blur={0} />
-          <Dove x={22} y={16} size={34} speed={96} rise={-26} start={0.08} opacity={0.7} blur={0.6} />
-          <Dove x={58} y={32} size={22} speed={70} rise={-18} start={0.16} opacity={0.5} blur={1.2} />
-          <Dove x={4} y={44} size={16} speed={54} rise={-12} start={0.24} opacity={0.38} blur={1.6} />
 
           {/* the sunburst behind the dome, breathing as we approach */}
           <div
