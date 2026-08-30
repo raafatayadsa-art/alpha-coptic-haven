@@ -738,9 +738,106 @@ function IntroExperience() {
 
 /* ── stage primitives ───────────────────────────────────────── */
 
-function Section({ children, tall = false }: { children: ReactNode; tall?: boolean }) {
-  return <section className={tall ? "relative h-[420vh]" : "relative h-[320vh]"}>{children}</section>;
+/** A Coptic letter living inside the sky: parallax by depth, dissolving in light. */
+function SkyGlyph({
+  char,
+  x,
+  y,
+  size,
+  drift,
+  depth,
+  fade,
+}: {
+  char: string;
+  x: string;
+  y: string;
+  size: number;
+  drift: number;
+  depth: number;
+  fade: number;
+}) {
+  return (
+    <span
+      aria-hidden="true"
+      className="pointer-events-none absolute font-display leading-none text-[oklch(0.95_0.1_88)] select-none"
+      style={{
+        left: x,
+        top: y,
+        fontSize: `${size}px`,
+        opacity: `calc(${fade} * (0.25 + var(--a) * 0.75) * max(0, 1 - var(--p) * 0.85))`,
+        transform: `translate3d(calc(var(--p) * ${(drift * depth * 2).toFixed(1)}px), calc(var(--p) * ${drift.toFixed(1)}px), 0) scale(calc(1 + var(--p) * ${(depth * 0.5).toFixed(2)}))`,
+        filter: `blur(calc(${(1 - depth).toFixed(2)} * 1.6px))`,
+        textShadow: "0 0 18px oklch(0.9 0.12 86 / 0.55)",
+        willChange: "transform",
+      }}
+    >
+      {char}
+    </span>
+  );
 }
+
+/** A dove gliding across the sky, entirely driven by the scroll playhead. */
+function Dove({
+  x,
+  y,
+  size,
+  speed,
+  rise,
+  start,
+  opacity,
+  blur,
+}: {
+  x: number;
+  y: number;
+  size: number;
+  speed: number;
+  rise: number;
+  start: number;
+  opacity: number;
+  blur: number;
+}) {
+  return (
+    <img
+      src={dove}
+      alt=""
+      aria-hidden="true"
+      width={816}
+      height={816}
+      loading="lazy"
+      className="pointer-events-none absolute select-none"
+      style={{
+        left: `${x}%`,
+        top: `${y}%`,
+        width: `${size}px`,
+        opacity: `calc(${opacity} * min(1, max(0, (var(--p) - ${start}) * 6)))`,
+        transform: `translate3d(calc(max(0, var(--p) - ${start}) * ${speed}px), calc(max(0, var(--p) - ${start}) * ${rise}px), 0) rotate(calc(max(0, var(--p) - ${start}) * -5deg))`,
+        filter: `blur(${blur}px) drop-shadow(0 0 12px oklch(0.92 0.09 88 / 0.45))`,
+        willChange: "transform",
+      }}
+    />
+  );
+}
+
+/** A single small shield resting at the edge of the frame, never over the art. */
+function EdgeMark({ slug }: { slug: Parameters<typeof Shield>[0]["slug"] }) {
+  return (
+    <span
+      aria-hidden="true"
+      className="pointer-events-none absolute bottom-[8%] opacity-70 ltr:right-6 rtl:left-6"
+      style={{
+        opacity: "calc(var(--a) * 0.55)",
+        transform: "translateY(calc((1 - var(--a)) * 14px))",
+      }}
+    >
+      <Shield slug={slug} size="xs" />
+    </span>
+  );
+}
+
+function Section({ children, tall = false }: { children: ReactNode; tall?: boolean }) {
+  return <section className={tall ? "relative h-[460vh]" : "relative h-[360vh]"}>{children}</section>;
+}
+
 
 function Stage({ children, glyphs = "ⲭⲣ" }: { children: ReactNode; glyphs?: string }) {
   const [g1, g2] = [glyphs[0] ?? "ⲭ", glyphs[1] ?? "ⲣ"];
