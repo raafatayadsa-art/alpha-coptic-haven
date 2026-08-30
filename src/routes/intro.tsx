@@ -610,20 +610,51 @@ function IntroExperience() {
                   : "Library, the Fathers, Alpha Kids, audio and hymns"}
               </p>
 
-              <p
-                className="mt-7 flex items-center gap-2 font-manrope text-[8.5px] font-semibold tracking-[0.22em] uppercase text-white/60"
-                dir="ltr"
+              {/* the slogan is lit, not faded in: warm gold bloom + gilded rules */}
+              <div
+                className="relative mt-8 flex flex-col items-center"
+                style={{ opacity: "calc((var(--p) - 0.66) * 3.2)" }}
               >
-                <span aria-hidden="true" className="font-display text-[14px] tracking-normal">
-                  Ⲁ
-                </span>
-                <span aria-hidden="true" className="h-px w-8 bg-white/30" />
-                <span>The Coptic Orthodox Digital Home</span>
-                <span aria-hidden="true" className="h-px w-8 bg-white/30" />
-                <span aria-hidden="true" className="font-display text-[14px] tracking-normal">
-                  Ⲱ
-                </span>
-              </p>
+                <span
+                  aria-hidden="true"
+                  className="absolute -inset-x-10 top-1/2 h-14 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,oklch(0.88_0.12_86/0.35),transparent_72%)] blur-xl"
+                  style={{ opacity: "calc((var(--p) - 0.7) * 3.6)" }}
+                />
+                <p
+                  className="relative flex items-center gap-2.5 font-manrope text-[9px] font-semibold tracking-[0.24em] uppercase"
+                  dir="ltr"
+                  style={{
+                    color: "oklch(0.94 0.07 88)",
+                    textShadow:
+                      "0 0 14px oklch(0.88 0.12 86 / 0.45), 0 0 44px oklch(0.86 0.12 86 / 0.28), 0 1px 0 oklch(0.35 0.05 60 / 0.6)",
+                  }}
+                >
+                  <span aria-hidden="true" className="font-display text-[16px] leading-none tracking-normal">
+                    Ⲁ
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="h-px bg-gradient-to-r from-transparent to-[oklch(0.9_0.11_87)]"
+                    style={{ width: "calc(14px + (var(--p) - 0.66) * 90px)" }}
+                  />
+                  <span>The Coptic Orthodox Digital Home</span>
+                  <span
+                    aria-hidden="true"
+                    className="h-px bg-gradient-to-l from-transparent to-[oklch(0.9_0.11_87)]"
+                    style={{ width: "calc(14px + (var(--p) - 0.66) * 90px)" }}
+                  />
+                  <span aria-hidden="true" className="font-display text-[16px] leading-none tracking-normal">
+                    Ⲱ
+                  </span>
+                </p>
+                {/* soft light reflection under the line */}
+                <span
+                  aria-hidden="true"
+                  className="mt-1.5 block h-3 w-40 scale-y-[-1] bg-[linear-gradient(to_bottom,oklch(0.9_0.11_87/0.2),transparent)] blur-[2px]"
+                  style={{ opacity: "calc((var(--p) - 0.76) * 3)" }}
+                />
+              </div>
+
 
               <button
                 type="button"
