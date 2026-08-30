@@ -641,7 +641,10 @@ function IntroExperience() {
                       filter: "blur(calc((1 - var(--p)) * 4px))",
                     }}
                   >
-                    <Shield slug={w.slug} size="sm" />
+                    <span className="block rounded-full border border-[oklch(0.86_0.12_86)/30] bg-white/8 px-2.5 py-1 font-arabic text-[9.5px] font-semibold whitespace-nowrap text-[oklch(0.95_0.05_88)] shadow-[0_8px_24px_-12px_oklch(0.86_0.12_86/0.7)] backdrop-blur-md">
+                      {ar ? w.ar : w.en}
+                    </span>
+
                   </span>
                 );
               })}
