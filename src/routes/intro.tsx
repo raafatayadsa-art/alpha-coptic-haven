@@ -647,7 +647,8 @@ function Section({ children, tall = false }: { children: ReactNode; tall?: boole
   return <section className={tall ? "relative h-[320vh]" : "relative h-[260vh]"}>{children}</section>;
 }
 
-function Stage({ children }: { children: ReactNode }) {
+function Stage({ children, glyphs = "ⲭⲣ" }: { children: ReactNode; glyphs?: string }) {
+  const [g1, g2] = [glyphs[0] ?? "ⲭ", glyphs[1] ?? "ⲣ"];
   return (
     <div
       data-stage
@@ -655,9 +656,31 @@ function Stage({ children }: { children: ReactNode }) {
       style={{ ["--p" as string]: 0, ["--a" as string]: 0, ["--c" as string]: 0, ["--d" as string]: 0 }}
     >
       {children}
+      {/* faint Coptic letterforms drifting as light, never as readable copy */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-4 left-[-6%] font-display text-[210px] leading-none text-[oklch(0.9_0.08_88)]/[0.05] select-none"
+        style={{
+          transform: "translateY(calc(var(--p) * 90px)) rotate(calc(var(--p) * -4deg))",
+          opacity: "calc(0.35 + var(--c) * 0.65)",
+        }}
+      >
+        {g1}
+      </span>
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-[-8%] right-[-4%] font-display text-[180px] leading-none text-[oklch(0.9_0.08_88)]/[0.04] select-none"
+        style={{
+          transform: "translateY(calc(var(--p) * -70px)) rotate(calc(var(--p) * 5deg))",
+          opacity: "calc(0.3 + var(--c) * 0.6)",
+        }}
+      >
+        {g2}
+      </span>
     </div>
   );
 }
+
 
 /** Full-bleed photographic plate with scroll-linked parallax, zoom and blur. */
 function Plate({
