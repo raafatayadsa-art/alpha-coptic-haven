@@ -655,7 +655,6 @@ function Stage({ children, glyphs = "ⲭⲣ" }: { children: ReactNode; glyphs?: 
       className="sticky top-0 h-screen w-full overflow-hidden [will-change:transform]"
       style={{ ["--p" as string]: 0, ["--a" as string]: 0, ["--c" as string]: 0, ["--d" as string]: 0 }}
     >
-      {children}
       {/* faint Coptic letterforms drifting as light, never as readable copy */}
       <span
         aria-hidden="true"
@@ -677,7 +676,9 @@ function Stage({ children, glyphs = "ⲭⲣ" }: { children: ReactNode; glyphs?: 
       >
         {g2}
       </span>
+      {children}
     </div>
+
   );
 }
 
