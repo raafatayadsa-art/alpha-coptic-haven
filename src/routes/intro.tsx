@@ -255,7 +255,7 @@ function IntroExperience() {
 
       {/* ── scene 1 — Alpha identity ───────────────────────── */}
       <Section>
-        <Stage>
+        <Stage glyphs="ⲁⲱ">
           <Plate src={intro1} alt="نور الفجر داخل كنيسة قبطية" />
           <Veil />
           {/* light shaft bloom */}
@@ -311,7 +311,7 @@ function IntroExperience() {
 
       {/* ── scene 2 — the Word ─────────────────────────────── */}
       <Section>
-        <Stage>
+        <Stage glyphs="ⲭⲣ">
           <Plate src={intro2} alt="الكتاب المقدس مفتوح على مكتب خشبي" depth={1.2} />
           <Veil tone="oklch(0.14_0.02_280)" strength={0.9} />
           <Center>
@@ -358,7 +358,7 @@ function IntroExperience() {
 
       {/* ── scene 3 — prayer & spiritual life ──────────────── */}
       <Section>
-        <Stage>
+        <Stage glyphs="ⲑⲥ">
           <Plate src={intro3} alt="شموع وصلاة في هدوء الكنيسة" depth={0.9} />
           <Veil tone="oklch(0.13_0.03_265)" strength={0.72} />
           <Center>
@@ -423,7 +423,7 @@ function IntroExperience() {
 
       {/* ── scene 4 — church & community ───────────────────── */}
       <Section>
-        <Stage>
+        <Stage glyphs="ⲡⲛ">
           <Plate src={intro4} alt="مجتمع كنيسة قبطية أرثوذكسية في مصر" depth={1.35} />
           <Veil tone="oklch(0.14_0.02_290)" strength={0.86} />
 
@@ -486,7 +486,7 @@ function IntroExperience() {
 
       {/* ── scene 5 — Alpha Connect ────────────────────────── */}
       <Section>
-        <Stage>
+        <Stage glyphs="ⲱⲁ">
           <Plate src={intro5} alt="تواصل ومحادثات داخل مجتمع ألفا" depth={1.1} />
           <div
             aria-hidden="true"
@@ -549,7 +549,7 @@ function IntroExperience() {
 
       {/* ── scene 6 — the whole world of Alpha ─────────────── */}
       <Section tall>
-        <Stage>
+        <Stage glyphs="ⲭⲱ">
           <Plate src={intro6} alt="أفق الفجر ورحلة ألفا" depth={0.7} dim />
           <div
             aria-hidden="true"
