@@ -551,10 +551,10 @@ function IntroExperience() {
       {/* ── scene 6 — the whole world of Alpha ─────────────── */}
       <Section tall>
         <Stage glyphs="ⲭⲱ">
-          <Plate src={intro6} alt="أفق الفجر ورحلة ألفا" depth={0.7} dim />
+          <Plate src={intro6} alt="قبة كنيسة قبطية مزخرفة بالذهب" depth={0.7} />
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,oklch(0.28_0.05_290/0.5),oklch(0.09_0.02_285/0.96))]"
+            className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,oklch(0.3_0.05_290/0.28),oklch(0.09_0.02_285/0.88))]"
           />
           <div
             aria-hidden="true"
@@ -622,7 +622,7 @@ function IntroExperience() {
                   style={{ opacity: "calc((var(--p) - 0.7) * 3.6)" }}
                 />
                 <p
-                  className="relative flex items-center gap-2.5 font-manrope text-[9px] font-semibold tracking-[0.24em] uppercase"
+                  className="relative flex flex-nowrap items-center gap-2 whitespace-nowrap font-manrope text-[7.5px] font-semibold tracking-[0.2em] uppercase"
                   dir="ltr"
                   style={{
                     color: "oklch(0.94 0.07 88)",
@@ -636,13 +636,13 @@ function IntroExperience() {
                   <span
                     aria-hidden="true"
                     className="h-px bg-gradient-to-r from-transparent to-[oklch(0.9_0.11_87)]"
-                    style={{ width: "calc(14px + (var(--p) - 0.66) * 90px)" }}
+                    style={{ width: "calc(10px + (var(--p) - 0.66) * 46px)" }}
                   />
                   <span>The Coptic Orthodox Digital Home</span>
                   <span
                     aria-hidden="true"
                     className="h-px bg-gradient-to-l from-transparent to-[oklch(0.9_0.11_87)]"
-                    style={{ width: "calc(14px + (var(--p) - 0.66) * 90px)" }}
+                    style={{ width: "calc(10px + (var(--p) - 0.66) * 46px)" }}
                   />
                   <span aria-hidden="true" className="font-display text-[16px] leading-none tracking-normal">
                     Ⲱ
