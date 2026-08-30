@@ -68,19 +68,20 @@ const SPIRITUAL = [
 ] as const;
 
 const WORLDS = [
-  { slug: "bible", a: -90 },
-  { slug: "agpeya", a: -54 },
-  { slug: "katameros", a: -18 },
-  { slug: "synaxarium", a: 18 },
-  { slug: "khoulagy", a: 54 },
-  { slug: "church", a: 90 },
-  { slug: "library", a: 126 },
-  { slug: "books", a: 162 },
-  { slug: "kids", a: 198 },
-  { slug: "audio", a: 234 },
-  { slug: "community", a: 270 },
-  { slug: "messages-audio", a: 306 },
+  { slug: "bible", ar: "الكتاب", en: "Bible", a: -90 },
+  { slug: "agpeya", ar: "الأجبية", en: "Agpeya", a: -54 },
+  { slug: "katameros", ar: "القطمارس", en: "Katameros", a: -18 },
+  { slug: "synaxarium", ar: "السنكسار", en: "Synaxarium", a: 18 },
+  { slug: "khoulagy", ar: "الخولاجي", en: "Khoulagy", a: 54 },
+  { slug: "church", ar: "كنيستي", en: "Church", a: 90 },
+  { slug: "library", ar: "المكتبة", en: "Library", a: 126 },
+  { slug: "books", ar: "الآباء", en: "Fathers", a: 162 },
+  { slug: "kids", ar: "كيدز", en: "Kids", a: 198 },
+  { slug: "audio", ar: "الترانيم", en: "Hymns", a: 234 },
+  { slug: "community", ar: "مجتمعي", en: "Community", a: 270 },
+  { slug: "messages-audio", ar: "كونكت", en: "Connect", a: 306 },
 ] as const;
+
 
 /* ── scroll engine ──────────────────────────────────────────── */
 
