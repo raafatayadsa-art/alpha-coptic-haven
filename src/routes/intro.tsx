@@ -619,8 +619,8 @@ function IntroExperience() {
                     className="absolute"
                     style={{
                       transform:
-                        `translate(calc(${ux.toFixed(3)} * (250px - var(--p) * 168px)),` +
-                        ` calc(${uy.toFixed(3)} * (250px - var(--p) * 168px)))` +
+                        `translate(calc(${ux.toFixed(3)} * (250px - var(--p) * 122px)),` +
+                        ` calc(${uy.toFixed(3)} * (250px - var(--p) * 122px)))` +
                         " scale(calc(0.5 + var(--p) * 0.42))",
                       opacity: `calc(var(--p) * 2.6 - ${0.15 + i * 0.05})`,
                       filter: "blur(calc((1 - var(--p)) * 4px))",
