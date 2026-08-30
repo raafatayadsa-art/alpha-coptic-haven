@@ -607,54 +607,70 @@ function IntroExperience() {
           />
 
           <Center className="pointer-events-auto">
-            <div className="relative grid h-[330px] w-[330px] place-items-center">
-              {WORLDS.map((w, i) => {
+            <div className="relative grid h-[352px] w-[352px] place-items-center">
+              {WORLDS.map((w) => {
                 const rad = (w.a * Math.PI) / 180;
-                const ux = Math.cos(rad);
-                const uy = Math.sin(rad);
+                // elliptical rings: tighter horizontally so long Arabic labels
+                // never reach the phone edge, taller vertically for breathing room
+                const rx = w.ring === 0 ? 74 : 118;
+                const ry = w.ring === 0 ? 96 : 152;
+                const dx = Math.cos(rad) * rx;
+                const dy = Math.sin(rad) * ry;
+                const dist = Math.hypot(dx, dy);
+                const angle = (Math.atan2(dy, dx) * 180) / Math.PI;
+                const step = w.ring === 0 ? 0.1 : 0.22;
                 return (
-                  <span
-                    key={`${w.slug}-${i}`}
-                    className="absolute"
-                    style={{
-                      transform:
-                        `translate(calc(${ux.toFixed(3)} * (250px - var(--p) * 88px)),` +
-                        ` calc(${uy.toFixed(3)} * (250px - var(--p) * 88px)))` +
-                        " scale(calc(0.5 + var(--p) * 0.42))",
-                      opacity: `calc(var(--p) * 2.6 - ${0.15 + i * 0.05})`,
-                      filter: "blur(calc((1 - var(--p)) * 4px))",
-                    }}
-                  >
-                    <span className="block rounded-full border border-[oklch(0.86_0.12_86)/30] bg-white/8 px-2.5 py-1 font-arabic text-[9.5px] font-semibold whitespace-nowrap text-[oklch(0.95_0.05_88)] shadow-[0_8px_24px_-12px_oklch(0.86_0.12_86/0.7)] backdrop-blur-md">
-                      {ar ? w.ar : w.en}
+                  <span key={w.slug} className="absolute grid place-items-center">
+                    {/* a thread of light drawn from Alpha out to this world */}
+                    <span
+                      aria-hidden="true"
+                      className="absolute left-1/2 top-1/2 h-px origin-left bg-[linear-gradient(to_right,oklch(0.88_0.12_86/0.55),transparent)]"
+                      style={{
+                        width: `${Math.round(dist - 30)}px`,
+                        transform: `rotate(${angle.toFixed(2)}deg) scaleX(calc(min(1, max(0, (var(--p) - ${step}) * 2.2))))`,
+                        opacity: `calc(min(1, max(0, (var(--p) - ${step}) * 2.6)) * 0.5)`,
+                      }}
+                    />
+                    <span
+                      className="absolute"
+                      style={{
+                        transform:
+                          `translate(calc(${dx.toFixed(1)}px * (1.16 - var(--p) * 0.16)),` +
+                          ` calc(${dy.toFixed(1)}px * (1.16 - var(--p) * 0.16)))`,
+                        opacity: `calc(min(1, max(0, (var(--p) - ${step}) * 2.4)))`,
+                        filter: `blur(calc(max(0, ${step + 0.3} - var(--p)) * 12px))`,
+                      }}
+                    >
+                      <span className="block rounded-full border border-[oklch(0.86_0.12_86)/35] bg-white/10 px-3.5 py-1.5 font-arabic text-[12.5px] font-semibold whitespace-nowrap text-[oklch(0.96_0.05_88)] shadow-[0_10px_28px_-14px_oklch(0.86_0.12_86/0.8)] backdrop-blur-md">
+                        {ar ? w.ar : w.en}
+                      </span>
                     </span>
-
                   </span>
                 );
               })}
 
-              {/* Alpha core — the logo mark, lit like a gilded medallion */}
+              {/* Alpha core — the Coptic letter itself, lit from within */}
               <div
-                className="relative grid h-36 w-36 place-items-center overflow-hidden rounded-full border border-[oklch(0.86_0.12_86)/55] bg-[oklch(0.975_0.015_86)]"
-                style={{
-                  transform: "scale(calc(0.72 + var(--p) * 0.34))",
-                  boxShadow:
-                    "0 30px 80px -30px oklch(0.86 0.12 86 / 0.75), inset 0 0 0 1px oklch(1 0 0 / 0.6)",
-                }}
+                className="relative grid place-items-center"
+                style={{ transform: "scale(calc(0.8 + var(--p) * 0.28))" }}
               >
-                <img
-                  src={alphaLogo.url}
-                  alt="شعار ألفا"
-                  className="h-[76%] w-[76%] object-contain"
-                />
                 <span
                   aria-hidden="true"
-                  className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_24%,oklch(1_0_0/0.28),transparent_66%)]"
+                  className="absolute h-28 w-28 rounded-full bg-[oklch(0.9_0.13_85)/45] blur-2xl"
+                  style={{ opacity: "calc(0.35 + var(--p) * 0.6)" }}
                 />
+                <span
+                  className="relative font-display text-[92px] leading-none text-[oklch(0.96_0.07_88)]"
+                  style={{
+                    textShadow:
+                      "0 0 22px oklch(0.88 0.12 86 / 0.55), 0 0 70px oklch(0.86 0.12 86 / 0.35), 0 14px 34px rgba(0,0,0,0.45)",
+                  }}
+                >
+                  Ⲁ
+                </span>
               </div>
-
-
             </div>
+
 
             <div
               className="mt-8 flex flex-col items-center"
