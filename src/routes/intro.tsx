@@ -340,11 +340,6 @@ function IntroExperience() {
                 {ar ? "اقترب… البيت مفتوح" : "Come closer — the home is open"}
               </p>
             </div>
-
-              <p className="mt-2 max-w-[19rem] text-center font-arabic text-[13px] leading-relaxed text-white/75">
-                {ar ? "اقترب… البيت مفتوح" : "Come closer — the home is open"}
-              </p>
-            </div>
           </div>
 
           <div
