@@ -136,9 +136,10 @@ function IntroExperience() {
         if (!visible) return;
 
         stage.style.setProperty("--p", p.toFixed(4));
-        stage.style.setProperty("--a", ease(clamp(p / 0.22)).toFixed(4));
-        stage.style.setProperty("--d", ease(clamp((p - 0.34) / 0.24)).toFixed(4));
+        stage.style.setProperty("--a", ease(clamp(p / 0.40)).toFixed(4));
+        stage.style.setProperty("--d", ease(clamp((p - 0.38) / 0.35)).toFixed(4));
         stage.style.setProperty("--c", (1 - Math.abs(p - 0.5) * 2).toFixed(4));
+
 
         const area = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
         if (area > bestArea) {
