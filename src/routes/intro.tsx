@@ -332,7 +332,7 @@ function IntroExperience() {
 
             <div
               style={{
-                opacity: "calc(0.1 + var(--p) * 8)",
+                opacity: "calc(min(1, max(0, (var(--p) - 0.08) * 2.8)))",
                 transform: "translateY(calc((1 - var(--a)) * 16px))",
                 filter: "blur(calc((1 - var(--a)) * 3px))",
               }}
@@ -345,6 +345,7 @@ function IntroExperience() {
               </p>
             </div>
           </div>
+
 
           <div
             className="absolute inset-x-0 bottom-[3%] flex flex-col items-center gap-2"
