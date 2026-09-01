@@ -349,13 +349,14 @@ function IntroExperience() {
 
           <div
             className="absolute inset-x-0 bottom-[3%] flex flex-col items-center gap-2"
-            style={{ opacity: "calc(1 - var(--p) * 8)" }}
+            style={{ opacity: "calc(1 - var(--p) * 3.5)" }}
           >
             <span className="font-manrope text-[9.5px] font-semibold tracking-[0.28em] uppercase text-white/60">
               {COPY.scroll[ar ? "ar" : "en"]}
             </span>
             <span aria-hidden="true" className="h-8 w-px bg-gradient-to-b from-white/50 to-transparent" />
           </div>
+
         </Stage>
       </Section>
 
