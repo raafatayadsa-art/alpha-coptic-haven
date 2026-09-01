@@ -266,17 +266,19 @@ function IntroExperience() {
       <Section tall>
         <Stage glyphs="ⲁⲱ">
           {/* the lit church at the top of the stairs — a slow camera push in */}
-          <img
-            src={churchGate.url}
-            alt="كنيسة قبطية أرثوذكسية مضاءة عند الغروب في نهاية درج حجري"
-            className="absolute inset-0 h-full w-full object-cover"
-            style={{
-              transform:
-                "scale(calc(1.14 + var(--p) * 0.22)) translate3d(0, calc(var(--p) * -34px), 0)",
-              filter: "saturate(1.03) brightness(calc(0.9 + var(--p) * 0.16))",
-              willChange: "transform",
-            }}
-          />
+          <div className="intro-drift-slow absolute inset-0 overflow-hidden">
+            <img
+              src={churchGate.url}
+              alt="كنيسة قبطية أرثوذكسية مضاءة عند الغروب في نهاية درج حجري"
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{
+                transform:
+                  "scale(calc(1.14 + var(--p) * 0.22)) translate3d(0, calc(var(--p) * -34px), 0)",
+                filter: "saturate(1.03) brightness(calc(0.9 + var(--p) * 0.16))",
+                willChange: "transform",
+              }}
+            />
+          </div>
           {/* candle-warm haze rising from the pavement */}
           <div
             aria-hidden="true"
@@ -295,7 +297,7 @@ function IntroExperience() {
           {/* the sunburst behind the dome, breathing as we approach */}
           <div
             aria-hidden="true"
-            className="absolute left-1/2 top-[16%] h-64 w-64 -translate-x-1/2 rounded-full bg-[oklch(0.93_0.13_82)/40] blur-3xl"
+            className="intro-glow absolute left-1/2 top-[16%] h-64 w-64 -translate-x-1/2 rounded-full bg-[oklch(0.93_0.13_82)/40] blur-3xl"
             style={{
               opacity: "calc(0.2 + var(--p) * 0.55)",
               transform: "translateX(-50%) scale(calc(0.7 + var(--p) * 0.7))",
@@ -602,7 +604,7 @@ function IntroExperience() {
           />
           <div
             aria-hidden="true"
-            className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[oklch(0.86_0.12_86)/30] blur-3xl"
+            className="intro-glow absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[oklch(0.86_0.12_86)/30] blur-3xl"
             style={{ opacity: "calc(0.1 + var(--p) * 0.7)" }}
           />
 
@@ -858,18 +860,20 @@ function Plate({
   dim?: boolean;
 }) {
   return (
-    <img
-      src={src}
-      alt={alt}
-      className={`absolute inset-0 h-full w-full object-cover ${dim ? "opacity-55" : "opacity-80"}`}
-      style={{
-        transform:
-          `scale(calc(1.16 + var(--p) * ${(0.16 * depth).toFixed(3)}))` +
-          ` translate3d(0, calc(var(--p) * ${(-46 * depth).toFixed(1)}px), 0)`,
-        filter: "blur(calc(var(--p) * 3px)) saturate(1.05)",
-        willChange: "transform",
-      }}
-    />
+    <div aria-hidden="true" className="intro-drift absolute inset-0 overflow-hidden">
+      <img
+        src={src}
+        alt={alt}
+        className={`absolute inset-0 h-full w-full object-cover ${dim ? "opacity-55" : "opacity-80"}`}
+        style={{
+          transform:
+            `scale(calc(1.16 + var(--p) * ${(0.16 * depth).toFixed(3)}))` +
+            ` translate3d(0, calc(var(--p) * ${(-46 * depth).toFixed(1)}px), 0)`,
+          filter: "blur(calc(var(--p) * 3px)) saturate(1.05)",
+          willChange: "transform",
+        }}
+      />
+    </div>
   );
 }
 
