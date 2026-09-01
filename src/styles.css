@@ -1525,3 +1525,37 @@
 .ctl-rise { animation: ctl-rise 0.7s cubic-bezier(0.19, 1, 0.22, 1) both; }
 .ctl-bar { transform-origin: bottom center; animation: ctl-bar 0.9s cubic-bezier(0.19, 1, 0.22, 1) both; }
 .ctl-line { stroke-dasharray: 400; stroke-dashoffset: 400; animation: ctl-dash 1.6s ease-out both; }
+
+/* ── intro: living background plates ─────────────────────────
+   A slow, continuous ken-burns drift that keeps every scene alive even when
+   the finger stops. Scroll-linked parallax stays on the <img> itself, so the
+   two motions compose without fighting each other. */
+@keyframes intro-drift {
+  0%   { transform: scale(1) translate3d(0, 0, 0) rotate(0deg); }
+  50%  { transform: scale(1.05) translate3d(-2.2%, 1.6%, 0) rotate(0.35deg); }
+  100% { transform: scale(1) translate3d(0, 0, 0) rotate(0deg); }
+}
+@keyframes intro-glow {
+  0%, 100% { opacity: 0.75; }
+  50%      { opacity: 1; }
+}
+
+.intro-drift {
+  animation: intro-drift 22s ease-in-out infinite;
+  will-change: transform;
+}
+.intro-drift-slow {
+  animation: intro-drift 34s ease-in-out infinite;
+  will-change: transform;
+}
+.intro-glow {
+  animation: intro-glow 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-drift,
+  .intro-drift-slow,
+  .intro-glow {
+    animation: none !important;
+  }
+}
