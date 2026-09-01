@@ -136,9 +136,10 @@ function IntroExperience() {
         if (!visible) return;
 
         stage.style.setProperty("--p", p.toFixed(4));
-        stage.style.setProperty("--a", ease(clamp(p / 0.22)).toFixed(4));
-        stage.style.setProperty("--d", ease(clamp((p - 0.34) / 0.24)).toFixed(4));
+        stage.style.setProperty("--a", ease(clamp(p / 0.40)).toFixed(4));
+        stage.style.setProperty("--d", ease(clamp((p - 0.38) / 0.35)).toFixed(4));
         stage.style.setProperty("--c", (1 - Math.abs(p - 0.5) * 2).toFixed(4));
+
 
         const area = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
         if (area > bestArea) {
@@ -309,20 +310,21 @@ function IntroExperience() {
           />
 
 
-          {/* Alpha identity arrives almost immediately, in a safe band */}
+          {/* Alpha identity arrives early but unfolds gently over the scroll */}
           <div className="safe-bottom pointer-events-none absolute inset-x-0 bottom-[9%] flex flex-col items-center px-8">
             <div
               className="relative grid place-items-center"
               style={{
-                opacity: "calc(0.25 + var(--p) * 9)",
+                opacity: "calc(min(1, max(0, (var(--p) - 0.02) * 3.5)))",
                 transform: "translateY(calc((1 - var(--a)) * 18px)) scale(calc(0.86 + var(--a) * 0.14))",
               }}
             >
               <span
                 aria-hidden="true"
                 className="absolute h-24 w-24 rounded-full bg-[oklch(0.9_0.13_84)/40] blur-2xl"
-                style={{ opacity: "calc(0.2 + var(--p) * 8)" }}
+                style={{ opacity: "calc(min(1, max(0, (var(--p) - 0.04) * 3.2)))" }}
               />
+
               <span className="relative font-display text-[64px] leading-none text-[oklch(0.96_0.06_88)] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
                 ⲁ
               </span>
@@ -330,7 +332,7 @@ function IntroExperience() {
 
             <div
               style={{
-                opacity: "calc(0.1 + var(--p) * 8)",
+                opacity: "calc(min(1, max(0, (var(--p) - 0.08) * 2.8)))",
                 transform: "translateY(calc((1 - var(--a)) * 16px))",
                 filter: "blur(calc((1 - var(--a)) * 3px))",
               }}
@@ -344,15 +346,17 @@ function IntroExperience() {
             </div>
           </div>
 
+
           <div
             className="absolute inset-x-0 bottom-[3%] flex flex-col items-center gap-2"
-            style={{ opacity: "calc(1 - var(--p) * 8)" }}
+            style={{ opacity: "calc(1 - var(--p) * 3.5)" }}
           >
             <span className="font-manrope text-[9.5px] font-semibold tracking-[0.28em] uppercase text-white/60">
               {COPY.scroll[ar ? "ar" : "en"]}
             </span>
             <span aria-hidden="true" className="h-8 w-px bg-gradient-to-b from-white/50 to-transparent" />
           </div>
+
         </Stage>
       </Section>
 
@@ -898,7 +902,9 @@ function Center({ children, className = "" }: { children: ReactNode; className?:
   );
 }
 
-/** Text block whose reveal is tied to the scroll, not to a timer. */
+/** Text block whose reveal is tied to the scroll, not to a timer.
+ *  The entrance now unfolds over a longer scroll distance so each line
+ *  feels like it is gently emerging rather than snapping in. */
 function Line({
   children,
   delay = 0,
@@ -908,19 +914,22 @@ function Line({
   delay?: number;
   className?: string;
 }) {
+  const start = (delay * 0.45).toFixed(3);
   return (
     <div
       className={className}
       style={{
-        opacity: `calc((var(--p) - ${(delay * 0.35).toFixed(3)}) * 6)`,
-        transform: `translateY(calc((1 - var(--a)) * 26px))`,
-        filter: "blur(calc((1 - var(--a)) * 4px))",
+        ["--r" as string]: `calc(min(1, max(0, (var(--a) - ${start}) * 2.6)))`,
+        opacity: "var(--r)",
+        transform: "translateY(calc((1 - var(--r)) * 26px))",
+        filter: "blur(calc((1 - var(--r)) * 4px))",
       }}
     >
       {children}
     </div>
   );
 }
+
 
 function SoundIcon({ on }: { on: boolean }) {
   return (
