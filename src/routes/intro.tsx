@@ -136,8 +136,8 @@ function IntroExperience() {
         if (!visible) return;
 
         stage.style.setProperty("--p", p.toFixed(4));
-        stage.style.setProperty("--a", ease(clamp(p / 0.5)).toFixed(4));
-        stage.style.setProperty("--d", ease(clamp((p - 0.58) / 0.38)).toFixed(4));
+        stage.style.setProperty("--a", ease(clamp(p / 0.22)).toFixed(4));
+        stage.style.setProperty("--d", ease(clamp((p - 0.34) / 0.24)).toFixed(4));
         stage.style.setProperty("--c", (1 - Math.abs(p - 0.5) * 2).toFixed(4));
 
         const area = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
@@ -344,7 +344,7 @@ function IntroExperience() {
 
           <div
             className="absolute inset-x-0 bottom-[3%] flex flex-col items-center gap-2"
-            style={{ opacity: "calc(1 - var(--p) * 5)" }}
+            style={{ opacity: "calc(1 - var(--p) * 8)" }}
           >
             <span className="font-manrope text-[9.5px] font-semibold tracking-[0.28em] uppercase text-white/60">
               {COPY.scroll[ar ? "ar" : "en"]}
@@ -383,8 +383,8 @@ function IntroExperience() {
             <div
               className="mt-6 w-[19rem] overflow-hidden rounded-[24px] border border-white/14 bg-white/8 px-5 py-4 backdrop-blur-xl"
               style={{
-                opacity: "calc(var(--p) * 1.9 - 0.35)",
-                transform: "translateY(calc((1 - var(--p)) * 34px))",
+                opacity: "calc(var(--p) * 6 - 0.15)",
+                transform: "translateY(calc((1 - var(--a)) * 34px))",
               }}
             >
               <p className="text-center font-arabic text-[14px] leading-loose text-[oklch(0.95_0.04_86)]">
@@ -393,7 +393,7 @@ function IntroExperience() {
               <span
                 aria-hidden="true"
                 className="mx-auto mt-3 block h-px bg-[oklch(0.86_0.12_86)]"
-                style={{ width: "calc(var(--p) * 100%)" }}
+                style={{ width: "calc(min(1, var(--p) * 3.4) * 100%)" }}
               />
             </div>
             <Line delay={0.62}>
@@ -443,10 +443,10 @@ function IntroExperience() {
                       "--tx": `${s.x}px`,
                       "--ty": `${s.y}px`,
                       transform:
-                        "translate(calc(var(--tx) * (0.35 + var(--p) * 0.65)), calc(var(--ty) * (0.35 + var(--p) * 0.65)))" +
+                        "translate(calc(var(--tx) * (0.35 + var(--a) * 0.65)), calc(var(--ty) * (0.35 + var(--a) * 0.65)))" +
                         ` scale(calc(0.72 + var(--p) * 0.28)) rotate(calc((1 - var(--p)) * ${s.r}deg))`,
-                      opacity: `calc(var(--p) * 2.4 - ${i * 0.22})`,
-                      filter: "blur(calc((1 - var(--p)) * 5px))",
+                      opacity: `calc(var(--p) * 7 - ${i * 0.18})`,
+                      filter: "blur(calc((1 - var(--a)) * 5px))",
                     } as CSSProperties
                   }
                 >
@@ -498,7 +498,7 @@ function IntroExperience() {
 
             <div
               className="mt-5 flex flex-wrap items-center justify-center gap-2"
-              style={{ opacity: "calc(var(--p) * 2 - 0.5)" }}
+              style={{ opacity: "calc(var(--p) * 6 - 0.3)" }}
             >
               {(ar
                 ? ["القداسات", "الاجتماعات", "الخدمات", "المناسبات"]
@@ -507,7 +507,7 @@ function IntroExperience() {
                 <span
                   key={t}
                   className="rounded-full border border-white/16 bg-white/8 px-3.5 py-1.5 font-arabic text-[11.5px] text-white/85 backdrop-blur-md"
-                  style={{ transform: `translateY(calc((1 - var(--p)) * ${16 + i * 8}px))` }}
+                  style={{ transform: `translateY(calc((1 - var(--a)) * ${16 + i * 8}px))` }}
                 >
                   {t}
                 </span>
@@ -570,8 +570,8 @@ function IntroExperience() {
                   className="w-1 rounded-full bg-[oklch(0.88_0.13_190)]"
                   style={{
                     height: `${h}px`,
-                    transform: `scaleY(calc(0.2 + var(--p) * ${0.9 + (i % 3) * 0.5}))`,
-                    opacity: "calc(0.35 + var(--p) * 0.65)",
+                    transform: `scaleY(calc(0.2 + var(--a) * ${0.9 + (i % 3) * 0.5}))`,
+                    opacity: "calc(0.35 + var(--a) * 0.65)",
                   }}
                 />
               ))}
@@ -618,7 +618,7 @@ function IntroExperience() {
                 const dy = Math.sin(rad) * ry;
                 const dist = Math.hypot(dx, dy);
                 const angle = (Math.atan2(dy, dx) * 180) / Math.PI;
-                const step = w.ring === 0 ? 0.1 : 0.22;
+                const step = w.ring === 0 ? 0.03 : 0.08;
                 return (
                   <span key={w.slug} className="absolute grid place-items-center">
                     {/* a thread of light drawn from Alpha out to this world */}
@@ -627,8 +627,8 @@ function IntroExperience() {
                       className="absolute left-1/2 top-1/2 h-px origin-left bg-[linear-gradient(to_right,oklch(0.88_0.12_86/0.55),transparent)]"
                       style={{
                         width: `${Math.round(dist - 30)}px`,
-                        transform: `rotate(${angle.toFixed(2)}deg) scaleX(calc(min(1, max(0, (var(--p) - ${step}) * 2.2))))`,
-                        opacity: `calc(min(1, max(0, (var(--p) - ${step}) * 2.6)) * 0.5)`,
+                        transform: `rotate(${angle.toFixed(2)}deg) scaleX(calc(min(1, max(0, (var(--p) - ${step}) * 6))))`,
+                        opacity: `calc(min(1, max(0, (var(--p) - ${step}) * 7)) * 0.5)`,
                       }}
                     />
                     <span
@@ -637,8 +637,8 @@ function IntroExperience() {
                         transform:
                           `translate(calc(${dx.toFixed(1)}px * (1.16 - var(--p) * 0.16)),` +
                           ` calc(${dy.toFixed(1)}px * (1.16 - var(--p) * 0.16)))`,
-                        opacity: `calc(min(1, max(0, (var(--p) - ${step}) * 2.4)))`,
-                        filter: `blur(calc(max(0, ${step + 0.3} - var(--p)) * 12px))`,
+                        opacity: `calc(min(1, max(0, (var(--p) - ${step}) * 7)))`,
+                        filter: `blur(calc(max(0, ${(step + 0.12).toFixed(3)} - var(--p)) * 26px))`,
                       }}
                     >
                       <span className="block rounded-full border border-[oklch(0.86_0.12_86)/35] bg-white/10 px-3.5 py-1.5 font-arabic text-[12.5px] font-semibold whitespace-nowrap text-[oklch(0.96_0.05_88)] shadow-[0_10px_28px_-14px_oklch(0.86_0.12_86/0.8)] backdrop-blur-md">
@@ -688,12 +688,12 @@ function IntroExperience() {
               {/* the slogan is lit, not faded in: warm gold bloom + gilded rules */}
               <div
                 className="relative mt-8 flex flex-col items-center"
-                style={{ opacity: "calc((var(--p) - 0.66) * 3.2)" }}
+                style={{ opacity: "calc((var(--p) - 0.4) * 6)" }}
               >
                 <span
                   aria-hidden="true"
                   className="absolute -inset-x-10 top-1/2 h-14 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,oklch(0.88_0.12_86/0.35),transparent_72%)] blur-xl"
-                  style={{ opacity: "calc((var(--p) - 0.7) * 3.6)" }}
+                  style={{ opacity: "calc((var(--p) - 0.42) * 6)" }}
                 />
                 <p
                   className="relative flex w-max flex-nowrap items-center gap-2 whitespace-nowrap font-manrope text-[7.5px] font-semibold tracking-[0.18em] uppercase"
@@ -710,13 +710,13 @@ function IntroExperience() {
                   <span
                     aria-hidden="true"
                     className="h-px bg-gradient-to-r from-transparent to-[oklch(0.9_0.11_87)]"
-                    style={{ width: "calc(10px + (var(--p) - 0.66) * 46px)" }}
+                    style={{ width: "calc(10px + min(0.34, max(0, var(--p) - 0.4)) * 130px)" }}
                   />
                   <span className="shrink-0">The Coptic Orthodox Digital Home</span>
                   <span
                     aria-hidden="true"
                     className="h-px bg-gradient-to-l from-transparent to-[oklch(0.9_0.11_87)]"
-                    style={{ width: "calc(10px + (var(--p) - 0.66) * 46px)" }}
+                    style={{ width: "calc(10px + min(0.34, max(0, var(--p) - 0.4)) * 130px)" }}
                   />
                   <span aria-hidden="true" className="font-display text-[16px] leading-none tracking-normal">
                     Ⲱ
@@ -726,7 +726,7 @@ function IntroExperience() {
                 <span
                   aria-hidden="true"
                   className="mt-1.5 block h-3 w-40 scale-y-[-1] bg-[linear-gradient(to_bottom,oklch(0.9_0.11_87/0.2),transparent)] blur-[2px]"
-                  style={{ opacity: "calc((var(--p) - 0.76) * 3)" }}
+                  style={{ opacity: "calc((var(--p) - 0.5) * 5)" }}
                 />
               </div>
 
@@ -805,7 +805,7 @@ function EdgeMark({ slug }: { slug: Parameters<typeof Shield>[0]["slug"] }) {
 }
 
 function Section({ children, tall = false }: { children: ReactNode; tall?: boolean }) {
-  return <section className={tall ? "relative h-[460vh]" : "relative h-[360vh]"}>{children}</section>;
+  return <section className={tall ? "relative h-[170vh]" : "relative h-[150vh]"}>{children}</section>;
 }
 
 
@@ -908,7 +908,7 @@ function Line({
     <div
       className={className}
       style={{
-        opacity: `calc((var(--p) - ${delay}) * 2.6)`,
+        opacity: `calc((var(--p) - ${(delay * 0.35).toFixed(3)}) * 6)`,
         transform: `translateY(calc((1 - var(--a)) * 26px))`,
         filter: "blur(calc((1 - var(--a)) * 4px))",
       }}
