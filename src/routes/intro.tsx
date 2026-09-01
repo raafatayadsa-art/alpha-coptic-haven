@@ -899,7 +899,9 @@ function Center({ children, className = "" }: { children: ReactNode; className?:
   );
 }
 
-/** Text block whose reveal is tied to the scroll, not to a timer. */
+/** Text block whose reveal is tied to the scroll, not to a timer.
+ *  The entrance now unfolds over a longer scroll distance so each line
+ *  feels like it is gently emerging rather than snapping in. */
 function Line({
   children,
   delay = 0,
@@ -909,19 +911,22 @@ function Line({
   delay?: number;
   className?: string;
 }) {
+  const start = (delay * 0.45).toFixed(3);
   return (
     <div
       className={className}
       style={{
-        opacity: `calc((var(--p) - ${(delay * 0.35).toFixed(3)}) * 6)`,
-        transform: `translateY(calc((1 - var(--a)) * 26px))`,
-        filter: "blur(calc((1 - var(--a)) * 4px))",
+        ["--r" as string]: `calc(min(1, max(0, (var(--a) - ${start}) * 2.6)))`,
+        opacity: "var(--r)",
+        transform: "translateY(calc((1 - var(--r)) * 26px))",
+        filter: "blur(calc((1 - var(--r)) * 4px))",
       }}
     >
       {children}
     </div>
   );
 }
+
 
 function SoundIcon({ on }: { on: boolean }) {
   return (
