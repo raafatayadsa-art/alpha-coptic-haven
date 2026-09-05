@@ -24,6 +24,7 @@ import { Route as BibleSavedRouteImport } from './routes/bible-saved'
 import { Route as BibleSearchRouteImport } from './routes/bible-search'
 import { Route as BibleStatsRouteImport } from './routes/bible-stats'
 import { Route as ChurchControlRouteImport } from './routes/church-control'
+import { Route as CommunityRouteImport } from './routes/community'
 import { Route as ConnectRouteImport } from './routes/connect'
 import { Route as ConnectCallRouteImport } from './routes/connect-call'
 import { Route as ConnectChannelRouteImport } from './routes/connect-channel'
@@ -126,6 +127,11 @@ const BibleStatsRoute = BibleStatsRouteImport.update({
 const ChurchControlRoute = ChurchControlRouteImport.update({
   id: '/church-control',
   path: '/church-control',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConnectRoute = ConnectRouteImport.update({
@@ -285,6 +291,7 @@ export interface FileRoutesByFullPath {
   '/bible-search': typeof BibleSearchRoute
   '/bible-stats': typeof BibleStatsRoute
   '/church-control': typeof ChurchControlRoute
+  '/community': typeof CommunityRoute
   '/connect': typeof ConnectRoute
   '/connect-call': typeof ConnectCallRoute
   '/connect-channel': typeof ConnectChannelRoute
@@ -330,6 +337,7 @@ export interface FileRoutesByTo {
   '/bible-search': typeof BibleSearchRoute
   '/bible-stats': typeof BibleStatsRoute
   '/church-control': typeof ChurchControlRoute
+  '/community': typeof CommunityRoute
   '/connect': typeof ConnectRoute
   '/connect-call': typeof ConnectCallRoute
   '/connect-channel': typeof ConnectChannelRoute
@@ -376,6 +384,7 @@ export interface FileRoutesById {
   '/bible-search': typeof BibleSearchRoute
   '/bible-stats': typeof BibleStatsRoute
   '/church-control': typeof ChurchControlRoute
+  '/community': typeof CommunityRoute
   '/connect': typeof ConnectRoute
   '/connect-call': typeof ConnectCallRoute
   '/connect-channel': typeof ConnectChannelRoute
@@ -423,6 +432,7 @@ export interface FileRouteTypes {
     | '/bible-search'
     | '/bible-stats'
     | '/church-control'
+    | '/community'
     | '/connect'
     | '/connect-call'
     | '/connect-channel'
@@ -468,6 +478,7 @@ export interface FileRouteTypes {
     | '/bible-search'
     | '/bible-stats'
     | '/church-control'
+    | '/community'
     | '/connect'
     | '/connect-call'
     | '/connect-channel'
@@ -513,6 +524,7 @@ export interface FileRouteTypes {
     | '/bible-search'
     | '/bible-stats'
     | '/church-control'
+    | '/community'
     | '/connect'
     | '/connect-call'
     | '/connect-channel'
@@ -559,6 +571,7 @@ export interface RootRouteChildren {
   BibleSearchRoute: typeof BibleSearchRoute
   BibleStatsRoute: typeof BibleStatsRoute
   ChurchControlRoute: typeof ChurchControlRoute
+  CommunityRoute: typeof CommunityRoute
   ConnectRoute: typeof ConnectRoute
   ConnectCallRoute: typeof ConnectCallRoute
   ConnectChannelRoute: typeof ConnectChannelRoute
@@ -694,6 +707,13 @@ declare module '@tanstack/react-router' {
       path: '/church-control'
       fullPath: '/church-control'
       preLoaderRoute: typeof ChurchControlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/connect': {
@@ -911,6 +931,7 @@ const rootRouteChildren: RootRouteChildren = {
   BibleSearchRoute: BibleSearchRoute,
   BibleStatsRoute: BibleStatsRoute,
   ChurchControlRoute: ChurchControlRoute,
+  CommunityRoute: CommunityRoute,
   ConnectRoute: ConnectRoute,
   ConnectCallRoute: ConnectCallRoute,
   ConnectChannelRoute: ConnectChannelRoute,
